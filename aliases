@@ -1,0 +1,41 @@
+# Unix
+alias tlf="tail -f"
+alias ln='ln -v'
+alias mkdir='mkdir -p'
+alias ...='../..'
+alias l='ls'
+alias ll='ls -al'
+alias lh='ls -Alh'
+alias -g G='| grep'
+alias -g M='| less'
+alias -g L='| wc -l'
+alias -g ONE="| awk '{ print \$1}'"
+alias e="$EDITOR"
+alias v="$VISUAL"
+
+# git
+alias gci="git pull --rebase && rake && git push"
+
+# Bundler
+alias b="bundle"
+
+# Tests and Specs
+alias t="ruby -I test"
+
+# Rails
+alias migrate="rake db:migrate db:rollback && rake db:migrate"
+alias m="migrate"
+alias rk="rake"
+alias s="rspec"
+
+# project aliases
+# NPB
+alias sshnpb="ssh deploy@192.184.83.75"
+alias npb="cd /Users/nicholaspball/Sites/npb/rails"
+alias npbdeploy="git push github master && cap production deploy"
+
+# SCAREY
+alias scarey="cd /Users/nicholaspball/Sites/scarey.org/site"
+
+# LURAY
+alias luray="cd /Users/nicholaspball/Sites/luraymusic/site"
