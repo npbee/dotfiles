@@ -1,5 +1,5 @@
 # Add an alias
 
 function aa() {
-  echo 'hello'
+  echo 'alias ' $@
 }

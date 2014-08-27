@@ -15,6 +15,7 @@ alias v="$VISUAL"
 
 # git
 alias gci="git pull --rebase && rake && git push"
+alias stpp=subtree push --prefix
 
 # Bundler
 alias b="bundle"
@@ -29,6 +30,8 @@ alias rk="rake"
 alias s="rspec"
 
 # project aliases
+alias dotfiles="cd ~/.dotfiles && mvim ."
+
 # NPB
 alias sshnpb="ssh deploy@192.184.83.75"
 alias npb="cd /Users/nicholaspball/Sites/npb/rails"
@@ -39,3 +42,10 @@ alias scarey="cd /Users/nicholaspball/Sites/scarey.org/site"
 
 # LURAY
 alias luray="cd /Users/nicholaspball/Sites/luraymusic/site"
+alias sshluray="ssh -p 2222 luray@gator3036.hostgator.com"
+
+# VANILLA SLAB
+alias vslab="cd /Users/nicholaspball/Sites/github/vanilla-slab"
+
+# SITE
+alias sites="cd /Users/nicholaspball/Sites/"

@@ -79,7 +79,6 @@ if executable('ag')
 endif
 
 " Color scheme
-colorscheme github
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
@@ -150,7 +149,8 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/dotfiles/vimrc.local
-endif
+" NERDTree shortcut
+map <C-n> :NERDTreeToggle<CR>
+
+" Map Escape key to double i's
+:imap ii <Esc>
