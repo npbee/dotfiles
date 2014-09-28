@@ -39,6 +39,7 @@ alias npbdeploy="git push github master && cap production deploy"
 
 # SCAREY
 alias scarey="cd /Users/nicholaspball/Sites/scarey.org/site"
+alias sshscarey="ssh -p 2222 nick@gator1332.hostgator.com"
 
 # LURAY
 alias luray="cd /Users/nicholaspball/Sites/luraymusic/site"
