@@ -51,3 +51,6 @@ alias vslab="cd /Users/nicholaspball/Sites/github/vanilla-slab"
 # SITE
 alias sites="cd /Users/nicholaspball/Sites/"
 
+# the air on earth
+alias air="cd /Users/nicholaspball/Sites/theaironearth"
+
