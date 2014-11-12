@@ -83,3 +83,9 @@ eval "$(rbenv init -)"
 # Make Homebrew python the default version
 #export PATH=/usr/local/bin:/usr/local/share/python:$PATH
 
+# The next line updates PATH for the Google Cloud SDK.
+source '/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables bash completion for gcloud.
+#source '/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/completion.zsh.inc'
+
