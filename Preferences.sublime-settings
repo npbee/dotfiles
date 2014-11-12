@@ -1,0 +1,11 @@
+{
+	"color_scheme": "Packages/User/base16-eighties.dark (SL).tmTheme",
+	"font_face": "Ubuntu Mono",
+	"font_size": 14,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "Spacegray Eighties.sublime-theme",
+	"word_separators": "\\()\"',<>~!@#$%^*|+[]{}`~"
+}
