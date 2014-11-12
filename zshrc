@@ -80,3 +80,6 @@ export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# Make Homebrew python the default version
+#export PATH=/usr/local/bin:/usr/local/share/python:$PATH
+
