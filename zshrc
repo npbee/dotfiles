@@ -84,9 +84,9 @@ eval "$(rbenv init -)"
 PATH=/usr/local/bin:/usr/local/share/python:$PATH
 export PATH
 
-# The next line updates PATH for the Google Cloud SDK.
-# source '/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/path.zsh.inc'
+source '/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/path.zsh.inc'
+export PATH=$PATH:/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/bin
+export PYTHONPATH=$PYTHONPATH:/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/platform/google_appengine
 
-# The next line enables bash completion for gcloud.
-# source '/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/completion.zsh.inc'
-
+export WORKON_HOME=~/.virtualenv  # this can be any directory of your choosing. it's where your env files will live.
+source /usr/local/bin/virtualenvwrapper.sh

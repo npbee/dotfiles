@@ -54,3 +54,9 @@ alias sites="cd /Users/nicholaspball/Sites/"
 # the air on earth
 alias air="cd /Users/nicholaspball/Sites/theaironearth"
 
+
+# LOUDR
+alias loudrweb='cd ~/Loudr/loudr-web && workon loudrweb'
+alias loudrwebserv='cd ~./start.py'
+alias workoff='deactivate'
+
