@@ -16,6 +16,7 @@
   st = status
   up = !git fetch origin && git rebase origin/master
   stpp = subtree push --prefix
+  hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input

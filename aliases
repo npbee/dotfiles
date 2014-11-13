@@ -30,7 +30,7 @@ alias rk="rake"
 alias s="rspec"
 
 # project aliases
-alias dotfiles="cd ~/.dotfiles && mvim ."
+alias dotfiles="cd ~/.dotfiles && sublime ."
 
 # NPB
 alias sshnpb="ssh deploy@192.184.83.75"
