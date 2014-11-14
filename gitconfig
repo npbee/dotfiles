@@ -22,7 +22,6 @@
   autocrlf = input
   editor = "sublime -n -w"
 [merge]
-  ff = only
 [include]
   path = .gitconfig.local
 [commit]
