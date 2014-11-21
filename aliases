@@ -56,7 +56,7 @@ alias air="cd /Users/nicholaspball/Sites/theaironearth"
 
 
 # LOUDR
-alias loudrweb='cd ~/Loudr/loudr-web && workon loudrweb'
-alias loudrwebserv='cd ~./start.py'
+alias loudrweb='cd ~/Loudr/loudr-web && workon loudrweb && sublime rdstore/static/ rdstore/templates'
+alias loudrwebserv='./start.py'
 alias workoff='deactivate'
 

@@ -17,5 +17,7 @@
 	"rulers": [80],
 	"theme": "Spacegray Eighties.sublime-theme",
 	"translate_tabs_to_spaced": true,
+	"trim_automatic_white_space": true,
+	"trim_trailing_white_space_on_save": true,
 	"word_separators": "\\()\"',<>~!@#$%^*|+[]{}`~"
 }
