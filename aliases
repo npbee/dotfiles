@@ -57,6 +57,7 @@ alias air="cd /Users/nicholaspball/Sites/theaironearth"
 
 # LOUDR
 alias loudr='cd ~/Loudr/loudr-web && workon loudrweb && sublime --project LoudrJS.sublime-project'
+alias loudrwiki='cd ~/Loudr/loudr-web.wiki'
 alias loudrwebserv='./start.py'
 alias workoff='deactivate'
 
