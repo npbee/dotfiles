@@ -78,19 +78,19 @@ export PATH=".git/safe/../../bin:$PATH"
 export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$reset_color%}$(git_prompt_info) ❯ '
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # Make Homebrew python the default version
 PATH=/usr/local/bin:/usr/local/share/python:$PATH
 export PATH
 
-source '$HOME/google-cloud-sdk/path.zsh.inc'
+# source '$HOME/google-cloud-sdk/path.zsh.inc'
 export PATH=$PATH:$HOME/google-cloud-sdk/bin
 export PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
 
 export PATH=/usr/local/bin:/usr/local/share/python:$PATH
 
 export WORKON_HOME=~/.virtualenv  # this can be any directory of your choosing. it's where your env files will live.
-source /usr/local/bin/virtualenvwrapper.sh
+# source /usr/local/bin/virtualenvwrapper.sh
 
 # alias avconv="/usr/local/bin/ffmpeg"
