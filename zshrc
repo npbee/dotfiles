@@ -84,9 +84,13 @@ eval "$(rbenv init -)"
 PATH=/usr/local/bin:/usr/local/share/python:$PATH
 export PATH
 
-source '/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/path.zsh.inc'
-export PATH=$PATH:/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/bin
-export PYTHONPATH=$PYTHONPATH:/Volumes/HardDrive/Users/nicholaspball/google-cloud-sdk/platform/google_appengine
+source '$HOME/google-cloud-sdk/path.zsh.inc'
+export PATH=$PATH:$HOME/google-cloud-sdk/bin
+export PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
+
+export PATH=/usr/local/bin:/usr/local/share/python:$PATH
 
 export WORKON_HOME=~/.virtualenv  # this can be any directory of your choosing. it's where your env files will live.
 source /usr/local/bin/virtualenvwrapper.sh
+
+# alias avconv="/usr/local/bin/ffmpeg"
