@@ -38,11 +38,4 @@ alias sourcezsh="source ~/.zshrc"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
-# LOUDR
-alias loudrw='cd ~/Projects/Loudr/loudr-web && workon loudrweb && sublime --project LoudrJS.sublime-project'
-alias loudrwiki='cd ~/Projects/Loudr/loudr-web.wiki'
-alias loudrwebserv='./start.py'
-alias workoff='deactivate'
-export WORKON_HOME=~/.virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
 
