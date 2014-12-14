@@ -17,34 +17,26 @@ alias v="$VISUAL"
 alias gci="git pull --rebase && rake && git push"
 alias stpp=subtree push --prefix
 
-# project aliases
+# dotfiles
 alias dotfiles="cd ~/.dotfiles && sublime ."
 
 # home folder
 alias home="cd ~"
 
-# NPB
-alias sshnpb="ssh deploy@192.184.83.75"
-alias npb="cd ~/Projects/npb/"
-alias npbdeploy="git push github master && cap production deploy"
-
-# SCAREY
-alias scarey="cd ~/Projects/scarey.org/site"
-alias sshscarey="ssh -p 2222 nick@gator1332.hostgator.com"
-
-# LURAY
-alias luray="cd ~/Projects/luraymusic/site"
-alias sshluray="ssh -p 2222 luray@gator3036.hostgator.com"
-
-# VANILLA SLAB
-alias vslab="cd ~/Projects/vanilla-slab"
-
-# SITE
+# projects
 alias projects="cd ~/Projects"
 
-# the air on earth
-alias air="cd ~/Projects/theaironearth"
+# Show hidden files
+alias showhidden="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
 
+# Hide hidden files
+alias hidehidden="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
+
+# source zshrc
+alias sourcezsh="source ~/.zshrc"
+
+# Include custom aliases
+[[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
 # LOUDR
 alias loudrw='cd ~/Projects/Loudr/loudr-web && workon loudrweb && sublime --project LoudrJS.sublime-project'
@@ -53,10 +45,4 @@ alias loudrwebserv='./start.py'
 alias workoff='deactivate'
 export WORKON_HOME=~/.virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
-
-# Show hidden files
-alias showhidden="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
-
-# Hide hidden files
-alias hidehidden="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
 
