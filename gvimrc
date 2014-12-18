@@ -8,10 +8,10 @@ set guioptions-=T
 set guioptions+=c
 
 
-colorscheme Tomorrow-Night-Eighties
+colorscheme TNE
 if has("gui_running")
   if has("gui_macvim")
-    set guifont=Ubuntu\ Mono:h14
+    set guifont=Essential\ PragmataPro:h14
   endif
 endif
 set linespace=8
