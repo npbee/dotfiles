@@ -94,3 +94,5 @@ export WORKON_HOME=~/.virtualenv  # this can be any directory of your choosing. 
 # source /usr/local/bin/virtualenvwrapper.sh
 
 # alias avconv="/usr/local/bin/ffmpeg"
+
+export PATH="/usr/local/bin:$PATH"
