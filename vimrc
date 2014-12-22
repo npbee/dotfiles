@@ -108,6 +108,9 @@ nnoremap <C-l> <C-w>l
 " Toggle rainbow parenthesis
 nnoremap <leader>r :RainbowParenthesesToggle<CR>
 
+" Toggle nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
 " toggle out of insert mode
 :imap ii  <Esc>
 
