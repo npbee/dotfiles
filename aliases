@@ -18,7 +18,7 @@ alias gci="git pull --rebase && rake && git push"
 alias stpp=subtree push --prefix
 
 # dotfiles
-alias dotfiles="cd ~/.dotfiles && sublime ."
+alias dotfiles="cd ~/.dotfiles"
 
 # home folder
 alias home="cd ~"
