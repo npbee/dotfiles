@@ -31,7 +31,7 @@ set splitright
 set tabstop=4
 set textwidth=80  # Make it obvious where 80 characters is
 set wildmode=list:longest,list:full
-
+set wrap
 
 # Switch syntax highlighting on, when the terminal has colors
 # Also switch on highlighting the last used search pattern.
@@ -71,3 +71,12 @@ augroup vimrcEx
   # Allow stylesheets to autocomplete hyphenated words
   autocmd FileType css,scss,sass setlocal iskeyword+=-
 augroup END
+
+# Open a new split window
+nnoremap <leader>w <C-w>v<C-w>l
+
+# Easier moving around windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
