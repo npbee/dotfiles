@@ -8,7 +8,7 @@ set guioptions-=T
 set guioptions+=c
 
 
-colorscheme TNE
+colorscheme base16-tomorrow
 if has("gui_running")
   if has("gui_macvim")
     set guifont=Essential\ PragmataPro:h12

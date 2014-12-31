@@ -65,7 +65,8 @@ set wrap
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
   set background=dark
-  colorscheme TNE
+  let base16colorspace=256
+  colorscheme base16-eighties
 endif
 
 if filereadable(expand("~/.vimrc.bundles"))
