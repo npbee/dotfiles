@@ -25,6 +25,9 @@ Bundle 'vim-scripts/ctags.vim'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'rking/ag.vim'
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle "pangloss/vim-javascript"
+
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
