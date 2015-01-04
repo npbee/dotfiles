@@ -112,12 +112,38 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>r :RainbowParenthesesToggle<CR>
 
 " Toggle nerdtree
-map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeToggle<CR>
 
 " toggle out of insert mode
 :imap ii  <Esc>
+
+" Use JSX syntax on .js files
+let g:jsx_ext_required = 0
+
+" Map control+S to save
+noremap <silent> <C-S>          :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <C-O>:update<CR>
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+let g:tmuxline_preset = {
+            \ 'a': '#S',
+            \ 'win': '#I #W',
+            \ 'cwin': '#I #W',
+            \ 'z': '#H',
+            \ 'options': {
+            \'status-justify': 'left'}
+            \}
