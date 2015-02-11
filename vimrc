@@ -66,7 +66,7 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
   set background=dark
   let base16colorspace=256
-  colorscheme base16/colors/base16-eighties
+  colorscheme base16-vim-master/colors/base16-eighties
 endif
 
 if filereadable(expand("~/.vimrc.bundles"))
