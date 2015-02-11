@@ -1,1 +1,0 @@
-/Volumes/HardDrive/Users/nicholaspball/.dotfiles/vim/colors/Tomorrow-Night-Eighties.vim

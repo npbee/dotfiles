@@ -66,7 +66,7 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
   set background=dark
   let base16colorspace=256
-  colorscheme base16-eighties
+  colorscheme base16/colors/base16-eighties
 endif
 
 if filereadable(expand("~/.vimrc.bundles"))
@@ -147,3 +147,11 @@ let g:tmuxline_preset = {
             \ 'options': {
             \'status-justify': 'left'}
             \}
+
+" Don't let YouCompleteMe use tab, interferes with Ultisnips
+let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"                                           
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"

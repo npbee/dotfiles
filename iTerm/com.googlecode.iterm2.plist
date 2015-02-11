@@ -1139,11 +1139,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2439 110 695 322 1280 0 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>2231 207 924 485 1280 0 1920 1057 </string>
+	<string>1955 513 924 485 1280 0 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>1435 473 592 584 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1339 96 1684 956 1280 0 1920 1057 </string>
+	<string>1306 12 1738 1031 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>2092 417 880 611 1280 0 1920 1057 </string>
 	<key>New Bookmarks</key>
@@ -1689,7 +1689,7 @@
 			<key>Log Directory</key>
 			<string></string>
 			<key>Minimum Contrast</key>
-			<real>0.022682292386889458</real>
+			<real>0.0</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -1851,7 +1851,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.089513219892978668</real>
+			<real>0.0</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1936,7 +1936,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-01-04T21:09:48Z</date>
+	<date>2015-01-07T15:01:25Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>

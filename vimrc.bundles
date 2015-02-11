@@ -32,6 +32,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'itchyny/lightline.vim'
 Bundle 'edkolev/tmuxline.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
