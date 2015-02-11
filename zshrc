@@ -81,16 +81,20 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
 
 # Make Homebrew python the default version
-PATH=/usr/local/bin:/usr/local/share/python:$PATH
+PATH=/usr/local/bin:$PATH
 export PATH
 
 # source '$HOME/google-cloud-sdk/path.zsh.inc'
 export PATH=$PATH:$HOME/google-cloud-sdk/bin
 export PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
 
-export PATH=/usr/local/bin:/usr/local/share/python:$PATH
-
 export WORKON_HOME=~/.virtualenv  # this can be any directory of your choosing. it's where your env files will live.
 # source /usr/local/bin/virtualenvwrapper.sh
 
 # alias avconv="/usr/local/bin/ffmpeg"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+stty -ixon
