@@ -1,3 +1,22 @@
+" Launch Config {{{ "
+" Use Vim settings, rather then Vi settings. This setting must be as early as
+" possible, as it has side effects.
+set nocompatible
+
+set encoding=utf8
+
+" Check 1 line for local commands to the buffer
+set modelines=1
+
+" Set the amount of commands and search patterns that are remembered
+set history=500
+
+" Use JSX syntax on .js files
+let g:jsx_ext_required = 0
+
+" }}}
+
+
 " Colors {{{
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -10,6 +29,7 @@ colorscheme base16-vim-master/colors/base16-eighties
 
 " }}}
 
+
 " Spaces & Tabs {{{
 
 " 4 space tab
@@ -19,16 +39,32 @@ set softtabstop=4
 " Tabs are spaces
 set expandtab
 
-
 " }}}
 
-" UI Settings {{{"{{{
+
+" UI Settings {{{
 
 " show line numbers
 set number
+set numberwidth=3
+
+" Give a relative count from the current cursor position
+set relativenumber
+
+" Make it obvious where 80 characters is" 
+set textwidth=80
+
+" show the cursor position all the time
+set ruler
+
+" Automatically wrap at the text width
+set wrap
 
 " Show the command in the bottom bar
 set showcmd
+
+" This gives some buffer above a line when going to a line
+set scrolloff=3
 
 " Highlight the current line" 
 set cursorline
@@ -36,32 +72,18 @@ set cursorline
 " Allow for custom indent settings from plugins
 filetype plugin indent on
 
+" Allow for the popup window thing to appear when using tab completion
 set wildmenu
 set wildmode=list:longest,list:full
 
-" }}}"}}}
+" Only redraw when needed
+set lazyredraw
 
-" Use Vim settings, rather then Vi settings. This setting must be as early as
-" possible, as it has side effects.
-set nocompatible
+" Highlight matching delimiters
+set showmatch
 
-" Leader
-let mapleader = ","
-
-" Automatically :write before running commands
-set autowrite
-
-" Backspace deletes like most programs in insert mode
-set backspace=2
-
+" Highlight 1 column after the max width
 set colorcolumn=+1
-
-
-set encoding=utf8
-set history=500
-
-" do incremental searching
-set incsearch
 
 " Always display the status line
 set laststatus=2
@@ -69,38 +91,147 @@ set laststatus=2
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
-set nobackup
-set noswapfile
-set nowritebackup
-set numberwidth=5
-
-" Give a relative count from the current cursor position
-set relativenumber
-
-" show the cursor position all the time
-set ruler
-
-" This gives some buffer above a line when goin going to a line
-set scrolloff=3
-
-set shiftround
-set shiftwidth=4
-
-" display incomplete commands
-
+" When opening a new vertical split, open it below the current buffer
 set splitbelow
+
+" When opening a new horizontal split, open it to the right of the current
+" buffer
 set splitright
-
-" Make it obvious where 80 characters is" 
-set textwidth=80
-
-set wrap
+" }}}
 
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
+" Searching {{{
 
+" Search as characters entered
+set incsearch
+
+" Highlight matches
+set hlsearch
+
+" }}}
+
+
+" Folder {{{
+
+" enable folding
+set foldenable
+
+" Open most folds by default
+set foldlevelstart=10
+
+" Limit nested folding
+set foldnestmax=10
+
+" Set space to unfold
+nnoremap <space> za
+
+" Fold based on indent
+set foldmethod=indent
+
+" }}}
+
+
+" Movement {{{
+
+" Move lines visually (don't skip lines that are wrapped into two lines)
+nnoremap j gj
+nnoremap k gk
+
+" Highlight last inserted text
+nnoremap gV `[v`]
+
+" }}}
+
+
+" Leader Shortcuts {{{
+
+" Leader
+let mapleader = ","
+
+" toggle out of insert mode
+:imap ii  <Esc>
+
+" Save session
+nnoremap <leader>s :mksession<CR>
+
+" open ag.vim
+nnoremap <leader>a :Ag
+
+" Open a new split window
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Easier moving around windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Toggle rainbow parenthesis
+nnoremap <leader>r :RainbowParenthesesToggle<CR>
+
+" Toggle nerdtree
+map <C-m> :NERDTreeToggle<CR>
+
+
+" }}}
+
+
+" CtrlP {{{
+
+" Sets ctrlp to match files top to bottom
+let g:ctrlp_match_window = 'bottom,order:ttb'
+
+" Ignore setting the working directory
+"let g:ctrlp_working_path_mode = 0
+
+" Use ag for ctrlp
+" Ignore does not work here, we have to use .agignore
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" }}}
+
+
+" Tmux {{{
+let g:tmuxline_preset = {
+            \ 'a': '#S',
+            \ 'win': '#I #W',
+            \ 'cwin': '#I #W',
+            \ 'z': '#H',
+            \ 'options': {
+            \'status-justify': 'left'}
+            \}
+" }}}
+
+
+" Lightline {{{
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+" }}}
+
+
+" YouCompleteMe {{{
+
+" Don't let YouCompleteMe use tab, interferes with Ultisnips
+let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+" }}}
+
+
+" Autogroups {{{
+
+" These group autocommands together so that they don't happen more than once
+" when the vimrc is reread
 
 augroup vimrcEx
   autocmd!
@@ -126,62 +257,58 @@ augroup vimrcEx
   autocmd FileType css,scss,sass setlocal iskeyword+=-
 augroup END
 
-" Open a new split window
-nnoremap <leader>w <C-w>v<C-w>l
+" }}}
 
-" Easier moving around windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
-" Toggle rainbow parenthesis
-nnoremap <leader>r :RainbowParenthesesToggle<CR>
+" Saving {{{
 
-" Toggle nerdtree
-map <C-m> :NERDTreeToggle<CR>
-
-" toggle out of insert mode
-:imap ii  <Esc>
-
-" Use JSX syntax on .js files
-let g:jsx_ext_required = 0
+" Automatically :write before running commands
+set autowrite
 
 " Map control+S to save
 noremap <silent> <C-S>          :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
 
-" Local config
+" Change the directory where VIM does backups and swapfiles
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+set backupskip=/tmp/*,/private/tmp/* 
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+set writebackup
+
+" }}}
+
+
+" Editing {{{
+
+" Backspace deletes like most programs in insert mode
+set backspace=2
+
+" Set the autoindenting to four and round all to that number
+set shiftwidth=4
+set shiftround
+
+" }}}
+
+
+" Bundles {{{
+
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+
+" }}}
+
+" Local Config {{{
+
+" Reads anything in a .vimrc.local
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
 
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"⭤":""}',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
+" }}}
 
-let g:tmuxline_preset = {
-            \ 'a': '#S',
-            \ 'win': '#I #W',
-            \ 'cwin': '#I #W',
-            \ 'z': '#H',
-            \ 'options': {
-            \'status-justify': 'left'}
-            \}
 
-" Don't let YouCompleteMe use tab, interferes with Ultisnips
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"                                           
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
-set modelines=1
+" Local command to folder on a marker
 " vim:foldmethod=marker:foldlevel=0

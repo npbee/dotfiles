@@ -1,0 +1,5 @@
+*-ck.js
+vendor
+plugins
+node_modules
+.git
