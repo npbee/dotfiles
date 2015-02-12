@@ -1,3 +1,46 @@
+" Colors {{{
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+" Sets stuff for iTerm
+syntax on
+set background=dark
+let base16colorspace=256
+colorscheme base16-vim-master/colors/base16-eighties
+
+" }}}
+
+" Spaces & Tabs {{{
+
+" 4 space tab
+set tabstop=4
+set softtabstop=4
+
+" Tabs are spaces
+set expandtab
+
+
+" }}}
+
+" UI Settings {{{"{{{
+
+" show line numbers
+set number
+
+" Show the command in the bottom bar
+set showcmd
+
+" Highlight the current line" 
+set cursorline
+
+" Allow for custom indent settings from plugins
+filetype plugin indent on
+
+set wildmenu
+set wildmode=list:longest,list:full
+
+" }}}"}}}
+
 " Use Vim settings, rather then Vi settings. This setting must be as early as
 " possible, as it has side effects.
 set nocompatible
@@ -13,10 +56,7 @@ set backspace=2
 
 set colorcolumn=+1
 
-" Highlight the current line" 
-set cursorline
 
-set expandtab
 set encoding=utf8
 set history=500
 
@@ -32,7 +72,6 @@ set list listchars=tab:»·,trail:·
 set nobackup
 set noswapfile
 set nowritebackup
-set number
 set numberwidth=5
 
 " Give a relative count from the current cursor position
@@ -48,32 +87,20 @@ set shiftround
 set shiftwidth=4
 
 " display incomplete commands
-set showcmd
 
 set splitbelow
 set splitright
-set tabstop=4
 
 " Make it obvious where 80 characters is" 
 set textwidth=80
 
-set wildmode=list:longest,list:full
 set wrap
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-  set background=dark
-  let base16colorspace=256
-  colorscheme base16-vim-master/colors/base16-eighties
-endif
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-filetype plugin indent on
 
 augroup vimrcEx
   autocmd!
@@ -155,3 +182,6 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"                                           
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+set modelines=1
+" vim:foldmethod=marker:foldlevel=0
