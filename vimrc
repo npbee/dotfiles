@@ -300,6 +300,7 @@ endif
 
 " }}}
 
+
 " Local Config {{{
 
 " Reads anything in a .vimrc.local
