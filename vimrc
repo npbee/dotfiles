@@ -172,6 +172,8 @@ nnoremap <leader>r :RainbowParenthesesToggle<CR>
 " Toggle nerdtree
 map <C-m> :NERDTreeToggle<CR>
 
+" Turn of search highlighting
+nnoremap <leader><space> :nohlsearch<CR>
 
 " }}}
 
