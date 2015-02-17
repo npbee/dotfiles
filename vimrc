@@ -190,6 +190,19 @@ let g:ctrlp_match_window = 'bottom,order:ttb'
 " Ignore does not work here, we have to use .agignore
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
+" Use regex for ctrlp
+let g:ctrlp_regexp = 1
+
+let g:ctrlp_abbrev = {
+    \ 'gmode': 't',
+    \ 'abbrevs': [
+        \ {
+        \ 'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
+        \ 'expanded': '.*',
+        \ 'mode': 'pfrz',
+        \ }
+    \]
+\}
 " }}}
 
 
