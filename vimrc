@@ -166,6 +166,15 @@ if has("gui_macvim")
 endif
 " }}}
 
+" Text bubbling, like Sublime Text
+" Move one line up and one line down
+nnoremap <silent> <C-Up> :move-2<CR>==
+nnoremap <silent> <C-Down> :move+<CR>==
+
+" Move multiple lines up and down
+xnoremap <silent> <C-Up> :move-2<CR>gv=gv
+xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
+
 
 " Leader Shortcuts {{{
 
