@@ -1059,6 +1059,14 @@
 	<string>Arrangement 1</string>
 	<key>Default Bookmark Guid</key>
 	<string>8C70FBED-ADAA-4923-A40F-062363843154</string>
+	<key>DefaultFolderX:NSSavePanel:origin.x</key>
+	<real>430</real>
+	<key>DefaultFolderX:NSSavePanel:origin.y</key>
+	<real>456</real>
+	<key>DefaultFolderX:NSSavePanel:size.height</key>
+	<real>192</real>
+	<key>DefaultFolderX:NSSavePanel:size.width</key>
+	<real>424</real>
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
@@ -1112,7 +1120,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/iTerm/base16-iterm2</string>
+	<string>~/Documents</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -1136,14 +1144,19 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2439 110 695 322 1280 0 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1955 513 924 485 1280 0 1920 1057 </string>
+	<string>1669 275 924 485 1280 0 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>1435 473 592 584 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1306 12 1738 1031 1280 0 1920 1057 </string>
+	<string>1609 13 1336 888 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>2092 417 880 611 1280 0 1920 1057 </string>
 	<key>New Bookmarks</key>
@@ -1851,7 +1864,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.0</real>
+			<real>0.033741679042577744</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1936,7 +1949,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-01-07T15:01:25Z</date>
+	<date>2015-03-26T03:47:20Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>

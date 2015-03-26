@@ -140,6 +140,9 @@ nnoremap k gk
 " Highlight last inserted text
 nnoremap gV `[v`]
 
+" Text bubbling (like Sublime Text)
+nnoremap <silent> <C-Up> :move-2<CR>==
+
 " }}}
 
 
@@ -261,6 +264,7 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
   autocmd BufRead,BufNewFile  *.jshintrc,*.JSHINTRC set filetype=javascript
+  autocmd BufRead,BufNewFile *.conf set filetype=nginx
 
   " Enable spellchecking for Markdown
   autocmd FileType markdown setlocal spell
