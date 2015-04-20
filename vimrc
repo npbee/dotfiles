@@ -164,7 +164,6 @@ if has("gui_macvim")
     " Command-0 goes to the last tab
     noremap <D-0> :tablast<CR>
 endif
-" }}}
 
 " Text bubbling, like Sublime Text
 " Move one line up and one line down
@@ -174,6 +173,8 @@ nnoremap <silent> <C-Down> :move+<CR>==
 " Move multiple lines up and down
 xnoremap <silent> <C-Up> :move-2<CR>gv=gv
 xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
+
+" }}}
 
 
 " Leader Shortcuts {{{
