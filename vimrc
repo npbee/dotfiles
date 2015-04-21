@@ -277,6 +277,14 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " }}}
 
 
+" Syntastic {{{
+
+" Allow jcsc and jshint checkers for js files
+let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+
+" }}}
+
+
 " Autogroups {{{
 
 " These group autocommands together so that they don't happen more than once
