@@ -354,6 +354,9 @@ set backspace=2
 set shiftwidth=4
 set shiftround
 
+" Don't add a new line
+set noeol
+
 " }}}
 
 
