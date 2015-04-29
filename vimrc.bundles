@@ -37,6 +37,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'suan/vim-instant-markdown'
 Bundle 'chase/vim-ansible-yaml'
+Bundle 'Valloric/ListToggle'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
