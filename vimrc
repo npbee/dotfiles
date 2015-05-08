@@ -174,6 +174,8 @@ xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
 "
 " }}}
 
+" }}}
+
 
 " Leader Shortcuts {{{
 
@@ -275,6 +277,29 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " }}}
 
 
+" Syntastic {{{
+
+" Allow jcsc and jshint checkers for js files
+let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+let g:syntastic_style_error_symbol = 'S✗'
+let g:syntastic_style_warning_symbol = 'S!'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" }}}
+
+
 " Autogroups {{{
 
 " These group autocommands together so that they don't happen more than once
@@ -292,7 +317,7 @@ augroup vimrcEx
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
-  autocmd BufRead,BufNewFile  *.jshintrc,*.JSHINTRC set filetype=javascript
+  autocmd BufRead,BufNewFile  *.jshintrc,*.JSHINTRC,*.jscsrc set filetype=javascript
   autocmd BufRead,BufNewFile *.conf set filetype=nginx
 
   " Enable spellchecking for Markdown
@@ -343,6 +368,9 @@ set backspace=2
 " Set the autoindenting to four and round all to that number
 set shiftwidth=4
 set shiftround
+
+" Don't add a new line
+set fileformats+=dos
 
 " }}}
 
