@@ -296,6 +296,17 @@ let g:syntastic_check_on_wq = 0
 " }}}
 
 
+" Tern {{{
+
+" Map Ctrl + ] to ':TernDef'
+noremap <C-]> :TernDef<CR>
+
+" Map Ctrl + [ to ':TernRefs'
+noremap <C-[> :TernRefs<CR>
+
+" }}}
+
+
 " Ultisnips {{{
 
 let g:UltiSnipsEditSplit="context"
