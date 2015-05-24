@@ -1,35 +1,22 @@
-# modify the prompt to contain git branch name if applicable
-#git_prompt_info() {
-  #ref=$(git symbolic-ref HEAD 2> /dev/null)
-  #if [[ -n $ref ]]; then
-    #echo " %{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}"
-  #fi
-#}
-#setopt promptsubst
-#export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$reset_color%}$(git_prompt_info) %# '
 
-# load our own completion functions
-fpath=("~/.zsh/prompt" $fpath)
-
-# Prompt Info
+# Pure Prompt Setup
+fpath=( ~/.zsh/prompt $fpath )
 autoload -U promptinit && promptinit
 prompt pure
 
 # load our own completion functions
 fpath=(~/.zsh/completion $fpath)
-
-# completion
 autoload -U compinit
 compinit
 
-# load custom executable functions
+ #load custom executable functions
 for function in ~/.zsh/functions/*; do
   source $function
 done
 
 # makes color constants available
-autoload -U colors
-colors
+#autoload -U colors
+#colors
 
 # enable colored output from ls, etc
 export CLICOLOR=1
@@ -47,22 +34,11 @@ DIRSTACKSIZE=5
 # Enable extended globbing
 setopt extendedglob
 
-# Allow [ or ] whereever you want
-unsetopt nomatch
-
-# vi mode
-bindkey -v
-bindkey "^F" vi-cmd-mode
-bindkey jj vi-cmd-mode
-
 # handy keybindings
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^R" history-incremental-search-backward
 bindkey "^P" history-search-backward
-bindkey "^Y" accept-and-hold
-bindkey "^N" insert-last-word
-bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
 
 # use vim as the visual editor
 export VISUAL=vim
@@ -71,41 +47,24 @@ export EDITOR=$VISUAL
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 
-# load rbenv if available
-if which rbenv &>/dev/null ; then
-  eval "$(rbenv init - --no-rehash)"
-fi
-
-# mkdir .git/safe in the root of repositories you trust
-export PATH=".git/safe/../../bin:$PATH"
-
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
-#export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$reset_color%}$(git_prompt_info) ❯ '
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-
-# Make Homebrew python the default version
-PATH=/usr/local/bin:$PATH
-export PATH
-
-# source '$HOME/google-cloud-sdk/path.zsh.inc'
+# Google Cloud Stuff
 export PATH=$PATH:$HOME/google-cloud-sdk/bin
 export PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
 
-export WORKON_HOME=~/.virtualenv  # this can be any directory of your choosing. it's where your env files will live.
+# Virtual ENV
+export WORKON_HOME=~/.virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
-
-# alias avconv="/usr/local/bin/ffmpeg"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
-stty -ixon
+# Adjust Path
+PATH=/usr/local/bin:$PATH
+export PATH
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
+# Syntax Highlighting
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
