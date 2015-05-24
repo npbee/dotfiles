@@ -270,10 +270,6 @@ let g:lightline = {
 let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
 " }}}
 
 
@@ -294,8 +290,29 @@ let g:syntastic_style_warning_symbol = 'S!'
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+" }}}
+
+
+" Tern {{{
+
+" Map Ctrl + ] to ':TernDef'
+noremap <C-]> :TernDef<CR>
+
+" Map Ctrl + [ to ':TernRefs'
+noremap <C-[> :TernRefs<CR>
+
+" }}}
+
+
+" Ultisnips {{{
+
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " }}}
 
