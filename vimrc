@@ -61,9 +61,6 @@ set textwidth=80
 " show the cursor position all the time
 set ruler
 
-" Automatically wrap at the text width
-set wrap
-
 " Show the command in the bottom bar
 set showcmd
 
@@ -200,12 +197,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Toggle rainbow parenthesis
-nnoremap <leader>r :RainbowParenthesesToggle<CR>
-
-" Toggle nerdtree
-map <C-m> :NERDTreeToggle<CR>
-
 " Turn of search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
 
@@ -292,17 +283,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-
-" }}}
-
-
-" Tern {{{
-
-" Map Ctrl + ] to ':TernDef'
-noremap <C-]> :TernDef<CR>
-
-" Map Ctrl + [ to ':TernRefs'
-noremap <C-[> :TernRefs<CR>
 
 " }}}
 
