@@ -28,6 +28,8 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'Valloric/ListToggle'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'groenewege/vim-less'
+Bundle 'mxw/vim-jsx'
 
 call vundle#end()
 filetype on

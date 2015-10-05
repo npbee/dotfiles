@@ -58,6 +58,9 @@ set relativenumber
 " Make it obvious where 80 characters is" 
 set textwidth=80
 
+" Do not autowrap
+set fo-=t
+
 " show the cursor position all the time
 set ruler
 
@@ -267,7 +270,7 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 " Syntastic {{{
 
 " Allow jcsc and jshint checkers for js files
-let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+let g:syntastic_javascript_checkers = ['eslint']
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -314,7 +317,7 @@ augroup vimrcEx
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
-  autocmd BufRead,BufNewFile  *.jshintrc,*.JSHINTRC,*.jscsrc set filetype=javascript
+  autocmd BufRead,BufNewFile *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc set filetype=javascript
   autocmd BufRead,BufNewFile *.conf set filetype=nginx
 
   " Enable spellchecking for Markdown

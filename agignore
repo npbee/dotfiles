@@ -3,3 +3,4 @@ vendor
 plugins
 node_modules
 .git
+********public/build/*
