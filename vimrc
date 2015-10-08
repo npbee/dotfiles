@@ -188,8 +188,9 @@ nnoremap <leader>s :mksession<CR>
 " open ag.vim
 nnoremap <leader>a :Ag
 
-" Open a new split window
+" Open a new split window vertically
 nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>e <C-w>s<C-w>l
 
 " Easier moving around windows
 nnoremap <C-h> <C-w>h
@@ -199,6 +200,14 @@ nnoremap <C-l> <C-w>l
 
 " Turn of search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
+
+" Elm Specific
+au FileType elm nmap <leader>b <Plug>(elm-make)
+au FileType elm nmap <leader>m <Plug>(elm-make-main)
+" au FileType elm nmap <leader>t <Plug>(elm-test)
+au FileType elm nmap <leader>r <Plug>(elm-repl)
+au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 
 " }}}
 

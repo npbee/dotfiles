@@ -28,6 +28,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'Valloric/ListToggle'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'ElmCast/elm-vim'
 
 call vundle#end()
 filetype on
