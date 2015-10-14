@@ -131,3 +131,6 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+PATH="/Applications/MAMP/bin/php/php5.5.18/bin:$PATH"
+
+export ELM_HOME="/usr/local/lib/node_modules/elm/share"

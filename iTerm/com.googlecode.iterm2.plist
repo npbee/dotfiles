@@ -1059,6 +1059,14 @@
 	<string>Arrangement 1</string>
 	<key>Default Bookmark Guid</key>
 	<string>8C70FBED-ADAA-4923-A40F-062363843154</string>
+	<key>DefaultFolderX:NSSavePanel:origin.x</key>
+	<real>430</real>
+	<key>DefaultFolderX:NSSavePanel:origin.y</key>
+	<real>456</real>
+	<key>DefaultFolderX:NSSavePanel:size.height</key>
+	<real>192</real>
+	<key>DefaultFolderX:NSSavePanel:size.width</key>
+	<real>424</real>
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
@@ -1092,13 +1100,13 @@
 	<key>HotKeyTogglesWindow</key>
 	<false/>
 	<key>Hotkey</key>
-	<true/>
+	<false/>
 	<key>HotkeyChar</key>
-	<integer>27</integer>
+	<integer>0</integer>
 	<key>HotkeyCode</key>
-	<integer>53</integer>
+	<integer>0</integer>
 	<key>HotkeyModifiers</key>
-	<integer>262401</integer>
+	<integer>0</integer>
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>JobName</key>
@@ -1112,9 +1120,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/iTerm/colors/base16-iterm2-master</string>
-	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{1351, 503}</string>
+	<string>~/Documents</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -1138,8 +1144,19 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>2439 110 695 322 1280 0 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1921 298 924 485 1440 0 1920 1057 </string>
+	<string>139 140 924 485 0 0 1280 777 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>410 604 384 129 0 0 1280 777 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>1435 473 592 584 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>1440 4 1918 1053 1440 0 1920 1057 </string>
 	<key>New Bookmarks</key>
@@ -1321,7 +1338,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>15</real>
+			<real>9.9184198379516602</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1691,7 +1708,7 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>Menlo-Regular 11</string>
+			<string>SauceCodePowerline-Regular 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -1847,7 +1864,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.011399778537452221</real>
+			<real>0.033741679042577744</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1870,10 +1887,8 @@
 			<string>/Volumes/HardDrive/Users/nicholaspball</string>
 		</dict>
 	</array>
-	<key>NoSyncNeverRemindPrefsChangesCopy</key>
-	<true/>
 	<key>NoSyncTimeOfLastPromo</key>
-	<real>453831801.086941</real>
+	<real>453501243.95301402</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
 	<real>457032227.08362502</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -1884,8 +1899,6 @@
 	<false/>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>0</integer>
-	<key>PMPrintingExpandedStateForPrint2</key>
-	<false/>
 	<key>PassOnControlClick</key>
 	<false/>
 	<key>PasteFromClipboard</key>
@@ -1924,7 +1937,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/nickball/.dotfiles/iTerm</string>
+	<string>~/.dotfiles/iTerm</string>
 	<key>PromptOnQuit</key>
 	<true/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -1963,6 +1976,8 @@
 	<integer>10</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1419999104</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>

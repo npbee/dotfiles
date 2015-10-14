@@ -30,6 +30,7 @@ Bundle 'Valloric/ListToggle'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'groenewege/vim-less'
 Bundle 'mxw/vim-jsx'
+Bundle 'ElmCast/elm-vim'
 
 call vundle#end()
 filetype on
