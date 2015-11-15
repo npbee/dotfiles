@@ -25,7 +25,7 @@ let g:jsx_ext_required = 0
 syntax on
 set background=dark
 let base16colorspace=256
-colorscheme base16-vim-master/colors/base16-eighties
+" colorscheme base16-vim-master/colors/base16-eighties
 
 " }}}
 
@@ -385,28 +385,41 @@ set fileformats+=dos
 
 
 " Bundles {{{
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 
 call plug#begin('~/.vim/plugged')
 
+" Colors
 Plug 'chriskempson/base16-vim'
-Plug 'kien/ctrlp.vim'
+
+" Syntax
+Plug 'pangloss/vim-javascript', { 'for': 'javasript' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'scrooloose/syntastic'
+
+" Browsing
+Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
 Plug 'rking/ag.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'pangloss/vim-javascript'
+Plug 'Valloric/ListToggle'
+
+" Editing
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'terryma/vim-multiple-cursors'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'tpope/vim-commentary'
+
+" Other
 Plug 'itchyny/lightline.vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'Valloric/ListToggle'
-Plug 'scrooloose/nerdcommenter'
-Plug 'groenewege/vim-less'
-Plug 'mxw/vim-jsx'
-Plug 'ElmCast/elm-vim'
 
 call plug#end()
 
