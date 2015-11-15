@@ -55,7 +55,7 @@ set numberwidth=3
 " Give a relative count from the current cursor position
 set relativenumber
 
-" Make it obvious where 80 characters is" 
+" Make it obvious where 80 characters is"
 set textwidth=80
 
 " Do not autowrap
@@ -70,7 +70,7 @@ set showcmd
 " This gives some buffer above a line when going to a line
 set scrolloff=3
 
-" Highlight the current line" 
+" Highlight the current line"
 set cursorline
 
 " Allow for custom indent settings from plugins
@@ -145,7 +145,7 @@ nnoremap k gk
 nnoremap gV `[v`]
 
 " Switch between tabs
-"Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
+"Press Ctrl-Tab to switch between open tabs (like browser tabs) to
 " the right side. Ctrl-Shift-Tab goes the other way.
 noremap <C-Tab> :tabnext<CR>
 noremap <C-S-Tab> :tabprev<CR>
@@ -361,9 +361,9 @@ inoremap <silent> <C-S>         <C-O>:update<CR>
 
 " Change the directory where VIM does backups and swapfiles
 set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
-set backupskip=/tmp/*,/private/tmp/* 
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 
 " }}}
@@ -386,9 +386,29 @@ set fileformats+=dos
 
 " Bundles {{{
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
+call plug#begin('~/.vim/plugged')
+
+Plug 'chriskempson/base16-vim'
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'rking/ag.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'pangloss/vim-javascript'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'terryma/vim-multiple-cursors'
+Plug 'itchyny/lightline.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Valloric/ListToggle'
+Plug 'scrooloose/nerdcommenter'
+Plug 'groenewege/vim-less'
+Plug 'mxw/vim-jsx'
+Plug 'ElmCast/elm-vim'
+
+call plug#end()
 
 " }}}
 
