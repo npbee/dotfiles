@@ -11,8 +11,139 @@ set modelines=1
 " Set the amount of commands and search patterns that are remembered
 set history=500
 
+
+" }}}
+
+
+" Plugins {{{
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" Colors
+Plug 'chriskempson/base16-vim'
+
+" Syntax
+Plug 'pangloss/vim-javascript', { 'for': ['javasript', 'javasript.jsx'] }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+Plug 'scrooloose/syntastic'
+
+" Browsing
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'rking/ag.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'Valloric/ListToggle'
+
+" Editing
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'terryma/vim-multiple-cursors'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'tpope/vim-commentary'
+
+" Other
+Plug 'itchyny/lightline.vim'
+
+call plug#end()
+
+" Vim JSX {{{
+
 " Use JSX syntax on .js files
 let g:jsx_ext_required = 0
+
+" }}}
+
+
+
+" CtrlP {{{
+
+" Sets ctrlp to match files top to bottom
+let g:ctrlp_match_window = 'bottom,order:ttb'
+
+" Ignore setting the working directory
+"let g:ctrlp_working_path_mode = 0
+
+" Use ag for ctrlp
+" Ignore does not work here, we have to use .agignore
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" Use regex for ctrlp
+let g:ctrlp_regexp = 1
+
+let g:ctrlp_abbrev = {
+    \ 'gmode': 't',
+    \ 'abbrevs': [
+        \ {
+        \ 'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
+        \ 'expanded': '.*',
+        \ 'mode': 'pfrz',
+        \ }
+    \]
+\}
+" }}}
+
+
+" Lightline {{{
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+" }}}
+
+
+" YouCompleteMe {{{
+
+" Don't let YouCompleteMe use tab, interferes with Ultisnips
+let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+
+" }}}
+
+
+" Syntastic {{{
+
+" Allow jcsc and jshint checkers for js files
+let g:syntastic_javascript_checkers = ['eslint']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+let g:syntastic_style_error_symbol = 'S✗'
+let g:syntastic_style_warning_symbol = 'S!'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+" }}}
+
+
+" Ultisnips {{{
+
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+" }}}
+
 
 " }}}
 
@@ -23,9 +154,9 @@ let g:jsx_ext_required = 0
 " Also switch on highlighting the last used search pattern.
 " Sets stuff for iTerm
 syntax on
-set background=dark
 let base16colorspace=256
-" colorscheme base16-vim-master/colors/base16-eighties
+set background=dark
+colorscheme base16-eighties
 
 " }}}
 
@@ -174,8 +305,6 @@ xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
 "
 " }}}
 
-" }}}
-
 
 " Leader Shortcuts {{{
 
@@ -215,34 +344,6 @@ au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " }}}
 
 
-" CtrlP {{{
-
-" Sets ctrlp to match files top to bottom
-let g:ctrlp_match_window = 'bottom,order:ttb'
-
-" Ignore setting the working directory
-"let g:ctrlp_working_path_mode = 0
-
-" Use ag for ctrlp
-" Ignore does not work here, we have to use .agignore
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
-" Use regex for ctrlp
-let g:ctrlp_regexp = 1
-
-let g:ctrlp_abbrev = {
-    \ 'gmode': 't',
-    \ 'abbrevs': [
-        \ {
-        \ 'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
-        \ 'expanded': '.*',
-        \ 'mode': 'pfrz',
-        \ }
-    \]
-\}
-" }}}
-
-
 " Tmux {{{
 let g:tmuxline_preset = {
             \ 'a': '#S',
@@ -252,60 +353,6 @@ let g:tmuxline_preset = {
             \ 'options': {
             \'status-justify': 'left'}
             \}
-" }}}
-
-
-" Lightline {{{
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"⭤":""}',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
-" }}}
-
-
-" YouCompleteMe {{{
-
-" Don't let YouCompleteMe use tab, interferes with Ultisnips
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-
-" }}}
-
-
-" Syntastic {{{
-
-" Allow jcsc and jshint checkers for js files
-let g:syntastic_javascript_checkers = ['eslint']
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" Better :sign interface symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-let g:syntastic_style_error_symbol = 'S✗'
-let g:syntastic_style_warning_symbol = 'S!'
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-" }}}
-
-
-" Ultisnips {{{
-
-let g:UltiSnipsEditSplit="context"
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
 " }}}
 
 
@@ -380,48 +427,6 @@ set shiftround
 
 " Don't add a new line
 set fileformats+=dos
-
-" }}}
-
-
-" Bundles {{{
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-
-" Colors
-Plug 'chriskempson/base16-vim'
-
-" Syntax
-Plug 'pangloss/vim-javascript', { 'for': 'javasript' }
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'scrooloose/syntastic'
-
-" Browsing
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-vinegar'
-Plug 'rking/ag.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'Valloric/ListToggle'
-
-" Editing
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'terryma/vim-multiple-cursors'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'tpope/vim-commentary'
-
-" Other
-Plug 'itchyny/lightline.vim'
-
-call plug#end()
 
 " }}}
 
