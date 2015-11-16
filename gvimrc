@@ -9,7 +9,6 @@ set guioptions-=T
 set guioptions+=c
 
 
-colorscheme base16-vim-master/colors/base16-eighties
 if has("gui_running")
   if has("gui_macvim")
     set guifont=Essential\ PragmataPro:h12
