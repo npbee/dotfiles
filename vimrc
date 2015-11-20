@@ -32,7 +32,7 @@ Plug 'pangloss/vim-javascript', { 'for': ['javasript', 'javasript.jsx'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 
 " Browsing
 Plug 'kien/ctrlp.vim'
