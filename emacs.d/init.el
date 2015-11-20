@@ -34,6 +34,7 @@ Return a list of installed packages or nil for every skipped package."
 ;; Assuming you wish to install "iedit" and "magit"
 (ensure-package-installed 'helm 
                             'evil
+                            'evil-leader
                             'helm-projectile
                             'yasnippet
                             'auto-complete
@@ -99,8 +100,23 @@ Return a list of installed packages or nil for every skipped package."
 
 
 ;; Evil Mode
+(require 'evil-leader)
 (require 'evil)
+(global-evil-leader-mode)
 (evil-mode t)
+
+;; Leader to comma
+(evil-leader/set-leader ",")
+
+;; Open split window
+(evil-leader/set-key "w" 'split-window-horizontally)
+
+;; Buffer Movement
+(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+
 
 ;; Helm
 (helm-mode 1)
