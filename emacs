@@ -34,21 +34,46 @@ Return a list of installed packages or nil for every skipped package."
 ;; Assuming you wish to install "iedit" and "magit"
 (ensure-package-installed 'helm 
                             'helm-projectile
+                            'yasnippet
+                            'auto-complete
                             'projectile
                             'js2-mode
                             'flycheck
-                            'ac-js2
                             'web-mode
                             'exec-path-from-shell
                             'zenburn-theme)
+
+;; Paredit for non-lisps
+(defun my-paredit-nonlisp ()
+  "Turn on paredit mode for non-lisps."
+  (interactive)
+  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+       '((lambda (endp delimiter) nil)))
+  (paredit-mode 1))
+
+(add-hook 'js2-mode-hook 'my-paredit-nonlisp) ;use with the above function
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; PACKAGE SETTINGS
 ;;;;;;;;;;;;;;;;;;;;
 
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;;; auto complete mod
+;;; should be loaded after yasnippet so that they can work together
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+;;; set the trigger key so that it can work together with yasnippet on tab key,
+;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
+;;; activate, otherwise, auto-complete will
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+
 ;; JS2 Mode
-(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'web-mode))
-(add-hook 'js2-mode-hook 'ac-js2-mode)
+(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 
 ;; Flycheck
 (require 'flycheck)
@@ -62,7 +87,7 @@ Return a list of installed packages or nil for every skipped package."
     '(javascript-jshint)))
 
 ;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
 
 ;; https://github.com/purcell/exec-path-from-shell
 ;; only need exec-path-from-shell on OSX
