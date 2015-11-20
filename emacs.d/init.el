@@ -33,6 +33,7 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; Assuming you wish to install "iedit" and "magit"
 (ensure-package-installed 'helm 
+                            'evil
                             'helm-projectile
                             'yasnippet
                             'auto-complete
@@ -138,3 +139,10 @@ Return a list of installed packages or nil for every skipped package."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#3F3F3F" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Essential PragmataPro")))))
+
+
+;;;;;;;;;;;;;;;;;;
+;; EDITING
+;;;;;;;;;;;;;;;;;;
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4);
