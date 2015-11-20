@@ -28,11 +28,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 
 " Syntax
-Plug 'pangloss/vim-javascript', { 'for': ['javasript', 'javasript.jsx'] }
+" Plug 'pangloss/vim-javascript'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'scrooloose/syntastic'
+Plug 'jelera/vim-javascript-syntax'
 
 " Browsing
 Plug 'kien/ctrlp.vim'
