@@ -39,7 +39,8 @@
                           'yasnippet
                           'js2-mode
                           'flycheck
-                          'auto-complete)
+                          'auto-complete
+                          'paredit)
 
 ;; Specific package settings
 (require 'evil-settings)
@@ -50,3 +51,4 @@
 (require 'js2-mode-settings)
 (require 'flycheck-settings)
 (require 'auto-complete-settings)
+(require 'paredit-settings)

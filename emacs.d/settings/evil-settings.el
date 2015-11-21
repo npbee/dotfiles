@@ -22,3 +22,7 @@
 (setq key-chord-two-keys-delay 0.5)
 (key-chord-define evil-insert-state-map "ii" 'evil-normal-state)
 (key-chord-mode 1)
+
+
+;; Vim Vinegar-style
+(define-key evil-normal-state-map (kbd "-") 'dired-jump)

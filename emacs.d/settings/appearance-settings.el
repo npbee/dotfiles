@@ -7,3 +7,10 @@
 
 ;; Custom theme directory
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
+
+
+;; show whitespace
+(autoload 'whitespace-mode "whitespace" "Toggle whitespace visualization." t)
+(setq whitespace-style '(trailing lines space-before-tab
+                                  indentation space-after-tab)
+      whitespace-line-column 80)

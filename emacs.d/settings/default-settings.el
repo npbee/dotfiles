@@ -28,6 +28,9 @@
 ;; Line width
 (setq-default fill-column 80)
 
+;; Set auto-fill mode for all major modes
+(setq-default auto-fill-function 'do-auto-fill)
+
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
 
