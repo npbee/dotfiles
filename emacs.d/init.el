@@ -35,6 +35,7 @@ Return a list of installed packages or nil for every skipped package."
 (ensure-package-installed 'helm 
                             'evil
                             'evil-leader
+                            'key-chord
                             'helm-projectile
                             'yasnippet
                             'auto-complete
@@ -117,6 +118,11 @@ Return a list of installed packages or nil for every skipped package."
 (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
 (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
 
+;; Key Chord
+(setq key-chord-two-keys-delay 0.5)
+(key-chord-define evil-insert-state-map "ii" 'evil-normal-state)
+(key-chord-mode 1)
+
 
 ;; Helm
 (helm-mode 1)
@@ -162,3 +168,7 @@ Return a list of installed packages or nil for every skipped package."
 ;;;;;;;;;;;;;;;;;;
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4);
+
+;; Autosave directory
+(setq backup-directory-alist
+        `((".*" . "~/.emacs-tmp"))
