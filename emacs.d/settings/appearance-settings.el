@@ -6,8 +6,7 @@
 		    :height 120)
 
 ;; Custom theme directory
-(setq custom-theme-directory (concat user-emacs-directory "themes"))
-
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 
 ;; show whitespace
 (autoload 'whitespace-mode "whitespace" "Toggle whitespace visualization." t)
