@@ -33,6 +33,7 @@
 			  'evil-leader
                           'key-chord
                           'helm
+                          'helm-ag
                           'projectile
                           'helm-projectile
                           'base16-theme
@@ -40,7 +41,8 @@
                           'js2-mode
                           'flycheck
                           'auto-complete
-                          'paredit)
+                          'paredit
+                          'magit)
 
 ;; Specific package settings
 (require 'evil-settings)

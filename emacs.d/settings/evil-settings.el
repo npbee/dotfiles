@@ -12,6 +12,12 @@
 ;; Open a split window
 (evil-leader/set-key "w" 'split-window-horizontally)
 
+;; Simple ag search
+(evil-leader/set-key "a" 'helm-ag)
+
+;; Magit status
+(evil-leader/set-key "g" 'magit-status)
+
 ;; Buffer Movement
 (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
@@ -26,3 +32,5 @@
 
 ;; Vim Vinegar-style
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+
+
