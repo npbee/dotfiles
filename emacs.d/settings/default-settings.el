@@ -15,6 +15,9 @@
       `(("." . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
 
+(setq auto-save-file-name-transforms
+    `((".*" ,temporary-file-directory t)))
+
 ;; UTF-8 please
 (setq locale-coding-system 'utf-8) ; pretty
 (set-terminal-coding-system 'utf-8) ; pretty
@@ -36,3 +39,6 @@
 
 ;; Tab width
 (setq tab-width 4);
+
+;; Show the parens
+(show-paren-mode 1)
