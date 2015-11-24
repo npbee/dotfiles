@@ -7,4 +7,4 @@
        '((lamda (endp delimiter) nil)))
   (paredit-mode 1))
 
-(add-hook 'js2-mode-hook 'my-paredit-nonlisp)
+;;(add-hook 'js2-mode-hook 'my-paredit-nonlisp)

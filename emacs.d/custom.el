@@ -20,6 +20,8 @@
  '(js2-function-call ((t (:foreground "6699cc"))))
  '(js2-function-param ((t (:foreground "#d3d0c8"))))
  '(js2-instance-member ((t (:foreground "#cc99cc"))))
+ '(js2-jsdoc-html-tag-delimiter ((t (:foreground "99cc99"))))
+ '(js2-jsdoc-html-tag-name ((t (:foreground "ffcc66"))))
  '(js2-jsdoc-tag ((t (:foreground "ffcc66"))))
  '(js2-jsdoc-type ((t (:foreground "6699cc"))))
  '(js2-jsdoc-value ((t (:foreground "99cc99"))))
