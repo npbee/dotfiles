@@ -29,11 +29,14 @@ Plug 'chriskempson/base16-vim'
 
 " Syntax
 " Plug 'pangloss/vim-javascript'
+" Plug 'jelera/vim-javascript-syntax'
+Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'scrooloose/syntastic'
-Plug 'jelera/vim-javascript-syntax'
+" Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 
 " Browsing
 Plug 'kien/ctrlp.vim'
@@ -58,7 +61,7 @@ call plug#end()
 " Vim JSX {{{
 
 " Use JSX syntax on .js files
-let g:jsx_ext_required = 0
+" let g:jsx_ext_required = 0
 
 " }}}
 
@@ -113,25 +116,12 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 " }}}
 
 
-" Syntastic {{{
+" NeoMake {{{
 
-" Allow jcsc and jshint checkers for js files
-let g:syntastic_javascript_checkers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint']
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" Better :sign interface symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-let g:syntastic_style_error_symbol = 'S✗'
-let g:syntastic_style_warning_symbol = 'S!'
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+" Run neomake after every save
+autocmd! BufWritePost * Neomake
 
 " }}}
 
