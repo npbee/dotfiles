@@ -54,6 +54,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'ternjs/tern_for_vim'
+Plug 'kassio/neoterm'
 
 " Other
 Plug 'itchyny/lightline.vim'
@@ -137,6 +138,27 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " }}}
 
+
+" Neoterm {{{
+let g:neoterm_position = 'horizontal'
+
+" run set test lib
+nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>
+nnoremap <silent> ,rf :call neoterm#test#run('file')<cr>
+nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
+nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
+
+" Useful maps
+" hide/close terminal
+nnoremap <silent> ,th :call neoterm#close()<cr>
+" open terminal
+nnoremap <silent> ,to :call neoterm#open()<cr>
+" clear terminal
+nnoremap <silent> ,tl :call neoterm#clear()<cr>
+" kills the current job (send a <c-c>)
+nnoremap <silent> ,tc :call neoterm#kill()<cr>
+
+" }}}
 
 " }}}
 
@@ -424,6 +446,10 @@ set fileformats+=dos
 " }}}
 
 
+" Remaps {{{
+:tnoremap <Esc> <C-\><C-n>
+" }}}
+
 " Local Config {{{
 
 " Reads anything in a .vimrc.local
@@ -432,7 +458,6 @@ if filereadable($HOME . "/.vimrc.local")
 endif
 
 " }}}
-
 
 " Local command to folder on a marker
 " vim:foldmethod=marker:foldlevel=0
