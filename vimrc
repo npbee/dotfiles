@@ -52,6 +52,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
+Plug 'ternjs/tern_for_vim'
 
 " Other
 Plug 'itchyny/lightline.vim'
