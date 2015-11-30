@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 " Syntax
 " Plug 'pangloss/vim-javascript'
