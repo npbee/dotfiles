@@ -34,3 +34,8 @@
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
 
 
+(defun tape ()
+  (interactive)
+  (shell-command (concat "npm run test:glob '**/__tests__/" (buffer-name) "'")))
+
+(evil-leader/set-key "rf" 'tape)

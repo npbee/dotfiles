@@ -13,3 +13,8 @@
 (setq whitespace-style '(trailing lines space-before-tab
                                   indentation space-after-tab)
       whitespace-line-column 80)
+
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(add-to-list 'comint-output-filter-functions 'ansi-color-process-output)

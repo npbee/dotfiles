@@ -42,7 +42,9 @@
                           'flycheck
                           'auto-complete
                           'paredit
-                          'magit)
+                          'magit
+                          'exec-path-from-shell
+                          )
 
 ;; Specific package settings
 (require 'evil-settings)
@@ -54,3 +56,6 @@
 (require 'flycheck-settings)
 (require 'auto-complete-settings)
 (require 'paredit-settings)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
