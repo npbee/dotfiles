@@ -17,6 +17,10 @@ done
 # enable colored output from ls, etc
 export CLICOLOR=1
 
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
+
 # history settings
 setopt hist_ignore_all_dups inc_append_history
 HISTFILE=~/.zhistory
