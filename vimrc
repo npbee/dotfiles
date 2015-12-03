@@ -232,6 +232,9 @@ set lazyredraw
 " Highlight matching delimiters
 set showmatch
 
+" This makes vim slow......
+let loaded_matchparen = 1
+
 " Highlight 1 column after the max width
 set colorcolumn=+1
 
