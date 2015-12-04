@@ -36,8 +36,8 @@ Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-" Plug 'scrooloose/syntastic'
 Plug 'benekastah/neomake'
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 
 " Browsing
 Plug 'kien/ctrlp.vim'
