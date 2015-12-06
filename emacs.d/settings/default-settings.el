@@ -29,6 +29,9 @@
 ;; Always display line and column numbers
 (global-linum-mode t)
 
+;; Adds some padding after line numbers
+(setq linum-format "%d ")
+
 ;; Line width
 (setq-default fill-column 80)
 
