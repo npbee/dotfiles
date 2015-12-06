@@ -1,6 +1,8 @@
 (provide 'evil-settings)
 (require 'evil-leader)
 (require 'evil)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 ;; Start with evil mode
 (global-evil-leader-mode)
