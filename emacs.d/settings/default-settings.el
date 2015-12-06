@@ -3,8 +3,9 @@
 ;; Kill the startup message
 (setq inhibit-startup-message t)
 
-;; Kill the toolbar
+;; Kill the toolbar and menu bar
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; Keep emacs custom settings in a separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
