@@ -30,7 +30,8 @@
 (package-initialize)
 
 (ensure-package-installed 'evil
-			  'evil-leader
+                            'evil-leader
+                            'evil-surround
                           'key-chord
                           'helm
                           'helm-ag

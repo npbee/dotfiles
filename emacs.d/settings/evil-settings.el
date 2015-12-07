@@ -1,6 +1,8 @@
 (provide 'evil-settings)
 (require 'evil-leader)
 (require 'evil)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 ;; Start with evil mode
 (global-evil-leader-mode)
@@ -29,6 +31,11 @@
 (key-chord-define evil-insert-state-map "ii" 'evil-normal-state)
 (key-chord-mode 1)
 
-
 ;; Vim Vinegar-style
 (define-key evil-normal-state-map (kbd "-") 'dired-jump)
+
+;; Run NPM command on current file
+(defun run-test-glob ()
+  (interactive)
+  (shell-command (concat "npm run test:glob " (buffer-file-name))))
+(evil-leader/set-key "rf" 'run-test-glob)
