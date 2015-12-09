@@ -4,8 +4,9 @@
 (diminish 'projectile-mode "p")
 (diminish 'yas-minor-mode)
 (diminish 'helm-mode)
-(diminish 'auto-complete-mode " ⓐ ")
-(diminish 'flycheck-mode " ⓢ ")
+(diminish 'auto-fill-function)
+(diminish 'auto-complete-mode "ac")
+(diminish 'flycheck-mode "fc")
 
 (require 'spaceline-config)
-(spaceline-emacs-theme)
+(spaceline-spacemacs-theme)
