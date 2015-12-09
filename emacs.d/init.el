@@ -9,8 +9,11 @@
 ;; Bring the 'settings' directory into the load path
 (set 'settings-dir
       (expand-file-name "settings" user-emacs-directory))
+(set 'spaceline-dir
+      (expand-file-name "github/spaceline" user-emacs-directory))
 
 (add-to-list 'load-path settings-dir)
+(add-to-list 'load-path spaceline-dir)
 
 ;; DEFAULTS
 (require 'default-settings)
@@ -26,3 +29,5 @@
 
 ;; Key Bindings
 (require 'key-bindings)
+
+

@@ -1,0 +1,11 @@
+(provide 'modeline-settings)
+(require 'diminish)
+(diminish 'undo-tree-mode)
+(diminish 'projectile-mode "p")
+(diminish 'yas-minor-mode)
+(diminish 'helm-mode)
+(diminish 'auto-complete-mode " ⓐ ")
+(diminish 'flycheck-mode " ⓢ ")
+
+(require 'spaceline-config)
+(spaceline-emacs-theme)
