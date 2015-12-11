@@ -31,6 +31,7 @@
 
 (ensure-package-installed 'evil
                           'evil-leader
+                          'evil-commentary
                           'evil-surround
                           'key-chord
                           'helm

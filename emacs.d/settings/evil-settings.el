@@ -2,6 +2,8 @@
 (require 'evil-leader)
 (require 'evil)
 (require 'evil-surround)
+(require 'evil-commentary)
+(evil-commentary-mode)
 (global-evil-surround-mode 1)
 
 ;; Start with evil mode
