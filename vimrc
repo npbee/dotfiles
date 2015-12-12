@@ -140,7 +140,9 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 
 " Neoterm {{{
-let g:neoterm_position = 'horizontal'
+if has('nvim') 
+    let g:neoterm_position = 'horizontal'
+endif
 
 " run set test lib
 nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>

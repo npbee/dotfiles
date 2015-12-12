@@ -30,8 +30,9 @@
 (package-initialize)
 
 (ensure-package-installed 'evil
-                            'evil-leader
-                            'evil-surround
+                          'evil-leader
+                          'evil-commentary
+                          'evil-surround
                           'key-chord
                           'helm
                           'helm-ag
@@ -44,7 +45,7 @@
                           'auto-complete
                           'paredit
                           'magit
-                          'exec-path-from-shell
+                          'diminish
                           )
 
 ;; Specific package settings
@@ -57,6 +58,4 @@
 (require 'flycheck-settings)
 (require 'auto-complete-settings)
 (require 'paredit-settings)
-
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+(require 'modeline-settings)

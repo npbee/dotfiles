@@ -1,0 +1,12 @@
+(provide 'modeline-settings)
+(require 'diminish)
+(diminish 'undo-tree-mode)
+(diminish 'projectile-mode "p")
+(diminish 'yas-minor-mode)
+(diminish 'helm-mode)
+(diminish 'auto-fill-function)
+(diminish 'auto-complete-mode "ac")
+(diminish 'flycheck-mode "fc")
+
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
