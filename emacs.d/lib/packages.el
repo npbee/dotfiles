@@ -21,6 +21,9 @@
   )
   
 
+(use-package zenburn-theme
+             :ensure t)
+
 ;; EVIL MODE
 (use-package evil
   :ensure t

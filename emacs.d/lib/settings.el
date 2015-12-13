@@ -42,7 +42,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; APPEARANCE
 ;;;;;;;;;;;;;;;;;;;;
-(load-theme 'circa-1985 t)
+;;(load-theme 'circa-1985 t)
 
 (set-face-attribute 'default nil
 		    :family "Essential PragmataPro"
