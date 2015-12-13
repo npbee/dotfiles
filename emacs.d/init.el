@@ -7,27 +7,34 @@
 ;; Pretty much stolen from https://github.com/magnars/.emacs.d/blob/master/init.el
 
 ;; Bring the 'settings' directory into the load path
-(set 'settings-dir
-      (expand-file-name "settings" user-emacs-directory))
-(set 'spaceline-dir
-      (expand-file-name "github/spaceline" user-emacs-directory))
+; (set 'settings-dir
+;       (expand-file-name "settings" user-emacs-directory))
+; (set 'spaceline-dir
+;       (expand-file-name "github/spaceline" user-emacs-directory))
 
-(add-to-list 'load-path settings-dir)
-(add-to-list 'load-path spaceline-dir)
+; (add-to-list 'load-path settings-dir)
+; (add-to-list 'load-path spaceline-dir)
 
-;; DEFAULTS
-(require 'default-settings)
+; ;; DEFAULTS
+; (require 'default-settings)
 
-;; APPEARANCE
-(require 'appearance-settings)
+; ;; APPEARANCE
+; (require 'appearance-settings)
 
-;; EDITING
-(require 'editing-settings)
+; ;; EDITING
+; (require 'editing-settings)
 
-;; PACKAGES
-(require 'package-settings)
+; ;; PACKAGES
+; (require 'package-settings)
 
-;; Key Bindings
-(require 'key-bindings)
+; ;; Key Bindings
+; (require 'key-bindings)
 
+(set 'lib-dir
+      (expand-file-name "lib" user-emacs-directory))
+(add-to-list 'load-path lib-dir)
 
+(require 'settings)
+(require 'fn)
+(require 'bindings)
+(require 'packages)
