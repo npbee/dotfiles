@@ -2184,9 +2184,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>1435 473 592 584 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2 395 1276 378 0 0 1280 777 </string>
+	<string>2 7 1276 768 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>312 365 490 401 0 0 1280 777 </string>
+	<string>1281 0 1918 528 1280 0 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2742,7 +2742,7 @@
 			<key>Normal Font</key>
 			<string>EssentialPragmataPro 12</string>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
 			<integer>0</integer>
 			<key>Right Option Key Sends</key>
@@ -2920,7 +2920,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453501243.95301402</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>469242215.95651799</real>
+	<real>471062567.249942</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2983,7 +2983,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-11-15T01:03:34Z</date>
+	<date>2015-12-06T02:42:46Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
