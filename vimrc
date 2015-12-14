@@ -142,24 +142,24 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " Neoterm {{{
 if has('nvim') 
     let g:neoterm_position = 'horizontal'
+
+    " run set test lib
+    nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>
+    nnoremap <silent> ,rf :call neoterm#test#run('file')<cr>
+    nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
+    nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
+
+    " Useful maps
+    " hide/close terminal
+    nnoremap <silent> ,th :call neoterm#close()<cr>
+    " open terminal
+    nnoremap <silent> ,to :call neoterm#open()<cr>
+    " clear terminal
+    nnoremap <silent> ,tl :call neoterm#clear()<cr>
+    " kills the current job (send a <c-c>)
+    nnoremap <silent> ,tc :call neoterm#kill()<cr>
+
 endif
-
-" run set test lib
-nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>
-nnoremap <silent> ,rf :call neoterm#test#run('file')<cr>
-nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
-nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
-
-" Useful maps
-" hide/close terminal
-nnoremap <silent> ,th :call neoterm#close()<cr>
-" open terminal
-nnoremap <silent> ,to :call neoterm#open()<cr>
-" clear terminal
-nnoremap <silent> ,tl :call neoterm#clear()<cr>
-" kills the current job (send a <c-c>)
-nnoremap <silent> ,tc :call neoterm#kill()<cr>
-
 " }}}
 
 " }}}
@@ -452,7 +452,9 @@ set fileformats+=dos
 
 
 " Remaps {{{
-:tnoremap <Esc> <C-\><C-n>
+if has('nvim') 
+    :tnoremap <Esc> <C-\><C-n>
+endif
 " }}}
 
 " Local Config {{{
