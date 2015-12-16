@@ -2178,13 +2178,13 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2439 110 695 322 1280 0 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>292 279 924 485 0 0 1280 777 </string>
+	<string>14 281 924 485 0 0 1280 777 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>410 604 384 129 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>1435 473 592 584 1280 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2 7 1276 768 0 0 1280 777 </string>
+	<string>640 10 640 761 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1281 0 1918 528 1280 0 1920 1057 </string>
 	<key>New Bookmarks</key>
@@ -2217,47 +2217,47 @@
 			<key>Ansi 10 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.22352941334247589</real>
+				<real>0.60000002384185791</real>
 				<key>Green Component</key>
-				<real>0.22352941334247589</real>
+				<real>0.80000001192092896</real>
 				<key>Red Component</key>
-				<real>0.22352941334247589</real>
+				<real>0.60000002384185791</real>
 			</dict>
 			<key>Ansi 11 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.31764706969261169</real>
+				<real>0.40000000596046448</real>
 				<key>Green Component</key>
-				<real>0.31764706969261169</real>
+				<real>0.80000001192092896</real>
 				<key>Red Component</key>
-				<real>0.31764706969261169</real>
+				<real>1</real>
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.57647061347961426</real>
+				<real>0.80000001192092896</real>
 				<key>Green Component</key>
-				<real>0.62352943420410156</real>
+				<real>0.60000002384185791</real>
 				<key>Red Component</key>
-				<real>0.62745100259780884</real>
+				<real>0.40000000596046448</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.87450981140136719</real>
+				<real>0.80000001192092896</real>
 				<key>Green Component</key>
-				<real>0.90196079015731812</real>
+				<real>0.60000002384185791</real>
 				<key>Red Component</key>
-				<real>0.90980392694473267</real>
+				<real>0.80000001192092896</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.32549020648002625</real>
+				<real>0.80000001192092896</real>
 				<key>Green Component</key>
-				<real>0.48235294222831726</real>
+				<real>0.80000001192092896</real>
 				<key>Red Component</key>
-				<real>0.82352942228317261</real>
+				<real>0.40000000596046448</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
@@ -2334,11 +2334,11 @@
 			<key>Ansi 9 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.34117648005485535</real>
+				<real>0.47843137383460999</real>
 				<key>Green Component</key>
-				<real>0.56862747669219971</real>
+				<real>0.46666666865348816</real>
 				<key>Red Component</key>
-				<real>0.97647058963775635</real>
+				<real>0.94901961088180542</real>
 			</dict>
 			<key>Automatically Log</key>
 			<false/>
@@ -2920,7 +2920,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453501243.95301402</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>471062567.249942</real>
+	<real>471930885.69299698</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2983,7 +2983,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-12-06T02:42:46Z</date>
+	<date>2015-12-16T03:54:44Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
