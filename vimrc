@@ -121,7 +121,7 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 " NeoMake {{{
 
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint_d']
 
 " Run neomake after every save
 autocmd! BufWritePost * Neomake
