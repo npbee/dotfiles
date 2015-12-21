@@ -40,7 +40,7 @@ Plug 'benekastah/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 
 " Browsing
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-vinegar'
 Plug 'rking/ag.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -263,6 +263,9 @@ set incsearch
 " Highlight matches
 set hlsearch
 
+" Do fuzzy finder on Ctrl + P
+noremap <C-p> :FZF<CR>
+
 " }}}
 
 
@@ -456,6 +459,7 @@ if has('nvim')
     :tnoremap <Esc> <C-\><C-n>
 endif
 " }}}
+
 
 " Local Config {{{
 

@@ -80,3 +80,6 @@ PATH="/Applications/MAMP/bin/php/php5.5.18/bin:$PATH"
 export ELM_HOME="/usr/local/lib/node_modules/elm/share"
 export NVM_DIR="/Users/nickball/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='ag --path-to-agignore=~/.agignore -g ""'
