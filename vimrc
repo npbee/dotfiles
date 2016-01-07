@@ -3,7 +3,9 @@
 " possible, as it has side effects.
 set nocompatible
 
-set encoding=utf8
+if !has('nvim')
+    set encoding=utf-8
+endif
 
 " Check 1 line for local commands to the buffer
 set modelines=1
@@ -45,6 +47,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'rking/ag.vim'
 Plug 'Valloric/ListToggle'
+Plug 'justinmk/vim-sneak'
 
 " Editing
 Plug 'tpope/vim-repeat'
@@ -121,7 +124,7 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 " NeoMake {{{
 
-let g:neomake_javascript_enabled_makers = ['eslint_d']
+let g:neomake_javascript_enabled_makers = ['eslint_d', 'flow']
 
 " Run neomake after every save
 autocmd! BufWritePost * Neomake
@@ -160,6 +163,10 @@ if has('nvim')
     nnoremap <silent> ,tc :call neoterm#kill()<cr>
 
 endif
+" }}}
+
+" Sneak {{{
+
 " }}}
 
 " }}}
