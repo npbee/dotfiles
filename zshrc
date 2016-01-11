@@ -50,9 +50,6 @@ export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
-# Google Cloud Stuff
-export PATH=$PATH:$HOME/google-cloud-sdk/bin
-export PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
 
 # Virtual ENV
 export WORKON_HOME=~/.virtualenv
@@ -83,3 +80,9 @@ export NVM_DIR="/Users/nickball/.nvm"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='ag --path-to-agignore=~/.agignore -g ""'
+
+# Google Cloud Stuff
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/nickball/google-cloud-sdk/path.zsh.inc'
+export PATH=$PATH:$HOME/google-cloud-sdk/bin
+export PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
