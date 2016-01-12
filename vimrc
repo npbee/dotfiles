@@ -52,7 +52,8 @@ Plug 'justinmk/vim-sneak'
 " Editing
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
@@ -70,7 +71,6 @@ call plug#end()
 " let g:jsx_ext_required = 0
 
 " }}}
-
 
 
 " CtrlP {{{
@@ -165,7 +165,15 @@ if has('nvim')
 endif
 " }}}
 
+
 " Sneak {{{
+
+" }}}
+
+
+" Deoplete {{{
+
+let g:deoplete#enable_at_startup = 1
 
 " }}}
 
