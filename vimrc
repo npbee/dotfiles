@@ -48,7 +48,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'rking/ag.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-sneak'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " Editing
 Plug 'tpope/vim-repeat'
