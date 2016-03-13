@@ -18,6 +18,7 @@ set history=500
 
 
 " Plugins {{{
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -28,6 +29,7 @@ call plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 " Syntax
 " Plug 'pangloss/vim-javascript'
@@ -59,7 +61,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
 
 " Other
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
@@ -180,6 +182,9 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " }}}
 
+" }}}
+
+
 " Omnifuncs {{{
 
 augroup omnifuncs
@@ -202,15 +207,28 @@ endif
 " }}}
 
 
+
+
 " Colors {{{
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 " Sets stuff for iTerm
 syntax on
-let base16colorspace=256
 set background=dark
-colorscheme base16-eighties
+colorscheme gruvbox
+
+let g:gruvbox_contrast_dark="hard"
+
+highlight User1 ctermfg=110 ctermbg=236 guifg=#83a598 guibg=#282828
+highlight User2 ctermfg=203 ctermbg=236 guibg=#282828 guifg=#fb4934
+highlight User3 ctermfg=213 ctermbg=236 guibg=#282828 guifg=#d3869b
+highlight User4 ctermfg=175 ctermbg=236 guibg=#282828 guifg=#fe8019
+highlight User5 ctermfg=142 ctermbg=236 guibg=#282828 guifg=#b8bb26
+
+highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
+highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
+highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
 
 " }}}
 
@@ -230,7 +248,7 @@ set expandtab
 " UI Settings {{{
 
 " Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=red guibg=#fb4934 
 match ExtraWhitespace /\s\+$/
 
 " show line numbers
@@ -289,6 +307,8 @@ set splitbelow
 " When opening a new horizontal split, open it to the right of the current
 " buffer
 set splitright
+
+set guifont=Ubuntu\ Mono\ derivative\ Powerline:h11
 " }}}
 
 
@@ -506,6 +526,77 @@ set fileformats+=dos
 if has('nvim') 
     :tnoremap <Esc> <C-\><C-n>
 endif
+" }}}
+
+
+" Statusline {{{
+function! FileModes()
+    let fm = '%2*'
+
+    if &modified
+        let fm.= ' +'
+    endif
+
+    if &paste
+        let fm.= ' P'
+    endif
+
+    let fm.= '%1*'
+
+    return fm
+endfunction
+
+function! LeftSide()
+    let ls = ''
+    let ls.='%1* %f '
+    let ls.='%3* %y %1*'
+    let ls.=FileModes()
+
+    return ls
+endfunction
+
+function! RightSide()
+    let rs = ''
+
+
+    " if exists ("neomake#statusline#LoclistStatus")
+        let errors = neomake#statusline#LoclistStatus()
+        if errors =~ 'E'
+            let rs .= "%2*"
+            let rs .= errors
+        else
+            let rs .= "%1*"
+            let rs .= errors
+        endif
+        let rs .= "%1*"
+        let rs .= " "
+    " endif
+
+    " line/col info
+    let rs.= "%1* col %c lines %l/%L "
+
+    if exists('*fugitive#head')
+        let head = fugitive#head()
+
+        if !empty(head)
+            let rs .= '%3*' . ' ' . head . ' '
+        endif
+    endif
+
+    return rs
+endfunction
+
+function! StatusLine()
+    let statusl = LeftSide()
+    let statusl.= '%='
+    let statusl.= RightSide()
+
+    return statusl
+endfunction
+
+set showmode
+set statusline=%!StatusLine()
+
 " }}}
 
 
