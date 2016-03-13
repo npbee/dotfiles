@@ -18,6 +18,7 @@ set history=500
 
 
 " Plugins {{{
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -59,7 +60,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
 
 " Other
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
@@ -180,6 +181,9 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " }}}
 
+" }}}
+
+
 " Omnifuncs {{{
 
 augroup omnifuncs
@@ -202,6 +206,12 @@ endif
 " }}}
 
 
+" Statusline {{{
+set showmode
+source ~/.vim/statusline.vim
+" }}}
+
+
 " Colors {{{
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -211,6 +221,15 @@ syntax on
 let base16colorspace=256
 set background=dark
 colorscheme base16-eighties
+
+" User group colors
+" http://stackoverflow.com/questions/8383787/change-vims-linestatus-colors
+highlight User1 ctermfg=110 ctermbg=236 guifg=#99cc99 guibg=#393939
+highlight User2 ctermfg=203 ctermbg=236 guifg=#f2777a guibg=#393939
+highlight User3 ctermfg=213 ctermbg=236 guifg=#6699cc guibg=#393939
+
+highlight User4 ctermfg=175 ctermbg=236 guibg=#282828 guifg=#fe8019
+highlight User5 ctermfg=142 ctermbg=236 guibg=#282828 guifg=#b8bb26
 
 " }}}
 
@@ -230,7 +249,7 @@ set expandtab
 " UI Settings {{{
 
 " Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=red guibg=#f2777a
 match ExtraWhitespace /\s\+$/
 
 " show line numbers
@@ -289,6 +308,8 @@ set splitbelow
 " When opening a new horizontal split, open it to the right of the current
 " buffer
 set splitright
+
+set guifont=Ubuntu\ Mono\ derivative\ Powerline:h11
 " }}}
 
 

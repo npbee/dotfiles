@@ -16,10 +16,16 @@ done
 
 # enable colored output from ls, etc
 export CLICOLOR=1
-
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+export EDITOR=nvim
+
+# awesome cd movements from zshkit
+setopt autocd autopushd pushdminus pushdsilent pushdtohome cdablevars
+DIRSTACKSIZE=5
 
 # history settings
 setopt hist_ignore_all_dups inc_append_history
@@ -27,29 +33,14 @@ HISTFILE=~/.zhistory
 HISTSIZE=4096
 SAVEHIST=4096
 
-# awesome cd movements from zshkit
-setopt autocd autopushd pushdminus pushdsilent pushdtohome cdablevars
-DIRSTACKSIZE=5
-
 # Enable extended globbing
 setopt extendedglob
-
-# handy keybindings
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
-bindkey "^R" history-incremental-search-backward
-bindkey "^P" history-search-backward
-
-# use vim as the visual editor
-export VISUAL=vim
-export EDITOR=$VISUAL
 
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
-
 
 # Virtual ENV
 export WORKON_HOME=~/.virtualenv
