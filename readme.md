@@ -8,10 +8,6 @@
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-### iTerm2
-
-https://www.iterm2.com/
-
 ### ZSH
 
 **Install**:
@@ -72,3 +68,16 @@ ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 **Install Plugins**:
 
 In VIM, run `:PlugInstall`
+
+### iTerm2
+
+**Install**:
+https://www.iterm2.com/
+
+**Install patched font**
+- Double-click on font in `./fonts/`
+
+**Load iTerm preferences**
+
+`./iTerm`
+
