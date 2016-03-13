@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 " Syntax
 " Plug 'pangloss/vim-javascript'
@@ -218,18 +219,20 @@ source ~/.vim/statusline.vim
 " Also switch on highlighting the last used search pattern.
 " Sets stuff for iTerm
 syntax on
-let base16colorspace=256
 set background=dark
-colorscheme base16-eighties
+colorscheme gruvbox
 
-" User group colors
-" http://stackoverflow.com/questions/8383787/change-vims-linestatus-colors
-highlight User1 ctermfg=110 ctermbg=236 guifg=#99cc99 guibg=#393939
-highlight User2 ctermfg=203 ctermbg=236 guifg=#f2777a guibg=#393939
-highlight User3 ctermfg=213 ctermbg=236 guifg=#6699cc guibg=#393939
+let g:gruvbox_contrast_dark="hard"
 
+highlight User1 ctermfg=110 ctermbg=236 guifg=#83a598 guibg=#282828
+highlight User2 ctermfg=203 ctermbg=236 guibg=#282828 guifg=#fb4934
+highlight User3 ctermfg=213 ctermbg=236 guibg=#282828 guifg=#d3869b
 highlight User4 ctermfg=175 ctermbg=236 guibg=#282828 guifg=#fe8019
 highlight User5 ctermfg=142 ctermbg=236 guibg=#282828 guifg=#b8bb26
+
+highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
+highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
+highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
 
 " }}}
 
