@@ -248,7 +248,7 @@ set expandtab
 " UI Settings {{{
 
 " Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=#f2777a
+highlight ExtraWhitespace ctermbg=red guibg=#fb4934 
 match ExtraWhitespace /\s\+$/
 
 " show line numbers
@@ -528,6 +528,7 @@ if has('nvim')
 endif
 " }}}
 
+
 " Statusline {{{
 function! FileModes()
     let fm = '%2*'
@@ -548,6 +549,7 @@ endfunction
 function! LeftSide()
     let ls = ''
     let ls.='%1* %f '
+    let ls.='%3* %y %1*'
     let ls.=FileModes()
 
     return ls
@@ -556,8 +558,6 @@ endfunction
 function! RightSide()
     let rs = ''
 
-    " line/col info
-    let rs.= "%1* %c:%l "
 
     " if exists ("neomake#statusline#LoclistStatus")
         let errors = neomake#statusline#LoclistStatus()
@@ -572,11 +572,14 @@ function! RightSide()
         let rs .= " "
     " endif
 
+    " line/col info
+    let rs.= "%1* col %c lines %l/%L "
+
     if exists('*fugitive#head')
         let head = fugitive#head()
 
         if !empty(head)
-            let rs .= '%3* ' . ' ' . head . ' '
+            let rs .= '%3*' . ' ' . head . ' '
         endif
     endif
 
