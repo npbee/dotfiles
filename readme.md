@@ -42,7 +42,7 @@ $ git clone git@github.com:npbee/dotfiles.git ~/.dotfiles
 ```
 
 ```bash
-$ rcup
+$ cd ~/.dotfiles && rcup
 ```
 
 ### FZF
