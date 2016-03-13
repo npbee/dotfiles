@@ -64,6 +64,7 @@ call plug#end()
 nnoremap - :Dirvish<CR>
 " }}}
 
+
 " Vim JSX {{{
 
 " Use JSX syntax on .js files
@@ -181,6 +182,11 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " }}}
 
+
+" Elm {{{
+let g:elm_format_autosave = 1
+" }}}
+"
 " }}}
 
 
