@@ -28,12 +28,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Colors
-Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
 
 " Syntax
-" Plug 'pangloss/vim-javascript'
-" Plug 'jelera/vim-javascript-syntax'
 Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -45,10 +42,11 @@ Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-vinegar'
+Plug 'justinmk/vim-dirvish'
 Plug 'rking/ag.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-eunuch'
 
 " Editing
 Plug 'tpope/vim-repeat'
@@ -60,10 +58,11 @@ Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
 
-" Other
-" Plug 'itchyny/lightline.vim'
-
 call plug#end()
+
+" Dirvish {{{
+nnoremap - :Dirvish<CR>
+" }}}
 
 " Vim JSX {{{
 
@@ -205,8 +204,6 @@ if exists('g:plugs["tern_for_vim"]')
 endif
 
 " }}}
-
-
 
 
 " Colors {{{
