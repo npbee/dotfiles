@@ -61,7 +61,7 @@ Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Dirvish {{{
-nnoremap - :Dirvish<CR>
+nnoremap - :Dirvish %<CR>
 " }}}
 
 
