@@ -480,7 +480,7 @@ augroup vimrcEx
   autocmd FileType css,scss,sass setlocal iskeyword+=-
 
   " Trim whitespace on save
-  autocmd BufWritePre *.js :%s/\s\+$//e
+  autocmd BufWritePre * :%s/\s\+$//e
   autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
   autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
