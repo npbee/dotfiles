@@ -4,6 +4,7 @@
 #  You MUST wrap all lines at 72 characters.
 #
 # ==[ Subject: One line ONLY short meaningful description for logs ]===|
+# ==["When applied, this commit will: {{ THE SUBJECT }}" ==============|
 
 # ==[ Blank: Follow the Subject with a blank line, do NOT remove ]=====|
 
