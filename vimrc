@@ -124,7 +124,7 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 " NeoMake {{{
 
-let g:neomake_javascript_enabled_makers = ['eslint_d', 'flow']
+let g:neomake_javascript_enabled_makers = ['eslint_d']
 
 " Run neomake after every save
 autocmd! BufWritePost * Neomake
@@ -143,7 +143,7 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 
 " Neoterm {{{
-if has('nvim') 
+if has('nvim')
     let g:neoterm_position = 'horizontal'
 
     " run set test lib
@@ -251,7 +251,7 @@ set expandtab
 " UI Settings {{{
 
 " Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=#fb4934 
+highlight ExtraWhitespace ctermbg=red guibg=#fb4934
 match ExtraWhitespace /\s\+$/
 
 " show line numbers
@@ -526,7 +526,7 @@ set fileformats+=dos
 
 
 " Remaps {{{
-if has('nvim') 
+if has('nvim')
     :tnoremap <Esc> <C-\><C-n>
 endif
 " }}}
