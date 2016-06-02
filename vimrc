@@ -19,6 +19,10 @@ set history=500
 
 " Plugins {{{
 
+function! DoRemote(arg)
+    UpdateRemotePlugins
+endfunction
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -51,7 +55,7 @@ Plug 'tpope/vim-eunuch'
 " Editing
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
