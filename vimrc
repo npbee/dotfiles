@@ -127,8 +127,14 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 
 " NeoMake {{{
+let g:neomake_javascript_linter_maker = {
+    \ 'exe': 'eslint_d',
+    \ 'args': ['-f', 'compact', '--parser', 'babel-eslint', '--cache'],
+    \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+    \ '%W%f: line %l\, col %c\, Warning - %m'
+    \}
 
-let g:neomake_javascript_enabled_makers = ['eslint_d']
+let g:neomake_javascript_enabled_makers = ['linter']
 
 " Run neomake after every save
 autocmd! BufWritePost * Neomake
