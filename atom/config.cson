@@ -1,13 +1,17 @@
 "*":
   core:
     themes: [
-      "atom-dark-ui"
-      "gruvbox"
+      "one-dark-ui"
+      "gruvbox-plus-syntax"
     ]
   editor:
     fontFamily: "EssentialPragmataPro"
     fontSize: 12
+    tabLength: 4
   "exception-reporting":
     userId: "3fc6a2df-075d-c4c5-6cac-f00afe31e117"
+  "gruvbox-plus-syntax":
+    contrast: "Soft"
+  linter: {}
   welcome:
     showOnStartup: false

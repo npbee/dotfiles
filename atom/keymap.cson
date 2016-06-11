@@ -34,3 +34,6 @@
   'ctrl-l': 'window:focus-pane-on-right'
   'ctrl-h': 'window:focus-pane-on-left'
   ', w': 'pane:split-right-and-copy-active-item'
+
+'atom-text-editor.vim-mode.insert-mode':
+  'i i': 'vim-mode:activate-normal-mode'
