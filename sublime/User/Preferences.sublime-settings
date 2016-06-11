@@ -1,0 +1,33 @@
+{
+	"auto_complete": true,
+	"auto_complete_commit_on_tab": true,
+  	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Soft).tmTheme",
+	"folder_exclude_patterns":
+	[
+		".git",
+		"node_modules"
+	],
+	"font_face": "Essential PragmataPro",
+	"font_options":
+	[
+		"subpixel_antialias"
+	],
+	"font_size": 13,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"line_padding_bottom": 0,
+	"line_padding_top": 0,
+	"remember_open_files": false,
+	"rulers":
+	[
+		80
+	],
+	"theme": "gruvbox (Dark) (Soft).sublime-theme",
+	"translate_tabs_to_spaced": true,
+	"trim_automatic_white_space": true,
+	"trim_trailing_white_space_on_save": true,
+	"word_separators": "\\()\"',<>~!@#$%^*|+[]{}`~"
+}
