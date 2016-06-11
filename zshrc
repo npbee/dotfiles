@@ -19,3 +19,6 @@ source $ZSH/oh-my-zsh.sh
 export FZF_DEFAULT_COMMAND='ag --path-to-agignore=~/.agignore -g ""'
 
 [ -f ~/.zsh.local ] && source ~/.zsh.local
+
+export NVM_DIR="/Users/nickball/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
