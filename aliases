@@ -16,6 +16,7 @@ alias v="$VISUAL"
 # git
 alias gci="git pull --rebase && rake && git push"
 alias stpp=subtree push --prefix
+alias g="git status"
 
 # dotfiles
 alias dotfiles="cd ~/.dotfiles"
