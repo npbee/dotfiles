@@ -92,11 +92,18 @@ change_shell() {
 }
 
 # pip
-pip() {
+do_python() {
     info "Installing neovim via Python3"
     pip3 install neovim
     success "Done!"
 }
+
+# Node
+do_node() {
+    info "Installing Nave for Node stuff"
+    curl -fsSL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh > bin/nave.sh
+}
+
 
 link_files() {
     info "Linking dotfiles"
@@ -110,7 +117,8 @@ clean_up() {
 
 setup_gitconfig
 homebrew
-pip
+do_python
+do_node
 zsh
 change_shell
 link_files
