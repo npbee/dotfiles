@@ -100,8 +100,12 @@ do_python() {
 
 # Node
 do_node() {
-    info "Installing Nave for Node stuff"
-    curl -fsSL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh > bin/nave.sh
+    if ! [ -f bin/nave.sh ]
+    then
+        info "Installing Nave for Node stuff"
+        curl -fsSL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh > bin/nave.sh
+        chmod u+x bin/nave.sh
+    fi
 }
 
 
