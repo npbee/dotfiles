@@ -29,9 +29,6 @@
   template = ~/.gitmessage
 [fetch]
   prune = true
-[user]
-	email = nicholaspball@gmail.com
-	name = Nick Ball
 [filter "media"]
 	required = true
 	clean = git media clean %f
