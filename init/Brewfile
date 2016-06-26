@@ -1,0 +1,13 @@
+cask_args appdir: '/Applications'
+
+tap 'homebrew/bundle'
+tap 'thoughtbot/formulae'
+
+brew 'python'
+brew 'python3'
+brew 'rcm'
+brew 'ruby'
+brew 'the_silver_searcher'
+brew 'zsh'
+
+# cask '1password'

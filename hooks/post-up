@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+source $HOME/.dotfiles/init/logger
+
+if ! [ -f $HOME/.zsh/functions/prompt_pure_setup ]
+then
+    info "Finishing pure prompt setup"
+    mkdir -p $HOME/.zsh/functions
+    ln -s $HOME/.zsh/plugins/pure/pure.zsh $HOME/.zsh/functions/prompt_pure_setup
+    ln -s $HOME/.zsh/plugins/pure/async.zsh $HOME/.zsh/functions/async
+fi

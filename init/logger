@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# tput setab [1-7] = Set background color
+# tput setaf [1-7] = Set foreground color
+
+# tput bold    # Select bold mode
+# tput dim     # Select dim (half-bright) mode
+# tput smul    # Enable underline mode
+# tput rmul    # Disable underline mode
+# tput rev     # Turn on reverse video mode
+# tput smso    # Enter standout (bold) mode
+# tput rmso    # Exit standout mode
+
+# Color variables
+black=`tput setaf 0`
+red=`tput setaf 1`
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+blue=`tput setaf 4`
+magenta=`tput setaf 5`
+cyan=`tput setaf 6`
+white=`tput setaf 7`
+
+# Modifiers
+bold=`tput bold`
+underline=`tput smul`
+no_underline=`tput rmul`
+standout=`tput smso`
+no_standout=`tput rmso`
+
+# Reset
+reset=`tput sgr0`
+
+# Example
+# echo "${red}Red text${yellow}Yellow text${cyan}${standout}Bold Cyan${reset}Normal"
+
+
+info() {
+    printf "\n"
+    printf "${cyan}==> $1\n${reset}"
+}
+
+user() {
+    printf "${yellow}==> $1\n${reset}"
+}
+
+success() {
+    printf "${green}==> $1\n${reset}"
+}
+
+error() {
+    printf "${red} $1\n${reset}"
+    echo ''
+    exit
+}

@@ -40,5 +40,3 @@ alias ia="open $1 -a /Applications/iA\ Writer.app"
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
-
-

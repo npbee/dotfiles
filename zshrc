@@ -1,7 +1,4 @@
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="pure"
-
-plugins=(git zsh-syntax-highlighting fzf)
+fpath=("$HOME/.zsh/functions" $fpath)
 
 export CLICOLOR=1
 export LANG=en_US.UTF-8
@@ -10,15 +7,14 @@ export TERM=xterm-256color
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export EDITOR=nvim
-
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 
-source $ZSH/oh-my-zsh.sh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='ag --path-to-agignore=~/.agignore -g ""'
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh.local ] && source ~/.zsh.local
+[[ -f ~/.aliases ]] && source ~/.aliases
+source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export NVM_DIR="/Users/nickball/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+autoload -U promptinit && promptinit
+prompt pure

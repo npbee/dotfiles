@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+set -e
+
+export DOTFILES=$HOME/.dotfiles
+
+# change to dotifles root
+cd "$DOTFILES"
+
+# Bring in some colors
+source init/logger
+
+is_mac() {
+    [[ "$OSTYPE" =~ ^darwin ]] || return 1
+}
+
+# Uses the local template and copies it into the `link` folder so that we can
+# ignore potentially private git things
+setup_gitconfig() {
+    if ! [ -f gitconfig.local ]
+    then
+        info "Setting up local git config"
+
+        git_credential='cache'
+        if is_mac
+        then
+            git_credential='osxkeychain'
+        fi
+
+        user 'What is your github author name?'
+        read -e git_authorname
+        user 'What is your github author email?'
+        read -e git_authoremail
+
+        sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" init/template/gitconfig.local > gitconfig.local
+
+        success 'Local git config complete.'
+    fi
+}
+
+# HOMEBREW
+brew_install() {
+    info "Installing Homebrew"
+    if test ! $(which /usr/local/bin/brew)
+    then
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        export PATH="/usr/local/bin:$PATH"
+    else
+        success "Homebrew already installed."
+    fi
+}
+
+brew_update() {
+    info "Brew update"
+    brew update
+}
+
+brew_bundle() {
+    info "Brew bundle"
+    brew bundle
+}
+
+homebrew() {
+    cd "init"
+    brew_install
+    brew_update
+    brew bundle
+    brew install neovim/neovim/neovim
+    cd "$DOTFILES"
+}
+
+# Zsh
+zsh() {
+    info "Installing zsh syntax highlighting"
+    if ! [ -d zsh/plugins/zsh-syntax-highlighting ]
+    then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh/plugins/zsh-syntax-highlighting
+    else
+        success "Syntax highlighting already installed."
+    fi
+
+    info "Installing pure prompt"
+    if ! [ -d zsh/plugins/pure ]
+    then
+        git clone git@github.com:sindresorhus/pure.git zsh/plugins/pure
+    else
+        success "Pure prompt already installed."
+    fi
+}
+
+change_shell() {
+    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+}
+
+# pip
+pip() {
+    info "Installing neovim via Python3"
+    pip3 install neovim
+    success "Done!"
+}
+
+link_files() {
+    info "Linking dotfiles"
+    cd "$DOTFILES"
+    rcup -x init -x readme.md -x fonts
+}
+
+clean_up() {
+    success "Done!  Run 'source ~/.zshrc' to see changes."
+}
+
+setup_gitconfig
+homebrew
+pip
+zsh
+change_shell
+link_files
+clean_up
