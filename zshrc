@@ -7,6 +7,9 @@ fpath=("$HOME/.zsh/functions" $fpath)
 # Syntax highlighting
 source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Default ZSH completion
+autoload -Uz compinit && compinit
+
 # Completion
 completion_files=($HOME/.zsh/completion/*.zsh)
 for file in $completion_files
