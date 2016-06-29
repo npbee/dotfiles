@@ -21,6 +21,9 @@ done
 autoload -U promptinit && promptinit
 prompt pure
 
+# Hub
+eval "$(hub alias -s)"
+
 export CLICOLOR=1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

@@ -3,6 +3,7 @@ cask_args appdir: '/Applications'
 tap 'homebrew/bundle'
 tap 'thoughtbot/formulae'
 
+brew 'hub'
 brew 'python'
 brew 'python3'
 brew 'rcm'
