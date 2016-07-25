@@ -154,3 +154,17 @@ endsnippet
 snippet const "Quick const"
 const $1 = '$1';
 endsnippet
+
+snippet setup "Test Setup" b
+const setup = propOverrides => {
+	const props = {
+		$2,
+		...propOverrides,
+	};
+
+	const wrapper = shallow(<${1:Component} {...props} />);
+
+	return { wrapper, ...props };
+};
+
+endsnippet
