@@ -70,3 +70,11 @@ https://www.iterm2.com/
 **Load iTerm preferences**
 
 `./iTerm`
+
+### ATOM
+
+Atom configuration is included here, but to install the necessary packages, run
+
+```bash
+apm stars --install
+```
