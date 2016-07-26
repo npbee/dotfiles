@@ -22,11 +22,7 @@ module.exports = {
     // css: '',
 
     // custom css to embed in the terminal window
-    termCSS: `
-        x-screen {
-            -webkit-font-smoothing: subpixel-antialiased !important;
-        }
-    `,
+    termCSS: ``,
 
     // custom padding (css format, i.e.: `top right bottom left`)
     // padding: '5px 10px',
