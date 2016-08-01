@@ -34,3 +34,6 @@ export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 export FZF_DEFAULT_COMMAND='ag --path-to-agignore=~/.agignore -g ""'
 
+
+export NVM_DIR="/Users/nickball/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

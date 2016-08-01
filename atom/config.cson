@@ -12,6 +12,11 @@
     userId: "3fc6a2df-075d-c4c5-6cac-f00afe31e117"
   "gruvbox-plus-syntax":
     contrast: "Soft"
-  linter: {}
+  "ide-flow":
+    flowPath: "/usr/local/bin/flow"
+  linter:
+    lintOnFly: false
+  "linter-flow":
+    executablePath: "./node_modules/.bin/flow"
   welcome:
     showOnStartup: false
