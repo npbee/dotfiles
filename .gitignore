@@ -1,4 +1,5 @@
 fonts
 .DS_Store
 gitconfig.local
+zsh/plugins
 !init/template/gitconfig.local
