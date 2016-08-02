@@ -6,6 +6,7 @@
 	"installed_packages":
 	[
 		"gruvbox",
+		"LESS",
 		"Less2Css",
 		"Package Control",
 		"SublimeLinter",
