@@ -5,7 +5,8 @@
 I've got an attempt at a one-script set up at
 
 ```bash
-$ ./init/boostrap
+# From the cloned dotfiles directory
+./init/boostrap
 ```
 
 This will install homebrew and various packages, zsh stuff, etc.  If that goes wrong...

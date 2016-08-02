@@ -3,9 +3,6 @@ set -e
 
 export DOTFILES=$HOME/dotfiles
 
-# change to dotifles root
-# cd "$DOTFILES"
-
 # Bring in some colors
 source init/logger
 
@@ -111,7 +108,6 @@ do_node() {
 
 link_files() {
     info "Linking dotfiles"
-    # cd "$DOTFILES"
     rcup -x init -x readme.md -x fonts
 
     # sublime
