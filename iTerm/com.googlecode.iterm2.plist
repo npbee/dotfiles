@@ -2518,10 +2518,12 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.iTerm/colors</string>
+	<string>~/.iTerm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
+	<string>{1351, 503}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -2541,7 +2543,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>307</string>
+		<string>322</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -2553,17 +2555,19 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>2439 110 695 322 1280 0 1920 1057 </string>
+	<string>2141 290 1153 274 1440 0 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>331 304 606 456 0 0 1280 777 </string>
+	<string>1921 597 606 456 1440 0 1920 1057 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>410 604 384 129 0 0 1280 777 </string>
+	<string>2200 516 400 129 1440 -180 1920 1057 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>2090 499 620 392 1440 0 1920 1057 </string>
+	<key>NSWindow Frame SharedPreferences</key>
+	<string>1734 164 918 512 1440 0 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>1435 473 592 584 1280 0 1920 1057 </string>
+	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 31 1279 741 0 0 1280 777 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1281 0 1918 528 1280 0 1920 1057 </string>
+	<string>1441 677 490 377 1440 0 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -3351,18 +3355,65 @@
 			<string>/Volumes/HardDrive/Users/nicholaspball</string>
 		</dict>
 	</array>
-	<key>NoSyncHaveShownPromoWithId_4</key>
+	<key>NoSyncConfirmBeta</key>
 	<true/>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
+	<true/>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
+	<integer>0</integer>
+	<key>NoSyncInstallationId</key>
+	<string>294B8EAC-C2C0-4290-ABF9-7FBB92E10B52</string>
+	<key>NoSyncLastTipTime</key>
+	<real>466029847.21598899</real>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>477539643.31223297</real>
+	<real>466033421.15614599</real>
 	<key>NoSyncTimeOfLastPromo</key>
-	<real>477539591.005669</real>
+	<real>453831801.086941</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>477527111.82556301</real>
+	<real>459114039.22029299</real>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+		<string>0006</string>
+		<string>0007</string>
+		<string>0008</string>
+		<string>0009</string>
+		<string>0010</string>
+		<string>0011</string>
+		<string>0012</string>
+		<string>0013</string>
+		<string>0014</string>
+		<string>0015</string>
+		<string>0016</string>
+		<string>0017</string>
+		<string>0018</string>
+		<string>0019</string>
+		<string>0020</string>
+		<string>0021</string>
+		<string>0022</string>
+		<string>0023</string>
+		<string>0024</string>
+		<string>0025</string>
+		<string>0026</string>
+		<string>0027</string>
+		<string>0028</string>
+		<string>0029</string>
+		<string>0030</string>
+	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -3409,7 +3460,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/.dotfiles/iTerm</string>
+	<string>/Users/nickball/.iTerm</string>
 	<key>PromptOnQuit</key>
 	<true/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -3423,11 +3474,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing3.xml</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=17</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-03-12T21:28:50Z</date>
+	<date>2016-08-01T20:46:55Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -3451,7 +3502,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1419999104</real>
+	<real>1461359488</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -4283,6 +4334,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160206</string>
+	<string>3.0.5</string>
 </dict>
 </plist>
