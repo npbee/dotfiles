@@ -2,4 +2,8 @@ fonts
 .DS_Store
 gitconfig.local
 zsh/plugins
+.cache
+.merged-ca-bundle
+.system-ca-bundle
+.user-ca-bundle
 !init/template/gitconfig.local
