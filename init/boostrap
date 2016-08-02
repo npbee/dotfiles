@@ -113,7 +113,7 @@ link_files() {
 
 osx_defaults() {
     info "Setting system defaults"
-    ../bin/osx
+    ~./bin/osx
 }
 
 clean_up() {
