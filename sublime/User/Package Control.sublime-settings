@@ -6,6 +6,7 @@
 	"installed_packages":
 	[
 		"Babel",
+		"FlowIDE",
 		"gruvbox",
 		"LESS",
 		"Less2Css",
@@ -13,7 +14,6 @@
 		"SublimeLinter",
 		"SublimeLinter-contrib-eslint",
 		"SublimeLinter-contrib-eslint_d",
-		"SublimeLinter-flow",
 		"Theme - Spacegray",
 		"Tomorrow Color Schemes",
 		"Vintageous"
