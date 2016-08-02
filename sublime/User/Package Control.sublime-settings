@@ -5,6 +5,7 @@
 	],
 	"installed_packages":
 	[
+		"Babel",
 		"gruvbox",
 		"LESS",
 		"Less2Css",
