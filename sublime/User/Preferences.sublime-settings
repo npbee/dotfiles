@@ -5,7 +5,8 @@
 	"folder_exclude_patterns":
 	[
 		".git",
-		"node_modules"
+		"node_modules",
+		"coverage"
 	],
 	"font_face": "Essential PragmataPro",
 	"font_options":
