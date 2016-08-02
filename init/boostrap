@@ -113,6 +113,9 @@ link_files() {
     info "Linking dotfiles"
     cd "$DOTFILES"
     rcup -x init -x readme.md -x fonts
+
+    # sublime
+    ln -s sublime/User ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 }
 
 clean_up() {
