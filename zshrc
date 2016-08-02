@@ -2,6 +2,7 @@ fpath=("$HOME/.zsh/functions" $fpath)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh.local ] && source ~/.zsh.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [[ -f ~/.aliases ]] && source ~/.aliases
 
 # Syntax highlighting
