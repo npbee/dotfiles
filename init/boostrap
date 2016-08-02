@@ -4,7 +4,7 @@ set -e
 export DOTFILES=$HOME/dotfiles
 
 # change to dotifles root
-cd "$DOTFILES"
+# cd "$DOTFILES"
 
 # Bring in some colors
 source init/logger
@@ -65,7 +65,7 @@ homebrew() {
     brew_update
     brew bundle
     brew install neovim/neovim/neovim
-    cd "$DOTFILES"
+    cd "../"
 }
 
 # Zsh
@@ -111,7 +111,7 @@ do_node() {
 
 link_files() {
     info "Linking dotfiles"
-    cd "$DOTFILES"
+    # cd "$DOTFILES"
     rcup -x init -x readme.md -x fonts
 
     # sublime
