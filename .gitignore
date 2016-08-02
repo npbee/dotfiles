@@ -2,8 +2,7 @@ fonts
 .DS_Store
 gitconfig.local
 zsh/plugins
-.cache
-.merged-ca-bundle
-.system-ca-bundle
-.user-ca-bundle
+sublime/User
 !init/template/gitconfig.local
+!sublime/User/*.sublime-settings
+!sublime/User/*.sublime-keymap
