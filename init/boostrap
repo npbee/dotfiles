@@ -108,7 +108,7 @@ do_node() {
 
 link_files() {
     info "Linking dotfiles"
-    rcup -x init -x readme.md -x fonts
+    rcup -x init -x readme.md
 }
 
 osx_defaults() {
@@ -127,4 +127,5 @@ do_node
 zsh
 change_shell
 link_files
+osx_defaults
 clean_up
