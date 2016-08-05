@@ -1,5 +1,23 @@
 "*":
   core:
+    customFileTypes:
+      "source.ini": [
+        ".buckconfig"
+        ".flowconfig"
+      ]
+      "source.json": [
+        ".arcconfig"
+        "BUCK.autodeps"
+      ]
+      "source.python": [
+        "BUCK"
+      ]
+    disabledPackages: [
+      "tree-view"
+      "linter-flow"
+      "linter-eslint"
+      "linter"
+    ]
     themes: [
       "one-dark-ui"
       "gruvbox-plus-syntax"
@@ -10,6 +28,8 @@
     tabLength: 4
   "exception-reporting":
     userId: "3fc6a2df-075d-c4c5-6cac-f00afe31e117"
+  "file-watcher":
+    promptWhenFileHasChangedOnDisk: false
   "gruvbox-plus-syntax":
     contrast: "Soft"
   "ide-flow":
@@ -18,5 +38,18 @@
     lintOnFly: false
   "linter-flow":
     executablePath: "./node_modules/.bin/flow"
+  nuclide:
+    "nuclide-home":
+      showHome: false
+    "nuclide-working-sets":
+      workingSets: [
+        {
+          name: "Loudr Front"
+          active: false
+          uris: [
+            "/Users/nickball/Projects/loudr-front"
+          ]
+        }
+      ]
   welcome:
     showOnStartup: false
