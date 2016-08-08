@@ -15,7 +15,6 @@
     disabledPackages: [
       "tree-view"
       "linter-flow"
-      "linter-eslint"
       "linter"
     ]
     themes: [
