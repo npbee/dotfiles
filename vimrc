@@ -630,8 +630,9 @@ function! RightSide()
     if exists('*fugitive#head')
         let head = fugitive#head()
 
+        " Set non-ascii font to 'octicons' from 'fonts' folder in iCloud
         if !empty(head)
-            let rs .= '%3*' . ' ' . head . ' '
+            let rs .= '%3*' . ' ' . head . ' '
         endif
     endif
 
