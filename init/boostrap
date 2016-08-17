@@ -116,6 +116,12 @@ osx_defaults() {
     ~./bin/osx
 }
 
+link_nvim() {
+    info "Linking vim files to nvim"
+    ln -s ~/.vim ~/.config/nvim
+    ln -s ~/.vimrc ~/.config/nvim/init.vim
+}
+
 clean_up() {
     success "Done!  Run 'source ~/.zshrc' to see changes."
 }
@@ -128,4 +134,5 @@ zsh
 change_shell
 link_files
 osx_defaults
+link_nvim
 clean_up
