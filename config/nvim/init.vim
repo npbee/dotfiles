@@ -233,7 +233,8 @@ syntax on
 set background=dark
 colorscheme gruvbox
 
-let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_dark="soft"
+let g:gruvbox_italic=1
 
 highlight User1 ctermfg=110 ctermbg=236 guifg=#83a598 guibg=#282828
 highlight User2 ctermfg=203 ctermbg=236 guibg=#282828 guifg=#fb4934
