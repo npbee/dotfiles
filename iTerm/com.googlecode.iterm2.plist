@@ -2518,12 +2518,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/.dotfiles/iTerm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{995, 448}</string>
+	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -2549,17 +2547,10 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
-	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
-	<dict>
-		<key>TB Is Shown</key>
-		<integer>1</integer>
-	</dict>
-	<key>NSWindow Frame NSFontPanel</key>
-	<string>2129 68 1005 329 1280 -42 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1876 47 918 495 1280 -42 1920 1057 </string>
+	<string>1549 74 918 495 1280 -42 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1281 -6 1918 1021 1280 -42 1920 1057 </string>
+	<string>1281 26 1116 987 1280 -42 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -3323,6 +3314,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Thin Strokes</key>
+			<integer>2</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -3350,9 +3343,9 @@
 		</dict>
 	</array>
 	<key>NoSyncInstallationId</key>
-	<string>6E8008C9-2B1C-4F49-A739-E5646E1265EA</string>
+	<string>D05BA69A-71FE-4002-8DD5-289785200BDB</string>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>493142940.916628</real>
+	<real>493231465.00130498</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -3413,11 +3406,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=36</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=8</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-17T16:09:49Z</date>
+	<date>2016-08-18T16:45:06Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
