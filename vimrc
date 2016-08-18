@@ -105,18 +105,6 @@ let g:ctrlp_abbrev = {
 " }}}
 
 
-" Lightline {{{
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'component': {
-      \   'readonly': '%{&readonly?"⭤":""}',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
-" }}}
-
-
 " YouCompleteMe {{{
 
 " Don't let YouCompleteMe use tab, interferes with Ultisnips
@@ -178,11 +166,6 @@ endif
 " }}}
 
 
-" Sneak {{{
-
-" }}}
-
-
 " Deoplete {{{
 
 let g:deoplete#enable_at_startup = 1
@@ -195,10 +178,6 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 
 
-" Elm {{{
-let g:elm_format_autosave = 1
-" }}}
-"
 " }}}
 
 
@@ -465,16 +444,6 @@ nnoremap <C-l> <C-w>l
 " Turn of search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
 
-" Elm Specific
-au FileType elm nmap <leader>b <Plug>(elm-make)
-au FileType elm nmap <leader>m <Plug>(elm-make-main)
-" au FileType elm nmap <leader>t <Plug>(elm-test)
-au FileType elm nmap <leader>r <Plug>(elm-repl)
-au FileType elm nmap <leader>e <Plug>(elm-error-detail)
-au FileType elm nmap <leader>d <Plug>(elm-show-docs)
-
-" }}}
-
 " " Copy to clipboard
 vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg_
@@ -487,15 +456,6 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
-" Tmux {{{
-let g:tmuxline_preset = {
-            \ 'a': '#S',
-            \ 'win': '#I #W',
-            \ 'cwin': '#I #W',
-            \ 'z': '#H',
-            \ 'options': {
-            \'status-justify': 'left'}
-            \}
 " }}}
 
 
