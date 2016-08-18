@@ -2547,10 +2547,12 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>2424 110 710 355 1280 -42 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1549 74 918 495 1280 -42 1920 1057 </string>
+	<string>1549 30 918 495 1280 -42 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1281 26 1116 987 1280 -42 1920 1057 </string>
+	<string>1283 -35 1914 1047 1280 -42 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -3155,7 +3157,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>PragmataPro 12</string>
+			<string>PragmataPro 13</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
