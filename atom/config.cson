@@ -22,7 +22,7 @@
       "gruvbox-plus-syntax"
     ]
   editor:
-    fontFamily: "EssentialPragmataPro"
+    fontFamily: "PragmataPro"
     fontSize: 12
     tabLength: 4
   "exception-reporting":

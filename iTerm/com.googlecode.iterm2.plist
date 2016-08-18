@@ -2521,9 +2521,9 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.iTerm</string>
+	<string>~/.dotfiles/iTerm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{1351, 503}</string>
+	<string>{995, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -2555,19 +2555,11 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>2141 290 1153 274 1440 0 1920 1057 </string>
-	<key>NSWindow Frame Preferences</key>
-	<string>1921 597 606 456 1440 0 1920 1057 </string>
-	<key>NSWindow Frame SUStatusFrame</key>
-	<string>2200 516 400 129 1440 -180 1920 1057 </string>
-	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>2090 499 620 392 1440 0 1920 1057 </string>
+	<string>2129 68 1005 329 1280 -42 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1734 164 918 512 1440 0 1920 1057 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>99 293 592 584 0 0 1440 877 </string>
+	<string>1876 47 918 495 1280 -42 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1441 677 490 377 1440 0 1920 1057 </string>
+	<string>1281 -6 1918 1021 1280 -42 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2851,7 +2843,7 @@
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
-			<real>0.92710843373493979</real>
+			<real>0.90000000000000002</real>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -3168,11 +3160,11 @@
 			<key>Name</key>
 			<string>Nick</string>
 			<key>Non Ascii Font</key>
-			<string>UbuntuMonoDerivativePowerlineNerdFontPlusOcticonsMono 12</string>
+			<string>octicons 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>EssentialPragmataPro 12</string>
+			<string>PragmataPro 12</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -3345,6 +3337,8 @@
 			<false/>
 			<key>Use Italic Font</key>
 			<true/>
+			<key>Use Non-ASCII Font</key>
+			<true/>
 			<key>Vertical Spacing</key>
 			<real>0.98473974021084343</real>
 			<key>Visual Bell</key>
@@ -3355,65 +3349,10 @@
 			<string>/Volumes/HardDrive/Users/nicholaspball</string>
 		</dict>
 	</array>
-	<key>NoSyncConfirmBeta</key>
-	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
-	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
-	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>294B8EAC-C2C0-4290-ABF9-7FBB92E10B52</string>
-	<key>NoSyncLastTipTime</key>
-	<real>466029847.21598899</real>
-	<key>NoSyncNeverRemindPrefsChangesCopy</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
-	<key>NoSyncPermissionToShowTip</key>
-	<false/>
+	<string>6E8008C9-2B1C-4F49-A739-E5646E1265EA</string>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>466033421.15614599</real>
-	<key>NoSyncTimeOfLastPromo</key>
-	<real>453831801.086941</real>
-	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>459114039.22029299</real>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>000</string>
-		<string>0000</string>
-		<string>0001</string>
-		<string>0002</string>
-		<string>0003</string>
-		<string>0004</string>
-		<string>0005</string>
-		<string>0006</string>
-		<string>0007</string>
-		<string>0008</string>
-		<string>0009</string>
-		<string>0010</string>
-		<string>0011</string>
-		<string>0012</string>
-		<string>0013</string>
-		<string>0014</string>
-		<string>0015</string>
-		<string>0016</string>
-		<string>0017</string>
-		<string>0018</string>
-		<string>0019</string>
-		<string>0020</string>
-		<string>0021</string>
-		<string>0022</string>
-		<string>0023</string>
-		<string>0024</string>
-		<string>0025</string>
-		<string>0026</string>
-		<string>0027</string>
-		<string>0028</string>
-		<string>0029</string>
-		<string>0030</string>
-	</array>
+	<real>493142940.916628</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -3460,7 +3399,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/nickball/.iTerm</string>
+	<string>/Users/nickball/.dotfiles/iTerm</string>
 	<key>PromptOnQuit</key>
 	<true/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -3474,11 +3413,13 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=17</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=36</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-01T20:46:55Z</date>
+	<date>2016-08-17T16:09:49Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -3501,8 +3442,6 @@
 	<integer>10</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1461359488</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -4334,6 +4273,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.5</string>
+	<string>3.0.8</string>
 </dict>
 </plist>
