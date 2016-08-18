@@ -35,8 +35,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 
 " Syntax
-Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
+" Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
+" Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
@@ -609,6 +610,20 @@ endfunction
 
 set showmode
 set statusline=%!StatusLine()
+
+" }}}
+
+
+" {{{ Utilities
+
+" Show syntax highlighting groups for word under cursor
+nmap <F10> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 " }}}
 
