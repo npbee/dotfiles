@@ -8,7 +8,7 @@
 		"node_modules",
 		"coverage"
 	],
-	"font_face": "Essential PragmataPro",
+	"font_face": "PragmataPro",
 	"font_options":
 	[
 		"subpixel_antialias"
