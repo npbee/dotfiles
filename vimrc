@@ -13,6 +13,8 @@ set modelines=1
 " Set the amount of commands and search patterns that are remembered
 set history=500
 
+" Use this for local config options like local snippets
+set runtimepath+=~/.vim.local/
 
 " }}}
 
@@ -145,6 +147,7 @@ let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/UltiSnips"
+let g:UltiSnipsSnippetDirectories=['UltiSnips', '~/.vim.local/UltiSnips']
 
 " }}}
 
