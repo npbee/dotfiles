@@ -482,7 +482,7 @@ augroup vimrcEx
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
-  autocmd BufRead,BufNewFile *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc set filetype=javascript
+  autocmd BufRead,BufNewFile *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow set filetype=javascript
   autocmd BufRead,BufNewFile *.conf set filetype=nginx
 
   " Enable spellchecking for Markdown
