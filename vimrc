@@ -58,12 +58,16 @@ Plug 'tpope/vim-eunuch'
 " Editing
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
+
+" Javascript
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 
 call plug#end()
 
