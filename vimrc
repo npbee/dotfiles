@@ -529,10 +529,6 @@ set fileformats+=dos
 
 
 " Remaps {{{
-highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
-highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
-highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
-
 if has('nvim')
     :tnoremap <Esc> <C-\><C-n>
 endif
@@ -540,6 +536,10 @@ endif
 
 
 " Statusline {{{
+highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
+highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
+highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
+
 function! FileModes()
     let fm = '%2*'
 
