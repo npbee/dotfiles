@@ -54,6 +54,7 @@ Plug 'rking/ag.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Editing
 Plug 'tpope/vim-repeat'
@@ -64,9 +65,6 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
-
-" Javascript
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
 
 call plug#end()
 
@@ -201,16 +199,6 @@ augroup omnifuncs
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
-" tern
-if exists('g:plugs["tern_for_vim"]')
-  let g:tern_show_argument_hints = 'on_hold'
-  let g:tern_show_signature_in_pum = 1
-
-  autocmd FileType javascript setlocal omnifunc=tern#Complete
-endif
-
-" }}}
-
 
 " Colors {{{
 
@@ -224,15 +212,12 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
 let g:gruvbox_italic=1
 
+" Custom Colors
 highlight User1 ctermfg=110 ctermbg=236 guifg=#83a598 guibg=#282828
 highlight User2 ctermfg=203 ctermbg=236 guibg=#282828 guifg=#fb4934
 highlight User3 ctermfg=213 ctermbg=236 guibg=#282828 guifg=#d3869b
 highlight User4 ctermfg=175 ctermbg=236 guibg=#282828 guifg=#fe8019
 highlight User5 ctermfg=142 ctermbg=236 guibg=#282828 guifg=#b8bb26
-
-highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
-highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
-highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
 
 " Hack for gruvbox to support neovim term colors
 " https://github.com/morhetz/gruvbox/pull/93
@@ -544,6 +529,10 @@ set fileformats+=dos
 
 
 " Remaps {{{
+highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
+highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
+highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
+
 if has('nvim')
     :tnoremap <Esc> <C-\><C-n>
 endif
