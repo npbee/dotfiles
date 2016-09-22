@@ -38,7 +38,6 @@ Plug 'morhetz/gruvbox'
 
 " Syntax
 Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
-" Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
@@ -74,6 +73,7 @@ let g:javascript_plugin_flow = 1
 
 " }}}
 
+
 " Dirvish {{{
 nnoremap - :Dirvish %<CR>
 " }}}
@@ -83,43 +83,6 @@ nnoremap - :Dirvish %<CR>
 
 " Use JSX syntax on .js files
 let g:jsx_ext_required=0
-
-" }}}
-
-
-" CtrlP {{{
-
-" Sets ctrlp to match files top to bottom
-let g:ctrlp_match_window = 'bottom,order:ttb'
-
-" Ignore setting the working directory
-"let g:ctrlp_working_path_mode = 0
-
-" Use ag for ctrlp
-" Ignore does not work here, we have to use .agignore
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
-" Use regex for ctrlp
-let g:ctrlp_regexp = 1
-
-let g:ctrlp_abbrev = {
-    \ 'gmode': 't',
-    \ 'abbrevs': [
-        \ {
-        \ 'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
-        \ 'expanded': '.*',
-        \ 'mode': 'pfrz',
-        \ }
-    \]
-\}
-" }}}
-
-
-" YouCompleteMe {{{
-
-" Don't let YouCompleteMe use tab, interferes with Ultisnips
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 " }}}
 
@@ -184,6 +147,11 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " }}}
 
+" FZF {{{
+
+" Do fuzzy finder on Ctrl + P
+noremap <C-p> :FZF<CR>
+" }}}
 
 " }}}
 
@@ -198,6 +166,8 @@ augroup omnifuncs
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
+
+" }}}
 
 
 " Colors {{{
@@ -333,7 +303,6 @@ set splitbelow
 " buffer
 set splitright
 
-set guifont=Ubuntu\ Mono\ derivative\ Powerline:h11
 " }}}
 
 
@@ -344,9 +313,6 @@ set incsearch
 
 " Highlight matches
 set hlsearch
-
-" Do fuzzy finder on Ctrl + P
-noremap <C-p> :FZF<CR>
 
 " }}}
 
@@ -399,15 +365,6 @@ noremap <D-9> :tabn 9<CR>
 " Command-0 goes to the last tab
 noremap <D-0> :tablast<CR>
 
-" Text bubbling, like Sublime Text
-" Move one line up and one line down
-nnoremap <silent> <C-Up> :move-2<CR>==
-nnoremap <silent> <C-Down> :move+<CR>==
-
-" Move multiple lines up and down
-xnoremap <silent> <C-Up> :move-2<CR>gv=gv
-xnoremap <silent> <C-Down> :move'>+<CR>gv=gv
-"
 " }}}
 
 
@@ -418,9 +375,6 @@ let mapleader = ","
 
 " toggle out of insert mode
 :imap ii  <Esc>
-
-" Save session
-nnoremap <leader>s :mksession<CR>
 
 " open ag.vim
 nnoremap <leader>a :Ag
@@ -470,7 +424,9 @@ augroup vimrcEx
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
-  autocmd BufRead,BufNewFile *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow set filetype=javascript
+  autocmd BufRead,BufNewFile
+    \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
+    \ set filetype=javascript
   autocmd BufRead,BufNewFile *.conf set filetype=nginx
 
   " Enable spellchecking for Markdown
@@ -499,9 +455,9 @@ augroup END
 set autowrite
 
 " Map control+S to save
-noremap <silent> <C-S>          :update<CR>
-vnoremap <silent> <C-S>         <C-C>:update<CR>
-inoremap <silent> <C-S>         <C-O>:update<CR>
+noremap <C-S>          :update<CR>
+vnoremap <C-S>         <C-C>:update<CR>
+inoremap <C-S>         <C-O>:update<CR>
 
 " Change the directory where VIM does backups and swapfiles
 set backup
