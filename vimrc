@@ -153,6 +153,10 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 noremap <C-p> :FZF<CR>
 " }}}
 
+" Elm {{{
+let g:elm_setup_keybindings = 0
+" }}}
+
 " }}}
 
 
