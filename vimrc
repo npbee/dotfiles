@@ -162,6 +162,10 @@ augroup my_dirvish_events
 augroup END
 " }}}
 
+" Elm {{{
+let g:elm_setup_keybindings = 0
+" }}}
+
 " }}}
 
 
