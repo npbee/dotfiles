@@ -4,6 +4,7 @@
       "source.ini": [
         ".buckconfig"
         ".flowconfig"
+        ".hgrc"
       ]
       "source.json": [
         ".arcconfig"
@@ -27,8 +28,6 @@
     tabLength: 4
   "exception-reporting":
     userId: "3fc6a2df-075d-c4c5-6cac-f00afe31e117"
-  "file-watcher":
-    promptWhenFileHasChangedOnDisk: false
   "gruvbox-plus-syntax":
     contrast: "Soft"
   "ide-flow":

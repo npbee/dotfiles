@@ -153,6 +153,15 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 noremap <C-p> :FZF<CR>
 " }}}
 
+" Divish {{{
+augroup my_dirvish_events
+    autocmd!
+
+    " Map d to sort directories at the top
+    autocmd FileType dirvish nnoremap <buffer> t :sort r /[^\/]$/<CR>
+augroup END
+" }}}
+
 " }}}
 
 
