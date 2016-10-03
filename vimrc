@@ -64,8 +64,18 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
+
+" Easy Align {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" }}}
 
 " {{{ vim-javascript
 
