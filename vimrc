@@ -390,6 +390,10 @@ noremap <D-0> :tablast<CR>
 
 " }}}
 
+" Scroll a buffer while keeping the cursor fixed
+nnoremap <C-M-j> 3j3<C-e>
+nnoremap <C-M-k> 3j3<C-y>
+
 
 " Leader Shortcuts {{{
 
