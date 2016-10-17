@@ -612,7 +612,7 @@ endfunc
 " Local Config {{{
 
 " Reads anything in a .vimrc.local
-if filereadable($HOME . "/.vimrc.local")
+if filereadable('~/.vimrc.local')
   source ~/.vimrc.local
 endif
 
