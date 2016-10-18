@@ -467,7 +467,7 @@ augroup vimrcEx
   autocmd FileType css,scss,sass setlocal iskeyword+=-
 
   " Trim whitespace on save
-  autocmd BufWritePre * :%s/\s\+$//e
+  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
   autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
   autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
@@ -605,6 +605,15 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+" Strips trailing white space and restores the cursor after.  Avoids having the
+" cursor jump to the last replaced whitespace after saving.
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
 
 " }}}
 
