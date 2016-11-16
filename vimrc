@@ -621,8 +621,8 @@ endfun
 " Local Config {{{
 
 " Reads anything in a .vimrc.local
-if filereadable('~/.vimrc.local')
-  source ~/.vimrc.local
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
 endif
 
 " }}}

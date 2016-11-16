@@ -18,6 +18,7 @@
       "linter-flow"
       "linter"
     ]
+    telemetryConsent: "no"
     themes: [
       "one-dark-ui"
       "gruvbox-plus-syntax"
