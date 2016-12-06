@@ -37,8 +37,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 
 " Syntax
-Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
