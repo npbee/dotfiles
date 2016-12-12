@@ -91,7 +91,7 @@ nnoremap - :Dirvish %<CR>
 " Vim JSX {{{
 
 " Use JSX syntax on .js files
-let g:jsx_ext_required=0
+" let g:jsx_ext_required=0
 
 " }}}
 
