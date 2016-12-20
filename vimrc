@@ -48,7 +48,6 @@ Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
-Plug 'rking/ag.vim'
 Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
@@ -66,6 +65,24 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 
 call plug#end()
+
+" FZF {{{
+
+" Custom searching command.  Basically just allows for passing ag arguments
+" directly
+" Usage
+" :Ag myThing --js
+"
+" With preview
+" :Ag! myThing --js
+command! -bang -nargs=* Ag
+  \ call fzf#vim#grep(
+  \ 'ag --nogroup --column --color '.<q-args>,
+  \ 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+" }}}
 
 " Easy Align {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
