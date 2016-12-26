@@ -75,7 +75,7 @@ call plug#end()
 "
 " With preview
 " :Ag! myThing --js
-command! -bang -nargs=* Ag
+command! -bang -nargs=* AgRaw
   \ call fzf#vim#grep(
   \ 'ag --nogroup --column --color '.<q-args>,
   \ 1,
@@ -421,7 +421,7 @@ let mapleader = ","
 :imap ii  <Esc>
 
 " open ag.vim
-nnoremap <leader>a :Ag
+nnoremap <leader>a :AgRaw
 
 " Open a new split window vertically
 nnoremap <leader>w <C-w>v<C-w>l
