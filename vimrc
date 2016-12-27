@@ -35,6 +35,7 @@ call plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'morhetz/gruvbox'
+Plug 'npbee/eighty-five'
 
 " Syntax
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -217,17 +218,10 @@ augroup end
 syntax on
 set background=dark
 set termguicolors
-colorscheme gruvbox
+colorscheme eighty-five
 
 let g:gruvbox_contrast_dark="soft"
 let g:gruvbox_italic=1
-
-" Custom Colors
-highlight User1 ctermfg=110 ctermbg=236 guifg=#83a598 guibg=#282828
-highlight User2 ctermfg=203 ctermbg=236 guibg=#282828 guifg=#fb4934
-highlight User3 ctermfg=213 ctermbg=236 guibg=#282828 guifg=#d3869b
-highlight User4 ctermfg=175 ctermbg=236 guibg=#282828 guifg=#fe8019
-highlight User5 ctermfg=142 ctermbg=236 guibg=#282828 guifg=#b8bb26
 
 " Hack for gruvbox to support neovim term colors
 " https://github.com/morhetz/gruvbox/pull/93
@@ -536,9 +530,6 @@ endif
 
 
 " Statusline {{{
-highlight StatusLine ctermbg=white ctermfg=236 guifg=#282828 guibg=#fdf4c1
-highlight StatusLineNC ctermbg=white ctermfg=236 guifg=#282828 guibg=#504945
-highlight VertSplit ctermfg=white ctermbg=236 gui=bold,reverse guifg=#282828 guibg=#504945
 
 function! FileModes()
     let fm = '%2*'
@@ -558,8 +549,8 @@ endfunction
 
 function! LeftSide()
     let ls = ''
-    let ls.='%1* %f '
-    let ls.='%3* %y %1*'
+    let ls.='%2* %f '
+    let ls.='%4* %y %1*'
     let ls.=FileModes()
 
     return ls
@@ -578,12 +569,12 @@ function! RightSide()
             let rs .= "%1*"
             let rs .= errors
         endif
-        let rs .= "%1*"
+        let rs .= "%2*"
         let rs .= " "
     " endif
 
     " line/col info
-    let rs.= "%1* col %c lines %l/%L "
+    let rs.= "%2* col %c lines %l/%L "
 
     if exists('*fugitive#head')
         let head = fugitive#head()
