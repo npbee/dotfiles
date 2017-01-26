@@ -142,10 +142,16 @@ let g:UltiSnipsSnippetDirectories=['UltiSnips', '~/.vim.local/UltiSnips']
 " Neoterm {{{
 if has('nvim')
     let g:neoterm_position = 'horizontal'
-    let command = g:neoterm_npm_lib_cmd . ' ' . expand('%:p')
+
+    function! DoTest()
+        if exists("g:neoterm_npm_lib_cmd")
+            let command = g:neoterm_npm_lib_cmd . ' ' . expand('%:p')
+            :call neoterm#do(command)
+        endif
+    endfunction
 
     " run set test lib
-    nnoremap <silent> ,rf :call neoterm#do(command)<cr>
+    nnoremap <silent> ,rf :call DoTest()<cr>
 
     " Useful maps
     " hide/close terminal
