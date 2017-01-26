@@ -142,12 +142,10 @@ let g:UltiSnipsSnippetDirectories=['UltiSnips', '~/.vim.local/UltiSnips']
 " Neoterm {{{
 if has('nvim')
     let g:neoterm_position = 'horizontal'
+    let command = g:neoterm_npm_lib_cmd . ' ' . expand('%:p')
 
     " run set test lib
-    nnoremap <silent> ,rt :call neoterm#test#run('all')<cr>
-    nnoremap <silent> ,rf :call neoterm#test#run('file')<cr>
-    nnoremap <silent> ,rn :call neoterm#test#run('current')<cr>
-    nnoremap <silent> ,rr :call neoterm#test#rerun()<cr>
+    nnoremap <silent> ,rf :call neoterm#do(command)<cr>
 
     " Useful maps
     " hide/close terminal
@@ -166,7 +164,7 @@ endif
 " Deoplete {{{
 
 let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
+if !exists('g:test#javascript#mocha#file_pattern')
   let g:deoplete#omni#input_patterns = {}
 endif
 " let g:deoplete#disable_auto_complete = 1
