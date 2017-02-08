@@ -44,6 +44,7 @@ Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'benekastah/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
