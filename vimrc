@@ -54,6 +54,7 @@ Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'mkitt/tabline.vim'
 
 " Editing
 Plug 'tpope/vim-repeat'
