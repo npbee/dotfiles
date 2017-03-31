@@ -79,14 +79,22 @@ call plug#end()
 "
 " With preview
 " :Ag! myThing --js
-command! -bang -nargs=* AgRaw
+
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --hidden --follow --color "always"
+  \ -g "!{.git,node_modules}/*" '
+
+command! -bang -nargs=* F
   \ call fzf#vim#grep(
-  \ 'ag --nogroup --column --color '.<q-args>,
+  \ g:rg_command.<q-args>,
   \ 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 " }}}
+
+
+" command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .<q-args>, 1, <bang>0)
 
 " Easy Align {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -422,7 +430,7 @@ let mapleader = ","
 :imap ii  <Esc>
 
 " open ag.vim
-nnoremap <leader>a :AgRaw
+nnoremap <leader>f :F<Space>
 
 " Open a new split window vertically
 nnoremap <leader>w <C-w>v<C-w>l
