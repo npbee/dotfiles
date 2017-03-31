@@ -55,6 +55,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mkitt/tabline.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Editing
 Plug 'tpope/vim-repeat'
