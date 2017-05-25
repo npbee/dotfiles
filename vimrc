@@ -69,7 +69,19 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 
+" Misc
+Plug 'janko-m/vim-test'
+
 call plug#end()
+
+" vim-test {{{
+let test#strategy = "neovim"
+
+" Set the strategies in a .vimrc.local like so
+" let g:test#javascript#jest#file_pattern = '-test\.js'
+" let g:test#javascript#jest#executable = 'npm run test-watch --prefix ./apps/sf_web'
+
+" }}}
 
 " FZF {{{
 
@@ -93,9 +105,6 @@ command! -bang -nargs=* F
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 " }}}
-
-
-" command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .<q-args>, 1, <bang>0)
 
 " Easy Align {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -154,16 +163,6 @@ let g:UltiSnipsSnippetDirectories=['UltiSnips', '~/.vim.local/UltiSnips']
 " Neoterm {{{
 if has('nvim')
     let g:neoterm_position = 'horizontal'
-
-    function! DoTest()
-        if exists("g:neoterm_npm_lib_cmd")
-            let command = g:neoterm_npm_lib_cmd . ' ' . expand('%:p')
-            :call neoterm#do(command)
-        endif
-    endfunction
-
-    " run set test lib
-    nnoremap <silent> ,rf :call DoTest()<cr>
 
     " Useful maps
     " hide/close terminal
@@ -458,6 +457,12 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+" Vim-test
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
 " }}}
 
 
