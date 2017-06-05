@@ -42,7 +42,6 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'benekastah/neomake'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
@@ -55,21 +54,20 @@ Plug 'Valloric/ListToggle'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'mkitt/tabline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Editing
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'tpope/vim-fugitive'
+
+" Utility
 Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/vim-easy-align'
-
-" Misc
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'benekastah/neomake'
 Plug 'janko-m/vim-test'
 
 call plug#end()
