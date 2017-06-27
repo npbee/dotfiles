@@ -92,7 +92,7 @@ let test#strategy = "neovim"
 " :Ag! myThing --js
 
 let g:rg_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --hidden --follow --color "always"
+  \ rg --column --line-number --no-heading --hidden --follow --color "always"
   \ -g "!{.git,node_modules}/*" '
 
 command! -bang -nargs=* F
