@@ -32,7 +32,7 @@ alias ia="open $1 -a /Applications/iA\ Writer.app"
 alias ip="curl ipecho.net/plain ; echo"
 
 # Show all aliases
-alias alis='~cat ~/.aliases'
+alias alis='cat ~/.aliases'
 
 # TMUX {{{
 alias txl='tmux ls'
