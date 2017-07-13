@@ -1,21 +1,10 @@
 # Unix
-alias tlf="tail -f"
-alias ln='ln -v'
 alias mkdir='mkdir -p'
-alias ...='../..'
 alias l='ls'
 alias ll='ls -al'
 alias lh='ls -Alh'
-alias -g G='| grep'
-alias -g M='| less'
-alias -g L='| wc -l'
-alias -g ONE="| awk '{ print \$1}'"
-alias e="$EDITOR"
-alias v="$VISUAL"
 
 # git
-alias gci="git pull --rebase && rake && git push"
-alias stpp=subtree push --prefix
 alias g="git status"
 
 # dotfiles
@@ -41,6 +30,15 @@ alias ia="open $1 -a /Applications/iA\ Writer.app"
 
 # get public IP
 alias ip="curl ipecho.net/plain ; echo"
+
+# Show all aliases
+alias alis='~cat ~/.aliases'
+
+# TMUX {{{
+alias txl='tmux ls'
+alias txn='tmux new -s'
+alias txa='tmux a -t'
+# }}}
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
