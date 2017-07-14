@@ -126,6 +126,11 @@ link_nvim() {
     ln -s ~/.vimrc ~/.config/nvim/init.vim
 }
 
+terminfo() {
+    info "Terminfo"
+    tic ./internal/terminfo/xterm-256color-italic.terminfo
+}
+
 clean_up() {
     success "Done!  Run 'source ~/.zshrc' to see changes."
 }
@@ -139,4 +144,5 @@ change_shell
 link_files
 osx_defaults
 link_nvim
+terminfo
 clean_up

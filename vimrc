@@ -643,6 +643,12 @@ endfun
 
 " }}}
 
+" MISC {{{
+" Hack to get Control-H working
+if has('nvim')
+    nmap <BS> <C-W>h
+endif
+" }}}
 
 " Local Config {{{
 

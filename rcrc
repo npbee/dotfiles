@@ -1,1 +1,1 @@
-EXCLUDES="readme.md fonts init"
+EXCLUDES="readme.md fonts init internal"
