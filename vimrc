@@ -104,14 +104,6 @@ command! -bang -nargs=* F
   \   <bang>0)
 " }}}
 
-" Easy Align {{{
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" }}}
 
 " {{{ vim-javascript
 
@@ -122,14 +114,6 @@ let g:javascript_plugin_flow = 1
 
 " Dirvish {{{
 nnoremap - :Dirvish %<CR>
-" }}}
-
-
-" Vim JSX {{{
-
-" Use JSX syntax on .js files
-" let g:jsx_ext_required=0
-
 " }}}
 
 
