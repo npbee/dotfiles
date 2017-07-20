@@ -62,6 +62,7 @@ homebrew() {
     brew_update
     brew bundle
     brew install neovim/neovim/neovim
+    gem install tmuxinator
     cd "../"
 }
 
