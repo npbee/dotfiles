@@ -28,7 +28,7 @@ eval "$(hub alias -s)"
 export CLICOLOR=1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color-italic
+export TERM=xterm-256color
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export EDITOR=nvim
