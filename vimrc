@@ -184,6 +184,14 @@ augroup my_dirvish_events
     " Map d to sort directories at the top
     autocmd FileType dirvish nnoremap <buffer> t :sort r /[^\/]$/<CR>
 augroup END
+
+
+" Sort folders at the top: >
+nmap <silent> <leader>dt :sort r /[^\/]$/<CR>
+
+" Sort folders at the bottom: >
+nmap <silent> <leader>db :sort r /\/$/<CR>
+
 " }}}
 
 " Elm {{{
