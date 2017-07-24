@@ -45,6 +45,7 @@ Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+Plug 'andres-arana/vim-nearley', { 'for': 'nearley' }
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -477,6 +478,7 @@ augroup vimrcEx
     \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
     \ set filetype=javascript
   autocmd BufRead,BufNewFile *.conf set filetype=nginx
+  autocmd BufRead,BufNewFile *.ne set filetype=nearley
 
   " Enable spellchecking for Markdown
   autocmd FileType markdown setlocal spell
