@@ -13,6 +13,7 @@ brew 'ruby'
 brew 'the_silver_searcher'
 brew 'ripgrep'
 brew 'zsh'
+brew 'reattach-to-user-namespace'
 
 cask '1password'
 cask 'alfred'

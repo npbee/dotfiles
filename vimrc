@@ -532,6 +532,9 @@ set shiftround
 " Don't add a new line
 set fileformats+=dos
 
+" Use OS clipboard
+set clipboard=unnamed
+
 " }}}
 
 
