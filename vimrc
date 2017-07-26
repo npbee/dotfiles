@@ -45,7 +45,7 @@ Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-Plug 'andres-arana/vim-nearley', { 'for': 'nearley' }
+Plug 'tjvr/vim-nearley', { 'for': 'nearley', 'commit': '8997949397ec82a5aa9ba9736ebc366b0414635e' }
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
