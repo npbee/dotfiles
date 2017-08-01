@@ -69,6 +69,7 @@ Plug 'kassio/neoterm'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'benekastah/neomake'
+Plug 'jaawerth/neomake-local-eslint-first'
 Plug 'janko-m/vim-test'
 
 call plug#end()
