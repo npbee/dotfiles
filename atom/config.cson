@@ -14,18 +14,16 @@
         "BUCK"
       ]
     disabledPackages: [
-      "tree-view"
       "linter-flow"
       "linter"
     ]
     telemetryConsent: "no"
     themes: [
       "one-dark-ui"
-      "gruvbox-plus-syntax"
+      "base16-tomorrow-dark-theme"
     ]
   editor:
     fontFamily: "PragmataPro"
-    fontSize: 12
     tabLength: 4
   "exception-reporting":
     userId: "3fc6a2df-075d-c4c5-6cac-f00afe31e117"
