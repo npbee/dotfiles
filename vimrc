@@ -34,15 +34,11 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Colors
-Plug 'morhetz/gruvbox'
 Plug 'npbee/eighty-five'
 
 " Syntax
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'tjvr/vim-nearley', { 'for': 'nearley', 'commit': '8997949397ec82a5aa9ba9736ebc366b0414635e' }
@@ -60,7 +56,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Editing
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 
 " Utility
@@ -576,23 +571,8 @@ endfunction
 function! RightSide()
     let rs = ''
 
-
-    " if exists ("neomake#statusline#LoclistStatus")
-        let errors = neomake#statusline#LoclistStatus()
-        if errors =~ 'E'
-            let rs .= "%2*"
-            let rs .= errors
-        else
-            let rs .= "%1*"
-            let rs .= errors
-        endif
-        let rs .= "%2*"
-        let rs .= " "
-    " endif
-
     " line/col info
     let rs.= "%2* col %c lines %l/%L "
-
     if exists('*fugitive#head')
         let head = fugitive#head()
 
