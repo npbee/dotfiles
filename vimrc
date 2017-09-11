@@ -120,9 +120,6 @@ nnoremap - :Dirvish %<CR>
 " let g:neomake_javascript_enabled_makers=['...']
 " let g:neomake_jsx_enabled_makers=['...']
 
-" Run neomake after every save
-autocmd! BufWritePost * Neomake
-
 " }}}
 
 
@@ -164,7 +161,6 @@ if !exists('g:test#javascript#mocha#file_pattern')
   let g:deoplete#omni#input_patterns = {}
 endif
 " let g:deoplete#disable_auto_complete = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " }}}
 
@@ -175,13 +171,6 @@ noremap <C-p> :FZF<CR>
 " }}}
 
 " Divish {{{
-augroup my_dirvish_events
-    autocmd!
-
-    " Map d to sort directories at the top
-    autocmd FileType dirvish nnoremap <buffer> t :sort r /[^\/]$/<CR>
-augroup END
-
 
 " Sort folders at the top: >
 nmap <silent> <leader>dt :sort r /[^\/]$/<CR>
@@ -217,6 +206,9 @@ syntax on
 set background=dark
 set termguicolors
 colorscheme eighty-five
+
+" Stop highlighting after 200 length column
+set synmaxcol=200
 
 " }}}
 
@@ -325,7 +317,7 @@ set foldnestmax=10
 nnoremap <space> za
 
 " Fold based on indent
-set foldmethod=indent
+set foldmethod=manual
 
 " }}}
 
@@ -410,39 +402,45 @@ nmap <silent> <leader>tg :TestVisit<CR>
 " These group autocommands together so that they don't happen more than once
 " when the vimrc is reread
 
-augroup vimrcEx
-  autocmd!
+augroup npbee
+    autocmd!
 
-  " Return to last edit position when opening files (You want this!) "
-  autocmd BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+    autocmd! BufWritePost * Neomake
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-  autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
-  autocmd BufRead,BufNewFile
-    \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
-    \ set filetype=javascript
-  autocmd BufRead,BufNewFile *.conf set filetype=nginx
-  autocmd BufRead,BufNewFile *.ne set filetype=nearley
+    " Map d to sort directories at the top
+    autocmd FileType dirvish nnoremap <buffer> t :sort r /[^\/]$/<CR>
 
-  " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
+    " Return to last edit position when opening files (You want this!) "
+    autocmd BufReadPost *
+                \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+                \   exe "normal g`\"" |
+                \ endif
 
-  " Automatically wrap at 80 characters for Markdown
-  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+    " Set syntax highlighting for specific file types
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+    autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
+    autocmd BufRead,BufNewFile
+                \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
+                \ set filetype=javascript
+    autocmd BufRead,BufNewFile *.conf set filetype=nginx
+    autocmd BufRead,BufNewFile *.ne set filetype=nearley
 
-  " Allow stylesheets to autocomplete hyphenated words
-  autocmd FileType css,scss,sass setlocal iskeyword+=-
+    " Enable spellchecking for Markdown
+    autocmd FileType markdown setlocal spell
 
-  " Trim whitespace on save
-  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-  autocmd BufWinLeave * call clearmatches()
+    " Automatically wrap at 80 characters for Markdown
+    autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+
+    " Allow stylesheets to autocomplete hyphenated words
+    autocmd FileType css,scss,sass setlocal iskeyword+=-
+
+    " Trim whitespace on save
+    autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
 augroup END
 
 " }}}
