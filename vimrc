@@ -317,7 +317,7 @@ set foldnestmax=10
 nnoremap <space> za
 
 " Fold based on indent
-set foldmethod=manual
+set foldmethod=indent
 
 " }}}
 
