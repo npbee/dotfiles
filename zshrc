@@ -22,6 +22,12 @@ done
 autoload -U promptinit && promptinit
 prompt pure
 
+# Auto suggestions
+source $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Z
+source $HOME/.zsh/plugins/z/z.sh
+
 # Hub
 eval "$(hub alias -s)"
 

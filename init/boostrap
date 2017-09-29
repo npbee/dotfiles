@@ -83,6 +83,22 @@ zsh() {
     else
         success "Pure prompt already installed."
     fi
+
+    info "Installing zsh autosuggestion"
+    if ! [ -d zsh/plugins/zsh-autosuggestions ]
+    then
+        git clone git://github.com/zsh-users/zsh-autosuggestions zsh/plugins/zsh-autosuggestions
+    else
+        success "ZSH autosuggestions already installed."
+    fi
+
+    info "Installing z"
+    if ! [ -d zsh/plugins/z ]
+    then
+        git clone git@github.com:rupa/z.git zsh/plugins/z
+    else
+        success "Z already installed."
+    fi
 }
 
 change_shell() {
