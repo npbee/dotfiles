@@ -63,9 +63,10 @@ Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'benekastah/neomake'
-Plug 'jaawerth/neomake-local-eslint-first'
+" Plug 'benekastah/neomake'
+" Plug 'jaawerth/neomake-local-eslint-first'
 Plug 'janko-m/vim-test'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -99,6 +100,13 @@ command! -bang -nargs=* F
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+" }}}
+
+" Ale {{{
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['json'] = ['prettier']
+let g:ale_fix_on_save = 1
 " }}}
 
 
@@ -440,7 +448,7 @@ nmap <silent> <leader>tg :TestVisit<CR>
 augroup npbee
     autocmd!
 
-    autocmd! BufWritePost * Neomake
+    " autocmd! BufWritePost * Neomake
     autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
     " Map d to sort directories at the top
