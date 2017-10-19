@@ -176,6 +176,7 @@ endif
 
 " Do fuzzy finder on Ctrl + P
 noremap <C-p> :FZF<CR>
+noremap ; :Buffers<CR>
 " }}}
 
 " Divish {{{
