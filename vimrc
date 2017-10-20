@@ -106,7 +106,16 @@ command! -bang -nargs=* F
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['json'] = ['prettier']
+let g:ale_fixers['json'] = ['prettier']
+let g:ale_linters = {}
+let g:ale_linters['javascript'] = ['flow']
 let g:ale_fix_on_save = 1
+let g:ale_sign_error = 'X' " could use emoji
+let g:ale_sign_warning = '?' " could use emoji
+let g:ale_statusline_format = ['X %d', '? %d', '']
+" %linter% is the name of the linter that provided the message
+" %s is the error or warning message
+let g:ale_echo_msg_format = '%linter% says %s'
 " }}}
 
 
