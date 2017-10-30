@@ -41,7 +41,6 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-Plug 'tjvr/vim-nearley', { 'for': 'nearley', 'commit': '8997949397ec82a5aa9ba9736ebc366b0414635e' }
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -63,8 +62,6 @@ Plug 'tpope/vim-commentary'
 Plug 'kassio/neoterm'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'benekastah/neomake'
-" Plug 'jaawerth/neomake-local-eslint-first'
 Plug 'janko-m/vim-test'
 Plug 'w0rp/ale'
 
@@ -84,10 +81,10 @@ let test#strategy = "neovim"
 " Custom searching command.  Basically just allows for passing ag arguments
 " directly
 " Usage
-" :Ag myThing --js
+" :F myThing -tjs
 "
 " With preview
-" :Ag! myThing --js
+" :F! myThing -tjs
 
 let g:rg_command = '
   \ rg --column --line-number --no-heading --hidden --follow --color "always"
@@ -113,6 +110,7 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_error = 'X' " could use emoji
 let g:ale_sign_warning = '?' " could use emoji
 let g:ale_statusline_format = ['X %d', '? %d', '']
+
 " %linter% is the name of the linter that provided the message
 " %s is the error or warning message
 let g:ale_echo_msg_format = '%linter% says %s'
@@ -128,15 +126,6 @@ let g:javascript_plugin_flow = 1
 
 " Dirvish {{{
 nnoremap - :Dirvish %<CR>
-" }}}
-
-
-" NeoMake {{{
-
-" Define makers in the vimrc.local file like so:
-" let g:neomake_javascript_enabled_makers=['...']
-" let g:neomake_jsx_enabled_makers=['...']
-
 " }}}
 
 
@@ -159,25 +148,20 @@ if has('nvim')
 
     " Useful maps
     " hide/close terminal
-    nnoremap <silent> ,th :call neoterm#close()<cr>
+    nnoremap <silent> <leader>th :call neoterm#close()<cr>
     " open terminal
-    nnoremap <silent> ,to :call neoterm#open()<cr>
+    nnoremap <silent> <leader>to :call neoterm#open()<cr>
     " clear terminal
-    nnoremap <silent> ,tl :call neoterm#clear()<cr>
-    " kills the current job (send a <c-c>)
-    nnoremap <silent> ,tc :call neoterm#kill()<cr>
+    nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
+    " kills the currentleader> job (send a <c-c>)
+    nnoremap <silent> <leader>tc :call neoterm#kill()<cr>
 
 endif
 " }}}
 
-
 " Deoplete {{{
 
 let g:deoplete#enable_at_startup = 1
-if !exists('g:test#javascript#mocha#file_pattern')
-  let g:deoplete#omni#input_patterns = {}
-endif
-" let g:deoplete#disable_auto_complete = 1
 
 " }}}
 
@@ -185,7 +169,6 @@ endif
 
 " Do fuzzy finder on Ctrl + P
 noremap <C-p> :FZF<CR>
-noremap ; :Buffers<CR>
 " }}}
 
 " Divish {{{
@@ -409,9 +392,6 @@ noremap <D-0> :tablast<CR>
 
 " Leader
 let mapleader = ","
-
-" toggle out of insert mode
-:imap ii  <Esc>
 
 " open ag.vim
 nnoremap <leader>f :F<Space>
