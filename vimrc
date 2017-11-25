@@ -1,216 +1,113 @@
-" Launch Config {{{ "
-" Use Vim settings, rather then Vi settings. This setting must be as early as
-" possible, as it has side effects.
-set nocompatible
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
 
-if !has('nvim')
-    set encoding=utf-8
-endif
-
-" Check 1 line for local commands to the buffer
-set modelines=1
-
-" Set the amount of commands and search patterns that are remembered
-set history=500
-
-" Use this for local config options like local snippets
-set runtimepath+=~/.vim.local/
-
-" }}}
-
-
-" Plugins {{{
-
-function! DoRemote(arg)
-    UpdateRemotePlugins
-endfunction
-
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
+" ============================================================================
+" PLUGINS {{{
+" ============================================================================
+silent! if plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'npbee/eighty-five'
 
-" Syntax
+" Lang
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+
+" Editing
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
-Plug 'Valloric/ListToggle'
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-eunuch'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'christoomey/vim-tmux-navigator'
 
-" Editing
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-
 " Utility
-Plug 'tpope/vim-commentary'
-Plug 'kassio/neoterm'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'janko-m/vim-test'
 Plug 'w0rp/ale'
+Plug 'kassio/neoterm'
+Plug 'janko-m/vim-test'
 
 call plug#end()
-
-" vim-test {{{
-let test#strategy = "neovim"
-
-" Set the strategies in a .vimrc.local like so
-" let g:test#javascript#jest#file_pattern = '-test\.js'
-" let g:test#javascript#jest#executable = 'npm run test-watch --prefix ./apps/sf_web'
-
-" }}}
-
-" FZF {{{
-
-" Custom searching command.  Basically just allows for passing ag arguments
-" directly
-" Usage
-" :F myThing -tjs
-"
-" With preview
-" :F! myThing -tjs
-
-let g:rg_command = '
-  \ rg --column --line-number --no-heading --hidden --follow --color "always"
-  \ -g "!{.git,node_modules}/*" '
-
-command! -bang -nargs=* F
-  \ call fzf#vim#grep(
-  \ g:rg_command.<q-args>,
-  \ 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-" }}}
-
-" Ale {{{
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['json'] = ['prettier']
-let g:ale_fixers['json'] = ['prettier']
-let g:ale_linters = {}
-let g:ale_linters['javascript'] = ['flow']
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = 'X' " could use emoji
-let g:ale_sign_warning = '?' " could use emoji
-let g:ale_statusline_format = ['X %d', '? %d', '']
-
-" %linter% is the name of the linter that provided the message
-" %s is the error or warning message
-let g:ale_echo_msg_format = '%linter% says %s'
-let g:ale_sign_column_always = 1
-" }}}
-
-
-" {{{ vim-javascript
-
-let g:javascript_plugin_flow = 1
-
-" }}}
-
-
-" Dirvish {{{
-nnoremap - :Dirvish %<CR>
-" }}}
-
-
-" Ultisnips {{{
-
-let g:UltiSnipsEditSplit="context"
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
-let g:UltiSnipsSnippetsDir="~/.dotfiles/vim/UltiSnips"
-let g:UltiSnipsSnippetDirectories=['UltiSnips', '~/.vim.local/UltiSnips']
-
-" }}}
-
-
-" Neoterm {{{
-if has('nvim')
-    let g:neoterm_position = 'horizontal'
-
-    " Useful maps
-    " hide/close terminal
-    nnoremap <silent> <leader>th :call neoterm#close()<cr>
-    " open terminal
-    nnoremap <silent> <leader>to :call neoterm#open()<cr>
-    " clear terminal
-    nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
-    " kills the currentleader> job (send a <c-c>)
-    nnoremap <silent> <leader>tc :call neoterm#kill()<cr>
-
 endif
-" }}}
-
-" Deoplete {{{
-
-let g:deoplete#enable_at_startup = 1
-
-" }}}
 
 " FZF {{{
-
-" Do fuzzy finder on Ctrl + P
-noremap <C-p> :FZF<CR>
-" }}}
-
-" Divish {{{
-
-" Sort folders at the top: >
-nmap <silent> <leader>dt :sort r /[^\/]$/<CR>
-
-" Sort folders at the bottom: >
-nmap <silent> <leader>db :sort r /\/$/<CR>
-
-" }}}
-
-" }}}
-
-
-" Omnifuncs {{{
-
-augroup omnifuncs
-  autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+"}}}
 
 " }}}
+" ============================================================================
 
+
+" ============================================================================
+" INIT {{{
+" ============================================================================
+
+" Use Vim settings, rather then Vi settings. This setting must be as early as
+" possible, as it has side effects.
+set nocompatible
+
+" Allow for custom indent settings from plugins
+filetype plugin indent on
+
+let mapleader = " "
+
+augroup vimrc
+    autocmd!
+augroup END
+
+set autowrite           " Automatically :write before running commands
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set clipboard=unnamed   " Use OS clipboard
+set colorcolumn=80
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set encoding=utf-8
+set expandtab           " Tabs are spaces
+set foldlevelstart=10
+set foldmethod=indent
+set history=200         " The amount of commands remembered
+set hlsearch
+set incsearch
+set laststatus=2
+set lazyredraw
+set list
+set listchars=tab:»·,trail:·
+set number              " Show line numbers
+set relativenumber
+set scrolloff=3
+set shiftround
+set shiftwidth=4
+set showmode
+set statusline=%!StatusLine()
+set synmaxcol=200
+set textwidth=0
+set wildmenu
+set wildmode=list:longest,list:full
+set writebackup
 
 " Colors {{{
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-" Sets stuff for iTerm
 syntax on
 set background=dark
 set termguicolors
 colorscheme eighty-five
 
-" Stop highlighting after 200 length column
-set synmaxcol=200
+" Highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=#fb4934
 
 " Hack to support neovim term colors
 if has('nvim')
@@ -246,228 +143,59 @@ if has('nvim')
   let g:terminal_color_7 = "#a89984"
   let g:terminal_color_15 = "#ebdbb2"
 endif
- -
 " }}}
 
-
-" Spaces & Tabs {{{
-
-" 4 space tab
-set tabstop=4
-set softtabstop=4
-
-" Tabs are spaces
-set expandtab
-
 " }}}
+" ============================================================================
 
 
-" UI Settings {{{
+" ============================================================================
+" MAPPINGS {{{
+" ============================================================================
 
-" Highlight trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=#fb4934
-match ExtraWhitespace /\s\+$/
+" Turn of search highlighting
+nnoremap <leader><space> :nohlsearch<CR>
 
-" show line numbers
-set number
-set numberwidth=3
+" Do fuzzy finder on Ctrl + P
+noremap <C-p> :FZF<CR>
 
-" Give a relative count from the current cursor position
-set relativenumber
-
-" Make it obvious where 80 characters is"
-set textwidth=80
-
-" Do not autowrap
-set fo-=t
-
-" show the cursor position all the time
-set ruler
-
-" Show the command in the bottom bar
-set showcmd
-
-" This gives some buffer above a line when going to a line
-set scrolloff=3
-
-" Highlight the current line"
-set cursorline
-
-" Allow for custom indent settings from plugins
-filetype plugin indent on
-
-" Allow for the popup window thing to appear when using tab completion
-set wildmenu
-set wildmode=list:longest,list:full
-
-" Only redraw when needed
-set lazyredraw
-
-" Highlight matching delimiters
-set showmatch
-
-" This makes vim slow......
-let loaded_matchparen = 1
-
-" Highlight 1 column after the max width
-set colorcolumn=+1
-
-" Always display the status line
-set laststatus=2
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·
-
-" When opening a new vertical split, open it below the current buffer
-set splitbelow
-
-" When opening a new horizontal split, open it to the right of the current
-" buffer
-set splitright
-
-" }}}
-
-
-" Searching {{{
-
-" Search as characters entered
-set incsearch
-
-" Highlight matches
-set hlsearch
-
-" }}}
-
-
-" Folder {{{
-
-" enable folding
-set foldenable
-
-" Open most folds by default
-set foldlevelstart=10
-
-" Limit nested folding
-set foldnestmax=10
-
-" Set space to unfold
-nnoremap <space> za
-
-" Fold based on indent
-set foldmethod=indent
-
-" }}}
-
-
-" Movement {{{
-
-" Move lines visually (don't skip lines that are wrapped into two lines)
-nnoremap j gj
-nnoremap k gk
-
-" Highlight last inserted text
-nnoremap gV `[v`]
-
-" Switch between tabs
-"Press Ctrl-Tab to switch between open tabs (like browser tabs) to
-" the right side. Ctrl-Shift-Tab goes the other way.
-noremap <C-Tab> :tabnext<CR>
-noremap <C-S-Tab> :tabprev<CR>
-
-" Switch to specific tab numbers with Command-number
-noremap <D-1> :tabn 1<CR>
-noremap <D-2> :tabn 2<CR>
-noremap <D-3> :tabn 3<CR>
-noremap <D-4> :tabn 4<CR>
-noremap <D-5> :tabn 5<CR>
-noremap <D-6> :tabn 6<CR>
-noremap <D-7> :tabn 7<CR>
-noremap <D-8> :tabn 8<CR>
-noremap <D-9> :tabn 9<CR>
-" Command-0 goes to the last tab
-noremap <D-0> :tablast<CR>
-
-" }}}
-
-" Leader Shortcuts {{{
-
-" Leader
-let mapleader = ","
-
-" open ag.vim
+" Search
 nnoremap <leader>f :F<Space>
+
+" Map control+S to save
+noremap <C-S>          :update<CR>
+vnoremap <C-S>         <C-C>:update<CR>
+inoremap <C-S>         <C-O>:update<CR>
 
 " Open a new split window vertically
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>e <C-w>s<C-w>l
 
-" Easier moving around windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Maps '%%' when in command mode to the active file directory
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Turn of search highlighting
-nnoremap <leader><space> :nohlsearch<CR>
+" Hack to get Control-H working
+if has('nvim')
+    nmap <BS> <C-W>h
+endif
 
-" " Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
-
-" " Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
-
-" Vim-test
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
 " }}}
+" ============================================================================
 
 
-" Autogroups {{{
+" ============================================================================
+" AUTOCMD {{{
+" ============================================================================
 
-" These group autocommands together so that they don't happen more than once
-" when the vimrc is reread
+augroup vimrc
 
-augroup npbee
-    autocmd!
-
-    " autocmd! BufWritePost * Neomake
-    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    " Map d to sort directories at the top
-    autocmd FileType dirvish nnoremap <buffer> t :sort r /[^\/]$/<CR>
-
-    " Return to last edit position when opening files (You want this!) "
-    autocmd BufReadPost *
-                \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-                \   exe "normal g`\"" |
-                \ endif
-
-    " Set syntax highlighting for specific file types
-    autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd BufRead,BufNewFile  *.ejs,*.EJS set filetype=html
+    " File Types
+    autocmd BufRead,BufNewFile *.md             set filetype=markdown
+    autocmd BufRead,BufNewFile *.ejs,*.EJS      set filetype=html
+    autocmd BufRead,BufNewFile *.conf           set filetype=nginx
     autocmd BufRead,BufNewFile
-                \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
-                \ set filetype=javascript
-    autocmd BufRead,BufNewFile *.conf set filetype=nginx
-    autocmd BufRead,BufNewFile *.ne set filetype=nearley
-
-    " Enable spellchecking for Markdown
-    autocmd FileType markdown setlocal spell
-
-    " Automatically wrap at 80 characters for Markdown
-    autocmd BufRead,BufNewFile *.md setlocal textwidth=80
-
-    " Allow stylesheets to autocomplete hyphenated words
-    autocmd FileType css,scss,sass setlocal iskeyword+=-
+        \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
+        \ set filetype=javascript
 
     " Trim whitespace on save
     autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
@@ -478,55 +206,23 @@ augroup npbee
 augroup END
 
 " }}}
+" ============================================================================
 
 
-" Saving {{{
+" ============================================================================
+" FUNCTIONS {{{
+" ============================================================================
 
-" Automatically :write before running commands
-set autowrite
-
-" Map control+S to save
-noremap <C-S>          :update<CR>
-vnoremap <C-S>         <C-C>:update<CR>
-inoremap <C-S>         <C-O>:update<CR>
-
-" Change the directory where VIM does backups and swapfiles
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
-
-" }}}
-
-
-" Editing {{{
-
-" Backspace deletes like most programs in insert mode
-set backspace=2
-
-" Set the autoindenting to four and round all to that number
-set shiftwidth=4
-set shiftround
-
-" Don't add a new line
-set fileformats+=dos
-
-" Use OS clipboard
-set clipboard=unnamed
-
-" }}}
-
-
-" Remaps {{{
-if has('nvim')
-    :tnoremap <Esc> <C-\><C-n>
-endif
-" }}}
-
+" Strips trailing white space and restores the cursor after.  Avoids having the
+" cursor jump to the last replaced whitespace after saving.
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
 
 " Statusline {{{
-
 function! FileModes()
     let fm = '%2*'
 
@@ -577,40 +273,39 @@ function! StatusLine()
     return statusl
 endfunction
 
-set showmode
-set statusline=%!StatusLine()
-
 " }}}
 
+" Searching {{{
+" Custom searching command.  Basically just allows for passing ag arguments
+" directly
+" Usage
+" :F myThing -tjs
+"
+" With preview
+" :F! myThing -tjs
 
-" {{{ Utilities
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --hidden --follow --color "always"
+  \ -g "!{.git,node_modules}/*" '
 
-" Strips trailing white space and restores the cursor after.  Avoids having the
-" cursor jump to the last replaced whitespace after saving.
-function! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-
+command! -bang -nargs=* F
+  \ call fzf#vim#grep(
+  \ g:rg_command.<q-args>,
+  \ 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 " }}}
 
-" MISC {{{
-" Hack to get Control-H working
-if has('nvim')
-    nmap <BS> <C-W>h
-endif
 " }}}
+" ============================================================================
 
-" Local Config {{{
 
-" Reads anything in a .vimrc.local
+" ============================================================================
+" LOCAL VIMRC {{{
+" ============================================================================
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
 " }}}
-
-" Local command to folder on a marker
-" vim:foldmethod=marker:foldlevel=0
+" ============================================================================
