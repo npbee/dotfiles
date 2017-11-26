@@ -15,6 +15,7 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 " Editing
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,6 +31,11 @@ Plug 'janko-m/vim-test'
 
 call plug#end()
 endif
+
+
+" Deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" }}}
 
 " FZF {{{
 let g:fzf_colors =
@@ -203,6 +209,10 @@ augroup vimrc
     autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
     autocmd BufWinLeave * call clearmatches()
+
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
 " }}}
