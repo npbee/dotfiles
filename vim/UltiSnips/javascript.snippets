@@ -1,16 +1,3 @@
-snippet subscribe "KO Subscribe" b
-${1:observable}.subscribe(function(${2:newValue}) {
-	console.log($2);
-});
-
-endsnippet
-
-
-snippet define "AMD Define" b
-define([$1], function($2) {
-});
-endsnippet
-
 snippet com "JS Comment Header" b
 /*******************************************************************************
  * $1
@@ -19,115 +6,41 @@ snippet com "JS Comment Header" b
  ******************************************************************************/
 endsnippet
 
-snippet kocomp "Knockout Component" b
-define([
-	'knockout',
-	'app/viewModel/base',
-	'text!${1:./template.html}'
-], function(ko, BaseViewModel, template) {
-
-	var ViewModel = function(params) {
-		BaseViewModel.call(this);
-
-		$2
-	};
-
-    ViewModel.prototype = Object.create(BaseViewModel.prototype);
-    ViewModel.prototype.constructor = ViewModel;
-
-	return {
-		viewModel: ViewModel,
-		template: template
-	};
-});
-endsnippet
-
-snippet kobind "KO Binding Handler" b
-ko.bindingHandlers.$1 = {
-	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-		$2
-	},
-	update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-	}
-
-};
-endsnippet
-
-
-
-
 snippet rcc "React Component Class" b
-import React, { Component } from 'react';
+import * as React from 'react';
 
-export class ${1:ClassName} extends Component {
+export class ${1:ClassName} extends React.Component {
 
-	render() {
-		return <$2></$2>;
-	}
+    render() {
+        return <$2></$2>;
+    }
 }
 
 export default $1;
 endsnippet
 
 snippet rcf "React Component Function" b
-import React from 'react';
+import * as React from 'react';
 
 export function ${1:ComponentName}(props) {
-	return <$2></$2>;
+    return <$2></$2>;
 }
 
 export default $1;
 
 endsnippet
 
-snippet test "Tape test suite" b
-import test from 'tape';
-import ${1:The Module} from '../$2';
-
-test(':::: ${3: The feature} ::::', t => t.end());
-
-test('${4:The test}', t => {
-	t.ok(true, 'should do something');
-	t.end();
-});
-
-endsnippet
-
-snippet testr "Tape test React Component" b
-import React from 'react';
-import test from 'tape';
-import { shallow } from 'enzyme';
-import ${1:The Module} from '../${2:$1}';
-
-test(':::: ${3: The teature} ::::', t => t.end());
-
-test('${4:The test}', t => {
-	t.ok(true, 'should do something');
-
-	t.end();
-});
-endsnippet
-
-snippet t "Tape single test" b
-test('$1', t => {
-
-	$2
-
-	t.end();
-});
-endsnippet
-
 snippet rhof "React Higher Order Component Function" b
-import React from 'react';
+import * as React from 'react';
 
 export function $1(ComposedComponent) {
-	function $2(props) {
-		return <ComposedComponent
-			{...props}
-		/>;
-	}
+    function $2(props) {
+        return <ComposedComponent
+        {...props}
+        />;
+    }
 
-	return $1;
+    return $1;
 }
 
 export default $1;
@@ -135,16 +48,16 @@ endsnippet
 
 
 snippet rhoc "React Higher Order Component Class" n
-import React, { Component } from 'react';
+import * as React from 'react';
 
 export function $1(ComposedComponent) {
-	return class $2 extends Component {
-		render() {
-			return <ComposedComponent
-				{...this.props}
-			/>;
-		}
-	};
+    return class $2 extends React.Component {
+        render() {
+            return <ComposedComponent
+                {...this.props}
+            />;
+        }
+    };
 }
 
 export default $1;
@@ -153,18 +66,4 @@ endsnippet
 
 snippet const "Quick const"
 const $1 = '$1';
-endsnippet
-
-snippet setup "Test Setup" b
-const setup = propOverrides => {
-	const props = {
-		$2,
-		...propOverrides,
-	};
-
-	const wrapper = shallow(<${1:Component} {...props} />);
-
-	return { wrapper, ...props };
-};
-
 endsnippet

@@ -16,6 +16,7 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
