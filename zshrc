@@ -39,7 +39,7 @@ export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*"'
 
 
 # Special iTerm escape sequences for stylin'
