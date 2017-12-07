@@ -10,6 +10,7 @@ Plug 'npbee/eighty-five'
 
 " Lang
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 
 " Editing
@@ -33,6 +34,14 @@ Plug 'janko-m/vim-test'
 call plug#end()
 endif
 
+" vim-test {{{
+let test#strategy = "neovim"
+
+" Set the strategies in a .vimrc.local like so
+" let g:test#javascript#jest#file_pattern = '-test\.js'
+" let g:test#javascript#jest#executable = 'npm run test-watch --prefix ./apps/sf_web'
+
+" }}}
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
@@ -189,7 +198,15 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Hack to get Control-H working
 if has('nvim')
     nmap <BS> <C-W>h
+    :tnoremap <Esc> <C-\><C-n>
 endif
+
+" Vim-test
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
 
 " }}}
 " ============================================================================
