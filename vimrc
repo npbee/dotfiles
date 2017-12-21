@@ -12,6 +12,7 @@ Plug 'npbee/eighty-five'
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 " Editing
 Plug 'tpope/vim-commentary'
@@ -173,6 +174,7 @@ endif
 " ============================================================================
 " MAPPINGS {{{
 " ============================================================================
+nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn of search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
@@ -246,6 +248,15 @@ augroup END
 " FUNCTIONS {{{
 " ============================================================================
 
+" Toggle fixing on saving for ales
+function! ToggleFixOnSave()
+    if g:ale_fix_on_save
+        let g:ale_fix_on_save = 0
+    else
+        let g:ale_fix_on_save = 1
+    endif
+endfunction
+
 " Strips trailing white space and restores the cursor after.  Avoids having the
 " cursor jump to the last replaced whitespace after saving.
 function! <SID>StripTrailingWhitespaces()
@@ -277,6 +288,12 @@ function! LeftSide()
     let ls.='%2* %f '
     let ls.='%4* %y %1*'
     let ls.=FileModes()
+
+    let l:fixing = g:ale_fix_on_save
+
+    if l:fixing == 1
+        let ls.='%3*'
+    endif
 
     return ls
 endfunction
