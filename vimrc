@@ -290,7 +290,7 @@ endfunction
 
 function! LeftSide()
     let ls = ''
-    let ls.='%2* %f '
+    let ls.='%2* %f'
     let ls.='%4* %y %1*'
     let ls.=FileModes()
 
@@ -307,7 +307,7 @@ function! RightSide()
     let rs = ''
 
     " line/col info
-    let rs.= "%2* col %c lines %l/%L "
+    let rs.= "%2* %c • %l/%L "
     if exists('*fugitive#head')
         let head = fugitive#head()
 
