@@ -18,6 +18,7 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'wokalski/autocomplete-flow'
 Plug 'SirVer/ultisnips'
 
 " Browsing
@@ -115,6 +116,7 @@ set scrolloff=3
 set shiftround
 set shiftwidth=4
 set showmode
+set splitbelow
 set statusline=%!StatusLine()
 set synmaxcol=200
 set textwidth=0
@@ -238,6 +240,9 @@ augroup vimrc
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+    " Close preview after autocomplete
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup END
 
 " }}}
