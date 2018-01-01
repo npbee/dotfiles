@@ -13,6 +13,8 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
+Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 
 " Editing
 Plug 'tpope/vim-commentary'
