@@ -69,7 +69,7 @@ let g:fzf_colors =
 "}}}
 
 " Ale {{{
-let g:ale_fixers = {'javascript': ['prettier']}
+let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier']}
 let g:ale_fix_on_save = 1
 " }}}
 
@@ -213,6 +213,9 @@ nmap <silent> <leader>tf :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
+
+nnoremap <tab> :bnext<cr>
+nnoremap <S-tab> :bprev<cr>
 
 " }}}
 " ============================================================================
