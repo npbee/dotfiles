@@ -214,8 +214,13 @@ nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
+" Cycle through buffers with tab
 nnoremap <tab> :bnext<cr>
 nnoremap <S-tab> :bprev<cr>
+
+" in visual mode, use tab for indenting
+xnoremap <tab> >gv
+xnoremap <s-tab> <gv
 
 " }}}
 " ============================================================================
