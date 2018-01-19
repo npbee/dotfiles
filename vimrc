@@ -70,7 +70,7 @@ let g:fzf_colors =
 "}}}
 
 " Ale {{{
-let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier']}
+let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier'], 'markdown': ['prettier']}
 let g:ale_fix_on_save = 1
 " }}}
 
