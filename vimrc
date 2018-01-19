@@ -18,7 +18,8 @@ Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 
 " Editing
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'wokalski/autocomplete-flow'
 Plug 'SirVer/ultisnips'
