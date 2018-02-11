@@ -184,8 +184,15 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 " Turn of search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
 
-" Do fuzzy finder on Ctrl + P
-noremap <C-p> :FZF<CR>
+" Fuzzy find files
+nnoremap <leader>p :FZF<CR>
+
+" Fuzzy find at a specific path
+nnoremap <leader>? :FZF<space>
+
+" Fuzzy find buffers
+nnoremap <leader>b :Buffers<CR>
+
 
 " Search
 nnoremap <leader>f :F<Space>
@@ -218,6 +225,7 @@ nmap <silent> <leader>tg :TestVisit<CR>
 " Cycle through buffers with tab
 nnoremap <tab> :bnext<cr>
 nnoremap <S-tab> :bprev<cr>
+nnoremap <C-X> :bdelete<CR>
 
 " in visual mode, use tab for indenting
 xnoremap <tab> >gv
@@ -254,6 +262,11 @@ augroup vimrc
 
     " Close preview after autocomplete
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+    autocmd! FileType fzf
+    autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 augroup END
 
 " }}}
