@@ -44,3 +44,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules
 
 # Special iTerm escape sequences for stylin'
 echo -e "\033]6;1;bg;red;brightness;50\a" && echo -e "\033]6;1;bg;green;brightness;50\a" && echo -e "\033]6;1;bg;blue;brightness;50\a" && clear
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
