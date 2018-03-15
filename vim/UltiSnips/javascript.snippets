@@ -78,3 +78,15 @@ snippet /**
  *
  */
 endsnippet
+
+snippet bind "Bind React Method"
+this.${1:FunctionName} = this.$1.bind(this);
+endsnippet
+
+snippet construct "React Constructor"
+constructor(props) {
+    super(props)
+
+    $0
+}
+endsnippet

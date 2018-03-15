@@ -40,7 +40,9 @@ call plug#end()
 endif
 
 " vim-test {{{
-let test#strategy = "neovim"
+let test#strategy = "neoterm"
+
+let g:neoterm_position = "vertical"
 
 " Set the strategies in a .vimrc.local like so
 " let g:test#javascript#jest#file_pattern = '-test\.js'
