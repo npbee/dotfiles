@@ -42,11 +42,16 @@ endif
 " vim-test {{{
 let test#strategy = "neoterm"
 
-let g:neoterm_position = "vertical"
 
 " Set the strategies in a .vimrc.local like so
 " let g:test#javascript#jest#file_pattern = '-test\.js'
 " let g:test#javascript#jest#executable = 'npm run test-watch --prefix ./apps/sf_web'
+
+" }}}
+
+" neoterm {{{
+"
+let g:neoterm_position = "vertical"
 
 " }}}
 
@@ -224,6 +229,15 @@ nmap <silent> <leader>tf :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
+
+" neoterm
+
+" Toggle terminal window
+nmap <silent> <leader>tt :Ttoggle<CR>
+
+" CLose terminal window and kill the process
+nmap <silent> <leader>tx :Tclose!<CR>
+
 
 " Cycle through buffers with tab
 nnoremap <tab> :bnext<cr>
