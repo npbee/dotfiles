@@ -51,7 +51,7 @@ let test#strategy = "neoterm"
 
 " neoterm {{{
 "
-let g:neoterm_position = "vertical"
+let g:neoterm_default_mod = "vertical"
 
 " }}}
 
