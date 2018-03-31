@@ -277,7 +277,7 @@ augroup vimrc
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
-    autocmd Filetype gitcommit textwidth=72
+    autocmd Filetype gitcommit setlocal textwidth=72
 
     " Close preview after autocomplete
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
