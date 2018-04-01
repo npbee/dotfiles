@@ -61,4 +61,4 @@
     header = "#CFBC97" ; grey
     ; changed = red
     changed = "#E25C5C"
-    untracked = cyan
+    untracked = yellow

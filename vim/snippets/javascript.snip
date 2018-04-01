@@ -1,0 +1,53 @@
+snippet cl
+abbr cl
+options head
+  console.log(${0:TARGET})
+
+snippet const
+options head
+  const ${1:THING} = "$1";
+
+snippet /**
+options head
+  /**
+   * ${0:#:description}
+   */
+
+# React Component Class
+snippet rcc
+abbr React Component Class
+options head
+  import * as React from 'react';
+
+  class ${1:ComponentName} extends React.Component {
+        render() {
+                return <${2:div}>$1</$2>;
+        }
+  }
+
+  export default $1;
+
+snippet rcf
+abbr React Component Function
+options head
+  import * as React from 'react';
+
+  function ${1:ComponentName}(props) {
+  return <${2:div}>$1</$2>;
+  }
+
+  export default $1;
+
+snippet bind
+abbr Bind React Method
+options head
+  this.${1:method} = this.$1.bind(this);
+
+snippet construct
+abbr React Constructor
+options head
+  constructor(props) {
+      super(props);
+
+      ${1}
+  }

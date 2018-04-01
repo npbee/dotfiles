@@ -21,9 +21,16 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-commentary'
 " Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'wokalski/autocomplete-flow'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
+Plug 'Shougo/neosnippet.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -39,6 +46,19 @@ Plug 'janko-m/vim-test'
 
 call plug#end()
 endif
+
+" {{{ neosnippet
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+let g:neosnippet#disable_runtime_snippets = {
+            \ '_': 1,
+            \}
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" }}}
 
 " vim-test {{{
 let test#strategy = "neoterm"
@@ -56,6 +76,22 @@ let test#strategy = "neoterm"
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
+" }}}
+
+" Async Complete {{{
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+    \ 'name': 'neosnippet',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+    \ }))
+
 " }}}
 
 " FZF {{{
