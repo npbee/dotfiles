@@ -33,8 +33,8 @@
 [http]
     postBuffer = 52428800
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = white bold red
+    oldNormal = "#E25C5C" bold
+    oldHighlight = white bold "#e07d7d"
     newNormal = "#7DA76B" bold
     newHighlight = white bold "#7DA76B"
 [color "decorate"]
@@ -42,7 +42,7 @@
     remoteBranch = red
 [color "diff"]
     ; Meta info at top
-    meta = "#877869" ; grey
+    meta = white
 
     ; Hunk header
     ; frag = magenta dim
