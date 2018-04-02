@@ -12,6 +12,7 @@ brew 'rcm'
 brew 'ruby'
 brew 'the_silver_searcher'
 brew 'ripgrep'
+brew 'tree'
 brew 'zsh'
 brew 'reattach-to-user-namespace'
 

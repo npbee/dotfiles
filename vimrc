@@ -15,14 +15,21 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
+Plug 'tpope/vim-git'
 
 " Editing
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'wokalski/autocomplete-flow'
-Plug 'SirVer/ultisnips'
+Plug 'Shougo/neosnippet.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'yami-beta/asyncomplete-omni.vim'
+Plug 'prabirshrestha/asyncomplete-flow.vim'
+
 
 " Browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -39,6 +46,19 @@ Plug 'janko-m/vim-test'
 call plug#end()
 endif
 
+" {{{ neosnippet
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+let g:neosnippet#disable_runtime_snippets = {
+            \ '_': 1,
+            \}
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" }}}
+
 " vim-test {{{
 let test#strategy = "neoterm"
 
@@ -50,13 +70,48 @@ let test#strategy = "neoterm"
 " }}}
 
 " neoterm {{{
-"
 let g:neoterm_default_mod = "vertical"
 
 " }}}
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
+" }}}
+
+" Async Complete {{{
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+    \ 'name': 'neosnippet',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+    \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+    \ 'name': 'omni',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['html'],
+    \ 'completor': function('asyncomplete#sources#omni#completor')
+    \  }))
+
+        " Resolves 'flow' in the closest node_modules/.bin directory (in case
+        " flow is installed via 'npm install flow-bin' locally). Falls back to
+        " 'flowbin_path' (see below) if can't find it.
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#flow#get_source_options({
+    \ 'name': 'flow',
+    \ 'whitelist': ['javascript'],
+    \ 'completor': function('asyncomplete#sources#flow#completor'),
+    \ 'config': {
+    \    'prefer_local': 1,
+    \    'flowbin_path': expand('~/bin/flow'),
+    \    'show_typeinfo': 1
+    \  },
+    \ }))
 " }}}
 
 " FZF {{{
@@ -276,6 +331,8 @@ augroup vimrc
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+    autocmd Filetype gitcommit setlocal textwidth=72
 
     " Close preview after autocomplete
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif

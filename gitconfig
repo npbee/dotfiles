@@ -1,34 +1,64 @@
 [push]
-  default = current
+    default = current
 [color]
-  ui = auto
+    ui = auto
 [alias]
-  aa = add --all
-  ap = add --patch
-  ca = commit --amend
-  co = checkout
-  pr = !hub pull-request
-  st = status
-  up = !git fetch origin && git rebase origin/master
-  stpp = subtree push --prefix
-  hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  pf = push --force-with-lease
-  l = log --stat -p --pretty=full
+    aa = add --all
+    ap = add --patch
+    ca = commit --amend
+    co = checkout
+    pr = !hub pull-request
+    st = status
+    up = !git fetch origin && git rebase origin/master
+    stpp = subtree push --prefix
+    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    pf = push --force-with-lease
+    l = log --stat -p --pretty=full
 [core]
-  excludesfile = ~/.gitignore
-  autocrlf = input
-  editor = "nvim"
-  pager = "diff-so-fancy | less --tabs=4 -RFX"
+    excludesfile = ~/.gitignore
+    autocrlf = input
+    editor = "nvim"
+    pager = "diff-so-fancy | less --tabs=4 -RFX"
 [merge]
 [include]
-  path = .gitconfig.local
+    path = .gitconfig.local
 [commit]
-  template = ~/.gitmessage
+    template = ~/.gitmessage
 [fetch]
-  prune = true
+    prune = true
 [filter "media"]
-	required = true
-	clean = git media clean %f
-	smudge = git media smudge %f
+    required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
 [http]
-	postBuffer = 52428800
+    postBuffer = 52428800
+[color "diff-highlight"]
+    oldNormal = "#E25C5C" bold
+    oldHighlight = white bold "#e07d7d"
+    newNormal = "#7DA76B" bold
+    newHighlight = white bold "#7DA76B"
+[color "decorate"]
+    branch = green
+    remoteBranch = red
+[color "diff"]
+    ; Meta info at top
+    meta = white
+
+    ; Hunk header
+    ; frag = magenta dim
+    frag = "#D3AF64" ; purple
+    ; commit = yellow bold
+
+    ; Removed lines
+    ; red bold
+    old = "#E25C5C" bold
+
+    ; Added lines
+    ; green bold
+    new = "#7DA76B" bold
+    whitespace = red reverse
+[color "status"]
+    header = "#CFBC97" ; grey
+    ; changed = red
+    changed = "#E25C5C"
+    untracked = yellow
