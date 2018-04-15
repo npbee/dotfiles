@@ -204,6 +204,7 @@ endif
 " MAPPINGS {{{
 " ============================================================================
 nnoremap <F12> :call ToggleFixOnSave()<cr>
+nnoremap <F10> :call SynStack()<cr>
 
 " Turn of search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
@@ -329,6 +330,14 @@ function! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
+
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 
 " Statusline {{{
 function! FileModes()
