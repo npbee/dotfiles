@@ -265,6 +265,7 @@ nnoremap <C-X> :bdelete<CR>
 xnoremap <tab> >gv
 xnoremap <s-tab> <gv
 
+nnoremap <F10> :call SynStack()<CR>
 " }}}
 " ============================================================================
 
@@ -331,6 +332,7 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 
+" Show syntax highlight under cursor
 function! SynStack()
   if !exists("*synstack")
     return
