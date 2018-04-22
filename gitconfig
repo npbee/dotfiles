@@ -6,14 +6,12 @@
     aa = add --all
     ap = add --patch
     ca = commit --amend
+    ci = commit --verbose
     co = checkout
-    pr = !hub pull-request
     st = status
-    up = !git fetch origin && git rebase origin/master
     stpp = subtree push --prefix
     hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    pf = push --force-with-lease
-    l = log --stat -p --pretty=full
+    l = log
 [core]
     excludesfile = ~/.gitignore
     autocrlf = input
