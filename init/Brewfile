@@ -15,6 +15,7 @@ brew 'ripgrep'
 brew 'tree'
 brew 'zsh'
 brew 'reattach-to-user-namespace'
+brew 'pstree'
 
 cask '1password'
 cask 'alfred'

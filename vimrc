@@ -20,8 +20,8 @@ Plug 'tpope/vim-git'
 " Editing
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 
 " Browsing
@@ -46,9 +46,9 @@ let g:neosnippet#disable_runtime_snippets = {
             \}
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " }}}
 
@@ -207,7 +207,7 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 nnoremap <F10> :call SynStack()<cr>
 
 " Turn of search highlighting
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader>h :nohlsearch<CR>
 
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
@@ -266,6 +266,9 @@ xnoremap <tab> >gv
 xnoremap <s-tab> <gv
 
 nnoremap <F10> :call SynStack()<CR>
+
+" Easily swap between files
+nnoremap <leader><leader> <c-^>
 " }}}
 " ============================================================================
 
