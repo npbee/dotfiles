@@ -1,7 +1,7 @@
 --langdef=js
 --langmap=js:.js
 --langmap=js:+.jsx
---exclude=*/node_modules/*
+--exclude=node_modules
 --exclude=public/*
 --exclude=build
 --exclude=_build

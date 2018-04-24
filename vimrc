@@ -125,6 +125,7 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
+set completeopt=menuone,menu,longest
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set encoding=utf-8
 set expandtab           " Tabs are spaces
