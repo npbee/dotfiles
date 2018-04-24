@@ -127,6 +127,7 @@ set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
 set completeopt=menuone,menu,longest
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set display+=lastline
 set encoding=utf-8
 set expandtab           " Tabs are spaces
 set foldlevelstart=10
@@ -208,7 +209,7 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 nnoremap <F10> :call SynStack()<cr>
 
 " Turn of search highlighting
-nnoremap <leader>h :nohlsearch<CR>
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
