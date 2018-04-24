@@ -209,7 +209,7 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 nnoremap <F10> :call SynStack()<cr>
 
 " Turn of search highlighting
-nnoremap <silent> <C-L> :nohlsearch<CR>
+nnoremap <silent> <leader>h :nohlsearch<CR>
 
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
