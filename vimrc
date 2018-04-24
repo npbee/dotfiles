@@ -209,7 +209,7 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 nnoremap <F10> :call SynStack()<cr>
 
 " Turn of search highlighting
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+nnoremap <silent> <C-L> :nohlsearch<CR>
 
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
