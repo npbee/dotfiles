@@ -10,8 +10,7 @@
     co = checkout
     st = status
     stpp = subtree push --prefix
-    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    l = log
+    l = "!source ~/.githelpers && pretty_git_log"
 [core]
     excludesfile = ~/.gitignore
     autocrlf = input

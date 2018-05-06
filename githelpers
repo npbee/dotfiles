@@ -1,0 +1,16 @@
+#!/bin/bash
+
+HASH="%C(yellow)%h%C(reset)"
+RELATIVE_TIME="%<(15)%C(green)%ar%C(reset)"
+AUTHOR="%<(10)%C(bold blue)%an%C(reset)"
+REFS="%C(red)%d%C(reset)"
+SUBJECT="%s"
+
+FORMAT="$HASH :: $RELATIVE_TIME $AUTHOR $REFS $SUBJECT"
+
+# Foramt like
+# hash    8 hours ago    Nick Ball    Did something
+# hash    15 hours ago   Nick Ball    Did something else
+function pretty_git_log() {
+    git log --graph --pretty="format:$FORMAT" $*
+}
