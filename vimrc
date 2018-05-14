@@ -139,8 +139,8 @@ set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:»·,trail:·
-set number              " Show line numbers
-set relativenumber
+" set number              " Show line numbers
+" set relativenumber
 set scrolloff=3
 set shiftround
 set shiftwidth=4
@@ -205,8 +205,9 @@ endif
 " ============================================================================
 " MAPPINGS {{{
 " ============================================================================
-nnoremap <F12> :call ToggleFixOnSave()<cr>
+nnoremap <F3> :set invnumber<cr>
 nnoremap <F10> :call SynStack()<cr>
+nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn of search highlighting
 nnoremap <CR> :nohlsearch<CR>
