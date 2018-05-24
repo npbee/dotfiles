@@ -143,7 +143,7 @@ set listchars=tab:»·,trail:·
 " set relativenumber
 set scrolloff=3
 set shiftround
-set shiftwidth=4
+set shiftwidth=2
 set showmode
 set splitbelow
 set statusline=%!StatusLine()
