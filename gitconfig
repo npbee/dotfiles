@@ -15,7 +15,6 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     editor = "nvim"
-    pager = "diff-so-fancy | less --tabs=4 -RFX"
 [merge]
 [include]
     path = .gitconfig.local
