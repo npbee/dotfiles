@@ -25,9 +25,6 @@ alias hidehidden="defaults write com.apple.finder AppleShowAllFiles NO; killall 
 # source zshrc
 alias sourcezsh="source ~/.zshrc"
 
-# ia writer
-alias ia="open $1 -a /Applications/iA\ Writer.app"
-
 # get public IP
 alias ip="curl ipecho.net/plain ; echo"
 
