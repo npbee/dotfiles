@@ -35,6 +35,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'w0rp/ale'
 Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 call plug#end()
 endif
