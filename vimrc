@@ -16,6 +16,7 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 Plug 'tpope/vim-git'
+Plug 'leafgarland/typescript-vim', { 'for': ['ts'] }
 
 " Editing
 Plug 'tpope/vim-commentary'
