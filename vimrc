@@ -16,6 +16,7 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 Plug 'tpope/vim-git'
+Plug 'leafgarland/typescript-vim', { 'for': ['ts'] }
 
 " Editing
 Plug 'tpope/vim-commentary'
@@ -127,6 +128,7 @@ set backupskip=/tmp/*,/private/tmp/*
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
 set completeopt=menuone,menu,longest
+set conceallevel=0
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set display+=lastline
 set encoding=utf-8
