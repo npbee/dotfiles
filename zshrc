@@ -13,6 +13,14 @@ autoload -Uz compinit && compinit
 
 # Vim Mode ftw
 bindkey -v
+bindkey -M vicmd '?' history-incremental-search-backward
+
+# Faster vi mode switching
+export KEYTIMEOUT=1
+source $HOME/.zsh/vi.zsh
+
+# FZF stuff
+source $HOME/.zsh/fzf.zsh
 
 # Completion
 source $HOME/.zsh/completion/npm.zsh
@@ -47,7 +55,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules
 
 
 # Special iTerm escape sequences for stylin'
-echo -e "\033]6;1;bg;red;brightness;50\a" && echo -e "\033]6;1;bg;green;brightness;50\a" && echo -e "\033]6;1;bg;blue;brightness;50\a" && clear
+# echo -e "\033]6;1;bg;red;brightness;50\a" && echo -e "\033]6;1;bg;green;brightness;50\a" && echo -e "\033]6;1;bg;blue;brightness;50\a" && clear
 
 # if [ -d $HOME/.nvm ]; then
 #   export NVM_DIR="$HOME/.nvm"
