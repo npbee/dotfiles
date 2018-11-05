@@ -109,9 +109,6 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed='never'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_prettier_executable = 'prettier_d'
-let g:ale_javascript_prettier_options = '--pkg-conf'
 
 " }}}
 
