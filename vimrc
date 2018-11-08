@@ -103,7 +103,7 @@ let g:fzf_colors =
 "}}}
 
 " Ale {{{
-let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier'], 'markdown': ['prettier'], 'graphql': ['prettier'], 'json': ['prettier'], 'css': ['prettier']}
+let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier'], 'markdown': ['prettier'], 'graphql': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'yaml': ['prettier']}
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed='never'
