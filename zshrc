@@ -47,6 +47,7 @@ export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*"'
+export BAT_THEME="1337"
 
 
 # Special iTerm escape sequences for stylin'
