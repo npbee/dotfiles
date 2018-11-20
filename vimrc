@@ -381,58 +381,38 @@ function! RenameFile()
 endfunction
 
 " Statusline {{{
-function! FileModes()
-    let fm = '%2*'
+function! AleStatus(type) abort
+  let l:count = ale#statusline#Count(bufnr(''))
+    let l:errors = l:count.error + l:count.style_error
+  let l:warnings = l:count.warning + l:count.style_warning
 
-    if &modified
-        let fm.= ' +'
-    endif
+  if a:type ==? 'error' && l:errors
+    return printf(' %d E ', l:errors)
+  endif
 
-    if &paste
-        let fm.= ' P'
-    endif
+  if a:type ==? 'warning' && l:warnings
+    let l:space = l:errors ? ' ': ''
+    return printf('%s %d W ', l:space, l:warnings)
+  endif
 
-    let fm.= '%1*'
-
-    return fm
-endfunction
-
-function! LeftSide()
-    let ls = ''
-    let ls.='%2* %f'
-    let ls.='%4* %y %1*'
-    let ls.=FileModes()
-
-    let l:fixing = g:ale_fix_on_save
-
-    if l:fixing == 1
-        let ls.='%3*'
-    endif
-
-    return ls
-endfunction
-
-function! RightSide()
-    let rs = ''
-
-    " line/col info
-    let rs.= "%2* %c • %l/%L "
-    if exists('*fugitive#head')
-        let head = fugitive#head()
-
-        " Set non-ascii font to 'octicons' from 'fonts' folder in iCloud
-        if !empty(head)
-            let rs .= '%3*' . ' ' . head . ' '
-        endif
-    endif
-
-    return rs
+  return ''
 endfunction
 
 function! StatusLine()
-    let statusl = LeftSide()
-    let statusl.= '%='
-    let statusl.= RightSide()
+  let l:fixing = g:ale_fix_on_save
+
+  let statusl =  '%2* %f %*|%*'                         " File path
+  let statusl .= '%4* %y %*|%*'                         " File type
+
+  if l:fixing == 1
+    let statusl .=' %3*  %*|%*'                        " Prettier indicator
+  endif
+
+  let statusl .= '%2* %m'                               " Modified indicator
+  let statusl .= '%='                                   " Start right side
+  let statusl .= '%2* %c %*|%*'                         " Column number
+  let statusl .= '%2* %l/%L %*|%*'                      " Current Line number / total lines
+  let statusl .= "%*%#Error#%{AleStatus('error')}%*"    " Errors count
 
     return statusl
 endfunction
