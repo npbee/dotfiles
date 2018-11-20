@@ -63,3 +63,9 @@ eval "$(direnv hook zsh)"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [[ -f ~/.aliases ]] && source ~/.aliases
 
+echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
+echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
