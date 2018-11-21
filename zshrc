@@ -41,7 +41,8 @@ eval "$(hub alias -s)"
 export CLICOLOR=1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color
+# export TERM=xterm-256color
+export TERM=xterm-kitty
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export EDITOR=nvim
@@ -62,18 +63,3 @@ eval "$(direnv hook zsh)"
 [ -f ~/.zsh.local ] && source ~/.zsh.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [[ -f ~/.aliases ]] && source ~/.aliases
-
-echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
-echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
-
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
-
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
-
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
