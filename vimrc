@@ -405,7 +405,7 @@ function! StatusLine()
   let statusl .= '%4* %y %*|%*'                         " File type
 
   if l:fixing == 1
-    let statusl .=' %3*  %*|%*'                        " Prettier indicator
+    let statusl .=' %3*  %*|%*'                        " Prettier indicator
   endif
 
   let statusl .= '%2* %m'                               " Modified indicator
