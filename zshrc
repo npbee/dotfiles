@@ -64,6 +64,7 @@ prompt spaceship
 export SPACESHIP_CHAR_SYMBOL="❯ "
 export SPACESHIP_RPROMPT_ORDER=(vi_mode)
 export SPACESHIP_NODE_SYMBOL="  "
+export SPACESHIP_DIR_COLOR="blue"
 export SPACESHIP_PROMPT_ORDER=(
     time          # Time stampts section
     user          # Username section
