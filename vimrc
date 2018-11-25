@@ -387,7 +387,7 @@ function! AleStatus(type) abort
   let l:warnings = l:count.warning + l:count.style_warning
 
   if a:type ==? 'error' && l:errors
-    return printf(' %d E ', l:errors)
+    return '  ' . printf(' %d E ', l:errors)
   endif
 
   if a:type ==? 'warning' && l:warnings
