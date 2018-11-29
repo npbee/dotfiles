@@ -103,13 +103,18 @@ let g:fzf_colors =
 "}}}
 
 " Ale {{{
-let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier'], 'markdown': ['prettier'], 'graphql': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'yaml': ['prettier']}
+let g:ale_fixers = {'javascript': ['prettier'], 'scss': ['prettier'], 'markdown': ['prettier'], 'graphql': ['prettier'], 'json': ['prettier'], 'css': ['prettier'], 'yaml': ['prettier'], 'vimwiki': ['prettier']}
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed='never'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
 
+" }}}
+
+" Vimwiki {{{
+let g:vimwiki_list = [{ 'path': '~/Dropbox/wiki', 'ext': '.md', 'syntax': 'markdown' }]
+let g:vimwiki_global_ext=0
 " }}}
 
 " }}}
@@ -326,6 +331,7 @@ augroup vimrc
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
     autocmd Filetype gitcommit setlocal textwidth=72
+    autocmd FileType vimwiki set syntax=markdown
 
     " Close preview after autocomplete
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
