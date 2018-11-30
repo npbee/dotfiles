@@ -230,7 +230,7 @@ nnoremap <F10> :call SynStack()<cr>
 nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn of search highlighting
-nnoremap <CR> :nohlsearch<CR>
+nnoremap <silent> <CR> :noh<CR><CR>
 
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
@@ -282,7 +282,7 @@ nmap <silent> <leader>tx :Tclose!<CR>
 " Cycle through buffers with tab
 nnoremap <tab> :bnext<cr>
 nnoremap <S-tab> :bprev<cr>
-nnoremap <C-X> :bdelete<CR>
+nnoremap <leader>q :bdelete<CR>
 
 " in visual mode, use tab for indenting
 xnoremap <tab> >gv
