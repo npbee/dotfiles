@@ -20,7 +20,6 @@
     path = .gitconfig.local
 [commit]
     template = ~/.gitmessage
-    verbose = true
 [fetch]
     prune = true
 [filter "media"]
