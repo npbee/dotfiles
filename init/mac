@@ -125,6 +125,14 @@ zsh() {
     else
         success "Z already installed."
     fi
+
+    info "Intalling spaceship prompt"
+    if ! [ -d zsh/plugins/spaceship ]
+    then
+      git clone https://github.com/denysdovhan/spaceship-prompt.git zsh/plugins/spaceship-prompt
+    else
+      success "Spaceship prompt already installed"
+    fi
 }
 
 update_shell() {

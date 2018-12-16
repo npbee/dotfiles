@@ -2,10 +2,8 @@
 
 source $HOME/.dotfiles/init/logger
 
-if ! [ -f $HOME/.zsh/functions/prompt_pure_setup ]
+if ! [ -f $HOME/.zsh/functions/prompt_spaceship_setup ]
 then
-    info "Finishing pure prompt setup"
-    mkdir -p $HOME/.zsh/functions
-    ln -s $HOME/.zsh/plugins/pure/pure.zsh $HOME/.zsh/functions/prompt_pure_setup
-    ln -s $HOME/.zsh/plugins/pure/async.zsh $HOME/.zsh/functions/async
+  info "Finishing Spaceship prompt setup"
+  ln -sf "$PWD/zsh/plugins/spaceship-prompt/spaceship.zsh" "$HOME/.zsh/functions/prompt_spaceship_setup"
 fi
