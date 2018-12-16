@@ -10,9 +10,30 @@ is_mac() {
     [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
 
+append_to_zshrc() {
+  fancy_echo 'Setting up $PATH in zshrc'
+  local text="$1" zshrc
+  local skip_new_line="${2:-0}"
+
+  if [ -w "$HOME/.zshrc.local" ]; then
+    zshrc="$HOME/.zshrc.local"
+  else
+    zshrc="$HOME/.zshrc"
+  fi
+
+  if ! grep -Fqs "$text" "$zshrc"; then
+    if [ "$skip_new_line" -eq 1 ]; then
+      printf "%s\\n" "$text" >> "$zshrc"
+    else
+      printf "\\n%s\\n" "$text" >> "$zshrc"
+    fi
+  fi
+}
+
+
 # Uses the local template and copies it into the `link` folder so that we can
 # ignore potentially private git things
-setup_gitconfig() {
+setup_git() {
     if ! [ -f gitconfig.local ]
     then
         info "Setting up local git config"
@@ -35,7 +56,7 @@ setup_gitconfig() {
 }
 
 # HOMEBREW
-brew_install() {
+setup_homebrew() {
     info "Installing Homebrew"
     if test ! $(which /usr/local/bin/brew)
     then
@@ -44,26 +65,39 @@ brew_install() {
     else
         success "Homebrew already installed."
     fi
-}
 
-brew_update() {
-    info "Brew update"
-    brew update
-}
+    brew update --force
 
-brew_bundle() {
-    info "Brew bundle"
-    brew bundle
-}
+    brew bundle --file=-<<EOF
+    cask_args appdir: '/Applications'
 
-homebrew() {
-    cd "init"
-    brew_install
-    brew_update
-    brew bundle
-    brew install neovim/neovim/neovim
-    gem install tmuxinator
-    cd "../"
+    tap 'homebrew/bundle'
+    tap 'thoughtbot/formulae'
+    tap "universal-ctags/universal-ctags"
+    tap "caskroom/cask"
+
+    brew "universal-ctags", args: ["HEAD"]
+    brew "bat"
+    brew "git"
+    brew "hub"
+    brew "python"
+    brew "python3"
+    brew "rcm"
+    brew "ruby"
+    brew "ripgrep"
+    brew "tree"
+    brew "zsh"
+    brew "reattach-to-user-namespace"
+    brew "direnv"
+    brew "neovim"
+    brew "watchman"
+
+    cask "1password"
+    cask "alfred"
+    cask "dash"
+    cask "flux"
+    cask "spectacle"
+EOF
 }
 
 # Zsh
@@ -74,14 +108,6 @@ zsh() {
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh/plugins/zsh-syntax-highlighting
     else
         success "Syntax highlighting already installed."
-    fi
-
-    info "Installing pure prompt"
-    if ! [ -d zsh/plugins/pure ]
-    then
-        git clone git@github.com:sindresorhus/pure.git zsh/plugins/pure
-    else
-        success "Pure prompt already installed."
     fi
 
     info "Installing zsh autosuggestion"
@@ -99,10 +125,38 @@ zsh() {
     else
         success "Z already installed."
     fi
+
+    info "Intalling spaceship prompt"
+    if ! [ -d zsh/plugins/spaceship ]
+    then
+      git clone https://github.com/denysdovhan/spaceship-prompt.git zsh/plugins/spaceship-prompt
+    else
+      success "Spaceship prompt already installed"
+    fi
+}
+
+update_shell() {
+  local shell_path;
+  shell_path="$(command -v zsh)"
+
+  info "Changing your shell to zsh ..."
+  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+    info "Adding '$shell_path' to /etc/shells"
+    sudo sh -c "echo $shell_path >> /etc/shells"
+  fi
+  sudo chsh -s "$shell_path" "$USER"
 }
 
 change_shell() {
-    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+  local shell_path;
+  shell_path="$(command -v zsh)"
+
+  info "Changing your shell to zsh ..."
+  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+    info "Adding '$shell_path' to /etc/shells"
+    sudo sh -c "echo $shell_path >> /etc/shells"
+  fi
+  sudo chsh -s "$shell_path" "$USER"
 }
 
 # pip
@@ -112,23 +166,15 @@ do_python() {
     success "Done!"
 }
 
-# Node
-do_node() {
-    if ! [ -f bin/nave.sh ]
-    then
-        info "Installing Nave for Node stuff"
-        curl -fsSL https://raw.githubusercontent.com/isaacs/nave/master/nave.sh > bin/nave.sh
-        chmod u+x bin/nave.sh
-    fi
-}
-
-
 link_files() {
     info "Linking dotfiles"
     rcup -x init -x readme.md
 }
 
 osx_defaults() {
+    if [ ! -d "$HOME/.bin/" ]; then
+      mkdir "$HOME/.bin"
+    fi
     info "Setting system defaults"
     $HOME/.bin/osx
 }
@@ -139,8 +185,11 @@ link_nvim() {
     then
         mkdir $HOME/.config
     fi
-    ln -s ~/.vim ~/.config/nvim
-    ln -s ~/.vimrc ~/.config/nvim/init.vim
+    if ! [ -e ~/.config/nvim/.vim ]
+    then
+      ln -s ~/.vim ~/.config/nvim
+      ln -s ~/.vimrc ~/.config/nvim/init.vim
+    fi
 }
 
 terminfo() {
@@ -152,10 +201,9 @@ clean_up() {
     success "Done!  Run 'source ~/.zshrc' to see changes."
 }
 
-setup_gitconfig
-homebrew
+setup_git
+setup_homebrew
 do_python
-do_node
 zsh
 change_shell
 link_files
