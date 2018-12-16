@@ -156,6 +156,9 @@ link_files() {
 }
 
 osx_defaults() {
+    if [ ! -d "$HOME/.bin/" ]; then
+      mkdir "$HOME/.bin"
+    fi
     info "Setting system defaults"
     $HOME/.bin/osx
 }
