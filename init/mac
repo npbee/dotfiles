@@ -140,7 +140,15 @@ update_shell() {
 }
 
 change_shell() {
-  echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+  local shell_path;
+  shell_path="$(command -v zsh)"
+
+  info "Changing your shell to zsh ..."
+  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+    info "Adding '$shell_path' to /etc/shells"
+    sudo sh -c "echo $shell_path >> /etc/shells"
+  fi
+  sudo chsh -s "$shell_path" "$USER"
 }
 
 # pip
