@@ -13,16 +13,15 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 Plug 'tpope/vim-git'
-Plug 'leafgarland/typescript-vim', { 'for': ['ts'] }
 
 " Editing
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'wellle/targets.vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
 
 
 " Browsing
@@ -41,6 +40,15 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 call plug#end()
 endif
 
+" {{{ emmet
+let g:user_emmet_leader_key='<C-E>'
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
+" }}}
 
 " {{{ dirvish
 
@@ -329,6 +337,8 @@ augroup vimrc
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+    autocmd FileType html,css,javascript.jsx EmmetInstall
 
     autocmd Filetype gitcommit setlocal textwidth=72
     autocmd FileType vimwiki set syntax=markdown
