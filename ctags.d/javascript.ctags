@@ -7,6 +7,9 @@
 --exclude=public/*
 --exclude=build
 --exclude=_build
+--exclude=yarn.lock
+--exclude=flow-typed
+--exclude=.eslintrc
 --recurse=yes
 
 

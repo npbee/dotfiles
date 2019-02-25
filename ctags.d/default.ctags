@@ -1,0 +1,3 @@
+--exclude=.git
+--exclude=.DS_STORE
+--exclude=priv
