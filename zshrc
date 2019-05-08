@@ -49,6 +49,7 @@ export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules}/*"'
 export BAT_THEME="1337"
 export NVIM_LOG_FILE=~/.local/share/nvim/log
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 
 # Special iTerm escape sequences for stylin'
