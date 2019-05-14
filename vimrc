@@ -134,6 +134,23 @@ let g:ale_javascript_eslint_executable = 'eslint_d'
 " Vimwiki {{{
 let g:vimwiki_list = [{ 'path': '~/Dropbox/wiki', 'ext': '.md', 'syntax': 'markdown' }]
 let g:vimwiki_global_ext=0
+
+let notes_wiki = {}
+let notes_wiki.path = '~/Dropbox/wiki/notes/'
+let notes_wiki.ext = '.md'
+let notes_wiki.syntax = 'markdown'
+
+let log_wiki = {}
+let log_wiki.path = '~/Dropbox/wiki/log/'
+let log_wiki.ext = '.md'
+let log_wiki.syntax = 'markdown'
+
+let log_wiki = {}
+let log_wiki.path = '~/Dropbox/wiki/log/'
+let log_wiki.ext = '.md'
+let log_wiki.syntax = 'markdown'
+
+let g:vimwiki_list = [log_wiki, notes_wiki]
 " }}}
 
 " }}}
@@ -319,6 +336,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 map <leader>n :call RenameFile()<cr>
+
+" Insert date stamp with f3
+nmap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
 
 " }}}
 " ============================================================================
