@@ -87,7 +87,6 @@ setup_homebrew() {
     brew "ripgrep"
     brew "tree"
     brew "zsh"
-    brew "reattach-to-user-namespace"
     brew "direnv"
     brew "neovim"
     brew "watchman"
@@ -97,6 +96,7 @@ setup_homebrew() {
     cask "dash"
     cask "flux"
     cask "spectacle"
+    cask "kitty"
 EOF
 }
 
@@ -202,7 +202,7 @@ clean_up() {
 }
 
 setup_git
-setup_homebrew
+#setup_homebrew
 do_python
 zsh
 change_shell
