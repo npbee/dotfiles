@@ -24,6 +24,7 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
 Plug 'tpope/vim-abolish'
+Plug 'jamesroutley/vim-logbook'
 
 
 " Browsing
