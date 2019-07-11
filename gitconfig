@@ -14,6 +14,7 @@
     b = "!source ~/.githelpers && pretty_git_branch"
     bs = "!source ~/.githelpers && pretty_git_branch_sorted"
     hp = "!. ~/.githelpers && show_git_head"
+    db = "!. ~/.githelpers && pretty_git_diff_branch"
 [core]
     excludesfile = ~/.gitignore
     autocrlf = input
