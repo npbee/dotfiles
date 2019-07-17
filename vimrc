@@ -111,6 +111,8 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_layout = { 'down': '70%' }
 "}}}
 
 " Ale {{{
@@ -270,8 +272,19 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 " Turn of search highlighting
 nnoremap <silent> <CR> :noh<CR><CR>
 
+" FZF
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
+
+" Find various files based on content
+" Search
+nnoremap <leader>f :FF<Space>
+
+" Find files based on the word under the cursor
+nnoremap <leader>rg :F <C-R><C-W><CR>
+
+" Find files based on the selected text in visual mode
+xnoremap <silent> <leader>rg       y:F <C-R>"<CR>
 
 " Fuzzy find at a specific path
 nnoremap <leader>? :FZF<space>
@@ -280,8 +293,6 @@ nnoremap <leader>? :FZF<space>
 nnoremap <leader>b :Buffers<CR>
 
 
-" Search
-nnoremap <leader>f :F<Space>
 
 " Map control+S to save
 noremap <C-S>          :update<CR>
@@ -470,7 +481,7 @@ endfunction
 " }}}
 
 " Searching {{{
-" Custom searching command.  Basically just allows for passing ag arguments
+" Custom searching command.  Basically just allows for passing rg arguments
 " directly
 " Usage
 " :F myThing -tjs
@@ -478,17 +489,25 @@ endfunction
 " With preview
 " :F! myThing -tjs
 
-let g:rg_command = '
-  \ rg --column --line-number --no-heading --hidden --follow --color "always"
-  \ -g "!{.git,node_modules}/*" '
+let g:rg_command = 'rg --column --line-number --no-heading --color=always --smart-case '
 
 command! -bang -nargs=* F
   \ call fzf#vim#grep(
-  \ g:rg_command.<q-args>,
+  \ g:rg_command.shellescape(<q-args>),
   \ 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \   <bang>0 ? fzf#vim#with_preview('up:75%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+" Probably a better way to do this, but this allows a full rg search with options
+command! -bang -nargs=* FF
+  \ call fzf#vim#grep(
+  \ g:rg_command.<q-args>,
+  \ 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:75%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 " }}}
 
 " }}}

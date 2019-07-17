@@ -1,2 +1,4 @@
+# Custom type
+# rg 'PATTERN' -treact
 --type-add
 react:*.{js,jsx}
