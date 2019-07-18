@@ -24,7 +24,7 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
 Plug 'tpope/vim-abolish'
-Plug 'jamesroutley/vim-logbook'
+Plug 'junegunn/vim-peekaboo'
 
 
 " Browsing
@@ -348,12 +348,22 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-map <leader>n :call RenameFile()<cr>
-
 " Insert date stamp with f3
 nmap <F3> i<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 imap <F3> <C-R>=strftime("%Y-%m-%d")<CR>
 
+" Open new line below and above current line
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+
+" Move lines
+nnoremap <silent> <C-k> :move-2<cr>
+nnoremap <silent> <C-j> :move+<cr>
+xnoremap <silent> <C-k> :move-2<cr>gv
+xnoremap <silent> <C-j> :move'>+<cr>gv
+
+" Buffer search
+nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 " }}}
 " ============================================================================
 
