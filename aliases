@@ -38,5 +38,10 @@ alias txa='tmux a -t'
 alias txk='tmux kill-session -t'
 # }}}
 
+# jrnl {{{
+alias j="jrnl -from 'today' -and @daily --edit"
+alias wiki="cd ~/code/wiki"
+# }}}
+
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
