@@ -25,6 +25,7 @@ Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vim-peekaboo'
+Plug 'tpope/vim-fugitive'
 
 
 " Browsing
@@ -120,6 +121,7 @@ let g:ale_fixers =
 \ { 'javascript': ['prettier'],
  \  'scss': ['prettier'],
  \  'markdown': ['prettier'],
+ \  'markdown.mdx': ['prettier'],
  \  'graphql': ['prettier'],
  \  'json': ['prettier'],
  \  'css': ['prettier'],
@@ -374,6 +376,7 @@ augroup vimrc
 
     " File Types
     autocmd BufRead,BufNewFile *.md             set filetype=markdown
+    autocmd BufRead,BufNewFile *.mdx             set filetype=markdown.mdx
     autocmd BufRead,BufNewFile *.ejs,*.EJS      set filetype=html
     autocmd BufRead,BufNewFile *.conf           set filetype=nginx
     autocmd BufRead,BufNewFile
