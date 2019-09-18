@@ -16,6 +16,7 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 Plug 'tpope/vim-git'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'niftylettuce/vim-jinja', { 'for': 'jinja' }
 
 " Editing
 Plug 'tpope/vim-commentary'
