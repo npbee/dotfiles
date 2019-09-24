@@ -27,6 +27,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
 
 
 " Browsing
@@ -383,6 +384,7 @@ augroup vimrc
     autocmd BufRead,BufNewFile
         \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
         \ set filetype=javascript
+    autocmd BufRead,BufNewFile *Jenkins* set syntax=groovy
 
     " Trim whitespace on save
     autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
