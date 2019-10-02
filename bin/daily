@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+template=$(cat <<EOF
+jrnl today: Daily
+
+@daily
+
+# Goals
+
+[ ]
+
+# Notes
+
+EOF)
+
+echo "$template" | jrnl && jrnl -1 --edit
