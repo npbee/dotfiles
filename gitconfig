@@ -8,7 +8,7 @@
     ca = commit --amend
     ci = commit --verbose
     cm = !git add -A && git commit -m
-    wip = !git add -u && git commit -m "WIP"
+    wip = !git add -A && git commit -m "WIP"
     co = checkout
     st = status
     stpp = subtree push --prefix
