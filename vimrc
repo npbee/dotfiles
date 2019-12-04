@@ -28,6 +28,7 @@ Plug 'tpope/vim-abolish'
 Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 
 " Browsing
