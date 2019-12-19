@@ -17,6 +17,7 @@ Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 Plug 'tpope/vim-git'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'niftylettuce/vim-jinja', { 'for': 'jinja' }
+Plug 'evanleck/vim-svelte', { 'for': 'svelte' }
 
 " Editing
 Plug 'tpope/vim-commentary'
@@ -130,6 +131,7 @@ let g:ale_fixers =
  \  'css': ['prettier'],
  \  'yaml': ['prettier'],
  \  'vimwiki': ['prettier'],
+ \  'svelte': ['prettier'],
  \  'html': ['prettier'] }
 
 let g:ale_fix_on_save = 1
@@ -137,6 +139,13 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed='never'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
+
+let g:ale_linter_aliases = {
+\   'svelte': ['javascript']
+\}
+let g:ale_linters = {
+\   'svelte': ['eslint']
+\}
 
 " }}}
 

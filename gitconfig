@@ -64,8 +64,5 @@
     ; changed = red
     changed = "#E25C5C"
     untracked = yellow
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+[include]
+  path = /Users/npbee/.netlify/helper/git-config
