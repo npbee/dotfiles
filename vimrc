@@ -372,7 +372,7 @@ nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 
 " Stupid way to run prettier on text files and treat as markdown. There's
 " probably a better way to do this.
-nnoremap gpt :silent %!prettier --stdin-filepath dummy.md<CR>
+nnoremap gpmd :silent %!prettier --stdin-filepath dummy.md<CR>
 
 " Cycles through a list
 function! WrapCommand(direction, prefix)
