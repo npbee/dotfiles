@@ -367,6 +367,34 @@ nnoremap <silent> <C-j> :move+<cr>
 xnoremap <silent> <C-k> :move-2<cr>gv
 xnoremap <silent> <C-j> :move'>+<cr>gv
 
+" Manually run prettier
+nnoremap gp :silent %!prettier --stdin-filepath %<CR>
+
+" Stupid way to run prettier on text files and treat as markdown. There's
+" probably a better way to do this.
+nnoremap gpt :silent %!prettier --stdin-filepath dummy.md<CR>
+
+" Cycles through a list
+function! WrapCommand(direction, prefix)
+  if a:direction == "up"
+    try
+      execute a:prefix . "previous"
+    catch /^Vim\%((\a\+)\)\=:E553/
+      execute a:prefix . "last"
+    endtry
+  elseif a:direction == "down"
+    try
+      execute a:prefix . "next"
+    catch /^Vim\%((\a\+)\)\=:E553/
+      execute a:prefix . "first"
+    catch /^Vim\%((\a\+)\)\=:E\%(776\|42\):/
+    endtry
+  endif
+endfunction
+
+" Command + l cycles down through the location list
+nnoremap <silent> ]l :call WrapCommand("up", "l")<CR>
+
 " }}}
 " ============================================================================
 
