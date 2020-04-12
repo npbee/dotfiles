@@ -1,0 +1,5 @@
+#!/bin/bash
+# Links the local VIM color scheme project to VIM so I can use it while I'm
+# developing it
+
+ln -s ~/code/eighty-five/colors/eighty-five.vim ~/.vim/colors/eighty-five-dev.vim
