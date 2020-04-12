@@ -7,7 +7,6 @@ silent! if plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'npbee/eighty-five'
-Plug 'andreypopp/vim-colors-plain'
 
 " Lang
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
