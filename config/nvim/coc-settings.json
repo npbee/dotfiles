@@ -1,4 +1,6 @@
 {
+  // Auto select first option. Helpful for emmit
+  "suggest.noselect": false,
   "eslint": {
     "fileType": ["js", "jsx"]
   },
