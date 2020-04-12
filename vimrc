@@ -284,7 +284,9 @@ nnoremap <F10> :call SynStack()<cr>
 nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn of search highlighting
-nnoremap <silent> <CR> :noh<CR><CR>
+" nnoremap <silent> <CR> :noh<CR><CR>
+nnoremap <silent> <leader><cr> :noh<cr>
+
 
 " FZF
 " Fuzzy find files
