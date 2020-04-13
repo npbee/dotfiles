@@ -4,7 +4,7 @@
   "eslint": {
     "fileType": ["js", "jsx"]
   },
-  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "graphql", "scss", "html", "yaml"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "javascriptreact", "graphql", "scss", "html", "yaml"],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   }
