@@ -43,5 +43,9 @@ alias j="jrnl -from 'today' -and @daily --edit"
 alias wiki="cd ~/code/wiki"
 # }}}
 
+# quickly open up color scheme {{{
+alias colorscheme="nvim ~/code/eighty-five/colors/eighty-five.vim"
+# }}}
+
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
