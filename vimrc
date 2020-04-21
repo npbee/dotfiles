@@ -483,35 +483,35 @@ endfunction
 
 "" }}}
 
-"" Searching {{{
-"" Custom searching command.  Basically just allows for passing rg arguments
-"" directly
-"" Usage
-"" :F myThing -tjs
-""
-"" With preview
-"" :F! myThing -tjs
+" Searching {{{
+" Custom searching command.  Basically just allows for passing rg arguments
+" directly
+" Usage
+" :F myThing -tjs
+"
+" With preview
+" :F! myThing -tjs
 
-"let g:rg_command = 'rg --column --line-number --no-heading --color=always --smart-case '
+let g:rg_command = 'rg --column --line-number --no-heading --color=always --smart-case '
 
-"command! -bang -nargs=* F
-"  \ call fzf#vim#grep(
-"  \ g:rg_command.shellescape(<q-args>),
-"  \ 1,
-"  \   <bang>0 ? fzf#vim#with_preview('up:75%')
-"  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"  \   <bang>0)
+command! -bang -nargs=* F
+  \ call fzf#vim#grep(
+  \ g:rg_command.shellescape(<q-args>),
+  \ 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:75%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
-"" Probably a better way to do this, but this allows a full rg search with options
-"command! -bang -nargs=* FF
-"  \ call fzf#vim#grep(
-"  \ g:rg_command.<q-args>,
-"  \ 1,
-"  \   <bang>0 ? fzf#vim#with_preview('up:75%')
-"  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"  \   <bang>0)
+" Probably a better way to do this, but this allows a full rg search with options
+command! -bang -nargs=* FF
+  \ call fzf#vim#grep(
+  \ g:rg_command.<q-args>,
+  \ 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:75%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
-"" }}}
+" }}}
 
 "" }}}
 "" ============================================================================
