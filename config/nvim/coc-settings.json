@@ -7,5 +7,8 @@
   "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "javascriptreact", "graphql", "scss", "html", "yaml"],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
+  },
+  "snippets.extends": {
+    "javascriptreact": ["javascript"]
   }
 }

@@ -11,7 +11,7 @@ Plug 'npbee/eighty-five'
 " Lang
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'neoclide/vim-jsx-improve'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
@@ -21,7 +21,6 @@ Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
 " Editing
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
-Plug 'Shougo/neosnippet.vim'
 Plug 'wellle/targets.vim'
 
 
@@ -44,17 +43,6 @@ endif
 
 " Sort directories at the top
 let g:dirvish_mode = ':sort ,^.*[\/],'
-
-" }}}
-
-" {{{ neosnippet
-let g:neosnippet#snippets_directory='~/.vim/snippets'
-let g:neosnippet#disable_runtime_snippets = {
-            \ '_': 1,
-            \}
-
-let g:neosnippet#scope_aliases = {}
-let g:neosnippet#scope_aliases['javascriptreact'] = 'javascript'
 
 " }}}
 
@@ -94,7 +82,7 @@ let g:fzf_layout = { 'down': '70%' }
 
 " Coc {{{
 let g:coc_global_extensions = [ 'coc-eslint', 'coc-json',
-        \ 'coc-prettier', 'coc-emmet', 'coc-neosnippet'
+        \ 'coc-prettier', 'coc-emmet', 'coc-snippets'
        \]
 
 " Use tab for trigger completion with characters ahead and navigate.
