@@ -132,9 +132,6 @@ augroup END
 set nobackup
 set nowritebackup
 
-"" Give more space for displaying messages.
-set cmdheight=2
-
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
 set completeopt=menuone,menu,longest
