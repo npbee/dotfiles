@@ -7,6 +7,10 @@ silent! if plug#begin('~/.vim/plugged')
 
 " Colors
 Plug 'npbee/eighty-five'
+Plug 'cocopon/colorswatch.vim'
+Plug 'cocopon/inspecthi.vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'arcticicestudio/nord-vim'
 
 " Lang
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
