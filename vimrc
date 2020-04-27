@@ -251,8 +251,6 @@ nnoremap <leader>? :FZF<space>
 " Fuzzy find buffers
 nnoremap <leader>b :Buffers<CR>
 
-
-
 " Map control+S to save
 noremap <C-S>          :update<CR>
 vnoremap <C-S>         <C-C>:update<CR>
