@@ -8,7 +8,12 @@
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
+  "coc.preferences.hoverTarget": "echo",
+  "diagnostic.messageTarget": "echo",
+  "signature.target": "echo",
+  "suggest.floatEnable": false,
   "snippets.extends": {
     "javascriptreact": ["javascript"]
-  }
+  },
+  "tsserver.enable": false
 }
