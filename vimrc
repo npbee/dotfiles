@@ -13,7 +13,6 @@ Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 
 " Lang
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'yuezk/vim-js'
 Plug 'neoclide/vim-jsx-improve'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
@@ -26,6 +25,10 @@ Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 Plug 'wellle/targets.vim'
+Plug 'Shougo/neosnippet.vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'dense-analysis/ale'
 
 
 " Browsing
@@ -40,6 +43,61 @@ Plug 'janko-m/vim-test'
 
 call plug#end()
 endif
+
+" }}}
+
+" {{{ emmet
+let g:user_emmet_leader_key='<C-E>'
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
+" }}}
+
+" {{{ neosnippet
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+let g:neosnippet#disable_runtime_snippets = {
+            \ '_': 1,
+            \}
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" }}}
+
+" Deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" }}}
+
+" Ale {{{
+let g:ale_fixers =
+\ { 'javascript': ['prettier'],
+ \  'scss': ['prettier'],
+ \  'markdown': ['prettier'],
+ \  'markdown.mdx': ['prettier'],
+ \  'graphql': ['prettier'],
+ \  'json': ['prettier'],
+ \  'css': ['prettier'],
+ \  'yaml': ['prettier'],
+ \  'vimwiki': ['prettier'],
+ \  'svelte': ['prettier'],
+ \  'html': ['prettier'] }
+
+let g:ale_fix_on_save = 1
+let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_lint_on_text_changed='never'
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'eslint_d'
+
+let g:ale_linter_aliases = {
+\   'svelte': ['javascript']
+\}
+let g:ale_linters = {
+\   'svelte': ['eslint']
+\}
 
 " }}}
 
@@ -83,29 +141,6 @@ let g:fzf_colors =
 
 let g:fzf_layout = { 'down': '70%' }
 "}}}
-
-" Coc {{{
-let g:coc_global_extensions = [ 'coc-eslint', 'coc-json',
-        \ 'coc-prettier', 'coc-emmet', 'coc-snippets'
-       \]
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" }}}
 
 "" }}}
 "" ============================================================================
@@ -226,6 +261,7 @@ endif
 " MAPPINGS {{{
 " ============================================================================
 nnoremap <F10> :call SynStack()<cr>
+nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn off search highlighting
 nnoremap <silent> <leader><cr> :noh<cr>
@@ -341,36 +377,8 @@ function! WrapCommand(direction, prefix)
 endfunction
 
 " Command + l cycles down through the location list
-nnoremap <silent> ]l :call WrapCommand("up", "l")<CR>
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR><Paste>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nmap <silent> <Home> <Plug>(ale_previous_wrap) 
+nmap <silent> <End> <Plug>(ale_next_wrap)
 
 " }}}
 " ============================================================================
@@ -402,7 +410,7 @@ augroup vimrc
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
-    " autocmd FileType html,css,javascript.jsx EmmetInstall
+    autocmd FileType html,css,javascript.jsx EmmetInstall
 
     autocmd Filetype gitcommit setlocal textwidth=72
     autocmd FileType vimwiki set syntax=markdown
@@ -426,6 +434,15 @@ augroup END
 " FUNCTIONS {{{
 " ============================================================================
 
+" Toggle fixing on saving for ales
+function! ToggleFixOnSave()
+    if g:ale_fix_on_save
+        let g:ale_fix_on_save = 0
+    else
+        let g:ale_fix_on_save = 1
+    endif
+endfunction
+
 " Show syntax highlight under cursor
 function! SynStack()
   if !exists("*synstack")
@@ -444,26 +461,38 @@ function! RenameFile()
     endif
 endfunction
 
-function! SetupCommandAbbrs(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+" Statusline {{{
+function! AleStatus(type) abort
+  let l:count = ale#statusline#Count(bufnr(''))
+  let l:errors = l:count.error + l:count.style_error
+  let l:warnings = l:count.warning + l:count.style_warning
+
+  if a:type ==? 'error' && l:errors
+    return '  ' . printf(' %d E ', l:errors)
+  endif
+
+  if a:type ==? 'warning' && l:warnings
+    let l:space = l:errors ? ' ': ''
+    return printf('%s %d W ', l:space, l:warnings)
+  endif
+
+  return ''
 endfunction
 
-" Use C to open coc config
-call SetupCommandAbbrs('C', 'CocConfig')
-
-" Statusline {{{
-
 function! StatusLine()
+ let l:fixing = g:ale_fix_on_save
  let statusl =  '%2* %f %*|%*'                         " File path
  let statusl .= '%4* %y %*|%*'                         " File type
+
+ if l:fixing == 1
+   let statusl .=' %3*  %*|%*'                        " Prettier indicator
+ endif
 
   let statusl .= '%2* %m'                               " Modified indicator
   let statusl .= '%='                                   " Start right side
   let statusl .= '%2* %c %*|%*'                         " Column number
   let statusl .= '%2* %l/%L %*|%*'                      " Current Line number / total lines
-  let statusl .= "%*%3* %{coc#status()}%{get(b:, 'coc_current_function','')}%*"
+  let statusl .= "%*%#Error#%{AleStatus('error')}%*" 
 
    return statusl
 endfunction
