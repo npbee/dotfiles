@@ -91,6 +91,7 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed='never'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_completion_enabled = 1
 
 let g:ale_linter_aliases = {
 \   'svelte': ['javascript']
@@ -266,6 +267,8 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 " Turn off search highlighting
 nnoremap <silent> <leader><cr> :noh<cr>
 
+nmap <silent> gd <Plug>(ale_go_to_definition)
+nmap <silent> gr <Plug>(ale_find_references)
 
 " FZF
 " Fuzzy find files
