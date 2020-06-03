@@ -90,6 +90,7 @@ let g:ale_fixers =
  \  'css': ['prettier'],
  \  'yaml': ['prettier'],
  \  'vimwiki': ['prettier'],
+ \  'elixir': ['mix_format'],
  \  'svelte': ['prettier'],
  \  'html': ['prettier'] }
 
