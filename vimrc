@@ -14,7 +14,7 @@ Plug 'arcticicestudio/nord-vim'
 
 " Lang
 Plug 'yuezk/vim-js'
-Plug 'neoclide/vim-jsx-improve'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
@@ -52,12 +52,18 @@ let g:user_emmet_settings = {
 \  'javascript' : {
 \      'extends' : 'jsx',
 \  },
+\  'javascriptreact' : {
+\      'extends' : 'jsx',
+\  },
 \}
 
 " }}}
 
 " {{{ neosnippet
 let g:neosnippet#snippets_directory='~/.vim/snippets'
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['javascriptreact'] = 'html,javascript'
+
 let g:neosnippet#disable_runtime_snippets = {
             \ '_': 1,
             \}
@@ -75,6 +81,7 @@ let g:deoplete#enable_at_startup = 1
 " Ale {{{
 let g:ale_fixers =
 \ { 'javascript': ['prettier'],
+ \  'javascriptreact': ['prettier'],
  \  'scss': ['prettier'],
  \  'markdown': ['prettier'],
  \  'markdown.mdx': ['prettier'],
@@ -83,6 +90,7 @@ let g:ale_fixers =
  \  'css': ['prettier'],
  \  'yaml': ['prettier'],
  \  'vimwiki': ['prettier'],
+ \  'elixir': ['mix_format'],
  \  'svelte': ['prettier'],
  \  'html': ['prettier'] }
 
@@ -91,10 +99,10 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed='never'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_completion_enabled = 1
 
 let g:ale_linter_aliases = {
-\   'svelte': ['javascript']
+\   'svelte': ['javascript'],
+\   'javascriptreact': ['javascript']
 \}
 let g:ale_linters = {
 \   'svelte': ['eslint']

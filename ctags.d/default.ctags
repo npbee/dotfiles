@@ -1,3 +1,19 @@
 --exclude=.git
 --exclude=.DS_STORE
+
+# HW-specific stuff
 --exclude=priv
+--exclude=apps/admin/assets
+--exclude=.yarn
+--exclude=test_data
+--exclude=docker_xfer
+--exclude=test
+--exclude=__tests__
+--exclude=-test.*
+--exclude=__fixtures__
+--exclude=fixtures
+--exclude=__stories__
+--exclude=translations
+--exclude=jquery
+--exclude=coveralls.json
+--exclude=webflow

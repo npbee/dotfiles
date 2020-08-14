@@ -40,6 +40,7 @@ alias txk='tmux kill-session -t'
 
 # jrnl {{{
 alias j="jrnl -from 'today' -and @daily --edit"
+alias w="jrnl @weekly -n 1 --edit"
 alias wiki="cd ~/code/wiki"
 # }}}
 

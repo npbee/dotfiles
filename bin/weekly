@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+template=$(cat <<EOF
+jrnl today: Weekly
+
+@weekly
+
+# Goals
+
+[ ]
+
+# Schedule
+
+Monday
+------
+
+Tuesday
+------
+
+Wednesday
+------
+
+Thursday
+------
+
+Friday
+------
+
+
+# Log
+
+-
+
+# Notes
+
+-
+
+EOF)
+
+echo "$template" | jrnl && jrnl -1 --edit
