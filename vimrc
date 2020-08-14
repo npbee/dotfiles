@@ -265,7 +265,7 @@ nnoremap <F10> :call SynStack()<cr>
 nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn off search highlighting
-nnoremap <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <esc> :noh<cr>
 
 nmap <silent> gd <Plug>(ale_go_to_definition)
 nmap <silent> gr <Plug>(ale_find_references)
