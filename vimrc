@@ -20,6 +20,7 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
 Plug 'niftylettuce/vim-jinja', { 'for': 'jinja' }
 Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
+Plug 'neoclide/jsonc.vim'
 
 " Editing
 Plug 'tpope/vim-commentary'
@@ -422,6 +423,9 @@ augroup vimrc
         \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
         \ set filetype=javascript
     autocmd BufRead,BufNewFile *Jenkins* set syntax=groovy
+
+    " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
+    autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
     " JSON5
     autocmd FileType json syntax match Comment +\/\/.\+$+
