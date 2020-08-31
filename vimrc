@@ -289,6 +289,8 @@ nnoremap <silent> <esc> :noh<cr>
 
 nmap <silent> gd <Plug>(ale_go_to_definition)
 nmap <silent> gr <Plug>(ale_find_references)
+nmap <silent> an :ALENext<CR>
+
 
 " FZF
 " Fuzzy find files
