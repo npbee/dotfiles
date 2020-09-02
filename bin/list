@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$#" -eq 2 ]; then
+  echo "[ ] $2" >> ~/Dropbox/jrnl/lists/$1.md
+  echo "Done. Added '$2' to list '$1'"
+  tail ~/Dropbox/jrnl/lists/$1.md
+else
+  nvim ~/Dropbox/jrnl/lists/$1.md
+fi

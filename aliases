@@ -48,5 +48,10 @@ alias wiki="cd ~/code/wiki"
 alias colorscheme="nvim ~/code/eighty-five/colors/eighty-five.vim"
 # }}}
 
+# todo.txt
+alias t=todo.sh
+
+alias m=monthly
+
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
