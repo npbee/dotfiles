@@ -35,14 +35,10 @@ $days
 
 EOF)
 
-echo "$template"
-
-mkdir -p "$DIR"
-printf "${GREEN}[ok]${NORMAL} Made ${DIR}\n"
-
 if test -f "$FILE"; then
   nvim $FILE
 else
+  mkdir -p "$DIR"
   echo "$template" > "$FILE"
   printf "${GREEN}[ok]${NORMAL} made ${FILE}\n"
 fi
