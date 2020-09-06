@@ -31,17 +31,10 @@ alias ip="curl ipecho.net/plain ; echo"
 # Show all aliases
 alias alis='cat ~/.aliases'
 
-# TMUX {{{
-alias txl='tmux ls'
-alias txn='tmux new -s'
-alias txa='tmux a -t'
-alias txk='tmux kill-session -t'
-# }}}
-
 # jrnl {{{
-alias j="jrnl -from 'today' -and @daily --edit"
+alias d="jrnl -from 'today' -and @daily --edit"
 alias w="jrnl @weekly -n 1 --edit"
-alias wiki="cd ~/code/wiki"
+alias j="jrnl"
 # }}}
 
 # quickly open up color scheme {{{
