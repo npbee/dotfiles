@@ -1,0 +1,266 @@
+#!/usr/bin/env node
+
+/* eslint-disable no-console */
+
+let util = require("util");
+let readFile = util.promisify(require("fs").readFile);
+
+let [proj] = process.argv.slice(3);
+
+const TODO_FILE = process.env.TODO_FILE;
+const DONE_FILE = process.env.DONE_FILE;
+
+let {
+  lightGrey,
+  darkGrey,
+  grey,
+  green,
+  bold,
+  blue,
+  italic,
+  yellow,
+  white,
+  magenta,
+} = formats();
+
+report(proj);
+
+async function report(proj) {
+  let [todos, done] = await parse();
+
+  todos = proj ? todos.filter(t => t.projects.includes(proj)) : todos;
+  done = proj ? done.filter(t => t.projects.includes(proj)) : done;
+
+  let name = proj || "All";
+  let msg = [`\n${renderTitle(name)}\n`];
+
+  for (let todo of todos) {
+    msg.push(` ${grey(todo.number)} ${bold(blue("◻"))} ${todo.text}`);
+  }
+
+  if (todos.length === 0) {
+    msg.push(` ${grey(italic("No pending items"))}`);
+  }
+
+  msg.push(lightGrey("\n --"));
+
+  for (let item of done) {
+    let itemMsg = [
+      ` ${grey("·")}`,
+      green(bold("✔")),
+      grey(item.text),
+      darkGrey(`(${formatDate(item.completeDate)})`),
+    ];
+
+    msg.push(itemMsg.join(" "));
+  }
+
+  console.log(msg.join("\n"));
+  console.log();
+  console.log(renderSummary(todos, done));
+}
+
+function renderTitle(title) {
+  return bold(white(title));
+}
+
+function renderSummary(todos, done) {
+  let msg = [];
+
+  msg.push(`${yellow(bold(todos.length))} ${grey("pending")}`);
+  msg.push(`${green(bold(done.length))} ${grey("done")}`);
+
+  return " " + msg.join(" · ");
+}
+
+async function parse() {
+  let todos = await readFile(TODO_FILE, "utf8").then(parseTodos);
+  let done = await readFile(DONE_FILE, "utf8").then(parseTodos);
+
+  return [todos, done];
+}
+
+var RE_COMPLETE = /^x\s+/;
+var RE_PRIORITY = /^\(([A-Z])\)\s+/;
+var RE_DATE = /^(\d{4}-\d{2}-\d{2})\s+/;
+
+var RE_CONTEXT_AND_PROJECT = /\s([@+])(\S+)/g;
+
+function parseTodos(lines) {
+  if (Array.isArray(lines)) {
+    return lines.map(function(line, index) {
+      return parseLine(line, index + 1);
+    });
+  }
+
+  var content = lines.trim();
+
+  if (!content) {
+    return [];
+  }
+
+  return parseTodos(content.split(/\r?\n/));
+}
+
+function parseLine(line, number) {
+  line = line.trim();
+
+  if (!line) {
+    return null;
+  }
+
+  let props = {
+    number: number,
+    complete: false,
+    completeDate: null,
+    priority: "",
+    date: null, // Date
+    text: "",
+  };
+
+  // Complete?
+  line = regexTrimLeft(line, RE_COMPLETE, function() {
+    props.complete = true;
+  });
+
+  if (props.complete) {
+    // Completion date?
+    line = regexTrimLeft(line, RE_DATE, function(m) {
+      props.completeDate = parseDate(m[1]);
+      props.prout = true;
+    });
+  }
+
+  // Priority?
+  line = regexTrimLeft(line, RE_PRIORITY, function(m) {
+    props.priority = m[1];
+  });
+
+  // Date?
+  line = regexTrimLeft(line, RE_DATE, function(m) {
+    props.date = parseDate(m[1]);
+  });
+
+  // Text = whatever remains
+  props.text = line;
+
+  return todoItem(props);
+}
+
+function todoItem(props) {
+  // Extract contexts and projects
+  var cp = parseContextsAndProjects(props.text || "");
+  let text = colorDescription(props.text, cp.projects, "+");
+
+  var item = {
+    number: props.number,
+    complete: Boolean(props.complete),
+    completeDate:
+      !props.completeDate || props.completeDate instanceof Date
+        ? props.completeDate
+        : parseDate(props.completeDate),
+    priority: props.priority || "",
+    date:
+      !props.date || props.date instanceof Date
+        ? props.date
+        : parseDate(props.date),
+    text,
+    contexts: cp.contexts,
+    projects: cp.projects,
+  };
+
+  return item;
+}
+
+function colorDescription(text, tags, prefix) {
+  for (let tag of tags) {
+    text = text.replace(prefix + tag, `${magenta("$&")}`);
+  }
+  return text;
+}
+
+function regexMatchAll(string, pattern) {
+  var matches = [];
+
+  var current;
+  do {
+    current = pattern.exec(string);
+    if (current) {
+      matches.push(current);
+    }
+  } while (current);
+
+  return matches;
+}
+
+function parseDate(string) {
+  return new Date(string);
+}
+
+function regexTrimLeft(string, pattern, onMatch) {
+  var match = string.match(pattern);
+
+  if (match) {
+    onMatch(match);
+
+    // Trim
+    string = string.substring(match[0].length);
+  }
+
+  return string;
+}
+
+function parseContextsAndProjects(string) {
+  var contexts = [];
+  var projects = [];
+
+  // Allow starting with a context or project
+  regexMatchAll(" " + string, RE_CONTEXT_AND_PROJECT).forEach(function(match) {
+    if (match[1] === "@") {
+      if (contexts.indexOf(match[2]) === -1) {
+        contexts.push(match[2]);
+      }
+    } else if (match[1] === "+") {
+      if (projects.indexOf(match[2]) === -1) {
+        projects.push(match[2]);
+      }
+    }
+  });
+
+  return {
+    contexts: contexts,
+    projects: projects,
+  };
+}
+
+function formats() {
+  let color = {
+    byNum: (mess, fgNum) => {
+      mess = mess || "";
+      fgNum = fgNum === undefined ? 31 : fgNum;
+      return "\u001b[" + fgNum + "m" + mess + "\u001b[0m";
+    },
+    black: mess => color.byNum(mess, 30),
+    red: mess => color.byNum(mess, 31),
+    green: mess => color.byNum(mess, 32),
+    yellow: mess => color.byNum(mess, 33),
+    blue: mess => color.byNum(mess, 34),
+    magenta: mess => color.byNum(mess, 35),
+    cyan: mess => color.byNum(mess, 36),
+    white: mess => color.byNum(mess, 37),
+    grey: msg => color.byNum(msg, "38;5;246"),
+    lightGrey: msg => color.byNum(msg, "38;5;242"),
+    darkGrey: msg => color.byNum(msg, "38;5;243"),
+    orange: msg => color.byNum(msg, "38;5;208"),
+
+    bold: msg => `\u001b[1m${msg}\u001b[0m`,
+    underline: msg => color.byNum(msg, "4"),
+    italic: msg => color.byNum(msg, "3"),
+  };
+  return color;
+}
+
+function formatDate(dateStr) {
+  let date = new Date(dateStr);
+  return date.toLocaleDateString();
+}
