@@ -31,6 +31,8 @@ async function report(proj) {
   todos = proj ? todos.filter(t => t.projects.includes(proj)) : todos;
   done = proj ? done.filter(t => t.projects.includes(proj)) : done;
 
+  done = done.reverse();
+
   let name = proj || "All";
   let msg = [`\n${renderTitle(name)}\n`];
 
@@ -69,6 +71,7 @@ function renderSummary(todos, done) {
 
   msg.push(`${yellow(bold(todos.length))} ${grey("pending")}`);
   msg.push(`${green(bold(done.length))} ${grey("done")}`);
+  msg.push(`${white(bold(done.length + todos.length))} ${grey("total")}`);
 
   return " " + msg.join(" · ");
 }
