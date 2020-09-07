@@ -34,8 +34,8 @@ async function report(proj) {
 
   done = done.reverse();
 
-  let name = proj || "All";
-  let msg = [`\n${renderTitle(name)}\n`];
+  let name = proj || "Todo";
+  let msg = ["\n" + renderTitle(name)];
 
   for (let todo of todos.filter(Boolean).sort((a, b) => b.due - a.due)) {
     let n = String(todo.number).padStart(todos.length / 10 + 1, "0");
@@ -61,11 +61,11 @@ async function report(proj) {
     msg.push(itemMsg.join(" "));
   }
 
-  console.log(msg.join("\n"));
-  console.log();
-  console.log(renderSummary(todos, done));
-  console.log();
-  console.log(renderLists(done, proj));
+  print(msg.join("\n"));
+  print();
+  print(renderSummary(todos, done));
+  print();
+  print(renderLists(done, proj));
 }
 
 /**
@@ -73,7 +73,7 @@ async function report(proj) {
  */
 
 function renderTitle(title) {
-  return bold(white(title));
+  return bold(white(title)) + "\n";
 }
 
 function renderSummary(todos, done) {
@@ -90,7 +90,7 @@ function renderLists(done, proj) {
   let filtered = done.filter(i =>
     i.projects.some(p => p.includes(proj ? proj : "list-"))
   );
-  let output = "";
+  let output = [];
 
   let lists = {};
 
@@ -104,25 +104,28 @@ function renderLists(done, proj) {
 
       let list = lists[listName];
 
-      const completeYear = parseDate(item.completeDate).getFullYear();
+      const date = parseDate(item.completeDate);
+      const yr = date.getFullYear();
 
-      assoc(list, completeYear, []);
+      assoc(list, yr, []);
 
-      list[completeYear].push(item);
+      list[yr].push(item);
     }
   }
 
   for (let [listName, itemsByYear] of Object.entries(lists)) {
-    output += `${bold(white(listName))}\n\n`;
-    for (let year of Object.keys(itemsByYear)) {
-      let count = itemsByYear[year].length;
-      output += ` ${grey(year)} `;
-      output += renderChart(count);
+    output.push(renderTitle(listName));
+    for (let [year] of Object.entries(itemsByYear)) {
+      let str = [];
+      let countForYear = itemsByYear[year].length;
+      str.push(` ${grey(year)} `);
+      str.push(renderChart(countForYear));
+      output.push(str.join(""));
     }
-    output += "\n\n";
+    output.push("");
   }
 
-  return output;
+  return output.join("\n");
 }
 
 function renderChart(count) {
@@ -373,4 +376,8 @@ function capitalize(str) {
     .split("")
     .map((l, idx) => (idx === 0 ? l.toUpperCase() : l))
     .join("");
+}
+
+function print(...items) {
+  return console.log(...items);
 }
