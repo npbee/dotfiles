@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Chop off `add`
+shift;
+
+# Remaining args
+today=$(date '+%Y-%m-%d')
+cmd=$(echo "$@" | sed  "s/due:today/due:$today/")
+
+"$TODO_SH" command add "$cmd"

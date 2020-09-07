@@ -36,8 +36,9 @@ async function report(proj) {
   let name = proj || "All";
   let msg = [`\n${renderTitle(name)}\n`];
 
-  for (let todo of todos) {
-    msg.push(` ${grey(todo.number)} ${bold(blue("◻"))} ${todo.text}`);
+  for (let todo of todos.filter(Boolean).sort((a, b) => b.due - a.due)) {
+    let n = String(todo.number).padStart(todos.length / 10 + 1, "0");
+    msg.push(` ${grey(n)} ${bold(blue("◻"))} ${todo.text}`);
   }
 
   if (todos.length === 0) {
@@ -46,7 +47,7 @@ async function report(proj) {
 
   msg.push(lightGrey("\n --"));
 
-  for (let item of done) {
+  for (let item of done.filter(Boolean)) {
     let itemMsg = [
       ` ${grey("·")}`,
       green(bold("✔")),
@@ -119,6 +120,7 @@ function parseLine(line, number) {
     priority: "",
     date: null, // Date
     text: "",
+    due: null,
   };
 
   // Complete?
@@ -144,6 +146,10 @@ function parseLine(line, number) {
     props.date = parseDate(m[1]);
   });
 
+  line.replace(/due:([\S]+)/, (match, dueDate) => {
+    props.due = parseDate(dueDate);
+  });
+
   // Text = whatever remains
   props.text = line;
 
@@ -154,6 +160,9 @@ function todoItem(props) {
   // Extract contexts and projects
   var cp = parseContextsAndProjects(props.text || "");
   let text = colorDescription(props.text, cp.projects, "+");
+  text = colorMeta(text);
+
+  text = highlightToday(text, cp.meta);
 
   var item = {
     number: props.number,
@@ -168,6 +177,7 @@ function todoItem(props) {
         ? props.date
         : parseDate(props.date),
     text,
+    due: props.due,
     contexts: cp.contexts,
     projects: cp.projects,
   };
@@ -175,10 +185,23 @@ function todoItem(props) {
   return item;
 }
 
+function highlightToday(text, meta) {
+  if (meta.due === getDate()) {
+    return text.replace(/due:([\S]+)/, `due:${bold("today")}`);
+  }
+
+  return text;
+}
+
 function colorDescription(text, tags, prefix) {
   for (let tag of tags) {
     text = text.replace(prefix + tag, `${magenta("$&")}`);
   }
+  return text;
+}
+
+function colorMeta(text) {
+  text = text.replace(/(\w+):[^:]+/g, `${blue("$&")}`);
   return text;
 }
 
@@ -216,6 +239,7 @@ function regexTrimLeft(string, pattern, onMatch) {
 function parseContextsAndProjects(string) {
   var contexts = [];
   var projects = [];
+  let meta = {};
 
   // Allow starting with a context or project
   regexMatchAll(" " + string, RE_CONTEXT_AND_PROJECT).forEach(function(match) {
@@ -230,9 +254,14 @@ function parseContextsAndProjects(string) {
     }
   });
 
+  regexMatchAll(string, /(\w+):([\S]+)/g).forEach(match => {
+    meta[match[1]] = match[2];
+  });
+
   return {
     contexts: contexts,
     projects: projects,
+    meta,
   };
 }
 
@@ -266,4 +295,12 @@ function formats() {
 function formatDate(dateStr) {
   let date = new Date(dateStr);
   return date.toLocaleDateString();
+}
+
+function getDate() {
+  let date = new Date();
+  let month = String(date.getMonth() + 1).padStart(2, "0");
+  let day = String(date.getDate()).padStart(2, "0");
+  let res = `${date.getFullYear()}-${month}-${day}`;
+  return res;
 }
