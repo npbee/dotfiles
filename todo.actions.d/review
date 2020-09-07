@@ -62,7 +62,7 @@ async function report(proj) {
   console.log();
   console.log(renderSummary(todos, done));
   console.log();
-  console.log(renderLists(done));
+  console.log(renderLists(done, proj));
 }
 
 /**
@@ -83,8 +83,10 @@ function renderSummary(todos, done) {
   return " " + msg.join(" · ");
 }
 
-function renderLists(done) {
-  let filtered = done.filter(i => i.projects.some(p => p.includes("list-")));
+function renderLists(done, proj) {
+  let filtered = done.filter(i =>
+    i.projects.some(p => p.includes(proj ? proj : "list-"))
+  );
   let output = "";
 
   let lists = {};
