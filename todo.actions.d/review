@@ -52,7 +52,7 @@ async function report(proj) {
       ` ${grey("·")}`,
       green(bold("✔")),
       grey(item.text),
-      darkGrey(`(${formatDate(item.completeDate)})`),
+      darkGrey(`(${getDate(item.completeDate)})`),
     ];
 
     msg.push(itemMsg.join(" "));
@@ -61,7 +61,13 @@ async function report(proj) {
   console.log(msg.join("\n"));
   console.log();
   console.log(renderSummary(todos, done));
+  console.log();
+  console.log(renderLists(done));
 }
+
+/**
+ * -- Render --
+ */
 
 function renderTitle(title) {
   return bold(white(title));
@@ -77,6 +83,58 @@ function renderSummary(todos, done) {
   return " " + msg.join(" · ");
 }
 
+function renderLists(done) {
+  let filtered = done.filter(i => i.projects.some(p => p.includes("list-")));
+  let output = "";
+
+  let lists = {};
+
+  let assoc = (obj, name, val) => (obj[name] ? obj[name] : (obj[name] = val));
+
+  for (let item of filtered) {
+    for (let name of item.projects.filter(i => i.includes("list-"))) {
+      let listName = capitalize(name);
+
+      assoc(lists, listName, {});
+
+      let list = lists[listName];
+
+      const completeYear = parseDate(item.completeDate).getFullYear();
+
+      assoc(list, completeYear, []);
+
+      list[completeYear].push(item);
+    }
+  }
+
+  for (let [listName, itemsByYear] of Object.entries(lists)) {
+    output += `${bold(white(listName))}\n\n`;
+    for (let year of Object.keys(itemsByYear)) {
+      let count = itemsByYear[year].length;
+      output += ` ${grey(year)} `;
+      output += renderChart(count);
+    }
+  }
+
+  return output;
+}
+
+function renderChart(count) {
+  let char = "◼";
+
+  let ticks = new Array(count)
+    .fill()
+    .map(() => green(char))
+    .join("");
+
+  ticks += lightGrey(` (${count})`);
+
+  return ticks;
+}
+
+/**
+ * -- Parse --
+ */
 async function parse() {
   let todos = await readFile(TODO_FILE, "utf8").then(parseTodos);
   let done = await readFile(DONE_FILE, "utf8").then(parseTodos);
@@ -87,6 +145,7 @@ async function parse() {
 var RE_COMPLETE = /^x\s+/;
 var RE_PRIORITY = /^\(([A-Z])\)\s+/;
 var RE_DATE = /^(\d{4}-\d{2}-\d{2})\s+/;
+let RE_DUE = /due:([\S]+)/;
 
 var RE_CONTEXT_AND_PROJECT = /\s([@+])(\S+)/g;
 
@@ -114,7 +173,7 @@ function parseLine(line, number) {
   }
 
   let props = {
-    number: number,
+    number,
     complete: false,
     completeDate: null,
     priority: "",
@@ -146,7 +205,8 @@ function parseLine(line, number) {
     props.date = parseDate(m[1]);
   });
 
-  line.replace(/due:([\S]+)/, (match, dueDate) => {
+  // Due date?
+  line.replace(RE_DUE, (match, dueDate) => {
     props.due = parseDate(dueDate);
   });
 
@@ -156,68 +216,75 @@ function parseLine(line, number) {
   return todoItem(props);
 }
 
-function todoItem(props) {
-  // Extract contexts and projects
-  var cp = parseContextsAndProjects(props.text || "");
-  let text = colorDescription(props.text, cp.projects, "+");
-  text = colorMeta(text);
+function todoItem(parsed) {
+  let meta = parseMeta(parsed.text || "");
 
-  text = highlightToday(text, cp.meta);
-
-  var item = {
-    number: props.number,
-    complete: Boolean(props.complete),
+  let item = {
+    number: parsed.number,
+    complete: Boolean(parsed.complete),
     completeDate:
-      !props.completeDate || props.completeDate instanceof Date
-        ? props.completeDate
-        : parseDate(props.completeDate),
-    priority: props.priority || "",
+      !parsed.completeDate || parsed.completeDate instanceof Date
+        ? parsed.completeDate
+        : parseDate(parsed.completeDate),
+    priority: parsed.priority || "",
     date:
-      !props.date || props.date instanceof Date
-        ? props.date
-        : parseDate(props.date),
-    text,
-    due: props.due,
-    contexts: cp.contexts,
-    projects: cp.projects,
+      !parsed.date || parsed.date instanceof Date
+        ? parsed.date
+        : parseDate(parsed.date),
+    text: parsed.text,
+    due: meta.due,
+    contexts: meta.contexts,
+    projects: meta.projects,
   };
+
+  item.text = colorize(item.text, item);
 
   return item;
 }
 
-function highlightToday(text, meta) {
-  if (meta.due === getDate()) {
-    return text.replace(/due:([\S]+)/, `due:${bold("today")}`);
+function colorize(text, item) {
+  for (let proj of item.projects) {
+    text = text.replace("+" + proj, `${magenta("$&")}`);
   }
 
-  return text;
-}
-
-function colorDescription(text, tags, prefix) {
-  for (let tag of tags) {
-    text = text.replace(prefix + tag, `${magenta("$&")}`);
-  }
-  return text;
-}
-
-function colorMeta(text) {
   text = text.replace(/(\w+):[^:]+/g, `${blue("$&")}`);
+
+  if (item.due === getDate()) {
+    text = text.replace(RE_DUE, `due:${bold("today")}`);
+  }
+
   return text;
 }
 
-function regexMatchAll(string, pattern) {
-  var matches = [];
+function parseMeta(string) {
+  let meta = {
+    contexts: [],
+    projects: [],
+  };
 
-  var current;
-  do {
-    current = pattern.exec(string);
-    if (current) {
-      matches.push(current);
+  // Allow starting with a context or project
+  regexMatchAll(" " + string, RE_CONTEXT_AND_PROJECT).forEach(function(match) {
+    if (match[1] === "@") {
+      if (meta.contexts.indexOf(match[2]) === -1) {
+        meta.contexts.push(match[2]);
+      }
+    } else if (match[1] === "+") {
+      if (meta.projects.indexOf(match[2]) === -1) {
+        meta.projects.push(match[2]);
+      }
     }
-  } while (current);
+  });
 
-  return matches;
+  regexMatchAll(string, /(\w+):([\S]+)/g).forEach(match => {
+    meta[match[1]] = match[2];
+  });
+
+  return meta;
 }
+
+/**
+ * -- Utils --
+ */
 
 function parseDate(string) {
   return new Date(string);
@@ -236,65 +303,44 @@ function regexTrimLeft(string, pattern, onMatch) {
   return string;
 }
 
-function parseContextsAndProjects(string) {
-  var contexts = [];
-  var projects = [];
-  let meta = {};
+function regexMatchAll(string, pattern) {
+  var matches = [];
 
-  // Allow starting with a context or project
-  regexMatchAll(" " + string, RE_CONTEXT_AND_PROJECT).forEach(function(match) {
-    if (match[1] === "@") {
-      if (contexts.indexOf(match[2]) === -1) {
-        contexts.push(match[2]);
-      }
-    } else if (match[1] === "+") {
-      if (projects.indexOf(match[2]) === -1) {
-        projects.push(match[2]);
-      }
+  var current;
+  do {
+    current = pattern.exec(string);
+    if (current) {
+      matches.push(current);
     }
-  });
+  } while (current);
 
-  regexMatchAll(string, /(\w+):([\S]+)/g).forEach(match => {
-    meta[match[1]] = match[2];
-  });
-
-  return {
-    contexts: contexts,
-    projects: projects,
-    meta,
-  };
+  return matches;
 }
 
 function formats() {
+  let init = "\u001b[";
+  let reset = "\u001b[0m";
+  let format = f => str => `${init}${f}m${str}${reset}`;
+
   let color = {
-    byNum: (mess, fgNum) => {
-      mess = mess || "";
-      fgNum = fgNum === undefined ? 31 : fgNum;
-      return "\u001b[" + fgNum + "m" + mess + "\u001b[0m";
-    },
-    black: mess => color.byNum(mess, 30),
-    red: mess => color.byNum(mess, 31),
-    green: mess => color.byNum(mess, 32),
-    yellow: mess => color.byNum(mess, 33),
-    blue: mess => color.byNum(mess, 34),
-    magenta: mess => color.byNum(mess, 35),
-    cyan: mess => color.byNum(mess, 36),
-    white: mess => color.byNum(mess, 37),
-    grey: msg => color.byNum(msg, "38;5;246"),
-    lightGrey: msg => color.byNum(msg, "38;5;242"),
-    darkGrey: msg => color.byNum(msg, "38;5;243"),
-    orange: msg => color.byNum(msg, "38;5;208"),
-
-    bold: msg => `\u001b[1m${msg}\u001b[0m`,
-    underline: msg => color.byNum(msg, "4"),
-    italic: msg => color.byNum(msg, "3"),
+    black: format(30),
+    red: format(31),
+    green: format(32),
+    yellow: format(33),
+    blue: format(34),
+    cyan: format(36),
+    magenta: format(35),
+    white: format(37),
+    grey: format("38;5;246"),
+    lightGrey: format("38;5;242"),
+    darkGrey: format("38;5;243"),
+    orange: format("38;5;208"),
+    bold: format("1"),
+    underline: format("4"),
+    italic: format("3"),
   };
-  return color;
-}
 
-function formatDate(dateStr) {
-  let date = new Date(dateStr);
-  return date.toLocaleDateString();
+  return color;
 }
 
 function getDate() {
@@ -303,4 +349,12 @@ function getDate() {
   let day = String(date.getDate()).padStart(2, "0");
   let res = `${date.getFullYear()}-${month}-${day}`;
   return res;
+}
+
+function capitalize(str) {
+  return str
+    .replace(/.*-/, "")
+    .split("")
+    .map((l, idx) => (idx === 0 ? l.toUpperCase() : l))
+    .join("");
 }
