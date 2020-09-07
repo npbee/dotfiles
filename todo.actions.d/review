@@ -21,6 +21,7 @@ let {
   yellow,
   white,
   magenta,
+  red,
 } = formats();
 
 report(proj);
@@ -47,11 +48,13 @@ async function report(proj) {
 
   msg.push(lightGrey("\n --"));
 
-  for (let item of done.filter(Boolean)) {
+  done = done.filter(Boolean).sort((a, b) => b.completeDate - a.completeDate);
+
+  for (let item of done.slice(0, 10)) {
     let itemMsg = [
       ` ${grey("·")}`,
       green(bold("✔")),
-      grey(item.text),
+      grey(item.text.replace(RE_DUE, "")),
       darkGrey(`(${getDate(item.completeDate)})`),
     ];
 
@@ -116,6 +119,7 @@ function renderLists(done, proj) {
       output += ` ${grey(year)} `;
       output += renderChart(count);
     }
+    output += "\n\n";
   }
 
   return output;
@@ -123,10 +127,17 @@ function renderLists(done, proj) {
 
 function renderChart(count) {
   let char = "◼";
+  let color = green;
+
+  if (count < 5) {
+    color = red;
+  } else if (count < 10) {
+    color = yellow;
+  }
 
   let ticks = new Array(count)
     .fill()
-    .map(() => green(char))
+    .map(() => color(char))
     .join("");
 
   ticks += lightGrey(` (${count})`);
@@ -147,7 +158,7 @@ async function parse() {
 var RE_COMPLETE = /^x\s+/;
 var RE_PRIORITY = /^\(([A-Z])\)\s+/;
 var RE_DATE = /^(\d{4}-\d{2}-\d{2})\s+/;
-let RE_DUE = /due:([\S]+)/;
+let RE_DUE = /due:([\S]+)/g;
 
 var RE_CONTEXT_AND_PROJECT = /\s([@+])(\S+)/g;
 
@@ -249,6 +260,10 @@ function colorize(text, item) {
     text = text.replace("+" + proj, `${magenta("$&")}`);
   }
 
+  for (let ctx of item.contexts) {
+    text = text.replace("@" + ctx, `${yellow("$&")}`);
+  }
+
   text = text.replace(/(\w+):[^:]+/g, `${blue("$&")}`);
 
   if (item.due === getDate()) {
@@ -345,8 +360,7 @@ function formats() {
   return color;
 }
 
-function getDate() {
-  let date = new Date();
+function getDate(date = new Date()) {
   let month = String(date.getMonth() + 1).padStart(2, "0");
   let day = String(date.getDate()).padStart(2, "0");
   let res = `${date.getFullYear()}-${month}-${day}`;
