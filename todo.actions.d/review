@@ -1,0 +1,392 @@
+#!/usr/bin/env node
+
+/* eslint-disable no-console */
+
+let util = require("util");
+let readFile = util.promisify(require("fs").readFile);
+
+let [proj] = process.argv.slice(3);
+
+const TODO_FILE = process.env.TODO_FILE;
+const DONE_FILE = process.env.DONE_FILE;
+
+let {
+  lightGrey,
+  darkGrey,
+  grey,
+  green,
+  bold,
+  blue,
+  yellow,
+  white,
+  magenta,
+  red,
+  italic,
+} = formats();
+
+report(proj);
+
+async function report(proj) {
+  let [todos, done] = await parse();
+
+  todos = proj ? forProject(todos, proj) : todos;
+  done = proj ? forProject(done, proj) : done;
+
+  let name = translateListName(proj || "Tasks");
+  let msg = ["\n" + renderTitle(name)];
+
+  for (let todo of todos.filter(Boolean).sort((a, b) => b.due - a.due)) {
+    let n = String(todo.number).padStart(todos.length / 10 + 1, "0");
+    msg.push(` ${grey(n)} ${bold(blue("◻"))} ${todo.text}`);
+  }
+
+  if (todos.length !== 0) {
+    msg.push("");
+  }
+
+  msg.push(lightGrey(" --"));
+
+  done = done
+    .reverse()
+    .filter(Boolean)
+    .sort((a, b) => b.completeDate - a.completeDate);
+
+  for (let item of done.slice(0, 10)) {
+    let itemMsg = [
+      ` ${grey("·")}`,
+      green(bold("✔")),
+      grey(item.text.replace(RE_DUE, "")),
+      darkGrey(`(${getDate(item.completeDate)})`),
+    ];
+
+    msg.push(itemMsg.join(" "));
+  }
+
+  print(msg.join("\n"));
+  print();
+  print(renderSummary(todos, done));
+  print();
+  print(renderLists(done, proj));
+}
+
+/**
+ * -- Render --
+ */
+
+function renderTitle(title) {
+  return bold(white(title)) + "\n";
+}
+
+function renderSummary(todos, done) {
+  let msg = [];
+
+  msg.push(`${yellow(bold(todos.length))} ${grey("pending")}`);
+  msg.push(`${green(bold(done.length))} ${grey("done")}`);
+  msg.push(`${white(bold(done.length + todos.length))} ${grey("total")}`);
+
+  return " " + msg.join(" · ");
+}
+
+function renderLists(done, proj) {
+  let filtered = done.filter(i =>
+    i.projects.some(p => p.includes(proj ? proj : "list-"))
+  );
+  let output = [];
+
+  let lists = {};
+
+  let assoc = (obj, name, val) => (obj[name] ? obj[name] : (obj[name] = val));
+
+  for (let item of filtered) {
+    for (let name of item.projects.filter(i => i.includes("list-"))) {
+      let listName = translateListName(name);
+
+      assoc(lists, listName, {});
+
+      let list = lists[listName];
+
+      let date = parseDate(item.completeDate);
+      let yr = date.getFullYear();
+
+      assoc(list, yr, []);
+
+      list[yr].push(item);
+    }
+  }
+
+  output.push(renderTitle("Stats"));
+
+  for (let [listName, itemsByYear] of Object.entries(lists)) {
+    output.push(" " + white(italic(listName)));
+    for (let [year] of Object.entries(itemsByYear)) {
+      let str = [];
+      let countForYear = itemsByYear[year].length;
+      str.push(` ${grey(year)} `);
+      str.push(renderChart(countForYear));
+      output.push(str.join(""));
+    }
+    output.push("");
+  }
+
+  return output.join("\n");
+}
+
+function renderChart(count) {
+  let char = "◼";
+  let color = green;
+
+  if (count < 5) {
+    color = red;
+  } else if (count < 10) {
+    color = yellow;
+  }
+
+  let ticks = new Array(count)
+    .fill()
+    .map(() => color(char))
+    .join("");
+
+  ticks += lightGrey(` (${count})`);
+
+  return ticks;
+}
+
+/**
+ * -- Parse --
+ */
+async function parse() {
+  let todos = await readFile(TODO_FILE, "utf8").then(parseTodos);
+  let done = await readFile(DONE_FILE, "utf8").then(parseTodos);
+
+  return [todos, done];
+}
+
+var RE_COMPLETE = /^x\s+/;
+var RE_PRIORITY = /^\(([A-Z])\)\s+/;
+var RE_DATE = /^(\d{4}-\d{2}-\d{2})\s+/;
+let RE_DUE = /due:([\S]+)/g;
+
+var RE_CONTEXT_AND_PROJECT = /\s([@+])(\S+)/g;
+
+function parseTodos(lines) {
+  if (Array.isArray(lines)) {
+    return lines.map(function(line, index) {
+      return parseLine(line, index + 1);
+    });
+  }
+
+  var content = lines.trim();
+
+  if (!content) {
+    return [];
+  }
+
+  return parseTodos(content.split(/\r?\n/));
+}
+
+function parseLine(line, number) {
+  line = line.trim();
+
+  if (!line) {
+    return null;
+  }
+
+  let props = {
+    number,
+    complete: false,
+    completeDate: null,
+    priority: "",
+    date: null, // Date
+    text: "",
+    due: null,
+  };
+
+  // Complete?
+  line = regexTrimLeft(line, RE_COMPLETE, function() {
+    props.complete = true;
+  });
+
+  if (props.complete) {
+    // Completion date?
+    line = regexTrimLeft(line, RE_DATE, function(m) {
+      props.completeDate = parseDate(m[1]);
+      props.prout = true;
+    });
+  }
+
+  // Priority?
+  line = regexTrimLeft(line, RE_PRIORITY, function(m) {
+    props.priority = m[1];
+  });
+
+  // Date?
+  line = regexTrimLeft(line, RE_DATE, function(m) {
+    props.date = parseDate(m[1]);
+  });
+
+  // Due date?
+  line.replace(RE_DUE, (match, dueDate) => {
+    props.due = parseDate(dueDate);
+  });
+
+  // Text = whatever remains
+  props.text = line;
+
+  return todoItem(props);
+}
+
+function todoItem(parsed) {
+  let meta = parseMeta(parsed.text || "");
+
+  let item = {
+    number: parsed.number,
+    complete: Boolean(parsed.complete),
+    completeDate:
+      !parsed.completeDate || parsed.completeDate instanceof Date
+        ? parsed.completeDate
+        : parseDate(parsed.completeDate),
+    priority: parsed.priority || "",
+    date:
+      !parsed.date || parsed.date instanceof Date
+        ? parsed.date
+        : parseDate(parsed.date),
+    text: parsed.text,
+    due: meta.due,
+    contexts: meta.contexts,
+    projects: meta.projects,
+  };
+
+  item.text = colorize(item.text, item);
+
+  return item;
+}
+
+function colorize(text, item) {
+  for (let proj of item.projects) {
+    text = text.replace("+" + proj, `${magenta("$&")}`);
+  }
+
+  for (let ctx of item.contexts) {
+    text = text.replace("@" + ctx, `${yellow("$&")}`);
+  }
+
+  text = text.replace(/(\w+):[^:]+/g, `${blue("$&")}`);
+
+  if (item.due === getDate()) {
+    text = text.replace(RE_DUE, `due:${bold("today")}`);
+  }
+
+  return text;
+}
+
+function parseMeta(string) {
+  let meta = {
+    contexts: [],
+    projects: [],
+  };
+
+  // Allow starting with a context or project
+  regexMatchAll(" " + string, RE_CONTEXT_AND_PROJECT).forEach(function(match) {
+    if (match[1] === "@") {
+      if (meta.contexts.indexOf(match[2]) === -1) {
+        meta.contexts.push(match[2]);
+      }
+    } else if (match[1] === "+") {
+      if (meta.projects.indexOf(match[2]) === -1) {
+        meta.projects.push(match[2]);
+      }
+    }
+  });
+
+  regexMatchAll(string, /(\w+):([\S]+)/g).forEach(match => {
+    meta[match[1]] = match[2];
+  });
+
+  return meta;
+}
+
+/**
+ * -- Utils --
+ */
+
+function parseDate(string) {
+  return new Date(string);
+}
+
+function regexTrimLeft(string, pattern, onMatch) {
+  var match = string.match(pattern);
+
+  if (match) {
+    onMatch(match);
+
+    // Trim
+    string = string.substring(match[0].length);
+  }
+
+  return string;
+}
+
+function regexMatchAll(string, pattern) {
+  var matches = [];
+
+  var current;
+  do {
+    current = pattern.exec(string);
+    if (current) {
+      matches.push(current);
+    }
+  } while (current);
+
+  return matches;
+}
+
+function formats() {
+  let init = "\u001b[";
+  let reset = "\u001b[0m";
+  let format = f => str => `${init}${f}m${str}${reset}`;
+
+  let color = {
+    black: format(30),
+    red: format(31),
+    green: format(32),
+    yellow: format(33),
+    blue: format(34),
+    cyan: format(36),
+    magenta: format(35),
+    white: format(37),
+    grey: format("38;5;246"),
+    lightGrey: format("38;5;242"),
+    darkGrey: format("38;5;243"),
+    orange: format("38;5;208"),
+    bold: format("1"),
+    underline: format("4"),
+    italic: format("3"),
+  };
+
+  return color;
+}
+
+function getDate(date = new Date()) {
+  let month = String(date.getMonth() + 1).padStart(2, "0");
+  let day = String(date.getUTCDate()).padStart(2, "0");
+  let res = `${date.getFullYear()}-${month}-${day}`;
+  return res;
+}
+
+function translateListName(str) {
+  return str
+    .replace(/.*-/, "")
+    .split("")
+    .map((l, idx) => (idx === 0 ? l.toUpperCase() : l))
+    .join("");
+}
+
+function print(...items) {
+  return console.log(...items);
+}
+
+function forProject(items, name) {
+  return items.filter(t => {
+    return t.projects.includes(name) || t.projects.includes(`list-${name}`);
+  });
+}

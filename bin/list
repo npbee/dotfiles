@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+if [ "$#" -gt 1 ]; then
+  list=$1
+  shift;
+  file=~/Dropbox/jrnl/lists/$list.md
+
+  if [[ ! -f "$file" ]]; then
+    name=$1
+    # Capitalize
+    echo "# ${(C)name}\n" >> "$file"
+  fi
+
+  # Add each word if it doesn't already exist
+  for item in $@; do
+    grep -xq "\- $item" "$file" || echo "- $item" >> $file
+  done
+
+  echo "Done."
+  bat $file
+else
+  nvim ~/Dropbox/jrnl/lists/$1.md
+fi
