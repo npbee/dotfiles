@@ -17,11 +17,11 @@ let {
   green,
   bold,
   blue,
-  italic,
   yellow,
   white,
   magenta,
   red,
+  italic,
 } = formats();
 
 report(proj);
@@ -29,12 +29,10 @@ report(proj);
 async function report(proj) {
   let [todos, done] = await parse();
 
-  todos = proj ? todos.filter(t => t.projects.includes(proj)) : todos;
-  done = proj ? done.filter(t => t.projects.includes(proj)) : done;
+  todos = proj ? forProject(todos, proj) : todos;
+  done = proj ? forProject(done, proj) : done;
 
-  done = done.reverse();
-
-  let name = proj || "Todo";
+  let name = translateListName(proj || "Tasks");
   let msg = ["\n" + renderTitle(name)];
 
   for (let todo of todos.filter(Boolean).sort((a, b) => b.due - a.due)) {
@@ -42,13 +40,16 @@ async function report(proj) {
     msg.push(` ${grey(n)} ${bold(blue("◻"))} ${todo.text}`);
   }
 
-  if (todos.length === 0) {
-    msg.push(` ${grey(italic("No pending items"))}`);
+  if (todos.length !== 0) {
+    msg.push("");
   }
 
-  msg.push(lightGrey("\n --"));
+  msg.push(lightGrey(" --"));
 
-  done = done.filter(Boolean).sort((a, b) => b.completeDate - a.completeDate);
+  done = done
+    .reverse()
+    .filter(Boolean)
+    .sort((a, b) => b.completeDate - a.completeDate);
 
   for (let item of done.slice(0, 10)) {
     let itemMsg = [
@@ -98,14 +99,14 @@ function renderLists(done, proj) {
 
   for (let item of filtered) {
     for (let name of item.projects.filter(i => i.includes("list-"))) {
-      let listName = capitalize(name);
+      let listName = translateListName(name);
 
       assoc(lists, listName, {});
 
       let list = lists[listName];
 
-      const date = parseDate(item.completeDate);
-      const yr = date.getFullYear();
+      let date = parseDate(item.completeDate);
+      let yr = date.getFullYear();
 
       assoc(list, yr, []);
 
@@ -113,8 +114,10 @@ function renderLists(done, proj) {
     }
   }
 
+  output.push(renderTitle("Stats"));
+
   for (let [listName, itemsByYear] of Object.entries(lists)) {
-    output.push(renderTitle(listName));
+    output.push(" " + white(italic(listName)));
     for (let [year] of Object.entries(itemsByYear)) {
       let str = [];
       let countForYear = itemsByYear[year].length;
@@ -365,12 +368,12 @@ function formats() {
 
 function getDate(date = new Date()) {
   let month = String(date.getMonth() + 1).padStart(2, "0");
-  let day = String(date.getDate()).padStart(2, "0");
+  let day = String(date.getUTCDate()).padStart(2, "0");
   let res = `${date.getFullYear()}-${month}-${day}`;
   return res;
 }
 
-function capitalize(str) {
+function translateListName(str) {
   return str
     .replace(/.*-/, "")
     .split("")
@@ -380,4 +383,10 @@ function capitalize(str) {
 
 function print(...items) {
   return console.log(...items);
+}
+
+function forProject(items, name) {
+  return items.filter(t => {
+    return t.projects.includes(name) || t.projects.includes(`list-${name}`);
+  });
 }
