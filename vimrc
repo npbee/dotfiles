@@ -445,7 +445,8 @@ augroup vimrc
     autocmd FileType vimwiki set syntax=markdown
 
     " Close preview after autocomplete
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    " Silent suppresses the error
+    autocmd! CompleteDone * if pumvisible() == 0 |silent! pclose | endif
 
     autocmd! FileType fzf
     autocmd  FileType fzf set laststatus=0 noshowmode noruler
