@@ -118,11 +118,22 @@ function renderLists(done, proj) {
 
   for (let [listName, itemsByYear] of Object.entries(lists)) {
     output.push(" " + white(italic(listName)));
-    for (let [year] of Object.entries(itemsByYear)) {
+    for (let [year, items] of Object.entries(itemsByYear)) {
       let str = [];
-      let countForYear = itemsByYear[year].length;
+      let countForYear = items.length;
       str.push(` ${grey(year)} `);
       str.push(renderChart(countForYear));
+      let countForMonth = items.reduce((months, item) => {
+        let d = parseDate(item.completeDate);
+        let mo = d.getMonth();
+        months[mo] = (months[mo] || 0) + 1;
+        return months;
+      }, []);
+      let avgPerMonth = Math.round(
+        countForMonth.reduce((sum, n) => (n || 0) + sum, 0) /
+          countForMonth.length
+      );
+      str.push(`\n  ${grey("Avg per month: ")} ${grey(avgPerMonth)}`);
       output.push(str.join(""));
     }
     output.push("");
