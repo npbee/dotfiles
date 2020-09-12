@@ -123,16 +123,7 @@ function renderLists(done, proj) {
       let countForYear = items.length;
       str.push(` ${grey(year)} `);
       str.push(renderChart(countForYear));
-      let countForMonth = items.reduce((months, item) => {
-        let d = parseDate(item.completeDate);
-        let mo = d.getMonth();
-        months[mo] = (months[mo] || 0) + 1;
-        return months;
-      }, []);
-      let avgPerMonth = Math.round(
-        countForMonth.reduce((sum, n) => (n || 0) + sum, 0) /
-          countForMonth.length
-      );
+      let avgPerMonth = Math.round((countForYear / 12) * 10) / 10;
       str.push(`\n  ${grey("Avg per month: ")} ${grey(avgPerMonth)}`);
       output.push(str.join(""));
     }
