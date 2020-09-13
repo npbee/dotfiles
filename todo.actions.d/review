@@ -35,7 +35,11 @@ async function report(proj) {
   let name = translateListName(proj || "Tasks");
   let msg = ["\n" + renderTitle(name)];
 
-  for (let todo of todos.filter(Boolean).sort((a, b) => b.due - a.due)) {
+  let sorted = todos.filter(Boolean).sort((a, b) => {
+    if (b.due < a.due) return 1;
+    return -1;
+  });
+  for (let todo of sorted) {
     let n = String(todo.number).padStart(todos.length / 10 + 1, "0");
     msg.push(` ${grey(n)} ${bold(blue("◻"))} ${todo.text}`);
   }
