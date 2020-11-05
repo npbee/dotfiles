@@ -15,8 +15,8 @@ MONTH_NAME=$(date +%b)
 NUM_OF_DAYS=$(cal $(date +"%m %Y") | awk 'NF {DAYS = $NF}; END {print DAYS}')
 RANGE=$(seq 1 $NUM_OF_DAYS)
 
-DIR="$JRNL_DIR/$YEAR/$MONTH_NUM"
-FILE="$DIR/00.txt"
+DIR="$JRNL_DIR/planner/$YEAR/$MONTH_NUM"
+FILE="$DIR.txt"
 
 days=$(for d in $(seq -f "%02g" 1 $NUM_OF_DAYS); do
   echo "$d: "
