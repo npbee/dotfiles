@@ -109,9 +109,10 @@ let g:ale_fixers =
 
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
-let g:ale_lint_on_text_changed='never'
+let g:ale_lint_on_text_changed='normal'
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_lint_delay = 0
 
 let g:ale_linter_aliases = {
 \   'svelte': ['javascript'],
@@ -191,7 +192,7 @@ set nowritebackup
 
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
-set completeopt=menuone,menu,longest
+set completeopt=menuone,menu,longest,preview
 set conceallevel=0
 set display+=lastline
 set encoding=utf-8
@@ -209,10 +210,11 @@ set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:»·,trail:·
+set pumwidth=80
 set scrolloff=3
 
 " Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+" set shortmess+=c
 
 set shiftround
 set shiftwidth=2
@@ -291,6 +293,11 @@ nnoremap <silent> <esc> :noh<cr>
 nmap <silent> gd <Plug>(ale_go_to_definition)
 nmap <silent> gr <Plug>(ale_find_references)
 nmap <silent> an :ALENext<CR>
+nnoremap gj :ALENextWrap<CR>
+nnoremap gk :ALEPreviousWrap<CR>
+nnoremap g1 :ALEFirst<CR>
+nnoremap g0 :ALEStopAllLSPs<CR>
+
 
 
 " FZF
