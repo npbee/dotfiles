@@ -13,14 +13,18 @@ Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 
 " Lang
-Plug 'yuezk/vim-js'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
-Plug 'niftylettuce/vim-jinja', { 'for': 'jinja' }
-Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
-Plug 'neoclide/jsonc.vim'
+" Plug 'yuezk/vim-js'
+" Plug 'MaxMEllon/vim-jsx-pretty'
+" Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+" Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+" Plug 'othree/html5.vim', { 'for': ['pug', 'html'] }
+" Plug 'niftylettuce/vim-jinja', { 'for': 'jinja' }
+" Plug 'vim-scripts/groovy.vim', { 'for': 'groovy' }
+" Plug 'neoclide/jsonc.vim'
+" Plug 'keith/swift.vim', { 'for': 'swift' }
+" Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact']  }
+Plug 'sheerun/vim-polyglot'
+
 
 " Editing
 Plug 'tpope/vim-commentary'
@@ -57,6 +61,9 @@ let g:user_emmet_settings = {
 \  'javascriptreact' : {
 \      'extends' : 'jsx',
 \  },
+\  'typescriptreact' : {
+\      'extends' : 'jsx',
+\  },
 \}
 
 " }}}
@@ -85,6 +92,11 @@ nmap        S   <Plug>(vsnip-cut-text)
 xmap        S   <Plug>(vsnip-cut-text)
 smap        S   <Plug>(vsnip-cut-text)
 
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript', 'javascript']
+let g:vsnip_filetypes.typescript = ['typescript', 'javascript']
+
 " }}}
 
 " Deoplete {{{
@@ -95,6 +107,8 @@ let g:deoplete#enable_at_startup = 1
 let g:ale_fixers =
 \ { 'javascript': ['prettier'],
  \  'javascriptreact': ['prettier'],
+ \  'typescript': ['prettier'],
+ \  'typescriptreact': ['prettier'],
  \  'scss': ['prettier'],
  \  'markdown': ['prettier'],
  \  'markdown.mdx': ['prettier'],
@@ -109,17 +123,19 @@ let g:ale_fixers =
 
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
-let g:ale_lint_on_text_changed='normal'
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_save = 1
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_lint_delay = 0
 
 let g:ale_linter_aliases = {
 \   'svelte': ['javascript'],
-\   'javascriptreact': ['javascript']
+\   'typescriptreact': ['javascript']
 \}
 let g:ale_linters = {
-\   'svelte': ['eslint']
+\   'svelte': ['eslint'],
+\   'javascript': ['eslint']
 \}
 
 " }}}
@@ -292,6 +308,7 @@ nnoremap <silent> <esc> :noh<cr>
 
 nmap <silent> gd <Plug>(ale_go_to_definition)
 nmap <silent> gr <Plug>(ale_find_references)
+nmap <silent> gl <Plug>(ale_hover)
 nmap <silent> an :ALENext<CR>
 nnoremap gj :ALENextWrap<CR>
 nnoremap gk :ALEPreviousWrap<CR>
@@ -435,6 +452,8 @@ augroup vimrc
 
     " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
     autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
+
+
 
     " JSON5
     autocmd FileType json syntax match Comment +\/\/.\+$+
