@@ -19,49 +19,50 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
 Plug 'prabirshrestha/asyncomplete.vim'
 
+Plug 'vim-test/vim-test'
+Plug 'kassio/neoterm'
+
 call plug#end()
 
+" ALE
+" -----
 let g:ale_linters = {}
-let g:ale_linters['javascript'] = ['eslint', 'tsserver']
+let g:ale_linters_explicit = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 'never'
 let g:ale_lint_on_enter = 'never'
 let g:ale_lint_delay = 200
-let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_echo_msg_format = '[%linter%] %s'
 
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['javascriptreact'] = ['prettier']
-let g:ale_fixers['typescript'] = ['prettier']
-let g:ale_fixers['typescriptreact'] = ['prettier']
 let g:ale_fix_on_save = 1
 
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 
-nmap <silent> gd <Plug>(ale_go_to_definition)
-nmap <silent> gr <Plug>(ale_find_references)
-nmap <silent> gl <Plug>(ale_hover)
-nmap <silent> an :ALENext<CR>
-nnoremap gj :ALENextWrap<CR>
-nnoremap gk :ALEPreviousWrap<CR>
-nnoremap g1 :ALEFirst<CR>
-nnoremap g0 :ALEStopAllLSPs<CR>
-
 " Completion
 " ----------
-
-" Use <Tab> to cycle completions
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
     \ 'priority': 10, 
     \ }))
 
 endif
+
+" Dirvish
+" -------
+
+" Sort directories at the top
+let g:dirvish_mode = ':sort ,^.*[\/],'
+
+" vim-test
+" --------
+let test#strategy = "neoterm"
+
+" neoterm
+" --------
+let g:neoterm_default_mod = "vertical"
+
 
 " }}}
 " ============================================================================
@@ -225,6 +226,41 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" ALE
+" -----
+nmap <silent> gd <Plug>(ale_go_to_definition)
+nmap <silent> gr <Plug>(ale_find_references)
+nmap <silent> gl <Plug>(ale_hover)
+nmap <silent> an :ALENext<CR>
+nnoremap gj :ALENextWrap<CR>
+nnoremap gk :ALEPreviousWrap<CR>
+nnoremap g1 :ALEFirst<CR>
+nnoremap g0 :ALEStopAllLSPs<CR>
+
+" Completion
+" ----------
+
+" Use <Tab> to cycle completions
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+" vim-test
+" --------
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+" neoterm
+" --------
+" Toggle terminal window
+nmap <silent> <leader>tt :Ttoggle<CR>
+
+" Close terminal window and kill the process
+nmap <silent> <leader>tx :Tclose!<CR>
+
 " }}}
 " ============================================================================
 
@@ -328,8 +364,8 @@ endfunction
 "" ============================================================================
 "" LOCAL VIMRC {{{
 "" ============================================================================
-if filereadable(glob("~/.config/nvim/init.vim.local"))
-    source ~/.config/nvim/init.vim.local
+if filereadable(glob("~/.config/nvim/init.local.vim"))
+    source ~/.config/nvim/init.local.vim
 endif
 " }}}
 " ============================================================================
