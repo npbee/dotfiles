@@ -31,7 +31,9 @@ Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 Plug 'wellle/targets.vim'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript.jsx'] }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif
 Plug 'dense-analysis/ale'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -125,6 +127,8 @@ let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
@@ -255,7 +259,12 @@ set wildmode=list:longest,list:full
 syntax on
 set background=dark
 set termguicolors
-colorscheme eighty-five
+
+if has('nvim') 
+  colorscheme eighty-five
+else
+  colorscheme iceberg
+endif
 
 " Hack to support neovim term colors
 if has('nvim')
