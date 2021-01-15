@@ -17,11 +17,12 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 call plug#end()
 
 let g:ale_linters = {}
-let g:ale_linters['javascript'] = ['eslint']
+let g:ale_linters['javascript'] = ['eslint', 'tsserver']
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 'never'
@@ -47,6 +48,18 @@ nnoremap gj :ALENextWrap<CR>
 nnoremap gk :ALEPreviousWrap<CR>
 nnoremap g1 :ALEFirst<CR>
 nnoremap g0 :ALEStopAllLSPs<CR>
+
+" Completion
+" ----------
+
+" Use <Tab> to cycle completions
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
+    \ 'priority': 10, 
+    \ }))
 
 endif
 
@@ -76,7 +89,7 @@ set nowritebackup
 
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone,menu,longest,preview,noinsert,noselect
 set conceallevel=0
 set display+=lastline
 set encoding=utf-8
@@ -110,6 +123,7 @@ set updatetime=300
 
 set wildmenu
 set wildmode=list:longest,list:full
+set wildcharm=<tab>
 
 syntax on
 set background=dark
@@ -218,12 +232,26 @@ nnoremap <C-H> <C-W><C-H>
 "" AUTOCMD {{{
 "" ============================================================================
 augroup vimrc
-  autocmd!
-  autocmd BufWritePost * FormatWrite
-
+    autocmd!
     autocmd! FileType fzf
     autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+    " File Types
+    autocmd BufRead,BufNewFile *.md             set filetype=markdown
+    autocmd BufRead,BufNewFile *.mdx            set filetype=markdown.mdx
+    autocmd BufRead,BufNewFile *.ejs,*.EJS      set filetype=html
+    autocmd BufRead,BufNewFile *.conf           set filetype=nginx
+    autocmd BufRead,BufNewFile
+        \ *.eslintrc,*.babelrc,*.jshintrc,*.JSHINTRC,*.jscsrc,*.flow
+        \ set filetype=javascript
+    autocmd BufRead,BufNewFile *Jenkins*        set syntax=groovy
+
+    " JSON5
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+
+    autocmd Filetype gitcommit setlocal textwidth=72
+
 augroup END
 
 " }}}
