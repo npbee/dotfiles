@@ -1,0 +1,37 @@
+{
+  "reactComponentFunction": {
+    "prefix": "rcf",
+    "body": [
+      "function ${1:name} (${2:props}) {",
+      "  return <${3:div}>",
+      "    $0",
+      "  </$3>",
+      "}"
+    ],
+    "description": "Creates a function React component"
+  },
+  "useState": {
+    "prefix": "us",
+    "body": ["const [${1:val}, set${2:val}] = React.useState($3)"],
+    "description": "React.useState()"
+  },
+  "useEffect": {
+    "prefix": "ue",
+    "body": ["React.useEffect(() => {", "  $0", "}, [${1:deps}])"],
+    "description": "React.useEffect()"
+  },
+  "useLayoutEffect": {
+    "prefix": "ule",
+    "body": ["React.useLayoutEffect(() => {", "  $0", "}, [${1:deps}])"],
+    "description": "React.useLayoutEffect()"
+  },
+  "useMemo": {
+    "prefix": "um",
+    "body": [
+      "const ${1:val} = React.useMemo(() => {",
+      "  $0",
+      "}, [${2:deps}])"
+    ],
+    "description": "React.useMemo()"
+  }
+}

@@ -18,6 +18,8 @@ Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
 Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
@@ -63,6 +65,12 @@ let test#strategy = "neoterm"
 " --------
 let g:neoterm_default_mod = "vertical"
 
+" vsnip
+" ------
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript', 'javascript']
+let g:vsnip_filetypes.typescript = ['typescript', 'javascript']
 
 " }}}
 " ============================================================================
@@ -260,6 +268,33 @@ nmap <silent> <leader>tt :Ttoggle<CR>
 
 " Close terminal window and kill the process
 nmap <silent> <leader>tx :Tclose!<CR>
+
+" vsnip
+" ------
+
+" Expand
+imap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
+smap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+smap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+smap        S   <Plug>(vsnip-cut-text)
+
 
 " }}}
 " ============================================================================
