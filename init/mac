@@ -79,6 +79,7 @@ setup_homebrew() {
     brew "universal-ctags", args: ["HEAD"]
     brew "bat"
     brew "git"
+    brew "go"
     brew "hub"
     brew "python"
     brew "python3"
@@ -90,7 +91,6 @@ setup_homebrew() {
     brew "direnv"
     brew "neovim"
     brew "watchman"
-    brew "jrnl"
 
     cask "1password"
     cask "alfred"
@@ -98,6 +98,7 @@ setup_homebrew() {
     cask "flux"
     cask "spectacle"
     cask "kitty"
+    cask "keyboard-maestro"
 EOF
 }
 
