@@ -116,6 +116,10 @@ augroup END
 set nobackup
 set nowritebackup
 
+" Load project-specific configs
+set exrc
+set secure
+
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
 set completeopt=menuone,menu,longest,preview,noinsert,noselect
