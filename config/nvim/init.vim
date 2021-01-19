@@ -19,7 +19,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
@@ -59,14 +58,6 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'config': {
     \    'max_buffer_size': 5000000,
     \  },
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'allowlist': ['*'],
-    \ 'blocklist': [],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
 
 endif
