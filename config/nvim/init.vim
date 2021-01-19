@@ -37,7 +37,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 'never'
 let g:ale_lint_on_enter = 'never'
 let g:ale_lint_delay = 200
-let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
 
 let g:ale_fixers = {}
 let g:ale_fix_on_save = 1
