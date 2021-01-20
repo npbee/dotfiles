@@ -253,14 +253,13 @@ nnoremap <C-H> <C-W><C-H>
 " ALE
 " -----
 nmap <silent> gd <Plug>(ale_go_to_definition)
-nmap <silent> gr <Plug>(ale_find_references)
-nmap <silent> gl <Plug>(ale_hover)
-nmap <silent> gh <Plug>(ale_detail)
-nnoremap gj :ALENextWrap<CR>
-nnoremap gk :ALEPreviousWrap<CR>
-nnoremap g1 :ALEFirst<CR>
-nnoremap g0 :ALEStopAllLSPs<CR>
-nnoremap g0 :ALEStopAllLSPs<CR>
+nmap <silent> ar <Plug>(ale_find_references)
+nmap <silent> ah <Plug>(ale_hover)
+nmap <silent> ad <Plug>(ale_detail)
+nnoremap aj :ALENextWrap<CR>
+nnoremap kk :ALEPreviousWrap<CR>
+nnoremap a1 :ALEFirst<CR>
+nnoremap a0 :ALEStopAllLSPs<CR>
 
 " Completion
 " ----------
