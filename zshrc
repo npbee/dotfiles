@@ -18,7 +18,6 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
-
 # Path
 
 fpath=("$HOME/.zsh/functions" $fpath)

@@ -208,7 +208,7 @@ set nowritebackup
 
 set clipboard=unnamed   " Use OS clipboard
 set colorcolumn=80
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone,menu,longest,preview,popup
 set conceallevel=0
 set display+=lastline
 set encoding=utf-8

@@ -34,7 +34,7 @@ let g:ale_linters_explicit = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 'never'
-let g:ale_lint_on_enter = 'never'
+let g:ale_lint_on_enter = 1
 let g:ale_lint_delay = 200
 let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
 
@@ -43,6 +43,7 @@ let g:ale_fix_on_save = 1
 
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
+
 
 " Completion
 " ----------
@@ -254,10 +255,11 @@ nnoremap <C-H> <C-W><C-H>
 nmap <silent> gd <Plug>(ale_go_to_definition)
 nmap <silent> gr <Plug>(ale_find_references)
 nmap <silent> gl <Plug>(ale_hover)
-nmap <silent> an :ALENext<CR>
+nmap <silent> gh <Plug>(ale_detail)
 nnoremap gj :ALENextWrap<CR>
 nnoremap gk :ALEPreviousWrap<CR>
 nnoremap g1 :ALEFirst<CR>
+nnoremap g0 :ALEStopAllLSPs<CR>
 nnoremap g0 :ALEStopAllLSPs<CR>
 
 " Completion
