@@ -69,7 +69,8 @@ export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
-export BAT_THEME="1337"
+# export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+export BAT_THEME="base16"
 export NVIM_LOG_FILE=~/.local/share/nvim/log
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
