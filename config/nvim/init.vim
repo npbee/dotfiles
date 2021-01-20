@@ -257,7 +257,7 @@ nmap <silent> ar <Plug>(ale_find_references)
 nmap <silent> ah <Plug>(ale_hover)
 nmap <silent> ad <Plug>(ale_detail)
 nnoremap aj :ALENextWrap<CR>
-nnoremap kk :ALEPreviousWrap<CR>
+nnoremap ak :ALEPreviousWrap<CR>
 nnoremap a1 :ALEFirst<CR>
 nnoremap a0 :ALEStopAllLSPs<CR>
 
