@@ -1,9 +1,2 @@
 #!/usr/bin/env bash
 
-source $HOME/.dotfiles/init/logger
-
-if ! [ -f $HOME/.zsh/functions/prompt_spaceship_setup ]
-then
-  info "Finishing Spaceship prompt setup"
-  ln -sf "$PWD/zsh/plugins/spaceship-prompt/spaceship.zsh" "$HOME/.zsh/functions/prompt_spaceship_setup"
-fi
