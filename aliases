@@ -31,20 +31,9 @@ alias ip="curl ipecho.net/plain ; echo"
 # Show all aliases
 alias alis='cat ~/.aliases'
 
-# jrnl {{{
-alias d="jrnl -from 'today' -and @daily --edit"
-alias w="jrnl @weekly -n 1 --edit"
-alias j="jrnl"
-# }}}
-
 # quickly open up color scheme {{{
 alias colorscheme="nvim ~/code/eighty-five/colors/eighty-five.vim"
 # }}}
-
-# todo.txt
-alias t=todo.sh
-
-alias m=monthly
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

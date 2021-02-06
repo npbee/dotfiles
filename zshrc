@@ -18,7 +18,6 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
-
 # Path
 
 fpath=("$HOME/.zsh/functions" $fpath)
@@ -69,6 +68,8 @@ export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+export FZF_PREVIEW_COMMAND="bat --style=header,grid --wrap never --color always {} || cat {} || tree -C {}"
+export FZF_DEFAULT_OPTS="--preview-window 'right:60%' --preview '$FZF_PREVIEW_COMMAND'"
 export BAT_THEME="1337"
 export NVIM_LOG_FILE=~/.local/share/nvim/log
 export RIPGREP_CONFIG_PATH=~/.ripgreprc

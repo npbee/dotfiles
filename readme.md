@@ -20,3 +20,4 @@ Other installs:
 Fonts:
 
 - From Dropbox, install term font and Pragmata Pro
+
