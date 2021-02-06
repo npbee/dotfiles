@@ -208,7 +208,7 @@ nnoremap <leader>p :FZF<CR>
 nnoremap <leader>f :FF<Space>
 
 " Find files based on the word under the cursor
-nnoremap <leader>rg :F <C-R><C-W><CR>
+nnoremap <leader>rg :FF <C-R><C-W> -w<CR>
 
 " Find files based on the selected text in visual mode
 xnoremap <silent> <leader>rg       y:F <C-R>"<CR>
@@ -253,13 +253,12 @@ nnoremap <C-H> <C-W><C-H>
 " ALE
 " -----
 nmap <silent> gd <Plug>(ale_go_to_definition)
-nmap <silent> ar <Plug>(ale_find_references)
-nmap <silent> ah <Plug>(ale_hover)
-nmap <silent> ad <Plug>(ale_detail)
-nnoremap aj :ALENextWrap<CR>
-nnoremap ak :ALEPreviousWrap<CR>
-nnoremap a1 :ALEFirst<CR>
-nnoremap a0 :ALEStopAllLSPs<CR>
+nmap <silent> <leader>ar <Plug>(ale_find_references)
+nmap <silent> <leader>ah <Plug>(ale_hover)
+nmap <silent> <leader>ad <Plug>(ale_detail)
+nnoremap <leader>aj :ALENextWrap<CR>
+nnoremap <leader>ak :ALEPreviousWrap<CR>
+nnoremap <leader>ax :ALEStopAllLSPs<CR>
 
 " Completion
 " ----------
