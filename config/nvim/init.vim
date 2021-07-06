@@ -41,6 +41,13 @@ let g:ale_lint_delay = 200
 let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
 
 let g:ale_fixers = {}
+let g:ale_fixers['typescriptreact'] = ['prettier']
+let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fixers['graphql'] = ['prettier']
+let g:ale_fixers['yaml'] = ['prettier']
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['javascriptreact'] = ['prettier']
+let g:ale_fixers['css'] = ['prettier']
 let g:ale_fix_on_save = 1
 
 let g:ale_sign_error = '✘'
