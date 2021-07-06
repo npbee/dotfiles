@@ -23,6 +23,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
+Plug 'mattn/emmet-vim'
 
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
@@ -110,6 +111,12 @@ let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript', 'javascript']
 let g:vsnip_filetypes.typescript = ['typescript', 'javascript']
+
+" emmet-vim
+" ----------
+let g:user_emmet_leader_key='<C-E>'
+
+
 
 " }}}
 " ============================================================================
