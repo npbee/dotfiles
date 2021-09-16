@@ -49,6 +49,7 @@ let g:ale_fixers['yaml'] = ['prettier']
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['javascriptreact'] = ['prettier']
 let g:ale_fixers['css'] = ['prettier']
+let g:ale_fixers['html'] = ['prettier']
 let g:ale_fix_on_save = 1
 
 let g:ale_sign_error = '✘'
