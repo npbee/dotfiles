@@ -55,6 +55,9 @@ prompt pure
 # Auto suggestions
 source $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+bindkey '^\n' autosuggest-execute
+
+
 # Z
 source $HOME/.zsh/plugins/z/z.sh
 
