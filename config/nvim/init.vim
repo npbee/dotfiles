@@ -308,7 +308,7 @@ nnoremap <leader>ax :ALEStopAllLSPs<CR>
 " Use <Tab> to cycle completions
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" inoremap <expr> <cr>    pumvisible() ? compe#confirm('<CR>') : "\<cr>"
 
 " vim-test
 " --------
