@@ -1,3 +1,5 @@
+local lspconfig = require('lspconfig')
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -23,11 +25,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
-  -- if client.resolved_capabilities.document_formatting then
-  --   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  -- elseif client.resolved_capabilities.document_range_formatting then
-  --   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  -- end
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -60,7 +60,55 @@ vim.lsp.handlers["textDocument/signatureHelp"] =
   }
 )
 
-require'lspconfig'.tsserver.setup{
+-- Disabled until I'm actually using this somewhere
+-- lspconfig.tsserver.setup({
+--   on_attach = function (client, bufnr)
+--     -- Use prettier for formatting
+--     client.resolved_capabilities.document_formatting = false
+--     client.resolved_capabilities.document_range_formatting = false
+
+--     on_attach(client, bufnr)
+--   end,
+
+--   handlers = {
+--     ["textDocument/publishDiagnostics"] = vim.lsp.with(
+--       vim.lsp.diagnostic.on_publish_diagnostics, {
+--         virtual_text = false
+--       }
+--     )
+--   }
+-- })
+
+-- Formatting via efm
+local prettier = {
+  formatCommand = 'prettierd "${INPUT}"',
+  formatStdin = true
+}
+
+local eslint = {
+  lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
+  lintIgnoreExitCode = true,
+  lintStdin = true,
+  lintFormats = { '%f:%l:%c: %m' }
+}
+
+
+local languages = {
+    lua = {luafmt},
+    javascript = {prettier, eslint},
+    yaml = {prettier},
+    json = {prettier},
+    html = {prettier},
+    scss = {prettier},
+    css = {prettier},
+    markdown = {prettier},
+}
+
+lspconfig.efm.setup {
+  root_dir = lspconfig.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+  filetypes = vim.tbl_keys(languages),
+  init_options = {documentFormatting = true, codeAction = true},
+  settings = {languages = languages, log_level = 1, log_file = '~/efm.log'},
   on_attach = on_attach,
 
   handlers = {
@@ -71,3 +119,4 @@ require'lspconfig'.tsserver.setup{
     )
   }
 }
+

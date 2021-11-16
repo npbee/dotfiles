@@ -75,3 +75,7 @@ require'lspconfig'.flow.setup{
   }
 }
 ```
+
+## Required NPM packages
+
+`@fsouza/prettierd`
