@@ -28,7 +28,7 @@ call plug#end()
 
 " ALE
 " -----
-" let g:ale_linters = {}
+let g:ale_linters = {}
 " let g:ale_linters_explicit = 1
 " let g:ale_lint_on_save = 1
 " let g:ale_lint_on_text_changed = 'never'
@@ -37,7 +37,7 @@ call plug#end()
 " let g:ale_lint_delay = 200
 " let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
 
-" let g:ale_fixers = {}
+let g:ale_fixers = {}
 " let g:ale_fixers['typescriptreact'] = ['prettier']
 " let g:ale_fixers['typescript'] = ['prettier']
 " let g:ale_fixers['graphql'] = ['prettier']

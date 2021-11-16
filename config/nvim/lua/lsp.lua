@@ -26,7 +26,7 @@ local on_attach = function(client, bufnr)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()")
   end
 
   -- Set autocommands conditional on server_capabilities
@@ -92,23 +92,35 @@ local eslint = {
   lintFormats = { '%f:%l:%c: %m' }
 }
 
+local mix_format = {
+  formatCommand = 'mix format - ${INPUT}',
+  formatStdin = true
+}
+
+local flow = {
+  lintCommand = './node_modules/.bin/flow',
+  lintIgnoreExitCode = true,
+  lintFormats = { '%f:%l:%c: %m' }
+}
 
 local languages = {
     lua = {luafmt},
-    javascript = {prettier, eslint},
+    javascript = {prettier, eslint, flow},
+    javascriptreact = {prettier, eslint, flow},
     yaml = {prettier},
     json = {prettier},
     html = {prettier},
     scss = {prettier},
     css = {prettier},
     markdown = {prettier},
+    elixir = {mix_format}
 }
 
 lspconfig.efm.setup {
   root_dir = lspconfig.util.root_pattern("yarn.lock", "lerna.json", ".git"),
   filetypes = vim.tbl_keys(languages),
   init_options = {documentFormatting = true, codeAction = true},
-  settings = {languages = languages, log_level = 1, log_file = '~/efm.log'},
+  settings = {languages = languages, log_level = 2, log_file = '~/efm.log'},
   on_attach = on_attach,
 
   handlers = {
