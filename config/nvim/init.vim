@@ -237,6 +237,7 @@ endif
 " ============================================================================
 " MAPPINGS {{{
 " ============================================================================
+nnoremap <F12> :call ToggleFixOnSave()<cr>
 
 " Turn off search highlighting
 nnoremap <silent> <esc> :noh<cr>
@@ -388,6 +389,14 @@ augroup END
 " ============================================================================
 " FUNCTIONS {{{
 " ============================================================================
+" Toggle fixing on saving for ales
+function! ToggleFixOnSave()
+    if g:ale_fix_on_save
+        let g:ale_fix_on_save = 0
+    else
+        let g:ale_fix_on_save = 1
+    endif
+endfunction
 
 let g:rg_command = 'rg --column --line-number --no-heading --color=always --smart-case '
 
