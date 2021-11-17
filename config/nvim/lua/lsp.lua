@@ -97,23 +97,17 @@ local mix_format = {
   formatStdin = true
 }
 
-local flow = {
-  lintCommand = './node_modules/.bin/flow',
-  lintIgnoreExitCode = true,
-  lintFormats = { '%f:%l:%c: %m' }
-}
-
 local languages = {
     lua = {luafmt},
-    javascript = {prettier, eslint, flow},
-    javascriptreact = {prettier, eslint, flow},
-    yaml = {prettier},
-    json = {prettier},
-    html = {prettier},
-    scss = {prettier},
-    css = {prettier},
-    markdown = {prettier},
-    elixir = {mix_format}
+    javascript = {eslint},
+    javascriptreact = {eslint},
+    yaml = {},
+    json = {},
+    html = {},
+    scss = {},
+    css = {},
+    markdown = {},
+    elixir = {}
 }
 
 lspconfig.efm.setup {
