@@ -61,23 +61,23 @@ vim.lsp.handlers["textDocument/signatureHelp"] =
 )
 
 -- Disabled until I'm actually using this somewhere
--- lspconfig.tsserver.setup({
---   on_attach = function (client, bufnr)
---     -- Use prettier for formatting
---     client.resolved_capabilities.document_formatting = false
---     client.resolved_capabilities.document_range_formatting = false
+lspconfig.tsserver.setup({
+  on_attach = function (client, bufnr)
+    -- Use prettier for formatting
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
 
---     on_attach(client, bufnr)
---   end,
+    on_attach(client, bufnr)
+  end,
 
---   handlers = {
---     ["textDocument/publishDiagnostics"] = vim.lsp.with(
---       vim.lsp.diagnostic.on_publish_diagnostics, {
---         virtual_text = false
---       }
---     )
---   }
--- })
+  handlers = {
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false
+      }
+    )
+  }
+})
 
 -- Formatting via efm
 local prettier = {

@@ -22,8 +22,14 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'mattn/emmet-vim'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
+
+" Telescope
+" ---------
+lua require('telescope-config')
 
 " ALE
 " -----
@@ -220,20 +226,20 @@ nnoremap <silent> <esc> :noh<cr>
 
 " FZF
 " Fuzzy find files
-nnoremap <leader>p :FZF<CR>
+" nnoremap <leader>p :FZF<CR>
+nnoremap <leader>p <cmd>lua require('telescope.builtin').find_files()<cr>
 
-" Find various files based on content
-" Search
-nnoremap <leader>f :FF<Space>
+" Live grep
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').live_grep()<cr>
+
+" Find buffers
+nnoremap <leader>bb <cmd>lua require('telescope.builtin').buffers()<cr>
 
 " Find files based on the word under the cursor
-nnoremap <leader>rg :FF <C-R><C-W> -w<CR>
+nnoremap <leader>rg <cmd>lua require('telescope.builtin').grep_string()<cr>
 
-" Find files based on the selected text in visual mode
-xnoremap <silent> <leader>rg       y:F <C-R>"<CR>
-
-" Fuzzy find buffers
-nnoremap <leader>b :Buffers<CR>
+" Run a builtin picker
+nnoremap <leader>bp <cmd>lua require('telescope.builtin').builtin()<cr>
 
 " Open a new split window vertically
 nnoremap <leader>w <C-w>v<C-w>l
