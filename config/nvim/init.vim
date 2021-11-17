@@ -20,7 +20,6 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
 Plug 'mattn/emmet-vim'
-
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
 
@@ -29,25 +28,7 @@ call plug#end()
 " ALE
 " -----
 let g:ale_linters = {}
-" let g:ale_linters_explicit = 1
-" let g:ale_lint_on_save = 1
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 'never'
-" let g:ale_lint_on_enter = 1
-" let g:ale_lint_delay = 200
-" let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
-
 let g:ale_fixers = {}
-" let g:ale_fixers['typescriptreact'] = ['prettier']
-" let g:ale_fixers['typescript'] = ['prettier']
-" let g:ale_fixers['graphql'] = ['prettier']
-" let g:ale_fixers['yaml'] = ['prettier']
-" let g:ale_fixers['javascript'] = ['prettier']
-" let g:ale_fixers['javascriptreact'] = ['prettier']
-" let g:ale_fixers['css'] = ['prettier']
-" let g:ale_fixers['html'] = ['prettier']
-" let g:ale_fix_on_save = 1
-
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 
@@ -177,7 +158,6 @@ set statusline=%!StatusLine()
 
 set showmode
 set splitbelow
-" set statusline=%!StatusLine()
 set synmaxcol=200
 set textwidth=0
 
@@ -252,9 +232,6 @@ nnoremap <leader>rg :FF <C-R><C-W> -w<CR>
 " Find files based on the selected text in visual mode
 xnoremap <silent> <leader>rg       y:F <C-R>"<CR>
 
-" Fuzzy find at a specific path
-nnoremap <leader>? :FZF<space>
-
 " Fuzzy find buffers
 nnoremap <leader>b :Buffers<CR>
 
@@ -291,10 +268,6 @@ nnoremap <C-H> <C-W><C-H>
 
 " ALE
 " -----
-nmap <silent> gd <Plug>(ale_go_to_definition)
-nmap <silent> <leader>ar <Plug>(ale_find_references)
-nmap <silent> <leader>ah <Plug>(ale_hover)
-nmap <silent> <leader>ad <Plug>(ale_detail)
 nnoremap <leader>aj :ALENextWrap<CR>
 nnoremap <leader>ak :ALEPreviousWrap<CR>
 nnoremap <leader>ax :ALEStopAllLSPs<CR>
