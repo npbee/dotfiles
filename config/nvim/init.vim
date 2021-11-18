@@ -22,6 +22,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'mattn/emmet-vim'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
+Plug 'folke/trouble.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/lsp-colors.nvim'
 
 call plug#end()
 
@@ -30,10 +33,19 @@ call plug#end()
 let g:ale_linters = {}
 let g:ale_linters['javascript'] = []
 let g:ale_linters['css'] = ['stylelint']
-
+let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
 let g:ale_fixers = {}
-
 let g:ale_fix_on_save = 1
+
+" Trouble
+" -------
+
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 
 " Completion
@@ -271,6 +283,10 @@ nnoremap <C-H> <C-W><C-H>
 
 " ALE
 " -----
+nmap <silent> gd <Plug>(ale_go_to_definition)
+nmap <silent> <leader>ar <Plug>(ale_find_references)
+nmap <silent> <leader>ah <Plug>(ale_hover)
+nmap <silent> <leader>ad <Plug>(ale_detail)
 nnoremap <leader>aj :ALENextWrap<CR>
 nnoremap <leader>ak :ALEPreviousWrap<CR>
 nnoremap <leader>ax :ALEStopAllLSPs<CR>

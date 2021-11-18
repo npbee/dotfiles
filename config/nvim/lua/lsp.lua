@@ -98,7 +98,7 @@ local mix_format = {
 }
 
 local languages = {
-    lua = {luafmt},
+    lua = {},
     javascript = {eslint},
     javascriptreact = {eslint},
     yaml = {},
