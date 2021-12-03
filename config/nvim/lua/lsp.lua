@@ -110,19 +110,19 @@ local languages = {
     elixir = {}
 }
 
-lspconfig.efm.setup {
-  root_dir = lspconfig.util.root_pattern("yarn.lock", "lerna.json", ".git"),
-  filetypes = vim.tbl_keys(languages),
-  init_options = {documentFormatting = true, codeAction = true},
-  settings = {languages = languages, log_level = 2, log_file = '~/efm.log'},
-  on_attach = on_attach,
+-- lspconfig.efm.setup {
+--   root_dir = lspconfig.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+--   filetypes = vim.tbl_keys(languages),
+--   init_options = {documentFormatting = true, codeAction = true},
+--   settings = {languages = languages, log_level = 2, log_file = '~/efm.log'},
+--   on_attach = on_attach,
 
-  handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-      }
-    )
-  }
-}
+--   handlers = {
+--     ["textDocument/publishDiagnostics"] = vim.lsp.with(
+--       vim.lsp.diagnostic.on_publish_diagnostics, {
+--         virtual_text = false
+--       }
+--     )
+--   }
+-- }
 

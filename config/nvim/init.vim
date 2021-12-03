@@ -284,9 +284,9 @@ nnoremap <C-H> <C-W><C-H>
 " ALE
 " -----
 nmap <silent> gd <Plug>(ale_go_to_definition)
-nmap <silent> <leader>ar <Plug>(ale_find_references)
-nmap <silent> <leader>ah <Plug>(ale_hover)
-nmap <silent> <leader>ad <Plug>(ale_detail)
+nmap <silent> gr <Plug>(ale_find_references)
+nmap <silent> K <Plug>(ale_hover)
+nmap <silent> <leader>e <Plug>(ale_detail)
 nnoremap <leader>aj :ALENextWrap<CR>
 nnoremap <leader>ak :ALEPreviousWrap<CR>
 nnoremap <leader>ax :ALEStopAllLSPs<CR>
