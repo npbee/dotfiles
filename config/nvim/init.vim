@@ -28,6 +28,16 @@ Plug 'folke/lsp-colors.nvim'
 
 call plug#end()
 
+" FZF
+" ----
+ let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview('down:80%:hidden', 'ctrl-/'), <bang>0)
+
+
 " ALE
 " -----
 let g:ale_linters = {}
@@ -233,19 +243,15 @@ nnoremap <F12> :call ToggleFixOnSave()<cr>
 " Turn off search highlighting
 nnoremap <silent> <esc> :noh<cr>
 
-" FZF
 " Fuzzy find files
 nnoremap <leader>p :FZF<CR>
 
 " Find various files based on content
 " Search
-nnoremap <leader>f :FF<Space>
+nnoremap <leader>f :Rg<Space>
 
 " Find files based on the word under the cursor
-nnoremap <leader>rg :FF <C-R><C-W> -w<CR>
-
-" Find files based on the selected text in visual mode
-xnoremap <silent> <leader>rg       y:F <C-R>"<CR>
+nnoremap <leader>rg :Rg <C-R><C-W> -w<CR>
 
 " Fuzzy find buffers
 nnoremap <leader>b :Buffers<CR>
@@ -386,24 +392,6 @@ function! ToggleFixOnSave()
     endif
 endfunction
 
-let g:rg_command = 'rg --column --line-number --no-heading --color=always --smart-case '
-
-command! -bang -nargs=* F
-  \ call fzf#vim#grep(
-  \ g:rg_command.shellescape(<q-args>),
-  \ 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:75%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-" Probably a better way to do this, but this allows a full rg search with options
-command! -bang -nargs=* FF
-  \ call fzf#vim#grep(
-  \ g:rg_command.<q-args>,
-  \ 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:75%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 
 " }}}
 " ============================================================================
