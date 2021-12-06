@@ -167,10 +167,11 @@ nnoremap <leader>p :FZF<CR>
 " Find various files based on content
 " Search
 nnoremap <leader>f :Rg<Space>
-nnoremap <leader>F :RG<Space>
+nnoremap <leader>/ :RG<Space>
 
 " Find files based on the word under the cursor
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
+nnoremap <leader>* :RG <C-R><C-W><CR>
 
 " Fuzzy find buffers
 nnoremap <leader>b :Buffers<CR>
