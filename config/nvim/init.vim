@@ -1,5 +1,7 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 
+lua require('settings')
+
 " ============================================================================
 " PLUGINS {{{
 " ============================================================================
@@ -45,6 +47,7 @@ let g:ale_linters['javascript'] = []
 let g:ale_linters['css'] = ['stylelint']
 let g:ale_echo_msg_format = '%linter%: %s [%severity%%/code%]'
 let g:ale_fixers = {}
+let g:ale_fixers['lua'] = 'lua-format'
 let g:ale_fix_on_save = 1
 
 " Trouble
@@ -135,103 +138,12 @@ let g:user_emmet_leader_key='<C-E>'
 "" INIT {{{
 "" ============================================================================
 
-" Use Vim settings, rather then Vi settings. This setting must be as early as
-" possible, as it has side effects.
-set nocompatible
-
-" Allow for custom indent settings from plugins
-filetype plugin indent on
-
-let mapleader = " "
-
 augroup vimrc
     autocmd!
 augroup END
 
-"" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
-" Load project-specific configs
-set exrc
-set secure
-
-set clipboard=unnamed   " Use OS clipboard
-set colorcolumn=80
-set completeopt=menuone,noselect
-set conceallevel=0
-set display+=lastline
-set encoding=utf-8
-set expandtab           " Tabs are spaces
-set foldlevelstart=10
-set foldmethod=indent
-
-set history=200         " The amount of commands remembered
-set hlsearch
-set incsearch
-set laststatus=2
-set lazyredraw
-set list
-set listchars=tab:»·,trail:·
-set pumwidth=80
-set scrolloff=3
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
 set statusline=%!StatusLine()
 
-set showmode
-set splitbelow
-set synmaxcol=200
-set textwidth=0
-
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-
-set wildmenu
-set wildmode=list:longest,list:full
-set wildcharm=<tab>
-
-syntax on
-set background=dark
-set termguicolors
-colorscheme eighty-five
-
-" Hack to support neovim term colors
-if has('nvim')
-  " dark0 + gray
-  let g:terminal_color_0 = "#282828"
-  let g:terminal_color_8 = "#928374"
-
-  " neurtral_red + bright_red
-  let g:terminal_color_1 = "#cc241d"
-  let g:terminal_color_9 = "#fb4934"
-
-  " neutral_green + bright_green
-  let g:terminal_color_2 = "#98971a"
-  let g:terminal_color_10 = "#b8bb26"
-
-  " neutral_yellow + bright_yellow
-  let g:terminal_color_3 = "#d79921"
-  let g:terminal_color_11 = "#fabd2f"
-
-  " neutral_blue + bright_blue
-  let g:terminal_color_4 = "#458588"
-  let g:terminal_color_12 = "#83a598"
-
-  " neutral_purple + bright_purple
-  let g:terminal_color_5 = "#b16286"
-  let g:terminal_color_13 = "#d3869b"
-
-  " neutral_aqua + faded_aqua
-  let g:terminal_color_6 = "#689d6a"
-  let g:terminal_color_14 = "#8ec07c"
-
-  " light4 + light1
-  let g:terminal_color_7 = "#a89984"
-  let g:terminal_color_15 = "#ebdbb2"
-endif
 " }}}
 " ============================================================================
 
