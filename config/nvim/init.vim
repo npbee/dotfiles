@@ -38,6 +38,11 @@ command! -bang -nargs=* Rg
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview('down:80%:hidden', 'ctrl-/'), <bang>0)
 
+" Like Rg, but raw
+command! -bang -nargs=* RG
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.<q-args>, 1,
+  \   fzf#vim#with_preview('down:80%:hidden', 'ctrl-/'), <bang>0)
 
 " ALE
 " -----
@@ -162,9 +167,10 @@ nnoremap <leader>p :FZF<CR>
 " Find various files based on content
 " Search
 nnoremap <leader>f :Rg<Space>
+nnoremap <leader>F :RG<Space>
 
 " Find files based on the word under the cursor
-nnoremap <leader>rg :Rg <C-R><C-W> -w<CR>
+nnoremap <leader>rg :Rg <C-R><C-W><CR>
 
 " Fuzzy find buffers
 nnoremap <leader>b :Buffers<CR>
@@ -288,6 +294,7 @@ augroup vimrc
 
     autocmd Filetype gitcommit setlocal textwidth=72
 
+    au FileType javascript,javascriptreact imap ;; => 
 augroup END
 
 " }}}
