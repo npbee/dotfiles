@@ -64,16 +64,16 @@ map("n", "<leader>b", ":Buffers<CR>", {noremap = true})
 map("n", "<F12>", ":call ToggleFixOnSave()<CR>", {noremap = true})
 
 -- Ale: Go to definition
-map("n", "gd", "<Plug>(ale_go_to_definition)", {noremap = true, silent = true})
+map("n", "gd", ":ALEGoToDefinition<CR>", {noremap = true, silent = true})
 
 -- Ale: Find references
-map("n", "gr", "<Plug>(ale_find_references)", {noremap = true, silent = true})
+map("n", "gr", ":ALEFindReferences<CR>", {noremap = true, silent = true})
 
 -- Ale: Show hover info
-map("n", "K", "<Plug>(ale_hover)", {noremap = true, silent = true})
+map("n", "K", ":ALEHover<CR>", {noremap = true, silent = true})
 
 -- Ale: Show diagnostics
-map("n", "<leader>e", "<Plug>(ale_detail)", {noremap = true, silent = true})
+map("n", "<leader>e", ":ALEDetail<CR>", {noremap = true, silent = true})
 
 -- Ale: Cycle through issues
 map("n", "<leader>aj", ":ALENextWrap<CR>", {noremap = true})
