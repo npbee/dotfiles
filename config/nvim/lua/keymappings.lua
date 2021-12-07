@@ -54,6 +54,7 @@ map("n", "<leader>rg", ":Rg <C-R><C-W><CR>", {noremap = true})
 
 -- FZF: Search for word under cursor (raw)
 map("n", "<leader>*", ":RG <C-R><C-W><CR>", {noremap = true})
+map("x", "<leader>*", 'y:RG <C-R>"<CR>', {noremap = true})
 
 -- FZF: Buffers 
 -- " Fuzzy find buffers
