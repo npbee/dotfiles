@@ -17,7 +17,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'mattn/emmet-vim'
 Plug 'vim-test/vim-test'
 Plug 'kassio/neoterm'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/lsp-colors.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -26,6 +25,10 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/nvim-cmp'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'famiu/feline.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
 
@@ -36,6 +39,8 @@ require('plugins.fzf')
 require('plugins.ale')
 require('plugins.cmp')
 require('plugins.vsnip')
+require('plugins.statusline')
+require('plugins.gitsigns')
 
 -- Dirvish: Sort directories at the top
 vim.g.dirvish_mode = ":sort ,^.*[\\/],"
