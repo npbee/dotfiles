@@ -34,3 +34,16 @@ endif
 require('plugins.fzf')
 require('plugins.ale')
 require('plugins.cmp')
+require('plugins.vsnip')
+
+-- Dirvish: Sort directories at the top
+vim.g.dirvish_mode = ":sort ,^.*[\\/],"
+
+-- Vim test
+vim.g['test#strategy'] = "neoterm"
+
+-- neoterm
+vim.g.neoterm_default_mod = "vertical"
+
+-- Emmet
+vim.g.user_emmet_leader_key = '<C-E>'
