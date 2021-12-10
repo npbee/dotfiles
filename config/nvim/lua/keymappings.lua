@@ -47,7 +47,7 @@ map("n", "<leader>p", ":FZF<CR>", {noremap = true})
 map("n", "<leader>f", ":Rg<Space>", {noremap = true})
 
 -- FZF: Search for word (raw)
-map("n", "<leader>f", ":RG<Space>", {noremap = true})
+map("n", "<leader>F", ":RG<Space>", {noremap = true})
 
 -- FZF: Search for word under cursor
 map("n", "<leader>rg", ":Rg <C-R><C-W><CR>", {noremap = true})
