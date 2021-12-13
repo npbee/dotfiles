@@ -21,6 +21,7 @@ local options = {
     secure = true,
     showmode = true,
     signcolumn = "yes", -- Always show sign column to avoid layout shift
+    spell = true,
     spelllang = "en",
     splitbelow = true,
     synmaxcol = 200,
