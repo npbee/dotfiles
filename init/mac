@@ -91,7 +91,6 @@ setup_homebrew() {
     brew "direnv"
     brew "neovim"
     brew "watchman"
-    brew "efm-langserver"
 
     cask "1password"
     cask "alfred"

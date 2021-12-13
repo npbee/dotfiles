@@ -5,7 +5,6 @@ Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'npbee/eighty-five'
-Plug 'mattn/efm-langserver'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
@@ -30,6 +29,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'famiu/feline.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
 call plug#end()
 
 endif
@@ -41,6 +42,7 @@ require('plugins.cmp')
 require('plugins.vsnip')
 require('plugins.statusline')
 require('plugins.gitsigns')
+require('plugins.null-ls')
 
 -- Dirvish: Sort directories at the top
 vim.g.dirvish_mode = ":sort ,^.*[\\/],"
