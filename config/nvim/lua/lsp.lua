@@ -96,3 +96,5 @@ lspconfig.tsserver.setup({
         'typescript', 'typescriptreact', 'typescript.tsx'
     }
 })
+
+lspconfig.flow.setup({capabilities = capabilities, on_attach = on_attach})

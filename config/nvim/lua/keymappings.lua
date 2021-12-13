@@ -35,7 +35,7 @@ map("c", "%%", "v:lua.expand_path()", {noremap = true, expr = true})
 map("n", "<leader>w", "<C-w>v<C-w>l", {noremap = true})
 
 -- Easy horizontal split
-map("n", "<leader>e", "<C-w>s<C-w>j", {noremap = true})
+-- map("n", "<leader>e", "<C-w>s<C-w>j", {noremap = true})
 
 -- Turn off search highlighting
 map("n", "<esc>", ":noh<CR>", {silent = true, noremap = true})
@@ -64,16 +64,16 @@ map("n", "<leader>b", ":Buffers<CR>", {noremap = true})
 map("n", "<F12>", ":call ToggleFixOnSave()<CR>", {noremap = true})
 
 -- Ale: Go to definition
-map("n", "gd", ":ALEGoToDefinition<CR>", {noremap = true, silent = true})
+-- map("n", "gd", ":ALEGoToDefinition<CR>", {noremap = true, silent = true})
 
 -- Ale: Find references
-map("n", "gr", ":ALEFindReferences<CR>", {noremap = true, silent = true})
+-- map("n", "gr", ":ALEFindReferences<CR>", {noremap = true, silent = true})
 
 -- Ale: Show hover info
-map("n", "K", ":ALEHover<CR>", {noremap = true, silent = true})
+-- map("n", "K", ":ALEHover<CR>", {noremap = true, silent = true})
 
 -- Ale: Show diagnostics
-map("n", "<leader>e", ":ALEDetail<CR>", {noremap = true, silent = true})
+-- map("n", "<leader>e", ":ALEDetail<CR>", {noremap = true, silent = true})
 
 -- Ale: Cycle through issues
 map("n", "<leader>aj", ":ALENextWrap<CR>", {noremap = true})
