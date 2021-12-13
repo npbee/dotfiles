@@ -1,4 +1,4 @@
-vim.g.fzf_layout = {window = {width = 0.95, height = 0.95}}
+vim.g.fzf_layout = {window = {width = 0.95, height = 0.65}}
 
 vim.cmd([[
 command! -bang -nargs=* Rg
