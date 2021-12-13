@@ -72,5 +72,3 @@ local globals = {
 for k, v in pairs(options) do vim.opt[k] = v end
 
 for k, v in pairs(globals) do vim.g[k] = v end
-
-vim.cmd('colorscheme eighty-five')

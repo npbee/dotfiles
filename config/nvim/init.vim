@@ -2,6 +2,7 @@
 
 lua require('settings')
 lua require('plugins')
+lua require('colors')
 lua require('lsp')
 lua require('keymappings')
 lua require('autocmds')
