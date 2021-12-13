@@ -98,7 +98,11 @@ local file_info = {
 local file_info_inactive = {
     provider = {
         name = 'file_info',
-        opts = {file_readonly_icon = '  ', file_modified_icon = '•'}
+        opts = {
+            file_readonly_icon = '  ',
+            file_modified_icon = '•',
+            type = 'relative'
+        }
     },
     icon = '',
     hl = {fg = 'fg', bg = 'bg'}
