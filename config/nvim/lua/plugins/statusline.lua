@@ -84,7 +84,11 @@ local vi_mode = {
 local file_info = {
     provider = {
         name = 'file_info',
-        opts = {file_readonly_icon = '  ', file_modified_icon = '•'}
+        opts = {
+            file_readonly_icon = '  ',
+            file_modified_icon = '•',
+            type = 'relative'
+        }
     },
     icon = '',
     hl = {fg = 'fg', bg = 'section_bg', style = 'bold'}
