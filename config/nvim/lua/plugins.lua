@@ -1,40 +1,48 @@
-vim.cmd([[
-silent! if plug#begin(stdpath('data') . '/plugged')
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({
+        'git', 'clone', '--depth', '1',
+        'https://github.com/wbthomason/packer.nvim', install_path
+    })
+end
 
-Plug 'justinmk/vim-dirvish'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'npbee/eighty-five'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-commentary'
-Plug 'machakann/vim-sandwich'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'dense-analysis/ale'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'neovim/nvim-lspconfig'
-Plug 'mattn/emmet-vim'
-Plug 'vim-test/vim-test'
-Plug 'kassio/neoterm'
-Plug 'folke/lsp-colors.nvim'
+require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'
 
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/nvim-cmp'
+    use 'justinmk/vim-dirvish'
+    use 'npbee/eighty-five'
+    use 'sheerun/vim-polyglot'
+    use 'tpope/vim-commentary'
+    use 'machakann/vim-sandwich'
+    use 'ludovicchabant/vim-gutentags'
+    use 'dense-analysis/ale'
+    use 'nvim-lua/plenary.nvim'
+    use {'hrsh7th/vim-vsnip', requires = {'hrsh7th/vim-vsnip-integ'}}
+    use 'neovim/nvim-lspconfig'
+    use 'mattn/emmet-vim'
+    use 'vim-test/vim-test'
+    use 'kassio/neoterm'
+    use 'folke/lsp-colors.nvim'
+    use {
+        'hrsh7th/nvim-cmp',
+        requires = {
+            'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline', 'hrsh7th/cmp-vsnip'
+        }
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'famiu/feline.nvim'
-Plug 'lewis6991/gitsigns.nvim'
+    }
+    use 'famiu/feline.nvim'
+    use 'lewis6991/gitsigns.nvim'
+    use 'jose-elias-alvarez/null-ls.nvim'
 
-Plug 'jose-elias-alvarez/null-ls.nvim'
+    use {
+        'junegunn/fzf.vim',
+        requires = {{'junegunn/fzf', run = function() fn['fzf#install']() end}}
+    }
 
-call plug#end()
-
-endif
-]])
+    if packer_bootstrap then require('packer').sync() end
+end)
 
 require('plugins.fzf')
 require('plugins.ale')
