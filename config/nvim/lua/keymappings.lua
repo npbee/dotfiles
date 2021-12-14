@@ -38,12 +38,12 @@ map("n", "<leader>w", "<C-w>v<C-w>l", {noremap = true})
 map("n", "<esc>", ":noh<CR>", {silent = true, noremap = true})
 
 -- FZF: Open file
--- map("n", "<leader>p", ":FZF<CR>", {noremap = true})
-map("n", "<leader>p", "<cmd>Telescope find_files<CR>", {noremap = true})
+map("n", "<leader>p", ":FZF<CR>", {noremap = true})
+-- map("n", "<leader>p", "<cmd>Telescope find_files<CR>", {noremap = true})
 
 -- FZF: Search for word
--- map("n", "<leader>f", ":Rg<Space>", {noremap = true})
-map("n", "<leader>f", "<cmd>Telescope live_grep<CR>", {noremap = true})
+map("n", "<leader>f", ":Rg<Space>", {noremap = true})
+-- map("n", "<leader>f", "<cmd>Telescope live_grep<CR>", {noremap = true})
 
 -- FZF: Search for word (raw)
 map("n", "<leader>F",
@@ -51,21 +51,20 @@ map("n", "<leader>F",
     {noremap = true})
 
 -- FZF: Search for word under cursor
--- map("n", "<leader>rg", ":Rg <C-R><C-W><CR>", {noremap = true})
-map("n", "<leader>*", ":lua require('telescope.builtin').grep_string()<cr>",
-    {noremap = true})
+map("n", "<leader>rg", ":Rg <C-R><C-W><CR>", {noremap = true})
+-- map("n", "<leader>*", ":lua require('telescope.builtin').grep_string()<cr>", {noremap = true})
 
 -- FZF: Search for word under cursor (raw)
--- map("n", "<leader>*", ":RG <C-R><C-W><CR>", {noremap = true})
--- map("x", "<leader>*", 'y:RG <C-R>"<CR>', {noremap = true})
+map("n", "<leader>*", ":RG <C-R><C-W><CR>", {noremap = true})
+map("x", "<leader>*", 'y:RG <C-R>"<CR>', {noremap = true})
 
 -- FZF: Buffers 
 -- " Fuzzy find buffers
--- map("n", "<leader>b", ":Buffers<CR>", {noremap = true})
-map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {noremap = true})
+map("n", "<leader>b", ":Buffers<CR>", {noremap = true})
+-- map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {noremap = true})
 
 -- Telescope: Run a builtin picker
-map('n', "<leader>bp", "<cmd>:lua require('telescope.builtin').builtin()<cr>",
+map('n', "<leader>fp", "<cmd>:lua require('telescope.builtin').builtin()<cr>",
     {noremap = true})
 
 -- Ale: Toggle Fixing
