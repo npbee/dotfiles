@@ -10,6 +10,15 @@ end
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+            {'nvim-telescope/telescope-live-grep-raw.nvim'}
+        }
+    }
+
     use 'justinmk/vim-dirvish'
     use 'npbee/eighty-five'
     use 'sheerun/vim-polyglot'
@@ -44,6 +53,7 @@ require('packer').startup(function(use)
     if packer_bootstrap then require('packer').sync() end
 end)
 
+require('plugins.telescope')
 require('plugins.fzf')
 require('plugins.ale')
 require('plugins.cmp')
