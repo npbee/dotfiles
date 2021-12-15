@@ -60,7 +60,6 @@ require('plugins.cmp')
 require('plugins.vsnip')
 require('plugins.statusline')
 require('plugins.gitsigns')
-require('plugins.null-ls')
 
 -- Dirvish: Sort directories at the top
 vim.g.dirvish_mode = ":sort ,^.*[\\/],"

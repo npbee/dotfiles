@@ -1,7 +1,32 @@
+local null_ls = require('null-ls')
+
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
                                                                      .protocol
                                                                      .make_client_capabilities())
 local lspconfig = require('lspconfig')
+
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = false
+})
+
+-- Custom borders
+--
+local border = {
+    {"🭽", "FloatBorder"}, {"▔", "FloatBorder"}, {"🭾", "FloatBorder"},
+    {"▕", "FloatBorder"}, {"🭿", "FloatBorder"}, {"▁", "FloatBorder"},
+    {"🭼", "FloatBorder"}, {"▏", "FloatBorder"}
+}
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or "rounded"
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
@@ -42,6 +67,10 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>q',
                    '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
+    if client.resolved_capabilities.document_formatting then
+        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()")
+    end
+
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
         vim.api.nvim_exec([[
@@ -56,12 +85,6 @@ local on_attach = function(client, bufnr)
     ]], false)
     end
 end
-
-vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
-
-vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"})
 
 -- Disabled until I'm actually using this somewhere
 lspconfig.tsserver.setup({
@@ -93,3 +116,13 @@ lspconfig.tsserver.setup({
 })
 
 lspconfig.flow.setup({capabilities = capabilities, on_attach = on_attach})
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.diagnostics.misspell,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.formatting.prettierd
+    },
+
+    on_attach = on_attach
+})
