@@ -1,5 +1,29 @@
 local cmp = require 'cmp'
 
+local icons = {
+    Class = " ",
+    Color = " ",
+    Constant = " ",
+    Constructor = " ",
+    Enum = "了 ",
+    EnumMember = " ",
+    Field = " ",
+    File = " ",
+    Folder = " ",
+    Function = " ",
+    Interface = "ﰮ ",
+    Keyword = " ",
+    Method = "ƒ ",
+    Module = " ",
+    Property = " ",
+    Snippet = "﬌ ",
+    Struct = " ",
+    Text = " ",
+    Unit = " ",
+    Value = " ",
+    Variable = " "
+}
+
 cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -22,7 +46,21 @@ cmp.setup({
     },
     sources = cmp.config.sources({
         {name = 'nvim_lsp'}, {name = 'vsnip'} -- For vsnip users.
-    }, {{name = 'buffer'}, {name = 'path'}})
+    }, {{name = 'buffer'}, {name = 'path'}}),
+
+    documentation = {
+        border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"},
+        winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder"
+    },
+
+    formatting = {
+        format = function(_entry, vim_item)
+            if icons[vim_item.kind] then
+                vim_item.kind = icons[vim_item.kind] .. " " .. vim_item.kind
+            end
+            return vim_item
+        end
+    }
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
