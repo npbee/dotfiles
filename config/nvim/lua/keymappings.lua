@@ -64,7 +64,7 @@ map("n", "<leader>b", ":Buffers<CR>", {noremap = true})
 -- map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {noremap = true})
 
 -- Telescope: Run a builtin picker
-map('n', "<leader>fp", "<cmd>:lua require('telescope.builtin').builtin()<cr>",
+map('n', "<leader>tp", "<cmd>:lua require('telescope.builtin').builtin()<cr>",
     {noremap = true})
 
 -- Ale: Toggle Fixing
