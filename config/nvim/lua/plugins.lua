@@ -44,7 +44,7 @@ require('packer').startup(function(use)
         }
 
     }
-    use {'famiu/feline.nvim', event = "VimEnter" },
+    use {'famiu/feline.nvim', event = "VimEnter" }
     use {'lewis6991/gitsigns.nvim', event = "BufReadPre"}
     use 'jose-elias-alvarez/null-ls.nvim'
 
