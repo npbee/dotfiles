@@ -12,6 +12,7 @@ require('packer').startup(function(use)
 
     use {
         'nvim-telescope/telescope.nvim',
+        cmd = {"Telescope"},
         requires = {
             {'nvim-lua/plenary.nvim'},
             {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
@@ -28,21 +29,23 @@ require('packer').startup(function(use)
     use 'dense-analysis/ale'
     use 'nvim-lua/plenary.nvim'
     use {'hrsh7th/vim-vsnip', requires = {'hrsh7th/vim-vsnip-integ'}}
-    use 'neovim/nvim-lspconfig'
+    use {'neovim/nvim-lspconfig', opt = true, event = "BufReadPre"}
     use 'mattn/emmet-vim'
     use 'vim-test/vim-test'
     use 'kassio/neoterm'
     use 'folke/lsp-colors.nvim'
     use {
         'hrsh7th/nvim-cmp',
+        event = "InsertEnter",
+        opt = true,
         requires = {
             'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline', 'hrsh7th/cmp-vsnip'
         }
 
     }
-    use 'famiu/feline.nvim'
-    use 'lewis6991/gitsigns.nvim'
+    use {'famiu/feline.nvim', event = "VimEnter" },
+    use {'lewis6991/gitsigns.nvim', event = "BufReadPre"}
     use 'jose-elias-alvarez/null-ls.nvim'
 
     use {
