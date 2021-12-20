@@ -31,37 +31,12 @@ append_to_zshrc() {
 }
 
 
-# Uses the local template and copies it into the `link` folder so that we can
-# ignore potentially private git things
-setup_git() {
-    if ! [ -f gitconfig.local ]
-    then
-        info "Setting up local git config"
-
-        git_credential='cache'
-        if is_mac
-        then
-            git_credential='osxkeychain'
-        fi
-
-        user 'What is your github author name?'
-        read -e git_authorname
-        user 'What is your github author email?'
-        read -e git_authoremail
-
-        sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" init/template/gitconfig.local > gitconfig.local
-
-        success 'Local git config complete.'
-    fi
-}
-
 # HOMEBREW
 setup_homebrew() {
     info "Installing Homebrew"
     if test ! $(which /usr/local/bin/brew)
     then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        export PATH="/usr/local/bin:$PATH"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         success "Homebrew already installed."
     fi
@@ -73,32 +48,18 @@ setup_homebrew() {
 
     tap 'homebrew/bundle'
     tap 'thoughtbot/formulae'
-    tap "universal-ctags/universal-ctags"
-    tap "caskroom/cask"
+    tap "homebrew/cask"
 
-    brew "universal-ctags", args: ["HEAD"]
     brew "bat"
     brew "git"
-    brew "go"
     brew "hub"
-    brew "python"
-    brew "python3"
     brew "rcm"
-    brew "ruby"
     brew "ripgrep"
-    brew "tree"
     brew "zsh"
-    brew "direnv"
     brew "neovim"
-    brew "watchman"
 
-    cask "1password"
     cask "alfred"
-    cask "dash"
-    cask "flux"
-    cask "spectacle"
     cask "kitty"
-    cask "keyboard-maestro"
 EOF
 }
 
@@ -128,44 +89,6 @@ zsh() {
         success "Z already installed."
     fi
 
-    info "Intalling spaceship prompt"
-    if ! [ -d zsh/plugins/spaceship ]
-    then
-      git clone https://github.com/denysdovhan/spaceship-prompt.git zsh/plugins/spaceship-prompt
-    else
-      success "Spaceship prompt already installed"
-    fi
-}
-
-update_shell() {
-  local shell_path;
-  shell_path="$(command -v zsh)"
-
-  info "Changing your shell to zsh ..."
-  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
-    info "Adding '$shell_path' to /etc/shells"
-    sudo sh -c "echo $shell_path >> /etc/shells"
-  fi
-  sudo chsh -s "$shell_path" "$USER"
-}
-
-change_shell() {
-  local shell_path;
-  shell_path="$(command -v zsh)"
-
-  info "Changing your shell to zsh ..."
-  if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
-    info "Adding '$shell_path' to /etc/shells"
-    sudo sh -c "echo $shell_path >> /etc/shells"
-  fi
-  sudo chsh -s "$shell_path" "$USER"
-}
-
-# pip
-do_python() {
-    info "Installing neovim via Python3"
-    pip3 install neovim
-    success "Done!"
 }
 
 link_files() {
@@ -181,35 +104,12 @@ osx_defaults() {
     $HOME/.bin/osx
 }
 
-link_nvim() {
-    info "Linking vim files to nvim"
-    if ! [ -d ~/.config ]
-    then
-        mkdir $HOME/.config
-    fi
-    if ! [ -e ~/.config/nvim/.vim ]
-    then
-      ln -s ~/.vim ~/.config/nvim
-      ln -s ~/.vimrc ~/.config/nvim/init.vim
-    fi
-}
-
-terminfo() {
-    info "Terminfo"
-    tic ./internal/terminfo/xterm-256color-italic.terminfo
-}
-
 clean_up() {
     success "Done!  Run 'source ~/.zshrc' to see changes."
 }
 
-setup_git
-#setup_homebrew
-do_python
+setup_homebrew
 zsh
-change_shell
 link_files
 osx_defaults
-link_nvim
-terminfo
 clean_up
