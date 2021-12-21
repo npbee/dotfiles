@@ -90,3 +90,7 @@ export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 # The next line updates PATH for Netlify's Git Credential Helper.
 if [ -f '/Users/npbee/.netlify/helper/path.zsh.inc' ]; then source '/Users/npbee/.netlify/helper/path.zsh.inc'; fi
+
+if type fnm &> /dev/null; then
+    eval "$(fnm env)"
+fi
