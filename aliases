@@ -26,7 +26,7 @@ alias hidehidden="defaults write com.apple.finder AppleShowAllFiles NO; killall 
 alias sourcezsh="source ~/.zshrc"
 
 # get public IP
-alias ip="curl ipecho.net/plain ; echo"
+alias ip="curl -s ipecho.net/plain | pbcopy && echo '✔ Copied IP address to clipboard ($(pbpaste))'"
 
 # Show all aliases
 alias alis='cat ~/.aliases'
