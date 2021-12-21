@@ -73,3 +73,6 @@
 	required = true
 [init]
 	defaultBranch = main
+[user]
+	name = Nick Ball
+	email = nick@npbee.me
