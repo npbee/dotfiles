@@ -117,7 +117,7 @@ null_ls.setup({
         --     command = 'eslintme',
         --     args = {"$FILENAME"}
         -- }), 
-        null_ls.builtins.formatting.prettierd
+        null_ls.builtins.formatting.prettier
     },
 
     on_attach = on_attach
