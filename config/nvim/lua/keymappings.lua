@@ -37,6 +37,8 @@ map("n", "<leader>w", "<C-w>v<C-w>l", {noremap = true})
 -- Turn off search highlighting
 map("n", "<esc>", ":noh<CR>", {silent = true, noremap = true})
 
+map("t", "<Esc>", "<C-\\><C-n>", {noremap = true})
+
 -- FZF: Open file
 map("n", "<leader>p", ":FZF<CR>", {noremap = true})
 -- map("n", "<leader>p", "<cmd>Telescope find_files<CR>", {noremap = true})
