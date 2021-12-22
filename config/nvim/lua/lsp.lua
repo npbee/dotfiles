@@ -117,7 +117,9 @@ null_ls.setup({
         --     command = 'eslintme',
         --     args = {"$FILENAME"}
         -- }), 
-        null_ls.builtins.formatting.prettier
+        null_ls.builtins.formatting.prettier.with({
+            only_local = "node_modules/.bin"
+        })
     },
 
     on_attach = on_attach
