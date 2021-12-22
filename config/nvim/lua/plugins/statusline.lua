@@ -245,6 +245,6 @@ table.insert(components.inactive[1], file_info_inactive)
 
 require('feline').setup({
     components = components,
-    colors = colors,
+    theme = colors,
     vi_mode_colors = vi_mode_colors
 })
