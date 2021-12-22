@@ -35,5 +35,6 @@ alias alis='cat ~/.aliases'
 alias colorscheme="nvim ~/code/eighty-five/colors/eighty-five.vim"
 # }}}
 
+alias lg="lazygit"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
