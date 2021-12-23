@@ -60,7 +60,7 @@ local on_attach = function(client, bufnr)
                    '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
     if client.resolved_capabilities.document_formatting then
-        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()")
+        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
 
     -- Set autocommands conditional on server_capabilities
@@ -110,6 +110,7 @@ lspconfig.tsserver.setup({
 lspconfig.flow.setup({capabilities = capabilities, on_attach = on_attach})
 
 null_ls.setup({
+    diagnostics_format = "[#{s}] #{m} (#{c})",
     sources = {
         null_ls.builtins.diagnostics.misspell,
         null_ls.builtins.diagnostics.eslint_d,
@@ -117,8 +118,11 @@ null_ls.setup({
         --     command = 'eslintme',
         --     args = {"$FILENAME"}
         -- }), 
-        null_ls.builtins.formatting.prettier.with({
-            only_local = "node_modules/.bin"
+        -- null_ls.builtins.formatting.prettier.with({
+        --     only_local = "node_modules/.bin"
+        -- })
+        null_ls.builtins.formatting.prettierd.with({
+            prefer_local = "node_modules/.bin"
         })
     },
 
