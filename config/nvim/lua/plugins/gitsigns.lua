@@ -37,6 +37,6 @@ require('gitsigns').setup({
     signcolumn = false,
     numhl = false,
     linehl = false,
-    word_diff = false
+    word_diff = false,
     preview_config = {border = 'rounded'}
 })
