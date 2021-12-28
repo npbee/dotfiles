@@ -10,7 +10,13 @@ vim.diagnostic.config({
     signs = true,
     underline = true,
     update_in_insert = false,
-    severity_sort = false
+    severity_sort = false,
+    float = {
+        format = function(diagnostic)
+            return string.format("[%s] %s (%s)", diagnostic.source,
+                                 diagnostic.message, diagnostic.code)
+        end
+    }
 })
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -110,7 +116,6 @@ lspconfig.tsserver.setup({
 lspconfig.flow.setup({capabilities = capabilities, on_attach = on_attach})
 
 null_ls.setup({
-    diagnostics_format = "[#{s}] #{m} (#{c})",
     sources = {
         null_ls.builtins.diagnostics.misspell,
         null_ls.builtins.diagnostics.eslint_d,
