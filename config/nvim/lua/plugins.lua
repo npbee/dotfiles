@@ -19,6 +19,7 @@ require('packer').startup(function(use)
         }
     }
 
+    use {'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim'}
     use 'justinmk/vim-dirvish'
     use 'npbee/eighty-five'
     use 'sheerun/vim-polyglot'
@@ -60,6 +61,8 @@ require('plugins.cmp')
 require('plugins.vsnip')
 require('plugins.statusline')
 require('plugins.gitsigns')
+
+require("gitlinker").setup()
 
 -- Dirvish: Sort directories at the top
 vim.g.dirvish_mode = ":sort ,^.*[\\/],"
