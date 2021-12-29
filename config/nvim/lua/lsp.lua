@@ -119,6 +119,7 @@ null_ls.setup({
       prefer_local = "node_modules/.bin",
     }),
     null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.mix,
   },
 
   on_attach = on_attach,
