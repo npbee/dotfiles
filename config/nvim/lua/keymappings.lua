@@ -68,27 +68,8 @@ map("n", "<leader>b", ":Buffers<CR>", { noremap = true })
 -- Telescope: Run a builtin picker
 map("n", "<leader>tp", "<cmd>:lua require('telescope.builtin').builtin()<cr>", { noremap = true })
 
--- Ale: Toggle Fixing
-map("n", "<F12>", ":call ToggleFixOnSave()<CR>", { noremap = true })
-
--- Ale: Go to definition
--- map("n", "gd", ":ALEGoToDefinition<CR>", {noremap = true, silent = true})
-
--- Ale: Find references
--- map("n", "gr", ":ALEFindReferences<CR>", {noremap = true, silent = true})
-
--- Ale: Show hover info
--- map("n", "K", ":ALEHover<CR>", {noremap = true, silent = true})
-
--- Ale: Show diagnostics
--- map("n", "<leader>e", ":ALEDetail<CR>", {noremap = true, silent = true})
-
--- Ale: Cycle through issues
-map("n", "<leader>aj", ":ALENextWrap<CR>", { noremap = true })
-map("n", "<leader>ak", ":ALEPreviousWrap<CR>", { noremap = true })
-
--- Ale: Kill LSPs
-map("n", "<leader>ax", ":ALEStopAllLSPs<CR>", { noremap = true })
+-- Toggle formatting
+map("n", "<F12>", "<cmd>: lua require('util').toggle_formatting()<CR>", { noremap = true })
 
 -- Vim test
 map("n", "t<C-n>", ":TestNearest<CR>", { silent = true })

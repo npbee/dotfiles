@@ -1,3 +1,4 @@
+local null_ls = require("null-ls")
 local lazy_require = require("feline.utils").lazy_require
 local vi_mode_utils = lazy_require("feline.providers.vi_mode")
 local lsp = require("feline.providers.lsp")
@@ -169,30 +170,6 @@ local lsp_errors = {
   hl = { fg = "red", bg = "bg" },
 }
 
-local ale_errors = {
-  provider = function()
-    return vim.api.nvim_exec(
-      [[
-        function! s:LinterStatus() abort
-             let s:counts = ale#statusline#Count(bufnr(''))
-             let s:all_errors = s:counts.error + s:counts.style_error
-             let s:all_non_errors = s:counts.total - s:all_errors
-
-             return s:counts.total == 0 ? 'OK' : printf(
-             \   '%dW %dE',
-             \   s:all_non_errors,
-             \   s:all_errors
-             \)
-         endfunction
-
-         call s:LinterStatus()
-        ]],
-      true
-    )
-  end,
-  hl = { fg = "red", bg = "bg" },
-}
-
 local lsp_warnings = {
   provider = function()
     return get_diagnostic_count(vim.diagnostic.severity.WARN)
@@ -218,7 +195,7 @@ local is_formatting = {
   left_sep = { " ", { str = "left_rounded", hl = { fg = "purple" } } },
   right_sep = { { str = "right_rounded", hl = { fg = "purple" } }, " " },
   enabled = function()
-    return vim.g.ale_fix_on_save == 1
+    return require("util").is_formatting()
   end,
   hl = { fg = "bg", bg = "purple" },
 }
@@ -236,7 +213,6 @@ table.insert(components.active[1], file_info)
 table.insert(components.active[1], file_type)
 table.insert(components.active[1], is_formatting)
 
-table.insert(components.active[3], ale_errors)
 table.insert(components.active[3], lsp_errors)
 table.insert(components.active[3], lsp_warnings)
 table.insert(components.active[3], lsp_info)
