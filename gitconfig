@@ -76,3 +76,5 @@
 [user]
 	name = Nick Ball
 	email = nick@npbee.me
+[dbx]
+	messagedisplayversion = 1

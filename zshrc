@@ -1,3 +1,11 @@
+source "$HOME/.zsh/antigen.zsh"
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle agkozak/zsh-z
+
+antigen apply
+
 # Vars
 export HISTSIZE='10000'
 export SAVEHIST='100000'
@@ -21,10 +29,6 @@ setopt HIST_NO_STORE             # Don't store history commands
 # Path
 
 fpath=("$HOME/.zsh/functions" $fpath)
-fpath+=$HOME/.zsh/plugins/pure
-
-# Syntax highlighting
-source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Default ZSH completion
 autoload -Uz compinit && compinit
@@ -53,13 +57,7 @@ autoload -U promptinit && promptinit
 prompt pure
 
 # Auto suggestions
-source $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 bindkey '^\n' autosuggest-execute
-
-
-# Z
-source $HOME/.zsh/plugins/z/z.sh
 
 # Hub
 eval "$(hub alias -s)"
@@ -77,10 +75,6 @@ export FZF_DEFAULT_OPTS="--preview-window 'right:55%:hidden' --inline-info --pre
 export BAT_THEME="1337"
 export NVIM_LOG_FILE=~/.local/share/nvim/log
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
-
-
-# Special iTerm escape sequences for stylin'
-# echo -e "\033]6;1;bg;red;brightness;50\a" && echo -e "\033]6;1;bg;green;brightness;50\a" && echo -e "\033]6;1;bg;blue;brightness;50\a" && clear
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh.local ] && source ~/.zsh.local
