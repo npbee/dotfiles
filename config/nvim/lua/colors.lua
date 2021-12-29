@@ -1,1 +1,1 @@
-vim.cmd('colorscheme eighty-five')
+vim.cmd("colorscheme eighty-five")

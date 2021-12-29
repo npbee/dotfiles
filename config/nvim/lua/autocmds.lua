@@ -1,17 +1,17 @@
 local function nvim_create_augroups(definitions)
-    for group_name, definition in pairs(definitions) do
-        vim.api.nvim_command('augroup ' .. group_name)
-        vim.api.nvim_command('autocmd!')
-        for _, def in ipairs(definition) do
-            local command = table.concat(vim.tbl_flatten {'autocmd', def}, ' ')
-            vim.api.nvim_command(command)
-        end
-        vim.api.nvim_command('augroup END')
+  for group_name, definition in pairs(definitions) do
+    vim.api.nvim_command("augroup " .. group_name)
+    vim.api.nvim_command("autocmd!")
+    for _, def in ipairs(definition) do
+      local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
+      vim.api.nvim_command(command)
     end
+    vim.api.nvim_command("augroup END")
+  end
 end
 
-vim.api.nvim_command('augroup main')
-vim.api.nvim_command('autocmd!')
+vim.api.nvim_command("augroup main")
+vim.api.nvim_command("autocmd!")
 vim.api.nvim_command([[
     autocmd FileType fzf
     autocmd FileType fzf set laststatus=0 noshowmode noruler
@@ -34,4 +34,4 @@ vim.api.nvim_command([[
 
     au FileType javascript,javascriptreact imap ;; => 
 ]])
-vim.api.nvim_command('augroup END')
+vim.api.nvim_command("augroup END")
