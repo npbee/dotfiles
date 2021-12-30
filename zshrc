@@ -29,6 +29,7 @@ setopt HIST_NO_STORE             # Don't store history commands
 # Path
 
 fpath=("$HOME/.zsh/functions" $fpath)
+fpath+=/opt/homebrew/share/zsh/site-functions
 
 # Default ZSH completion
 autoload -Uz compinit && compinit
