@@ -23,6 +23,7 @@ require("packer").startup(function(use)
     },
   })
 
+  use({ "rktjmp/lush.nvim" })
   use({ "ruifm/gitlinker.nvim", requires = "nvim-lua/plenary.nvim" })
   use("justinmk/vim-dirvish")
   use("npbee/eighty-five")
