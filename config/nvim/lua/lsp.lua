@@ -116,6 +116,7 @@ null_ls.setup({
     }),
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.mix,
+    null_ls.builtins.diagnostics.misspell,
   },
 
   on_attach = on_attach,
