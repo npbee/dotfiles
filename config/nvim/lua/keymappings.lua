@@ -60,6 +60,8 @@ map("n", "<leader>rg", ":Rg <C-R><C-W><CR>", { noremap = true })
 map("n", "<leader>*", ":RG <C-R><C-W><CR>", { noremap = true })
 map("x", "<leader>*", 'y:RG <C-R>"<CR>', { noremap = true })
 
+map("n", "gp", ":lua require('plugins.telescope').react_prop_usage()<CR>", { noremap = true })
+
 -- FZF: Buffers
 -- " Fuzzy find buffers
 map("n", "<leader>b", ":Buffers<CR>", { noremap = true })
