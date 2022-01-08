@@ -113,7 +113,6 @@ lspconfig.flow.setup({ capabilities = capabilities, on_attach = on_attach })
 null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.diagnostics.cspell,
     null_ls.builtins.diagnostics.write_good.with({
       filetypes = {
         "markdown",
