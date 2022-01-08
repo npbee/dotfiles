@@ -21,18 +21,72 @@ require("packer").startup(function(use)
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       { "nvim-telescope/telescope-live-grep-raw.nvim" },
     },
+    config = function()
+      require("plugins.telescope")
+    end,
   })
 
+  -- Colorschemes
+  use({ "~/code/eighty-five", requires = "cocopon/inspecthi.vim" })
   use("sainnhe/everforest")
+
   use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     requires = "nvim-treesitter/playground",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "javascript", "typescript" },
+
+        highlight = {
+          -- `false` will disable the whole extension
+          enable = true,
+
+          -- list of language that will be disabled
+          -- disable = { "c", "rust" },
+
+          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+          -- Using this option may slow down your editor, and you may see some duplicate highlights.
+          -- Instead of true it can also be a list of languages
+          additional_vim_regex_highlighting = { "javascriptreact", "javascript", "typescript", "typescriptreact" },
+        },
+        playground = {
+          enable = true,
+          disable = {},
+          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          persist_queries = false, -- Whether the query persists across vim sessions
+          keybindings = {
+            toggle_query_editor = "o",
+            toggle_hl_groups = "i",
+            toggle_injected_languages = "t",
+            toggle_anonymous_nodes = "a",
+            toggle_language_display = "I",
+            focus_language = "f",
+            unfocus_language = "F",
+            update = "R",
+            goto_node = "<cr>",
+            show_help = "?",
+          },
+        },
+      })
+    end,
   })
   use({ "rktjmp/lush.nvim" })
-  use({ "ruifm/gitlinker.nvim", requires = "nvim-lua/plenary.nvim" })
-  use("justinmk/vim-dirvish")
-  use({ "~/code/eighty-five", requires = "cocopon/inspecthi.vim" })
+  use({
+    "ruifm/gitlinker.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("gitlinker").setup()
+    end,
+  })
+  use({
+    "justinmk/vim-dirvish",
+    config = function()
+      -- Dirvish: Sort directories at the top
+      vim.g.dirvish_mode = ":sort ,^.*[\\/],"
+    end,
+  })
   use("sheerun/vim-polyglot")
   use("tpope/vim-commentary")
   use("machakann/vim-sandwich")
@@ -40,9 +94,24 @@ require("packer").startup(function(use)
   use("nvim-lua/plenary.nvim")
   use({ "hrsh7th/vim-vsnip", requires = { "hrsh7th/vim-vsnip-integ" } })
   use({ "neovim/nvim-lspconfig" })
-  use("mattn/emmet-vim")
-  use("vim-test/vim-test")
-  use("kassio/neoterm")
+  use({
+    "mattn/emmet-vim",
+    config = function()
+      vim.g.user_emmet_leader_key = "<C-E>"
+    end,
+  })
+  use({
+    "vim-test/vim-test",
+    config = function()
+      vim.g["test#strategy"] = "neoterm"
+    end,
+  })
+  use({
+    "kassio/neoterm",
+    config = function()
+      vim.g.neoterm_default_mod = "vertical"
+    end,
+  })
   use("folke/lsp-colors.nvim")
   use({
     "hrsh7th/nvim-cmp",
@@ -51,11 +120,29 @@ require("packer").startup(function(use)
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-vsnip",
+      {
+        "hrsh7th/cmp-vsnip",
+        config = function()
+          require("plugins.vsnip")
+        end,
+      },
     },
+    config = function()
+      require("plugins.cmp")
+    end,
   })
-  use({ "famiu/feline.nvim" })
-  use({ "lewis6991/gitsigns.nvim" })
+  use({
+    "famiu/feline.nvim",
+    config = function()
+      require("plugins.statusline")
+    end,
+  })
+  use({
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("plugins.gitsigns")
+    end,
+  })
   use("jose-elias-alvarez/null-ls.nvim")
 
   use({
@@ -66,69 +153,19 @@ require("packer").startup(function(use)
         fn["fzf#install"]()
       end,
     } },
+    config = function()
+      require("plugins.fzf")
+    end,
+  })
+
+  use({
+    "kosayoda/nvim-lightbulb",
+    config = function()
+      vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
+    end,
   })
 
   if packer_bootstrap then
     require("packer").sync()
   end
 end)
-
-require("plugins.telescope")
-require("plugins.fzf")
-require("plugins.cmp")
-require("plugins.vsnip")
-require("plugins.statusline")
-require("plugins.gitsigns")
-
-require("gitlinker").setup()
-
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "javascript", "typescript" },
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = { "javascriptreact", "javascript", "typescript", "typescriptreact" },
-  },
-})
-
-require("nvim-treesitter.configs").setup({
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = "o",
-      toggle_hl_groups = "i",
-      toggle_injected_languages = "t",
-      toggle_anonymous_nodes = "a",
-      toggle_language_display = "I",
-      focus_language = "f",
-      unfocus_language = "F",
-      update = "R",
-      goto_node = "<cr>",
-      show_help = "?",
-    },
-  },
-})
-
--- Dirvish: Sort directories at the top
-vim.g.dirvish_mode = ":sort ,^.*[\\/],"
-
--- Vim test
-vim.g["test#strategy"] = "neoterm"
-
--- neoterm
-vim.g.neoterm_default_mod = "vertical"
-
--- Emmet
-vim.g.user_emmet_leader_key = "<C-E>"
