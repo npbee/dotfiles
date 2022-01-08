@@ -21,7 +21,7 @@
   },
   "console.log": {
     "prefix": "cl",
-    "body": "console.log(${1:value}$0)",
+    "body": "console.log($0)",
     "description": "Log it"
   },
   "forOf": {
