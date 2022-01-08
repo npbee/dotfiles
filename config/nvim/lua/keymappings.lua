@@ -41,6 +41,8 @@ map("n", "<esc>", ":noh<CR>", { silent = true, noremap = true })
 
 map("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
+-- Finders --------------------------------------------------------------------
+
 -- FZF: Open file
 map("n", "<leader>p", ":FZF<CR>", { noremap = true })
 -- map("n", "<leader>p", "<cmd>Telescope find_files<CR>", {noremap = true})
@@ -65,7 +67,6 @@ map("n", "gp", ":lua require('plugins.telescope').react_prop_usage()<CR>", { nor
 -- FZF: Buffers
 -- " Fuzzy find buffers
 map("n", "<leader>b", ":Buffers<CR>", { noremap = true })
--- map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {noremap = true})
 
 -- Telescope: Run a builtin picker
 -- TODO: Fix this!
