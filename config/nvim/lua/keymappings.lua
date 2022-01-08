@@ -68,6 +68,7 @@ map("n", "<leader>b", ":Buffers<CR>", { noremap = true })
 -- map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {noremap = true})
 
 -- Telescope: Run a builtin picker
+-- TODO: Fix this!
 map("n", "<leader>tp", "<cmd>:lua require('telescope.builtin').builtin()<cr>", { noremap = true })
 
 -- Toggle formatting
