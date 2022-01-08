@@ -2,3 +2,14 @@
 # rg 'PATTERN' -treact
 --type-add
 react:*.{js,jsx}
+
+# Show hidden files
+--hidden
+
+# Follow hidden
+--follow
+
+# Don't respect version control files (.gitignore)
+# This allows us to find files that might be ignored by Git but still useful 
+# to search for (e.g. ".env" files)
+--no-ignore-vcs
