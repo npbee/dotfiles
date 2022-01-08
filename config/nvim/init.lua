@@ -1,7 +1,6 @@
 require("settings")
 require("plugins")
 require("colors")
-require("lsp")
 require("keymappings")
 require("autocmds")
 

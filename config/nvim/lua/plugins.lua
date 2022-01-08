@@ -93,7 +93,12 @@ require("packer").startup(function(use)
   use("ludovicchabant/vim-gutentags")
   use("nvim-lua/plenary.nvim")
   use({ "hrsh7th/vim-vsnip", requires = { "hrsh7th/vim-vsnip-integ" } })
-  use({ "neovim/nvim-lspconfig" })
+  use({
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("lsp")
+    end,
+  })
   use({
     "mattn/emmet-vim",
     config = function()
