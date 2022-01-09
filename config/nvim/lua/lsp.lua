@@ -133,4 +133,4 @@ null_ls.setup({
   on_attach = on_attach,
 })
 
-null_ls.register(null_ls_custom.typos)
+null_ls.register(null_ls_custom.typos_diagnostics)

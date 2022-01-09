@@ -5,7 +5,7 @@ local M = {}
 
 -- Custom diagnostics for the `typos` project
 -- https://github.com/crate-ci/typos
-M.typos = {
+M.typos_diagnostics = {
   name = "typos",
   method = null_ls.methods.DIAGNOSTICS,
   filetypes = {},
