@@ -134,3 +134,4 @@ null_ls.setup({
 })
 
 null_ls.register(null_ls_custom.typos_diagnostics)
+null_ls.register(null_ls_custom.typos_code_actions)
