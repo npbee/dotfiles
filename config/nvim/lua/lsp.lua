@@ -1,8 +1,12 @@
 local null_ls = require("null-ls")
 local null_ls_custom = require("plugins.null_ls")
-
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require("lspconfig")
+
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -113,7 +117,11 @@ lspconfig.tsserver.setup({
   },
 })
 
+-- Flow -----------------------------------------------------------------------
+
 lspconfig.flow.setup({ capabilities = capabilities, on_attach = on_attach })
+
+-- Null LS --------------------------------------------------------------------
 
 null_ls.setup({
   sources = {
@@ -135,3 +143,11 @@ null_ls.setup({
 
 null_ls.register(null_ls_custom.typos_diagnostics)
 null_ls.register(null_ls_custom.typos_code_actions)
+
+-- CSS ------------------------------------------------------------------------
+
+lspconfig.cssls.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.cssmodules_ls.setup({})

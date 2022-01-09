@@ -30,3 +30,9 @@ TODO
 ## Required NPM packages
 
 `@fsouza/prettierd`
+
+## LSP
+
+- `typescript-language-server`
+- `vscode-langservers-extracted`
+- `cssmodules-language-server`
