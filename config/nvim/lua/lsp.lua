@@ -1,4 +1,5 @@
 local null_ls = require("null-ls")
+local null_ls_custom = require("plugins.null_ls")
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require("lspconfig")
@@ -11,7 +12,11 @@ vim.diagnostic.config({
   severity_sort = false,
   float = {
     format = function(diagnostic)
-      return string.format("[%s] %s (%s)", diagnostic.source, diagnostic.message, diagnostic.code)
+      local format = "[%s] %s"
+      if diagnostic.code then
+        format = format .. " (%s)"
+      end
+      return string.format(format, diagnostic.source, diagnostic.message, diagnostic.code)
     end,
   },
 })
@@ -114,16 +119,7 @@ null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.diagnostics.write_good.with({
-      filetypes = {
-        "markdown",
-        "gitcommit",
-        "typescript",
-        "javascript",
-        "javascriptreact",
-        "typescriptreact",
-        "css",
-        "html",
-      },
+      filetypes = {},
     }),
     null_ls.builtins.formatting.prettierd.with({
       prefer_local = "node_modules/.bin",
@@ -136,3 +132,5 @@ null_ls.setup({
 
   on_attach = on_attach,
 })
+
+null_ls.register(null_ls_custom.typos)
