@@ -89,28 +89,30 @@ M.typos_code_actions = {
       local actions = {}
 
       for k, result in pairs(results) do
-        local correction = result.corrections[1]
-        end_col = result.col + string.len(correction)
+        if params.row == result.row then
+          local correction = result.corrections[1]
+          end_col = result.col + string.len(correction)
 
-        table.insert(actions, {
-          title = "Change '" .. result.message .. "' to '" .. correction .. "'",
-          action = function()
-            vim.api.nvim_buf_set_text(
-              params.bufnr,
-              -- start row
-              result.row - 1,
-              -- start col
-              result.col,
-              -- end row
-              result.row - 1,
-              -- end col
-              end_col,
-              {
-                correction,
-              }
-            )
-          end,
-        })
+          table.insert(actions, {
+            title = "Change '" .. result.message .. "' to '" .. correction .. "'",
+            action = function()
+              vim.api.nvim_buf_set_text(
+                params.bufnr,
+                -- start row
+                result.row - 1,
+                -- start col
+                result.col,
+                -- end row
+                result.row - 1,
+                -- end col
+                end_col,
+                {
+                  correction,
+                }
+              )
+            end,
+          })
+        end
       end
 
       return actions
