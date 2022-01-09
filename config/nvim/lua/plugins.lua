@@ -89,8 +89,11 @@ require("packer").startup(function(use)
   })
   use("sheerun/vim-polyglot")
   use("tpope/vim-commentary")
-  use("machakann/vim-sandwich")
-  use("ludovicchabant/vim-gutentags")
+  -- use("machakann/vim-sandwich")
+  use("tpope/vim-surround")
+  -- use("ludovicchabant/vim-gutentags")
+  use("ggandor/lightspeed.nvim")
+
   use("nvim-lua/plenary.nvim")
   use({ "hrsh7th/vim-vsnip", requires = { "hrsh7th/vim-vsnip-integ" } })
   use({
