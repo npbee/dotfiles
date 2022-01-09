@@ -13,7 +13,7 @@ end
 vim.api.nvim_command("augroup main")
 vim.api.nvim_command("autocmd!")
 vim.api.nvim_command([[
-    autocmd FileType dirvish setlocal spell!
+    autocmd FileType dirvish setlocal nospell
 
     autocmd FileType fzf
     autocmd FileType fzf set laststatus=0 noshowmode noruler
