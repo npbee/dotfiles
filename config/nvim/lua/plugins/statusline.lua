@@ -1,9 +1,3 @@
-local null_ls = require("null-ls")
-local lazy_require = require("feline.utils").lazy_require
-local vi_mode_utils = lazy_require("feline.providers.vi_mode")
-local lsp = require("feline.providers.lsp")
-local api, fn = vim.api, vim.fn
-
 local colors = {
   bg = "#353331",
   fg = "#e4d2a6",
@@ -34,54 +28,6 @@ local vi_mode_colors = {
   SHELL = "green",
   TERM = "blue",
   NONE = "yellow",
-}
-
-local mode_alias = {
-  ["n"] = "NORMAL",
-  ["no"] = "OP",
-  ["nov"] = "OP",
-  ["noV"] = "OP",
-  ["no"] = "OP",
-  ["niI"] = "NORMAL",
-  ["niR"] = "NORMAL",
-  ["niV"] = "NORMAL",
-  ["v"] = "VISUAL",
-  ["V"] = "V-LINE",
-  [""] = "V-BLOCK",
-  ["s"] = "SELECT",
-  ["S"] = "SELECT",
-  [""] = "V-BLOCK",
-  ["i"] = "INSERT",
-  ["ic"] = "INSERT",
-  ["ix"] = "INSERT",
-  ["R"] = "REPLACE",
-  ["Rc"] = "REPLACE",
-  ["Rv"] = "V-REPLACE",
-  ["Rx"] = "REPLACE",
-  ["c"] = "COMMAND",
-  ["cv"] = "COMMAND",
-  ["ce"] = "COMMAND",
-  ["r"] = "ENTER",
-  ["rm"] = "MORE",
-  ["r?"] = "CONFIRM",
-  ["!"] = "SHELL",
-  ["t"] = "TERMINAL",
-  ["nt"] = "NORMAL",
-  ["null"] = "NONE",
-}
-
-local vi_mode = {
-  provider = function()
-    return " " .. vi_mode_utils.get_vim_mode() .. " "
-  end,
-  hl = function()
-    return {
-      name = vi_mode_utils.get_mode_highlight_name(),
-      fg = vi_mode_utils.get_mode_color(),
-      -- fg = 'bg',
-      style = "bold",
-    }
-  end,
 }
 
 local file_info = {

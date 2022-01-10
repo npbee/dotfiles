@@ -2,11 +2,14 @@ local null_ls = require("null-ls")
 local null_ls_custom = require("plugins.null_ls")
 local lspconfig = require("lspconfig")
 
+-- Config ---------------------------------------------------------------------
+
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -15,6 +18,8 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = false,
   float = {
+    border = "rounded",
+    header = { "", "Noise" },
     format = function(diagnostic)
       local format = "[%s] %s"
       if diagnostic.code then
@@ -25,12 +30,7 @@ vim.diagnostic.config({
   },
 })
 
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or "rounded"
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
+-- Shared attach handler ------------------------------------------------------
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
@@ -70,13 +70,9 @@ local on_attach = function(client, bufnr)
     vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
   end
 
-  -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec(
       [[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=User5
-      hi LspReferenceText cterm=bold ctermbg=red guibg=User5
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=User5
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -87,6 +83,8 @@ local on_attach = function(client, bufnr)
     )
   end
 end
+
+-- Typescript -----------------------------------------------------------------
 
 -- Disabled until I'm actually using this somewhere
 lspconfig.tsserver.setup({

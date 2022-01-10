@@ -14,7 +14,7 @@ end
 
 -- Assume we're always formatting all sources or none
 M.is_formatting = function()
-  formats = get_format_sources()
+  local formats = get_format_sources()
 
   if formats[1]._disabled and formats[1]._disabled == true then
     return false

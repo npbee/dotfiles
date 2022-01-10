@@ -58,7 +58,7 @@ cmp.setup({
   },
 
   formatting = {
-    format = function(_entry, vim_item)
+    format = function(_, vim_item)
       if icons[vim_item.kind] then
         vim_item.kind = icons[vim_item.kind] .. " " .. vim_item.kind
       end

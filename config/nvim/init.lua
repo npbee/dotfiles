@@ -4,7 +4,7 @@ require("colors")
 require("keymappings")
 require("autocmds")
 
-function load_local()
+local function load_local()
   require("init-local")
 end
 

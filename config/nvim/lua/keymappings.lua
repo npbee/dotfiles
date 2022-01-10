@@ -1,9 +1,5 @@
 local map = vim.api.nvim_set_keymap
 
-local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
 -- Easier split navigation
 map("n", "<C-J>", "<C-W><C-J>", { noremap = true })
 map("n", "<C-K>", "<C-W><C-K>", { noremap = true })
