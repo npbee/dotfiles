@@ -10,9 +10,9 @@ local parse_typo_output = function(output)
     messages = { output }
   else
     local json_lines = vim.split(output, "\n")
-    for k, json_line in pairs(json_lines) do
+    for _, json_line in pairs(json_lines) do
       if json_line ~= "" then
-        line = vim.json.decode(json_line)
+        local line = vim.json.decode(json_line)
         table.insert(messages, line)
       end
     end
@@ -61,10 +61,10 @@ M.typos_diagnostics = {
     on_output = function(params)
       local results = parse_typo_output(params.output)
 
-      for k, result in pairs(results) do
+      for _, result in pairs(results) do
         result.col = result.col + 1
         result.end_col = result.col + string.len(result.message)
-        correction = result.corrections[1]
+        local correction = result.corrections[1]
         result.message = "'" .. result.message .. "' should be '" .. correction .. "'"
       end
 
@@ -88,10 +88,10 @@ M.typos_code_actions = {
 
       local actions = {}
 
-      for k, result in pairs(results) do
+      for _, result in pairs(results) do
         if params.row == result.row then
           local correction = result.corrections[1]
-          end_col = result.col + string.len(correction)
+          local end_col = result.col + string.len(correction)
 
           table.insert(actions, {
             title = "Change '" .. result.message .. "' to '" .. correction .. "'",
