@@ -32,7 +32,7 @@ alias ip="curl -s ipecho.net/plain | pbcopy && echo '✔ Copied IP address to cl
 alias alis='cat ~/.aliases'
 
 # quickly open up color scheme {{{
-alias colorscheme="nvim ~/code/eighty-five/lua/lush_theme/eighty-five.lua"
+alias colorscheme="cd ~/code/eighty-five && nvim ./lua/lush_theme/eighty-five.lua"
 # }}}
 
 alias lg="lazygit"
