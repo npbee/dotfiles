@@ -33,6 +33,6 @@ TODO
 
 ## LSP
 
-- `typescript-language-server`
-- `vscode-langservers-extracted`
-- `cssmodules-language-server`
+- `npm install typescript-language-server vscode-langservers-extracted cssmodules-language-server`
+- `brew install lua-language-server`
+- https://github.com/crate-ci/typos
