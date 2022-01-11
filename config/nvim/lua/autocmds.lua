@@ -1,6 +1,7 @@
 vim.api.nvim_command("augroup main")
 vim.api.nvim_command("autocmd!")
 vim.api.nvim_command([[
+    autocmd TermOpen,TermEnter * setlocal nospell
     autocmd FileType dirvish setlocal nospell
 
     autocmd FileType fzf
