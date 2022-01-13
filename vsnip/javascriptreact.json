@@ -33,5 +33,17 @@
       "}, [${2:deps}])"
     ],
     "description": "React.useMemo()"
+  },
+
+  "DEBUG_PRINT_LIMIT": {
+    "prefix": "dpl",
+    "body": ["process.env.DEBUG_PRINT_LIMIT = Infinity"],
+    "description": "Show all debugging output in React Testing Library"
+  },
+
+  "toHaveLength": {
+    "prefix": "thl",
+    "body": "toHaveLength($0)",
+    "description": "expect(thing).toHaveLength(1)"
   }
 }
