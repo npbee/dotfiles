@@ -16,6 +16,7 @@ end
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
+  -- Telescope
   use({
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -30,8 +31,8 @@ require("packer").startup(function(use)
 
   -- Colorschemes
   use({ "~/code/eighty-five", requires = "cocopon/inspecthi.vim" })
-  use("sainnhe/everforest")
 
+  -- Treesitter
   use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
@@ -74,7 +75,11 @@ require("packer").startup(function(use)
       })
     end,
   })
+
+  -- Lush
   use({ "rktjmp/lush.nvim" })
+
+  -- Gitlinker
   use({
     "ruifm/gitlinker.nvim",
     requires = "nvim-lua/plenary.nvim",
@@ -82,6 +87,8 @@ require("packer").startup(function(use)
       require("gitlinker").setup()
     end,
   })
+
+  -- Dirvish
   use({
     "justinmk/vim-dirvish",
     config = function()
@@ -89,40 +96,61 @@ require("packer").startup(function(use)
       vim.g.dirvish_mode = ":sort ,^.*[\\/],"
     end,
   })
+
+  -- Polyglot
   use("sheerun/vim-polyglot")
+
+  -- Commentary
   use("tpope/vim-commentary")
-  -- use("machakann/vim-sandwich")
-  use("tpope/vim-surround")
-  -- use("ludovicchabant/vim-gutentags")
+
+  -- Sandwich
+  use("machakann/vim-sandwich") -- config below for sandwich mappings
+
+  -- Lightspeed
   use("ggandor/lightspeed.nvim")
 
+  -- Plenary
   use("nvim-lua/plenary.nvim")
+
+  -- Vsnip
   use({ "hrsh7th/vim-vsnip", requires = { "hrsh7th/vim-vsnip-integ" } })
+
+  -- Lsp
   use({
     "neovim/nvim-lspconfig",
     config = function()
       require("lsp")
     end,
   })
+
+  -- Emmet
   use({
     "mattn/emmet-vim",
     config = function()
       vim.g.user_emmet_leader_key = "<C-E>"
     end,
   })
+
+  -- Vim Test
   use({
     "vim-test/vim-test",
     config = function()
       vim.g["test#strategy"] = "neoterm"
     end,
   })
+
+  -- Neoterm
   use({
     "kassio/neoterm",
     config = function()
       vim.g.neoterm_default_mod = "vertical"
     end,
   })
+
+  -- LSP Colors
   use("folke/lsp-colors.nvim")
+
+  -- Nvim cmp
   use({
     "hrsh7th/nvim-cmp",
     requires = {
@@ -141,20 +169,27 @@ require("packer").startup(function(use)
       require("plugins.cmp")
     end,
   })
+
+  -- Statusline
   use({
     "famiu/feline.nvim",
     config = function()
       require("plugins.statusline")
     end,
   })
+
+  -- Gitsigns
   use({
     "lewis6991/gitsigns.nvim",
     config = function()
       require("plugins.gitsigns")
     end,
   })
+
+  -- Nulli LS
   use("jose-elias-alvarez/null-ls.nvim")
 
+  -- Fzf
   use({
     "junegunn/fzf.vim",
     requires = { {
@@ -168,6 +203,7 @@ require("packer").startup(function(use)
     end,
   })
 
+  -- lightbulb
   use({
     "kosayoda/nvim-lightbulb",
     config = function()
@@ -179,3 +215,6 @@ require("packer").startup(function(use)
     require("packer").sync()
   end
 end)
+
+-- Use surround mappings for sandwich
+vim.api.nvim_command("runtime macros/sandwich/keymap/surround.vim")
