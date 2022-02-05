@@ -12,12 +12,12 @@ end
 
 local autocmds = {
   startup = {
-    { "FileType", "dirvish", "setlocal nospell" },
+    { "FileType", "dirvish,json", "setlocal nospell" },
     { "TermOpen,TermEnter", "*", "setlocal nospell" },
     { "Filetype", "gitcommit", "setlocal textwidth=72" },
 
     --  JSON5 comments
-    { "FileType", "json", "syntax match Comment +//.+$+" },
+    -- { "FileType", "json", "syntax match Comment +//.+$+" },
   },
 }
 
