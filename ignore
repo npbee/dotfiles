@@ -1,3 +1,4 @@
 # Ripgrep will always ignore these directories
 .git/
 node_modules/
+_build
