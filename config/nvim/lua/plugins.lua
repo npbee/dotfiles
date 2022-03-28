@@ -211,6 +211,8 @@ require("packer").startup(function(use)
     end,
   })
 
+  use("evanleck/vim-svelte")
+
   if packer_bootstrap then
     require("packer").sync()
   end
