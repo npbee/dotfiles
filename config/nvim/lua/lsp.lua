@@ -213,3 +213,5 @@ lspconfig.sumneko_lua.setup({
 
 -- GraphQL --------------------------------------------------------------------
 require("lspconfig").graphql.setup({})
+
+require("lsp_signature").setup({})

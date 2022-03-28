@@ -115,6 +115,8 @@ require("packer").startup(function(use)
   -- Vsnip
   use({ "hrsh7th/vim-vsnip", requires = { "hrsh7th/vim-vsnip-integ" } })
 
+  use("ray-x/lsp_signature.nvim")
+
   -- Lsp
   use({
     "neovim/nvim-lspconfig",
