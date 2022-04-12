@@ -164,6 +164,7 @@ null_ls.setup({
     null_ls.builtins.formatting.mix,
 
     null_ls.builtins.code_actions.eslint_d,
+    -- null_ls.builtins.formatting.eslint_d,
   },
 
   on_attach = on_attach,
