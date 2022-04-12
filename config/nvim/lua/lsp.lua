@@ -165,12 +165,15 @@ null_ls.setup({
 
     null_ls.builtins.code_actions.eslint_d,
     -- null_ls.builtins.formatting.eslint_d,
+    null_ls.builtins.formatting.shfmt.with({
+      extra_args = { "-i", "2" },
+    }),
   },
 
   on_attach = on_attach,
 })
 
-null_ls.register(null_ls_custom.typos_diagnostics)
+-- null_ls.register(null_ls_custom.typos_diagnostics)
 null_ls.register(null_ls_custom.typos_code_actions)
 
 -- CSS ------------------------------------------------------------------------
