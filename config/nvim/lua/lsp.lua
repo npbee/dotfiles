@@ -169,6 +169,10 @@ null_ls.setup({
     null_ls.builtins.formatting.shfmt.with({
       extra_args = { "-i", "2" },
     }),
+
+    null_ls.builtins.diagnostics.stylelint.with({
+      prefer_local = "node_modules/.bin",
+    }),
   },
 
   on_attach = on_attach,
@@ -181,6 +185,12 @@ null_ls.register(null_ls_custom.typos_code_actions)
 
 lspconfig.cssls.setup({
   capabilities = capabilities,
+
+  settings = {
+    css = {
+      validate = false,
+    },
+  },
 })
 
 lspconfig.cssmodules_ls.setup({})
