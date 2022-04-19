@@ -43,6 +43,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
+
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
@@ -85,7 +86,7 @@ local on_attach = function(client, bufnr)
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]],
+    ]] ,
       false
     )
   end
@@ -160,7 +161,7 @@ null_ls.setup({
         "svelte",
       },
     }),
-    null_ls.builtins.formatting.stylua,
+    -- null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.mix,
 
     null_ls.builtins.code_actions.eslint_d,
@@ -210,6 +211,13 @@ lspconfig.sumneko_lua.setup({
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
+      },
+
+      format = {
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "2"
+        }
       },
     },
   },
