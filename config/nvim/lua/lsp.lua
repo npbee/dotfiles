@@ -155,7 +155,7 @@ null_ls.setup({
       },
     }),
     null_ls.builtins.formatting.prettier.with({
-      -- prefer_local = "node_modules/.bin",
+      prefer_local = "node_modules/.bin",
       filetypes = {
         "svelte",
       },
