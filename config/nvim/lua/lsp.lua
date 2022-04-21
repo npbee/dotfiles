@@ -226,4 +226,7 @@ lspconfig.sumneko_lua.setup({
 -- GraphQL --------------------------------------------------------------------
 require("lspconfig").graphql.setup({})
 
+-- Astro ----------------------------------------------------------------------
+lspconfig.astro.setup({})
+
 require("lsp_signature").setup({})

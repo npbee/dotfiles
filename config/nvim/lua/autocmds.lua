@@ -15,6 +15,7 @@ local autocmds = {
     { "FileType", "dirvish,json", "setlocal nospell" },
     { "TermOpen,TermEnter", "*", "setlocal nospell" },
     { "Filetype", "gitcommit", "setlocal textwidth=72" },
+    { "BufRead,BufEnter", "*.astro", "set filetype=astro" },
 
     --  JSON5 comments
     -- { "FileType", "json", "syntax match Comment +//.+$+" },
