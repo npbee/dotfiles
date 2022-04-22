@@ -153,12 +153,8 @@ null_ls.setup({
         "markdown",
         "graphql",
         "handlebars",
-      },
-    }),
-    null_ls.builtins.formatting.prettier.with({
-      prefer_local = "node_modules/.bin",
-      filetypes = {
-        "svelte",
+        "astro",
+        "svelte"
       },
     }),
     -- null_ls.builtins.formatting.stylua,
