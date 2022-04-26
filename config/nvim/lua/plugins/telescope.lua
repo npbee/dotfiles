@@ -1,7 +1,19 @@
 local telescope = require("telescope")
 local builtins = require("telescope.builtin")
 
+telescope.setup({
+  extensions = {
+    ['ui-select'] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+    }
+  }
+})
+
 telescope.load_extension("fzf")
+telescope.load_extension("ui-select")
+
 
 local M = {}
 

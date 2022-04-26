@@ -23,6 +23,7 @@ require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       { "nvim-telescope/telescope-live-grep-raw.nvim" },
+      { 'nvim-telescope/telescope-ui-select.nvim' }
     },
     config = function()
       require("plugins.telescope")
@@ -91,6 +92,7 @@ require("packer").startup(function(use)
   -- Dirvish
   use({
     "justinmk/vim-dirvish",
+    requires = "roginfarrer/vim-dirvish-dovish",
     config = function()
       -- Dirvish: Sort directories at the top
       vim.g.dirvish_mode = ":sort ,^.*[\\/],"
