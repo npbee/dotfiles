@@ -92,7 +92,7 @@ require("packer").startup(function(use)
   -- Dirvish
   use({
     "justinmk/vim-dirvish",
-    requires = "roginfarrer/vim-dirvish-dovish",
+    -- requires = "roginfarrer/vim-dirvish-dovish",
     config = function()
       -- Dirvish: Sort directories at the top
       vim.g.dirvish_mode = ":sort ,^.*[\\/],"
