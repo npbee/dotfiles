@@ -72,6 +72,9 @@ map("n", "<leader>tp", "<cmd>:lua require('telescope.builtin').builtin()<cr>", {
 -- Toggle formatting
 map("n", "<F12>", "<cmd>: lua require('util').toggle_formatting()<CR>", { noremap = true })
 
+-- Toggle spell
+map("n", "<F10>", "<cmd>: set spell!<CR>", { noremap = true })
+
 -- Vim test
 map("n", "t<C-n>", ":TestNearest<CR>", { silent = true })
 map("n", "t<C-f>", ":TestFile<CR>", { silent = true })
