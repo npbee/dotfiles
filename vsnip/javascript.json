@@ -14,6 +14,11 @@
     "body": "import * as ${2:alias} from '${1:module}';$0",
     "description": "Imports everything as alias from the module in ES6 syntax"
   },
+  "importTypeDestructing": {
+    "prefix": "imt",
+    "body": "import type { $2 } from '${1:module}';$0",
+    "description": "Imports only a portion of the module type in ES6 syntax"
+  },
   "importAs": {
     "prefix": "ima",
     "body": "import { ${2:originalName} as ${3:alias} } from '${1:module}';$0",
