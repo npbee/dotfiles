@@ -237,3 +237,5 @@ require("lspconfig").graphql.setup({})
 lspconfig.astro.setup({})
 
 require("lsp_signature").setup({})
+
+require 'lspconfig'.tailwindcss.setup {}
