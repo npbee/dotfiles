@@ -4,3 +4,5 @@ node_modules/
 _build
 tags
 .DS_Store
+deps
+.elixir_ls

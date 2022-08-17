@@ -89,3 +89,4 @@ if [ -f '/Users/npbee/.netlify/helper/path.zsh.inc' ]; then source '/Users/npbee
 if type fnm &> /dev/null; then
     eval "$(fnm env)"
 fi
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
