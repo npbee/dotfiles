@@ -1,4 +1,6 @@
-vim.g.fzf_layout = { window = { width = 0.95, height = 0.65 } }
+vim.g.fzf_layout = { window = { width = 0.95, height = 0.95 } }
+
+vim.g.fzf_preview_window = { 'up:50%', 'ctrl-o' }
 
 vim.cmd([[
 command! -bang -nargs=* Rg

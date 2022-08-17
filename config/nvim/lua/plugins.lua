@@ -194,6 +194,11 @@ require("packer").startup(function(use)
   use("jose-elias-alvarez/null-ls.nvim")
 
   -- Fzf
+  use { 'ibhagwan/fzf-lua',
+    -- optional for icon support
+    requires = { 'kyazdani42/nvim-web-devicons' }
+  }
+
   use({
     "junegunn/fzf.vim",
     requires = { {
