@@ -40,11 +40,12 @@ map("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 -- Finders --------------------------------------------------------------------
 
 -- FZF: Open file
-map("n", "<leader>p", ":FzfLua files<CR>", { noremap = true })
+-- map("n", "<leader>p", ":FzfLua files<CR>", { noremap = true })
+map("n", "<leader>p", ":FZF<CR>", { noremap = true })
 -- map("n", "<leader>p", "<cmd>Telescope find_files<CR>", {noremap = true})
 
 -- FZF: Search for word
-map("n", "<leader>f", ":Rg<Space>", { noremap = true })
+map("n", "<leader>f", ":Rg ", { noremap = true })
 -- map("n", "<leader>f", "<cmd>Telescope live_grep<CR>", {noremap = true})
 
 -- FZF: Search for word (raw)
