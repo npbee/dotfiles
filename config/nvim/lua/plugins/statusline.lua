@@ -158,6 +158,9 @@ table.insert(components.inactive, {})
 table.insert(components.active[1], file_info)
 table.insert(components.active[1], file_type)
 table.insert(components.active[1], is_formatting)
+table.insert(components.active[1], {
+  hl = { bg = "bg", fg = "bg" }
+})
 
 table.insert(components.active[3], lsp_errors)
 table.insert(components.active[3], lsp_warnings)
