@@ -109,7 +109,12 @@ require("packer").startup(function(use)
   use("machakann/vim-sandwich") -- config below for sandwich mappings
 
   -- Lightspeed
-  use("ggandor/lightspeed.nvim")
+  use({
+    "ggandor/leap.nvim",
+    config = function()
+      require('leap').set_default_keymaps()
+    end
+  })
 
   -- Plenary
   use("nvim-lua/plenary.nvim")
