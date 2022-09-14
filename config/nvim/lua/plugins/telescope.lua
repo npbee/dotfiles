@@ -2,6 +2,12 @@ local telescope = require("telescope")
 local builtins = require("telescope.builtin")
 
 telescope.setup({
+  defaults = {
+    layout_strategy = "horizontal",
+    layout_config = {
+      width = 0.95
+    }
+  },
   extensions = {
     ['ui-select'] = {
       require("telescope.themes").get_dropdown {
