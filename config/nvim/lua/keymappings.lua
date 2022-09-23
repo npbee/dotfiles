@@ -41,7 +41,7 @@ map("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 -- FZF: Open file
 -- map("n", "<leader>p", ":FzfLua files<CR>", { noremap = true })
-map("n", "<leader>p", ":FZF<CR>", { noremap = true })
+map("n", "<leader>p", ":Files<CR>", { noremap = true })
 -- map("n", "<leader>p", "<cmd>Telescope find_files<CR>", {noremap = true})
 
 -- FZF: Search for word
