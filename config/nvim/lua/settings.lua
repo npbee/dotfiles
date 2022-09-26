@@ -17,6 +17,7 @@ local options = {
   list = true,
   listchars = "tab:  ,trail:·",
   pumwidth = 80,
+  relativenumber = true,
   scrolloff = 3,
   secure = true,
   showmode = true,
