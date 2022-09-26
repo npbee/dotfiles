@@ -1,10 +1,10 @@
-vim.g.fzf_layout = { window = { width = 0.95, height = 0.85 } }
+vim.g.fzf_layout = { window = { width = 0.75, height = 0.85 } }
 
 vim.g.fzf_preview_window = { 'right,55%', 'ctrl-o' }
 
 vim.cmd([[
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
 ]])
 
 vim.cmd([[

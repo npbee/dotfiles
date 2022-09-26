@@ -5,7 +5,7 @@ telescope.setup({
   defaults = {
     layout_strategy = "horizontal",
     layout_config = {
-      width = 0.95
+      width = 0.75
     }
   },
   extensions = {
