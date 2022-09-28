@@ -77,6 +77,15 @@ require("packer").startup(function(use)
     end,
   })
 
+  use({
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require("treesitter-context").setup()
+    end,
+
+  })
+
+
   -- Lush
   use({ "rktjmp/lush.nvim" })
 
