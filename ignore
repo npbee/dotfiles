@@ -7,3 +7,4 @@ tags
 deps
 .elixir_ls
 yarn-error.log
+.yarn
