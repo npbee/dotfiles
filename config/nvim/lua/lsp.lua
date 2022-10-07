@@ -170,6 +170,8 @@ null_ls.setup({
     null_ls.builtins.diagnostics.stylelint.with({
       prefer_local = "node_modules/.bin",
     }),
+
+    -- null_ls.builtins.formatting.gofmt
   },
 
   on_attach = on_attach,
@@ -239,3 +241,5 @@ lspconfig.astro.setup({})
 require("lsp_signature").setup({})
 
 require 'lspconfig'.tailwindcss.setup {}
+
+require 'lspconfig'.gopls.setup {}
