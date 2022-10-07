@@ -92,3 +92,6 @@ if type fnm &> /dev/null; then
     eval "$(fnm env)"
 fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+eval "$(direnv hook zsh)"
+
