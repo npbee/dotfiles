@@ -1,11 +1,30 @@
 local telescope = require("telescope")
 local builtins = require("telescope.builtin")
+local actions = require("telescope.actions")
 
 telescope.setup({
   defaults = {
-    layout_strategy = "horizontal",
+    -- layout_strategy = "vertical",
     layout_config = {
-      width = 0.75
+      horizontal = {
+        width_padding = 0.04,
+        height_padding = 0.1,
+        preview_width = 0.6,
+      },
+      vertical = {
+        width_padding = 0.05,
+        height_padding = 1,
+        preview_height = 0.5,
+      },
+    },
+    mappings = {
+      i = {
+        ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
+        ["<esc>"] = actions.close
+      }
+    },
+    preview = {
+      hide_on_startup = true
     }
   },
   extensions = {
@@ -14,7 +33,7 @@ telescope.setup({
         -- even more opts
       }
     }
-  }
+  },
 })
 
 telescope.load_extension("fzf")

@@ -22,7 +22,7 @@ require("packer").startup(function(use)
     requires = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-      { "nvim-telescope/telescope-live-grep-raw.nvim" },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
       { 'nvim-telescope/telescope-ui-select.nvim' }
     },
     config = function()
@@ -208,10 +208,6 @@ require("packer").startup(function(use)
   use("jose-elias-alvarez/null-ls.nvim")
 
   -- Fzf
-  use { 'ibhagwan/fzf-lua',
-    -- optional for icon support
-    requires = { 'kyazdani42/nvim-web-devicons' }
-  }
 
   use({
     "junegunn/fzf.vim",
