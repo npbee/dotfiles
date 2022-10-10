@@ -236,10 +236,10 @@ lspconfig.sumneko_lua.setup({
 require("lspconfig").graphql.setup({})
 
 -- Astro ----------------------------------------------------------------------
-lspconfig.astro.setup({})
+-- lspconfig.astro.setup({})
 
 require("lsp_signature").setup({})
 
-require 'lspconfig'.tailwindcss.setup {}
+-- require 'lspconfig'.tailwindcss.setup {}
 
-require 'lspconfig'.gopls.setup {}
+-- require 'lspconfig'.gopls.setup {}
