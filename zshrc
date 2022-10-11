@@ -55,8 +55,7 @@ done
 
 # Prompt
 autoload -U promptinit && promptinit
-# prompt pure
-eval "$(starship init zsh)"
+prompt pure
 
 
 # Auto suggestions
