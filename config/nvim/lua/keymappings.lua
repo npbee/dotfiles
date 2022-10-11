@@ -40,13 +40,12 @@ map("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 -- Finders --------------------------------------------------------------------
 
 -- FZF: Open file
--- map("n", "<leader>p", ":FzfLua files<CR>", { noremap = true })
--- map("n", "<leader>p", ":Files<CR>", { noremap = true })
-map("n", "<leader>p", "<cmd>Telescope find_files<CR>", { noremap = true })
+map("n", "<leader>p", ":Files<CR>", { noremap = true })
+-- map("n", "<leader>p", "<cmd>Telescope find_files<CR>", { noremap = true })
 
 -- FZF: Search for word
--- map("n", "<leader>f", ":Rg ", { noremap = true })
-map("n", "<leader>f", "<cmd>Telescope live_grep<CR>", { noremap = true })
+map("n", "<leader>f", ":Rg ", { noremap = true })
+-- map("n", "<leader>f", "<cmd>Telescope live_grep<CR>", { noremap = true })
 
 -- FZF: Search for word (raw)
 map("n", "<leader>F", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { noremap = true })
@@ -56,8 +55,8 @@ map("n", "<leader>rg", ":Rg <C-R><C-W><CR>", { noremap = true })
 -- map("n", "<leader>*", ":lua require('telescope.builtin').grep_string()<cr>", {noremap = true})
 
 -- FZF: Search for word under cursor (raw)
--- map("n", "<leader>*", ":RG <C-R><C-W><CR>", { noremap = true })
-map("n", "<leader>*", ":lua require('telescope.builtin').grep_string()<cr>", { noremap = true })
+map("n", "<leader>*", ":RG <C-R><C-W><CR>", { noremap = true })
+-- map("n", "<leader>*", ":lua require('telescope.builtin').grep_string()<cr>", { noremap = true })
 map("x", "<leader>*", 'y:RG <C-R>"<CR>', { noremap = true })
 
 map("n", "gp", ":lua require('plugins.telescope').react_prop_usage()<CR>", { noremap = true })
