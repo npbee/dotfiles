@@ -50,6 +50,7 @@ cmp.setup({
     { name = "vsnip" },
     { name = "path" },
     { name = "vsnip", priority = 9999 },
+    { name = "buffer", keyword_length = 5 }
   }),
 
   window = {
@@ -67,6 +68,10 @@ cmp.setup({
       return vim_item
     end,
   },
+
+  experimental = {
+    native_menu = false
+  }
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
