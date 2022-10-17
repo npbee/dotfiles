@@ -75,11 +75,11 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
   end
 
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
@@ -100,8 +100,8 @@ lspconfig.tsserver.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     -- Use prettier for formatting
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattignProvider = false
 
     on_attach(client, bufnr)
   end,
