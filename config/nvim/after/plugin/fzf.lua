@@ -1,6 +1,6 @@
 vim.g.fzf_layout = { window = { width = 0.75, height = 0.85 } }
 
-vim.g.fzf_preview_window = { 'right,55%', 'ctrl-p' }
+vim.g.fzf_preview_window = { 'hidden,right,55%', 'ctrl-p' }
 
 vim.cmd([[
 command! -bang -nargs=? -complete=dir Files

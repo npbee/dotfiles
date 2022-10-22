@@ -1,5 +1,5 @@
 local null_ls = require("null-ls")
-local null_ls_custom = require("plugins.null_ls")
+local null_ls_custom = require("lib.null_ls_typos")
 local lspconfig = require("lspconfig")
 
 -- Config ---------------------------------------------------------------------

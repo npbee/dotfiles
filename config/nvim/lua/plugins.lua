@@ -25,9 +25,6 @@ require("packer").startup(function(use)
       { "nvim-telescope/telescope-live-grep-args.nvim" },
       { 'nvim-telescope/telescope-ui-select.nvim' }
     },
-    config = function()
-      require("plugins.telescope")
-    end,
   })
 
   -- Colorschemes
@@ -183,25 +180,16 @@ require("packer").startup(function(use)
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip"
     },
-    config = function()
-      require("plugins.cmp")
-    end,
   })
 
   -- Statusline
   use({
     "famiu/feline.nvim",
-    config = function()
-      require("plugins.statusline")
-    end,
   })
 
   -- Gitsigns
   use({
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("plugins.gitsigns")
-    end,
   })
 
   -- Nulli LS
@@ -217,9 +205,6 @@ require("packer").startup(function(use)
         fn["fzf#install"]()
       end,
     } },
-    config = function()
-      require("plugins.fzf")
-    end,
   })
 
   -- lightbulb
