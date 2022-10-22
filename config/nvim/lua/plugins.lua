@@ -132,8 +132,9 @@ require("packer").startup(function(use)
   -- Plenary
   use("nvim-lua/plenary.nvim")
 
-  -- Vsnip
-  use({ "hrsh7th/vim-vsnip", requires = { "hrsh7th/vim-vsnip-integ" } })
+  use({
+    "L3MON4D3/LuaSnip",
+  })
 
   use("ray-x/lsp_signature.nvim")
 
@@ -180,12 +181,7 @@ require("packer").startup(function(use)
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      {
-        "hrsh7th/cmp-vsnip",
-        config = function()
-          require("plugins.vsnip")
-        end,
-      },
+      "saadparwaiz1/cmp_luasnip"
     },
     config = function()
       require("plugins.cmp")

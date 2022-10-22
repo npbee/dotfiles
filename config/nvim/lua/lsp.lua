@@ -233,7 +233,7 @@ lspconfig.sumneko_lua.setup({
 })
 
 -- GraphQL --------------------------------------------------------------------
-require("lspconfig").graphql.setup({})
+-- require("lspconfig").graphql.setup({})
 
 -- Astro ----------------------------------------------------------------------
 -- lspconfig.astro.setup({})

@@ -1,3 +1,4 @@
+local ls = require('luasnip');
 local map = vim.api.nvim_set_keymap
 
 -- Easier split navigation
@@ -89,19 +90,7 @@ map("n", "<leader>tt", ":Ttoggle<CR>", { silent = true })
 -- Neoterm: Close terminal window and kill the process
 map("n", "<leader>tx", ":Tclose!<CR>", { silent = true })
 
--- Vsnip: expand snippet
-map("i", "<C-k>", "vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-k>'", { expr = true })
-map("s", "<C-k>", "vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-k>'", { expr = true })
-
--- Vsnip: expand or jump
-map("i", "<C-l>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", { expr = true })
-map("s", "<C-l>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", { expr = true })
-
--- Vsnip: jump
-map("i", "<Tab>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'", { expr = true })
-map("s", "<Tab>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'", { expr = true })
-map("i", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'", { expr = true })
-map("s", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'", { expr = true })
-
 -- Trouble
 map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+
+-- Snippets -------------------------------------------------------------------
