@@ -111,8 +111,12 @@ require("packer").startup(function(use)
   -- Polyglot
   use("sheerun/vim-polyglot")
 
-  -- Commentary
-  use("tpope/vim-commentary")
+  use({
+    "numToStr/Comment.nvim",
+    config = function()
+      require('Comment').setup()
+    end
+  })
 
   -- Sandwich
   use("machakann/vim-sandwich") -- config below for sandwich mappings
