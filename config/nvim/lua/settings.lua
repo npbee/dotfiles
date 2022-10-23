@@ -28,6 +28,7 @@ local options = {
   synmaxcol = 200,
   syntax = "on",
   termguicolors = true,
+  timeoutlen = 500,
   updatetime = 100,
   wildmenu = true,
   wildmode = "list:longest,list:full",
