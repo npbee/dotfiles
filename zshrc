@@ -67,7 +67,7 @@ eval "$(hub alias -s)"
 export CLICOLOR=1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color
+export TERM=xterm-kitty
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$HOME/go/bin:$PATH"
