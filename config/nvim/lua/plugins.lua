@@ -50,7 +50,10 @@ require("packer").startup(function(use)
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
           -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = { "javascriptreact", "javascript", "typescript", "typescriptreact" },
+          additional_vim_regex_highlighting = true,
+
+          indent = { enabled = true },
+          incremental_selection = { enable = true }
         },
         playground = {
           enable = true,
