@@ -1,6 +1,7 @@
 local null_ls = require("null-ls")
 local null_ls_custom = require("lib.null_ls_typos")
 local lspconfig = require("lspconfig")
+local typescript = require("typescript")
 
 -- Config ---------------------------------------------------------------------
 
@@ -95,34 +96,35 @@ end
 
 -- Typescript -----------------------------------------------------------------
 
--- Disabled until I'm actually using this somewhere
-lspconfig.tsserver.setup({
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    -- Use prettier for formatting
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattignProvider = false
+typescript.setup({
+  server = {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      -- Use prettier for formatting
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattignProvider = false
 
-    on_attach(client, bufnr)
-  end,
+      on_attach(client, bufnr)
+    end,
 
-  handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = false,
-    }),
-  },
+    handlers = {
+      ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false,
+      }),
+    },
 
-  filetypes = {
-    -- At work we use flow, so it's too slow to have both LSP servers running
-    -- Disabling JS files for now
-    -- 'javascript',
-    -- 'javascriptreact',
-    -- 'javascript.jsx',
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-  },
+    filetypes = {
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+    },
+
+  }
+  --
 })
+-- Disabled until I'm actually using this somewhere
+-- lspconfig.tsserver.setup({
+-- })
 
 -- Flow -----------------------------------------------------------------------
 

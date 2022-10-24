@@ -252,6 +252,8 @@ require("packer").startup(function(use)
 
   use({ 'roginfarrer/vim-dirvish-dovish' })
 
+  use({ "jose-elias-alvarez/typescript.nvim" })
+
   if packer_bootstrap then
     require("packer").sync()
   end
