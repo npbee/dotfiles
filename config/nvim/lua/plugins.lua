@@ -250,6 +250,8 @@ require("packer").startup(function(use)
     end
   })
 
+  use({ 'roginfarrer/vim-dirvish-dovish' })
+
   if packer_bootstrap then
     require("packer").sync()
   end

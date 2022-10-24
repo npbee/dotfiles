@@ -76,7 +76,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # export FZF_DEFAULT_OPTS="--preview-window 'right:55%:hidden' --inline-info"
 export BAT_THEME="1337"
 export NVIM_LOG_FILE=~/.local/share/nvim/log
-export RIPGREP_CONFIG_PATH=~/.ripgreprc
+export RIPGREP_CONFIG_PATH=~/.config/ripgreprc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh.local ] && source ~/.zsh.local
