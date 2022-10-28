@@ -71,7 +71,7 @@
 	defaultBranch = main
 [user]
 	name = Nick Ball
-	email = nick@npbee.me
+	email = nickball@dropbox.com
 [dbx]
 	messagedisplayversion = 1
 [filter "lfs"]

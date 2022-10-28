@@ -26,6 +26,15 @@ return {
       "function {}(props: {{\n  {}\n}}) {{\n  return <{}>{}</{}>\n}}",
       { i(1), i(2), i(3, "div"), i(0), rep(3) }
     )
+  ),
+
+
+  s("us",
+    fmt(
+      "const [{}, {}] = useState<{}>({});",
+      { i(2), i(3), i(1), i(0) }
+
+    )
   )
 
 }

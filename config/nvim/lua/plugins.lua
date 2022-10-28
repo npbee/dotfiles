@@ -78,11 +78,10 @@ require("packer").startup(function(use)
   })
 
   use({
-    'nvim-treesitter/nvim-treesitter-context',
+    'windwp/nvim-ts-autotag',
     config = function()
-      require("treesitter-context").setup()
-    end,
-
+      require('nvim-ts-autotag').setup()
+    end
   })
 
 
