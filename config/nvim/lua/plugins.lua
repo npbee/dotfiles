@@ -256,6 +256,20 @@ require("packer").startup(function(use)
 
   use({ "jose-elias-alvarez/typescript.nvim" })
 
+  use({
+    "MunifTanjim/exrc.nvim",
+    config = function()
+      require("exrc").setup({
+        files = {
+          ".nvimrc.lua",
+          ".nvimrc",
+          ".exrc.lua",
+          ".exrc",
+        },
+      })
+    end
+  })
+
   if packer_bootstrap then
     require("packer").sync()
   end
