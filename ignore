@@ -8,3 +8,4 @@ deps
 .elixir_ls
 yarn-error.log
 .yarn
+**/src-tauri/target
