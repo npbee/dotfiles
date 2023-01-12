@@ -58,37 +58,8 @@ setup_homebrew() {
     brew "zsh"
     brew "neovim"
 
-    cask "alfred"
     cask "kitty"
 EOF
-}
-
-# Zsh
-zsh() {
-    info "Installing zsh syntax highlighting"
-    if ! [ -d zsh/plugins/zsh-syntax-highlighting ]
-    then
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh/plugins/zsh-syntax-highlighting
-    else
-        success "Syntax highlighting already installed."
-    fi
-
-    info "Installing zsh autosuggestion"
-    if ! [ -d zsh/plugins/zsh-autosuggestions ]
-    then
-        git clone git://github.com/zsh-users/zsh-autosuggestions zsh/plugins/zsh-autosuggestions
-    else
-        success "ZSH autosuggestions already installed."
-    fi
-
-    info "Installing z"
-    if ! [ -d zsh/plugins/z ]
-    then
-        git clone git@github.com:rupa/z.git zsh/plugins/z
-    else
-        success "Z already installed."
-    fi
-
 }
 
 link_files() {
@@ -109,7 +80,6 @@ clean_up() {
 }
 
 setup_homebrew
-zsh
 link_files
 osx_defaults
 clean_up
