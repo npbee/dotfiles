@@ -3,6 +3,7 @@ source "$HOME/.zsh/antigen.zsh"
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle agkozak/zsh-z
+antigen bundle joshskidmore/zsh-fzf-history-search
 
 antigen apply
 
@@ -93,8 +94,3 @@ fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 eval "$(direnv hook zsh)"
-
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
