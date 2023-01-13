@@ -57,6 +57,7 @@ setup_homebrew() {
     brew "ripgrep"
     brew "zsh"
     brew "neovim"
+    brew "exa"
 
     cask "kitty"
 EOF

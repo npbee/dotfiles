@@ -1,7 +1,7 @@
 # Unix
 alias mkdir='mkdir -p'
 alias l='ls'
-alias ll='ls -al'
+alias ll='exa -T -L 1'
 alias lh='ls -Alh'
 
 # git

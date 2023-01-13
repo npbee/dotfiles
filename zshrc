@@ -4,6 +4,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle agkozak/zsh-z
 antigen bundle joshskidmore/zsh-fzf-history-search
+antigen bundle git
 
 antigen apply
 
@@ -48,6 +49,7 @@ source $HOME/.zsh/fzf.zsh
 
 # Completion
 source $HOME/.zsh/completion/npm.zsh
+zstyle ':completion:*:*:git:*' script $HOME/.zsh/completion/git.bash
 completion_files=($HOME/.zsh/completion/*.zsh)
 for file in $completion_files
 do
