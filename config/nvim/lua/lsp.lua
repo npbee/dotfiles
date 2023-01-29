@@ -160,6 +160,10 @@ null_ls.setup({
         "astro",
         "svelte"
       },
+
+      condition = function(utils)
+        return utils.root_has_file({ "deno.json" }) == false
+      end
     }),
     -- null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.formatting.mix,
