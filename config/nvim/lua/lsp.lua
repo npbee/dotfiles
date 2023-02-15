@@ -99,7 +99,7 @@ end
 
 typescript.setup({
   server = {
-    root_dir = nvim_lsp.util.root_pattern("package.json"),
+    root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
     capabilities = capabilities,
     on_attach = function(client, bufnr)
       -- Use prettier for formatting
@@ -255,7 +255,10 @@ lspconfig.sumneko_lua.setup({
 
 require("lsp_signature").setup({})
 
--- require 'lspconfig'.tailwindcss.setup {}
+require 'lspconfig'.tailwindcss.setup {
+  root_dir = nvim_lsp.util.root_pattern("tailwind.config.js"),
+
+}
 
 nvim_lsp.denols.setup {
   on_attach = on_attach,
