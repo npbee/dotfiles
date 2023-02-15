@@ -2,6 +2,7 @@ local null_ls = require("null-ls")
 local null_ls_custom = require("lib.null_ls_typos")
 local lspconfig = require("lspconfig")
 local typescript = require("typescript")
+local nvim_lsp = require('lspconfig')
 
 -- Config ---------------------------------------------------------------------
 
@@ -98,6 +99,7 @@ end
 
 typescript.setup({
   server = {
+    root_dir = nvim_lsp.util.root_pattern("package.json"),
     capabilities = capabilities,
     on_attach = function(client, bufnr)
       -- Use prettier for formatting
@@ -123,8 +125,6 @@ typescript.setup({
   --
 })
 -- Disabled until I'm actually using this somewhere
--- lspconfig.tsserver.setup({
--- })
 
 -- Flow -----------------------------------------------------------------------
 
@@ -134,7 +134,11 @@ lspconfig.flow.setup({ capabilities = capabilities, on_attach = on_attach })
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d.with({
+      condition = function(utils)
+        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+      end
+    }),
     null_ls.builtins.diagnostics.write_good.with({
       filetypes = { "gitcommit", "markdown" },
     }),
@@ -162,13 +166,17 @@ null_ls.setup({
       },
 
       condition = function(utils)
-        return utils.root_has_file({ "deno.json" }) == false
+        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
       end
     }),
     -- null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.formatting.mix,
 
-    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.code_actions.eslint_d.with({
+      condition = function(utils)
+        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+      end
+    }),
     -- null_ls.builtins.formatting.eslint_d,
     null_ls.builtins.formatting.shfmt.with({
       extra_args = { "-i", "2" },
@@ -249,4 +257,18 @@ require("lsp_signature").setup({})
 
 -- require 'lspconfig'.tailwindcss.setup {}
 
--- require 'lspconfig'.gopls.setup {}
+nvim_lsp.denols.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+  init_options = {
+    lint = true,
+    suggest = {
+      imports = {
+        hosts = {
+          ["https://deno.land"] = true,
+        }
+      }
+    },
+  },
+}
+require 'lspconfig'.gopls.setup {}
