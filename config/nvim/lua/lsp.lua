@@ -40,6 +40,17 @@ vim.diagnostic.config({
 })
 
 -- Shared attach handler ------------------------------------------------------
+local lsp_formatting = function(bufnr)
+  vim.lsp.buf.format({
+    filter = function(client)
+      -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == "null-ls" or client.name == 'denols'
+    end,
+    bufnr = bufnr,
+  })
+end
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
@@ -78,7 +89,16 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
   if client.server_capabilities.documentFormattingProvider then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          lsp_formatting(bufnr)
+        end,
+      })
+    end
   end
 
   if client.server_capabilities.documentHighlightProvider then
@@ -161,14 +181,15 @@ null_ls.setup({
         "markdown",
         "graphql",
         "handlebars",
-        "astro",
-        "svelte"
+        "svelte",
+        "astro"
       },
 
       condition = function(utils)
         return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
       end
     }),
+
     -- null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.mix,
 
@@ -251,7 +272,9 @@ lspconfig.lua_ls.setup({
 -- require("lspconfig").graphql.setup({})
 
 -- Astro ----------------------------------------------------------------------
--- lspconfig.astro.setup({})
+lspconfig.astro.setup({
+  root_dir = nvim_lsp.util.root_pattern("astro.config.mjs"),
+})
 
 require("lsp_signature").setup({})
 
