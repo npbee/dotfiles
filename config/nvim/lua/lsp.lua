@@ -2,9 +2,9 @@ local null_ls = require("null-ls")
 local null_ls_custom = require("lib.null_ls_typos")
 local lspconfig = require("lspconfig")
 local typescript = require("typescript")
-local nvim_lsp = require('lspconfig')
 
 -- Config ---------------------------------------------------------------------
+require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -118,7 +118,7 @@ end
 typescript.setup({
   server = {
     single_file_support = false,
-    root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
+    root_dir = lspconfig.util.root_pattern("tsconfig.json"),
     capabilities = capabilities,
     on_attach = function(client, bufnr)
       -- Use prettier for formatting
@@ -153,6 +153,7 @@ lspconfig.flow.setup({ capabilities = capabilities, on_attach = on_attach })
 local eslint_root_pattern = { ".eslintrc.js", ".eslintrc.js", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json" }
 
 null_ls.setup({
+  border = 'rounded',
   sources = {
     null_ls.builtins.diagnostics.eslint_d.with({
       condition = function(utils)
@@ -163,7 +164,7 @@ null_ls.setup({
       filetypes = { "gitcommit", "markdown" },
     }),
     null_ls.builtins.formatting.prettierd.with({
-      root_dir = nvim_lsp.util.root_pattern("package.json"),
+      root_dir = lspconfig.util.root_pattern("package.json"),
       prefer_local = "node_modules/.bin",
       filetypes = {
         "javascript",
@@ -187,7 +188,7 @@ null_ls.setup({
       },
 
       condition = function(utils)
-        return utils.root_has_file({ "package.json" })
+        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
       end
     }),
 
@@ -195,7 +196,7 @@ null_ls.setup({
     null_ls.builtins.formatting.mix,
 
     null_ls.builtins.code_actions.eslint_d.with({
-      root_dir = nvim_lsp.util.root_pattern(eslint_root_pattern),
+      root_dir = lspconfig.util.root_pattern(eslint_root_pattern),
       condition = function(utils)
         return utils.root_has_file(eslint_root_pattern)
       end
@@ -278,19 +279,19 @@ lspconfig.lua_ls.setup({
 
 -- Astro ----------------------------------------------------------------------
 lspconfig.astro.setup({
-  root_dir = nvim_lsp.util.root_pattern("astro.config.mjs"),
+  root_dir = lspconfig.util.root_pattern("astro.config.mjs"),
 })
 
 require("lsp_signature").setup({})
 
 require 'lspconfig'.tailwindcss.setup {
-  root_dir = nvim_lsp.util.root_pattern("tailwind.config.js"),
+  root_dir = lspconfig.util.root_pattern("tailwind.config.js"),
 
 }
 
-nvim_lsp.denols.setup {
+lspconfig.denols.setup {
   on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
   init_options = {
     lint = true,
     suggest = {
