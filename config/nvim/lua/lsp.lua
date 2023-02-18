@@ -44,7 +44,7 @@ local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     filter = function(client)
       -- apply whatever logic you want (in this example, we'll only use null-ls)
-      return client.name == "null-ls" or client.name == 'denols'
+      return client.name == "null-ls" or client.name == 'denols' or client.name == 'lua_ls'
     end,
     bufnr = bufnr,
   })
@@ -88,18 +88,16 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
-  if client.server_capabilities.documentFormattingProvider then
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          lsp_formatting(bufnr)
-        end,
-      })
-    end
-  end
+  -- if client.supports_method("textDocument/formatting") then
+  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    buffer = bufnr,
+    callback = function()
+      lsp_formatting(bufnr)
+    end,
+  })
+  -- end
 
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
@@ -119,6 +117,7 @@ end
 
 typescript.setup({
   server = {
+    single_file_support = false,
     root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
     capabilities = capabilities,
     on_attach = function(client, bufnr)
@@ -151,18 +150,20 @@ typescript.setup({
 lspconfig.flow.setup({ capabilities = capabilities, on_attach = on_attach })
 
 -- Null LS --------------------------------------------------------------------
+local eslint_root_pattern = { ".eslintrc.js", ".eslintrc.js", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json" }
 
 null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.eslint_d.with({
       condition = function(utils)
-        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+        return utils.root_has_file(eslint_root_pattern)
       end
     }),
     null_ls.builtins.diagnostics.write_good.with({
       filetypes = { "gitcommit", "markdown" },
     }),
     null_ls.builtins.formatting.prettierd.with({
+      root_dir = nvim_lsp.util.root_pattern("package.json"),
       prefer_local = "node_modules/.bin",
       filetypes = {
         "javascript",
@@ -186,7 +187,7 @@ null_ls.setup({
       },
 
       condition = function(utils)
-        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+        return utils.root_has_file({ "package.json" })
       end
     }),
 
@@ -194,11 +195,14 @@ null_ls.setup({
     null_ls.builtins.formatting.mix,
 
     null_ls.builtins.code_actions.eslint_d.with({
+      root_dir = nvim_lsp.util.root_pattern(eslint_root_pattern),
       condition = function(utils)
-        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+        return utils.root_has_file(eslint_root_pattern)
       end
     }),
+
     -- null_ls.builtins.formatting.eslint_d,
+
     null_ls.builtins.formatting.shfmt.with({
       extra_args = { "-i", "2" },
     }),
@@ -238,33 +242,34 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.lua_ls.setup({
   settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-
-      format = {
-        defaultConfig = {
-          indent_style = "space",
-          indent_size = "2"
-        }
-      },
+    -- Lua = {
+    --   runtime = {
+    --     -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+    --     version = "LuaJIT",
+    --     -- Setup your lua path
+    --     path = runtime_path,
+    --   },
+    --   diagnostics = {
+    --     -- Get the language server to recognize the `vim` global
+    --     globals = { "vim" },
+    --   },
+    --   workspace = {
+    --     -- Make the server aware of Neovim runtime files
+    --     library = vim.api.nvim_get_runtime_file("", true),
+    --   },
+    --   -- Do not send telemetry data containing a randomized but unique identifier
+    --   telemetry = {
+    --     enable = false,
+    --   },
+    --
+    format = {
+      enable = true,
+      defaultConfig = {
+        indent_style = "space",
+        indent_size = "2"
+      }
     },
+    -- },
   },
 })
 
