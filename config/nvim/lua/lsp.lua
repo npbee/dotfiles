@@ -187,9 +187,9 @@ null_ls.setup({
         "astro"
       },
 
-      condition = function(utils)
-        return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
-      end
+      -- condition = function(utils)
+      --   return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+      -- end
     }),
 
     -- null_ls.builtins.formatting.stylua,
