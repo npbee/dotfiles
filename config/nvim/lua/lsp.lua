@@ -233,7 +233,7 @@ lspconfig.cssls.setup({
   },
 })
 
-lspconfig.cssmodules_ls.setup({})
+-- lspconfig.cssmodules_ls.setup({})
 
 -- Lua ------------------------------------------------------------------------
 
