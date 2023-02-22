@@ -10,3 +10,4 @@ yarn-error.log
 .yarn
 **/src-tauri/target
 dist
+build
