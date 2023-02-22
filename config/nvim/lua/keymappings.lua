@@ -17,9 +17,6 @@ map("x", "<s-tab>", "<gv", { noremap = true })
 map("n", "<tab>", ":bnext<CR>", { noremap = true })
 map("n", "<s-tab>", ":prev<CR>", { noremap = true })
 
--- Delete buffer
-map("n", "<leader>q", ":bdelete<CR>", { noremap = true })
-
 -- Double-tap leader to swap back to most recent file
 map("n", "<leader><leader>", "<c-^>", { noremap = true })
 
@@ -93,4 +90,12 @@ map("n", "<leader>tx", ":Tclose!<CR>", { silent = true })
 -- Trouble
 map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 
+-- QF Helpers
+
+-- use <C-N> and <C-P> for next/prev.
+map("n", "<C-N>", "<CMD>QNext<CR>", { noremap = true })
+map("n", "<C-P>", "<CMD>QPrev<CR>", { noremap = true })
+-- toggle the quickfix open/closed without jumping to it
+map("n", "<leader>q", "<CMD>QFToggle!<CR>", { noremap = true })
+map("n", "<leader>l", "<CMD>LLToggle!<CR>", { noremap = true })
 -- Snippets -------------------------------------------------------------------

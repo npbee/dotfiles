@@ -270,6 +270,13 @@ require("packer").startup(function(use)
     end
   })
 
+  use(
+    { "stevearc/qf_helper.nvim",
+      config = function()
+        require('qf_helper').setup()
+      end
+    })
+
   if packer_bootstrap then
     require("packer").sync()
   end
