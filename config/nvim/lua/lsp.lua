@@ -285,7 +285,7 @@ lspconfig.astro.setup({
 require("lsp_signature").setup({})
 
 require 'lspconfig'.tailwindcss.setup {
-  root_dir = lspconfig.util.root_pattern("tailwind.config.js"),
+  root_dir = lspconfig.util.root_pattern({ "tailwind.config.js", "tailwind.config.cjs" }),
 
 }
 
