@@ -1,6 +1,7 @@
 local null_ls = require("null-ls")
 local null_ls_custom = require("lib.null_ls_typos")
 local lspconfig = require("lspconfig")
+local configs = require 'lspconfig.configs'
 local typescript = require("typescript")
 
 -- Config ---------------------------------------------------------------------
@@ -304,3 +305,35 @@ lspconfig.denols.setup {
   },
 }
 require 'lspconfig'.gopls.setup {}
+
+if not configs.ls_emmet then
+  configs.ls_emmet = {
+    default_config = {
+      cmd = { 'ls_emmet', '--stdio' };
+      filetypes = {
+        'html',
+        'css',
+        'scss',
+        'javascriptreact',
+        'typescriptreact',
+        'haml',
+        'xml',
+        'xsl',
+        'pug',
+        'slim',
+        'sass',
+        'stylus',
+        'less',
+        'sss',
+        'hbs',
+        'handlebars',
+      };
+      root_dir = function(fname)
+        return vim.loop.cwd()
+      end;
+      settings = {};
+    };
+  }
+end
+
+lspconfig.ls_emmet.setup { capabilities = capabilities }

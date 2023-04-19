@@ -146,12 +146,12 @@ require("packer").startup(function(use)
   })
 
   -- Emmet
-  use({
-    "mattn/emmet-vim",
-    config = function()
-      vim.g.user_emmet_leader_key = "<C-E>"
-    end,
-  })
+  -- use({
+  --   "mattn/emmet-vim",
+  --   config = function()
+  --     vim.g.user_emmet_leader_key = "<C-F>"
+  --   end,
+  -- })
 
   -- Vim Test
   use({
