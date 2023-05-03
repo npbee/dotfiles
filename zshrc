@@ -81,12 +81,6 @@ export BAT_THEME="1337"
 export NVIM_LOG_FILE=~/.local/share/nvim/log
 export RIPGREP_CONFIG_PATH=~/.config/ripgreprc
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.zsh.local ] && source ~/.zsh.local
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[[ -f ~/.aliases ]] && source ~/.aliases
-
-
 # The next line updates PATH for Netlify's Git Credential Helper.
 if [ -f '/Users/npbee/.netlify/helper/path.zsh.inc' ]; then source '/Users/npbee/.netlify/helper/path.zsh.inc'; fi
 
@@ -110,3 +104,10 @@ export PATH="$PNPM_HOME:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zsh.local ] && source ~/.zsh.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+
