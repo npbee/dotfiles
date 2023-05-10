@@ -9,6 +9,8 @@ map("n", "<C-H>", "<C-W><C-H>", { noremap = true })
 
 map("n", "<C-s>", ":w<cr>", { noremap = true })
 
+vim.keymap.set('v', '<C-f>', vim.lsp.buf.format)
+
 -- in visual mode, use tab for indenting
 map("x", "<tab>", ">gv", { noremap = true })
 map("x", "<s-tab>", "<gv", { noremap = true })
@@ -34,6 +36,8 @@ map("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true })
 map("n", "<esc>", ":noh<CR>", { silent = true, noremap = true })
 
 map("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
+map("v", "<leader>f", ":lua vim.lsp.buf.format<CR>", { noremap = false })
 
 -- Finders --------------------------------------------------------------------
 
