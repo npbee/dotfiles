@@ -3,6 +3,7 @@ local null_ls_custom = require("lib.null_ls_typos")
 local lspconfig = require("lspconfig")
 local configs = require 'lspconfig.configs'
 local typescript = require("typescript")
+local utils = require("util")
 
 -- Config ---------------------------------------------------------------------
 require('lspconfig.ui.windows').default_options.border = 'rounded'
@@ -95,7 +96,9 @@ local on_attach = function(client, bufnr)
     group = augroup,
     buffer = bufnr,
     callback = function()
-      lsp_formatting(bufnr)
+      if utils.is_formatting() == true then
+        lsp_formatting(bufnr)
+      end
     end,
   })
   -- end

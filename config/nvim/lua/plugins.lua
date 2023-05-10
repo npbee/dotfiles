@@ -158,6 +158,7 @@ require("packer").startup(function(use)
     "vim-test/vim-test",
     config = function()
       vim.g["test#strategy"] = "neoterm"
+      vim.g["test#javascript#jest#options"] = "--watch"
     end,
   })
 

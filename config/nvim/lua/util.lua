@@ -2,6 +2,10 @@ local null_ls = require("null-ls")
 
 local M = {}
 
+local state = {
+  formatting_on_save = true
+}
+
 local get_format_sources = function()
   return null_ls.get_source({
     method = null_ls.methods.FORMATTING,
@@ -9,18 +13,13 @@ local get_format_sources = function()
 end
 
 M.toggle_formatting = function()
-  null_ls.toggle(get_format_sources())
+  state.formatting_on_save = not state.formatting_on_save
+  require('feline').reset_highlights()
 end
 
 -- Assume we're always formatting all sources or none
 M.is_formatting = function()
-  local formats = get_format_sources()
-
-  if formats[1]._disabled and formats[1]._disabled == true then
-    return false
-  else
-    return true
-  end
+  return state.formatting_on_save == true
 end
 
 return M
