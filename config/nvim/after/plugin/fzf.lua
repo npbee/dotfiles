@@ -1,4 +1,4 @@
-vim.g.fzf_layout = { window = { width = 0.75, height = 0.85 } }
+vim.g.fzf_layout = { window = { width = 0.95, height = 0.95 } }
 
 vim.g.fzf_preview_window = { 'hidden,right,55%', 'ctrl-p' }
 

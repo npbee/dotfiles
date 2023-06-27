@@ -4,14 +4,17 @@ local actions = require("telescope.actions")
 
 telescope.setup({
   defaults = {
+    dynamic_preview_title = true,
     -- layout_strategy = "vertical",
     layout_config = {
       horizontal = {
+        height = 0.95,
         width_padding = 0.04,
         height_padding = 0.1,
         preview_width = 0.6,
       },
       vertical = {
+        height = 0.95,
         width_padding = 0.05,
         height_padding = 1,
         preview_height = 0.5,
