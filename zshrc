@@ -49,7 +49,7 @@ source $HOME/.zsh/fzf.zsh
 
 # Completion
 source $HOME/.zsh/completion/npm.zsh
-zstyle ':completion:*:*:git:*' script $HOME/.zsh/completion/git.bash
+# zstyle ':completion:*:*:git:*' script $HOME/.zsh/completion/git.zsh
 completion_files=($HOME/.zsh/completion/*.zsh)
 for file in $completion_files
 do
