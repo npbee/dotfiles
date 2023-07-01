@@ -1,9 +1,11 @@
 return {
   "jose-elias-alvarez/null-ls.nvim",
+  dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local null_ls = require("null-ls")
     local null_ls_custom = require("lib.null_ls_typos")
     local lspconfig = require("lspconfig")
+    local utils = require("util")
     local eslint_root_pattern = {
       ".eslintrc.js",
       ".eslintrc.js",
@@ -12,7 +14,7 @@ return {
       ".eslintrc.json",
     }
 
-    null_ls.register(null_ls_custom.typos_code_actions)
+    -- null_ls.register(null_ls_custom.typos_code_actions)
 
     null_ls.setup({
       border = "rounded",
@@ -77,7 +79,8 @@ return {
         -- null_ls.builtins.formatting.gofmt
       },
 
-      on_attach = on_attach,
+      -- TODO: This was the lsp fn
+      on_attach = utils.on_lsp_attach,
     })
   end,
 }
