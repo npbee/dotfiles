@@ -50,7 +50,7 @@ return {
         vim.lsp.buf.format({
           filter = function(client)
             -- apply whatever logic you want (in this example, we'll only use null-ls)
-            return client.name == "null-ls" or client.name == "denols"
+            return client.name == "null-ls" or client.name == "denols" or client.name == "svelte"
           end,
           bufnr = bufnr,
         })
@@ -177,6 +177,7 @@ return {
       table.insert(runtime_path, "lua/?/init.lua")
 
       lspconfig.lua_ls.setup({
+        on_attach = on_attach,
         settings = {
           -- Lua = {
           --   runtime = {
@@ -199,7 +200,7 @@ return {
           --   },
           --
           format = {
-            enable = true,
+            enable = false,
             defaultConfig = {
               indent_style = "space",
               indent_size = "2",
@@ -270,6 +271,8 @@ return {
       end
 
       lspconfig.ls_emmet.setup({ capabilities = capabilities })
+
+      lspconfig.svelte.setup({ on_attach = on_attach })
     end,
   },
 }
