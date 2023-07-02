@@ -15,3 +15,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit" },
   command = "setlocal textwidth=72",
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argv(0) == "" then
+      require("fzf-lua").files()
+    end
+  end,
+})
