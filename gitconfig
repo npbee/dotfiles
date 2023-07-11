@@ -22,6 +22,7 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     editor = "nvim"
+	page = less -x2
 [merge]
 [include]
     path = .gitconfig.local
