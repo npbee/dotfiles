@@ -2,8 +2,8 @@ return {
   "L3MON4D3/LuaSnip",
   config = function()
     local ls = require("luasnip")
-    local loaders = require('luasnip.loaders')
-    local lua_loader = require('luasnip.loaders.from_lua')
+    local loaders = require("luasnip.loaders")
+    local lua_loader = require("luasnip.loaders.from_lua")
 
     ls.config.set_config({
       history = true,
@@ -16,7 +16,7 @@ return {
     ls.filetype_extend("javascriptreact", { "javascript" })
 
     lua_loader.load({
-      paths = "~/.config/nvim/lua/snippets"
+      paths = "~/.config/nvim/lua/snippets",
     })
 
     -- Expand or jump snippets with control+k
@@ -47,5 +47,5 @@ return {
     vim.api.nvim_create_user_command("LuaSnipEdit", function()
       loaders.edit_snippet_files()
     end, {})
-  end
+  end,
 }

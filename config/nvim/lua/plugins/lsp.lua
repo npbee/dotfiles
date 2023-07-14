@@ -5,14 +5,17 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     filter = function(client)
-      -- apply whatever logic you want (in this example, we'll only use null-ls)
-      return client.name == "null-ls" or client.name == "denols" or client.name == "svelte"
+      -- print("formatting with " .. client.name)
+      --   -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == "efm" or client.name == "svelte"
     end,
     bufnr = bufnr,
   })
 end
 
 local on_attach = function(client, bufnr)
+  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
@@ -77,6 +80,16 @@ return {
   { "folke/lsp-colors.nvim" },
   { "ray-x/lsp_signature.nvim" },
   {
+    "lukas-reineke/lsp-format.nvim",
+    config = function()
+      require("lsp-format").setup({
+        typescript = {
+          exclude = { "tsserver" },
+        },
+      })
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
@@ -120,18 +133,62 @@ return {
         },
       })
 
-      -- Shared attach handler ------------------------------------------------------
-      local lsp_formatting = function(bufnr)
-        vim.lsp.buf.format({
-          filter = function(client)
-            -- apply whatever logic you want (in this example, we'll only use null-ls)
-            return client.name == "null-ls" or client.name == "denols" or client.name == "svelte"
-          end,
-          bufnr = bufnr,
-        })
-      end
+      local prettier = {
+        formatCommand = 'prettierd "${INPUT}"',
+        -- formatCommand = string.format("%s ${INPUT}", vim.fn.exepath('prettierd')),
+        formatStdin = true,
+      }
 
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      local stylua = {
+        formatCommand = "stylua --search-parent-directories --stdin-filepath ${INPUT} -",
+        formatStdin = true,
+      }
+
+      local languages = {
+        -- ["="] = { misspell },
+        -- vim = { vint },
+        lua = { stylua },
+        -- go = { staticcheck, goimports, go_vet },
+        -- python = { black, isort, flake8, mypy },
+        typescript = { prettier },
+        javascript = { prettier },
+        typescriptreact = { prettier },
+        javascriptreact = { prettier },
+        yaml = { prettier },
+        json = { prettier },
+        jsonc = { prettier },
+        json5 = { prettier },
+        html = { prettier },
+        scss = { prettier },
+        css = { prettier },
+        markdown = { prettier },
+        graphql = { prettier },
+        svelte = { prettier },
+        astro = { prettier },
+        -- org = { cbfmt },
+        -- sh = { shellcheck, shfmt },
+        -- terraform = { terraform },
+        -- rego = { opa },
+      }
+
+      lspconfig.efm.setup({
+        root_dir = lspconfig.util.root_pattern(".git"),
+        init_options = {
+          documentFormatting = true,
+        },
+        filetypes = vim.tbl_keys(languages),
+        settings = {
+          rootMarkers = { ".git/" },
+          --   version = 2,
+          --   logFile = "~/.config/efm-langserver/efm.log",
+          --   logLevel = 1,
+          languages = languages,
+        },
+      })
+
+      lspconfig.marksman.setup({
+        on_attach = on_attach,
+      })
 
       -- Typescript -----------------------------------------------------------------
 
@@ -142,8 +199,8 @@ return {
           capabilities = capabilities,
           on_attach = function(client, bufnr)
             -- Use prettier for formatting
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattignProvider = false
+            -- client.server_capabilities.documentFormattingProvider = false
+            -- client.server_capabilities.documentRangeFormattingProvider = false
 
             on_attach(client, bufnr)
           end,
@@ -173,12 +230,6 @@ return {
       lspconfig.cssls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-
-        settings = {
-          css = {
-            validate = false,
-          },
-        },
       })
 
       -- lspconfig.cssmodules_ls.setup({})
@@ -211,7 +262,7 @@ return {
             },
 
             format = {
-              enable = false,
+              enable = true,
               defaultConfig = {
                 indent_style = "space",
                 indent_size = "2",
@@ -304,71 +355,71 @@ return {
 
       -- null_ls.register(null_ls_custom.typos_code_actions)
 
-      null_ls.setup({
-        border = "rounded",
-        sources = {
-          null_ls.builtins.diagnostics.eslint_d.with({
-            condition = function(utils)
-              return utils.root_has_file(eslint_root_pattern)
-            end,
-          }),
-          null_ls.builtins.diagnostics.write_good.with({
-            filetypes = { "gitcommit", "markdown" },
-          }),
-          null_ls.builtins.formatting.prettierd.with({
-            root_dir = lspconfig.util.root_pattern("package.json"),
-            prefer_local = "node_modules/.bin",
-            filetypes = {
-              "javascript",
-              "javascriptreact",
-              "typescript",
-              "typescriptreact",
-              "vue",
-              "css",
-              "scss",
-              "less",
-              "html",
-              "json",
-              "jsonc",
-              "json5",
-              "yaml",
-              "markdown",
-              "graphql",
-              "handlebars",
-              "svelte",
-              "astro",
-            },
+      -- null_ls.setup({
+      --   border = "rounded",
+      --   sources = {
+      -- null_ls.builtins.diagnostics.eslint_d.with({
+      --   condition = function(utils)
+      --     return utils.root_has_file(eslint_root_pattern)
+      --   end,
+      -- }),
+      -- null_ls.builtins.diagnostics.write_good.with({
+      --   filetypes = { "gitcommit", "markdown" },
+      -- }),
+      -- null_ls.builtins.formatting.prettierd.with({
+      --   root_dir = lspconfig.util.root_pattern("package.json"),
+      --   prefer_local = "node_modules/.bin",
+      --   filetypes = {
+      --     "javascript",
+      --     "javascriptreact",
+      --     "typescript",
+      --     "typescriptreact",
+      --     "vue",
+      --     "css",
+      --     "scss",
+      --     "less",
+      --     "html",
+      --     "json",
+      --     "jsonc",
+      --     "json5",
+      --     "yaml",
+      --     "markdown",
+      --     "graphql",
+      --     "handlebars",
+      --     "svelte",
+      --     "astro",
+      --   },
+      --
+      --   -- condition = function(utils)
+      --   --   return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
+      --   -- end
+      -- }),
 
-            -- condition = function(utils)
-            --   return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
-            -- end
-          }),
-
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.mix,
-
-          null_ls.builtins.code_actions.eslint_d.with({
-            root_dir = lspconfig.util.root_pattern(eslint_root_pattern),
-            condition = function(utils)
-              return utils.root_has_file(eslint_root_pattern)
-            end,
-          }),
-
-          -- null_ls.builtins.formatting.eslint_d,
-
-          null_ls.builtins.formatting.shfmt.with({
-            extra_args = { "-i", "2" },
-          }),
-
-          null_ls.builtins.diagnostics.stylelint.with({
-            prefer_local = "node_modules/.bin",
-          }),
-
-          -- null_ls.builtins.formatting.gofmt
-        },
-
-        on_attach = on_attach,
-      })
+      --     null_ls.builtins.formatting.stylua,
+      --     null_ls.builtins.formatting.mix,
+      --
+      --     null_ls.builtins.code_actions.eslint_d.with({
+      --       root_dir = lspconfig.util.root_pattern(eslint_root_pattern),
+      --       condition = function(utils)
+      --         return utils.root_has_file(eslint_root_pattern)
+      --       end,
+      --     }),
+      --
+      --     -- null_ls.builtins.formatting.eslint_d,
+      --
+      --     null_ls.builtins.formatting.shfmt.with({
+      --       extra_args = { "-i", "2" },
+      --     }),
+      --
+      --     null_ls.builtins.diagnostics.stylelint.with({
+      --       prefer_local = "node_modules/.bin",
+      --     }),
+      --
+      --     -- null_ls.builtins.formatting.gofmt
+      --   },
+      --
+      --   on_attach = on_attach,
+      -- })
     end,
   },
 }

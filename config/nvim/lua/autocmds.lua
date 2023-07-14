@@ -1,5 +1,11 @@
 vim.api.nvim_create_augroup("no_spell", { clear = true })
 
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = "no_spell",
   pattern = { "dirvish, json" },

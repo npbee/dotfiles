@@ -13,6 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("settings")
 require("lazy").setup("plugins", {
+  change_detection = {
+    notify = false,
+  },
   dev = {
     path = "~/code",
     patterns = { "npbee" },
