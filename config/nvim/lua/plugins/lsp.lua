@@ -1,21 +1,58 @@
 local utils = require("util")
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local setup_autoformat = function()
+  local _augroups = {}
+  local get_augroup = function(client)
+    if not _augroups[client.id] then
+      local group_name = "kickstart-lsp-format-" .. client.name
+      local id = vim.api.nvim_create_augroup(group_name, { clear = true })
+      _augroups[client.id] = id
+    end
 
-local lsp_formatting = function(bufnr)
-  vim.lsp.buf.format({
-    filter = function(client)
-      -- print("formatting with " .. client.name)
-      --   -- apply whatever logic you want (in this example, we'll only use null-ls)
-      return client.name == "efm" or client.name == "svelte"
+    return _augroups[client.id]
+  end
+
+  -- Whenever an LSP attaches to a buffer, we will run this function.
+  --
+  -- See `:help LspAttach` for more information about this autocmd event.
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("kickstart-lsp-attach-format", { clear = true }),
+    -- This is where we attach the autoformatting for reasonable clients
+    callback = function(args)
+      local client_id = args.data.client_id
+      local client = vim.lsp.get_client_by_id(client_id)
+      local bufnr = args.buf
+
+      -- Only attach to clients that support document formatting
+      if not client.server_capabilities.documentFormattingProvider then
+        return
+      end
+
+      -- Create an autocmd that will run *before* we save the buffer.
+      --  Run the formatting command for the LSP that has just attached.
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = get_augroup(client),
+        buffer = bufnr,
+        callback = function()
+          if not utils.is_formatting then
+            return
+          end
+
+          vim.lsp.buf.format({
+            async = false,
+            filter = function(c)
+              -- print("formatting with " .. client.name)
+              --   -- apply whatever logic you want (in this example, we'll only use null-ls)
+              return (c.name == "efm" or c.name == "svelte") and c.id == client.id
+            end,
+          })
+        end,
+      })
     end,
-    bufnr = bufnr,
   })
 end
 
 local on_attach = function(client, bufnr)
-  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
@@ -51,17 +88,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   -- buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
-  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    buffer = bufnr,
-    callback = function()
-      if utils.is_formatting() == true then
-        lsp_formatting(bufnr)
-      end
-    end,
-  })
-
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
       [[
@@ -95,7 +121,8 @@ return {
       local lspconfig = require("lspconfig")
       local configs = require("lspconfig.configs")
       local typescript = require("typescript")
-      local utils = require("util")
+
+      setup_autoformat()
 
       -- Config ---------------------------------------------------------------------
       require("lspconfig.ui.windows").default_options.border = "rounded"

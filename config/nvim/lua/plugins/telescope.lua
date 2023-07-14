@@ -1,3 +1,17 @@
+local no_preview = function()
+  return require("telescope.themes").get_dropdown({
+    borderchars = {
+      { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+      preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    },
+    width = 0.8,
+    previewer = false,
+    prompt_title = false,
+  })
+end
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -8,7 +22,6 @@ return {
   },
   config = function()
     local telescope = require("telescope")
-    local builtins = require("telescope.builtin")
     local actions = require("telescope.actions")
 
     telescope.setup({
@@ -56,5 +69,12 @@ return {
     { "<leader>F", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { noremap = true } },
     { "gp", ":lua require('plugins.telescope').react_prop_usage()<CR>", { noremap = true } },
     { "<leader>tp", "<cmd>:lua require('telescope.builtin').builtin()<cr>", { noremap = true } },
+    {
+      "<leader>/",
+      function()
+        require("telescope.builtin").current_buffer_fuzzy_find(no_preview())
+      end,
+      { desc = "[/] Fuzzily search in current buffer" },
+    },
   },
 }
