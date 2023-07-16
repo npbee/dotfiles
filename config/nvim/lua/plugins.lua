@@ -10,6 +10,37 @@ return {
   },
 
   {
+    "elentok/format-on-save.nvim",
+    config = function()
+      local formatters = require("format-on-save.formatters")
+
+      require("format-on-save").setup({
+        exclude_path_patterns = {
+          "/node_modules/",
+        },
+        formatter_by_ft = {
+          css = formatters.prettierd,
+          html = formatters.prettierd,
+          javascript = formatters.prettierd,
+          javascriptreact = formatters.prettierd,
+          json = formatters.prettierd,
+          lua = formatters.lsp,
+          markdown = formatters.prettierd,
+          scss = formatters.prettierd,
+          svelte = formatters.lsp,
+          typescript = formatters.prettierd,
+          typescriptreact = formatters.prettierd,
+          yaml = formatters.prettierd,
+        },
+
+        fallback_formatter = {
+          formatters.prettierd,
+        },
+      })
+    end,
+  },
+
+  {
     "mfussenegger/nvim-lint",
     config = function()
       require("lint").linters_by_ft = {
@@ -100,10 +131,10 @@ return {
     dependencies = { "kassio/neoterm" },
     keys = {
       { "t<C-n>", ":TestNearest<CR>", { silent = true } },
-      { "t<C-f>", ":TestFile<CR>", { silent = true } },
-      { "t<C-s>", ":TestSuite<CR>", { silent = true } },
-      { "t<C-l>", ":TestLast<CR>", { silent = true } },
-      { "t<C-g>", ":TestVisit<CR>", { silent = true } },
+      { "t<C-f>", ":TestFile<CR>",    { silent = true } },
+      { "t<C-s>", ":TestSuite<CR>",   { silent = true } },
+      { "t<C-l>", ":TestLast<CR>",    { silent = true } },
+      { "t<C-g>", ":TestVisit<CR>",   { silent = true } },
     },
   },
 }
