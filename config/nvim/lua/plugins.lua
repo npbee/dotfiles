@@ -8,6 +8,43 @@ return {
       vim.cmd([[colorscheme eighty-five]])
     end,
   },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
+
+
+  {
+    'echasnovski/mini.surround',
+    version = false,
+    config = function()
+      require('mini.surround').setup({
+        mappings = {
+          add = "gza",            -- Add surrounding in Normal and Visual modes
+          delete = "gzd",         -- Delete surrounding
+          find = "gzf",           -- Find surrounding (to the right)
+          find_left = "gzF",      -- Find surrounding (to the left)
+          highlight = "gzh",      -- Highlight surrounding
+          replace = "gzr",        -- Replace surrounding
+          update_n_lines = "gzn", -- Update `n_lines`
+
+          suffix_last = 'l',      -- Suffix to search with "prev" method
+          suffix_next = 'n',      -- Suffix to search with "next" method
+        },
+      })
+    end
+  },
+
   {
     "elentok/format-on-save.nvim",
     config = function()
