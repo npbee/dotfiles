@@ -9,7 +9,6 @@ return {
       bright_bg = utils.get_highlight("Folded").bg,
       bright_fg = utils.get_highlight("Folded").fg,
       red = utils.get_highlight("DiagnosticError").fg,
-      dark_red = utils.get_highlight("DiffDelete").bg,
       green = utils.get_highlight("String").fg,
       blue = utils.get_highlight("Function").fg,
       gray = utils.get_highlight("NonText").fg,
@@ -466,7 +465,7 @@ return {
         return conditions.buffer_matches({ buftype = { "terminal" } })
       end,
 
-      hl = { bg = "dark_red" },
+      hl = { bg = "red" },
 
       -- Quickly add a condition to the ViMode to only show it when buffer is active!
       { condition = conditions.is_active, ViMode, Space },
