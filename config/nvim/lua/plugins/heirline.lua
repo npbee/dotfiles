@@ -199,6 +199,9 @@ return {
     )
 
     local FileType = {
+      condition = function()
+        return vim.bo.filetype ~= ""
+      end,
       {
         provider = "["
       },
