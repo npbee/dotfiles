@@ -70,7 +70,6 @@ return {
         },
 
         fallback_formatter = {
-          formatters.prettierd,
         },
       })
     end,
