@@ -1,5 +1,6 @@
 return {
   "famiu/feline.nvim",
+  enabled = false,
   config = function()
     local colors = {
       bg = "#353331",

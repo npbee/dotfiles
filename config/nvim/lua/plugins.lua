@@ -8,7 +8,6 @@ return {
       vim.cmd([[colorscheme eighty-five]])
     end,
   },
-
   {
     "elentok/format-on-save.nvim",
     config = function()
