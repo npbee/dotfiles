@@ -41,7 +41,7 @@ vim.keymap.set("v", "<leader>f", ":lua vim.lsp.buf.format<CR>", { noremap = fals
 vim.keymap.set("n", "<leader>ge", ":silent !eslint_d % --fix<CR>", { noremap = true })
 
 -- Toggle formatting
-vim.keymap.set("n", "<F12>", "<cmd>: lua require('util').toggle_formatting()<CR>", { noremap = true })
+vim.keymap.set("n", "<F12>", ":lua require('util').toggle_formatting()<cr>", { noremap = true })
 
 -- Toggle spell
 vim.keymap.set("n", "<F10>", "<cmd>: set spell!<CR>", { noremap = true })

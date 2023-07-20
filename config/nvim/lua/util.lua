@@ -5,8 +5,14 @@ local state = {
 }
 
 M.toggle_formatting = function()
-  state.formatting_on_save = not state.formatting_on_save
-  require("feline").reset_highlights()
+  local format_on_save = require('format-on-save')
+  local is_enabled = require('format-on-save.config').enabled;
+
+  if is_enabled then
+    format_on_save.disable()
+  else
+    format_on_save.enable()
+  end
 end
 
 -- Assume we're always formatting all sources or none

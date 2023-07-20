@@ -1,3 +1,5 @@
+local CustomGroup = vim.api.nvim_create_augroup('CustomGroup', { clear = true })
+
 vim.api.nvim_create_augroup("no_spell", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {

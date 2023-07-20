@@ -14,7 +14,7 @@ return {
       blue = utils.get_highlight("Function").fg,
       gray = utils.get_highlight("NonText").fg,
       orange = utils.get_highlight("Constant").fg,
-      purple = utils.get_highlight("Statement").fg,
+      purple = "#b98895",
       cyan = utils.get_highlight("Special").fg,
       diag_warn = utils.get_highlight("DiagnosticWarn").fg,
       diag_error = utils.get_highlight("DiagnosticError").fg,
@@ -131,7 +131,7 @@ return {
         self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
       end,
       provider = function(self)
-        return self.icon and (self.icon .. " ")
+        return self.icon and (self.icon .. "  ")
       end,
       hl = function(self)
         return { fg = self.icon_color }
@@ -411,12 +411,31 @@ return {
       provider = ":%3.5(%S%)",
     }
 
+    local ShowFormatting = {
+      condition = function()
+        return require("format-on-save.config").enabled
+      end,
+
+      update = {
+        "User",
+        pattern = "FormatToggle"
+      },
+
+      utils.surround({ "", "" }, "purple", {
+        provider = function()
+          return "☭"
+        end,
+        hl = { fg = "bg" },
+      }),
+    }
+
     ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode, })
+    Git = utils.surround({ "", "" }, "bright_bg", { Git, })
 
     local DefaultStatusLine = {
-      ViMode, SearchCount, MacroRec, Space, FileNameBlock, Space, FileType, Space, Diagnostics, Align,
+      ViMode, SearchCount, MacroRec, Space, FileNameBlock, Space, FileType, Space, ShowFormatting,
       Align,
-      LSPActive, Space, Space, Ruler, Space, Git
+      Diagnostics, Space, LSPActive, Space, Space, Ruler, Space, Git
     }
     local InactiveStatusline = {
       condition = conditions.is_not_active,
