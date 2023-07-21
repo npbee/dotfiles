@@ -465,7 +465,7 @@ return {
         return conditions.buffer_matches({ buftype = { "terminal" } })
       end,
 
-      hl = { bg = "red" },
+      hl = { bg = "bright_bg" },
 
       -- Quickly add a condition to the ViMode to only show it when buffer is active!
       { condition = conditions.is_active, ViMode, Space },
