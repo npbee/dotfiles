@@ -64,6 +64,7 @@ return {
         },
         formatter_by_ft = {
           css = formatters.prettierd,
+          elixir = formatters.lsp,
           html = formatters.prettierd,
           javascript = formatters.prettierd,
           javascriptreact = formatters.prettierd,

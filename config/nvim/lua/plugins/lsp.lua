@@ -222,6 +222,10 @@ return {
       })
       require("lspconfig").gopls.setup({})
 
+      lspconfig.elixirls.setup({
+        cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") }
+      })
+
       if not configs.ls_emmet then
         configs.ls_emmet = {
           default_config = {
