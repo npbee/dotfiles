@@ -9,7 +9,7 @@ return {
       bright_bg = utils.get_highlight("Folded").bg,
       bright_fg = utils.get_highlight("Folded").fg,
       red = utils.get_highlight("DiagnosticError").fg,
-      green = utils.get_highlight("String").fg,
+      yellow = utils.get_highlight("String").fg,
       blue = utils.get_highlight("Function").fg,
       gray = utils.get_highlight("NonText").fg,
       orange = utils.get_highlight("Constant").fg,
@@ -434,6 +434,20 @@ return {
     ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode, })
     Git = utils.surround({ "", "" }, "bright_bg", { Git, })
 
+    local WorkDir = {
+      provider = function()
+        local icon = (vim.fn.haslocaldir(0) == 1 and "l" or "g") .. " " .. " "
+        local cwd = vim.fn.getcwd(0)
+        cwd = vim.fn.fnamemodify(cwd, ":~")
+        if not conditions.width_percent_below(#cwd, 0.25) then
+          cwd = vim.fn.pathshorten(cwd)
+        end
+        local trail = cwd:sub(-1) == '/' and '' or "/"
+        return icon .. cwd .. trail
+      end,
+      hl = { fg = "blue", bold = true },
+    }
+
     local DefaultStatusLine = {
       ViMode, SearchCount, MacroRec, Space, FileNameBlock, Space, FileType, Space, ShowFormatting,
       Align,
@@ -458,6 +472,49 @@ return {
       Space,
       HelpFileName,
       Align
+    }
+
+    local Dir = {
+      init = function(self)
+        self.icon = " "
+        self.cwd = vim.fn.expand("%")
+      end,
+      hl = { fg = "purple" },
+
+      flexible = 1,
+
+      {
+        -- evaluates to the full-lenth path
+        provider = function(self)
+          local trail = self.cwd:sub(-1) == "/" and "" or "/"
+          return self.icon .. self.cwd .. trail .. " "
+        end,
+      },
+      {
+        -- evaluates to the shortened path
+        provider = function(self)
+          local cwd = vim.fn.pathshorten(self.cwd)
+          local trail = self.cwd:sub(-1) == "/" and "" or "/"
+          return self.icon .. cwd .. trail .. " "
+        end,
+      },
+      {
+        -- evaluates to "", hiding the component
+        provider = "",
+      }
+    }
+
+    local DirvishStatusLine = {
+      condition = function()
+        return conditions.buffer_matches({
+          buftype = { "nofile" },
+          filetype = { "dirvish" },
+        })
+      end,
+
+      FileType,
+      Align,
+      Dir,
     }
     local TerminalStatusline = {
 
@@ -489,6 +546,7 @@ return {
       -- think of it as a switch case with breaks to stop fallthrough.
       fallthrough = false,
 
+      DirvishStatusLine,
       SpecialStatusline,
       TerminalStatusline,
       InactiveStatusline,
