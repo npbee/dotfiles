@@ -63,6 +63,7 @@ return {
           "/node_modules/",
         },
         formatter_by_ft = {
+          astro = formatters.lsp,
           css = formatters.prettierd,
           elixir = formatters.lsp,
           html = formatters.prettierd,
