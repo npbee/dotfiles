@@ -51,16 +51,16 @@ end
 return {
   { "folke/lsp-colors.nvim" },
   { "ray-x/lsp_signature.nvim" },
-  {
-    "lukas-reineke/lsp-format.nvim",
-    config = function()
-      require("lsp-format").setup({
-        typescript = {
-          exclude = { "tsserver" },
-        },
-      })
-    end,
-  },
+  -- {
+  --   "lukas-reineke/lsp-format.nvim",
+  --   config = function()
+  --     require("lsp-format").setup({
+  --       typescript = {
+  --         exclude = { "tsserver" },
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -197,7 +197,7 @@ return {
 
       -- Astro ----------------------------------------------------------------------
       lspconfig.astro.setup({
-        root_dir = lspconfig.util.root_pattern("astro.config.mjs"),
+        root_dir = lspconfig.util.root_pattern({ "astro.config.mjs", "astro.config.js" }),
       })
 
       require("lsp_signature").setup({})
@@ -208,7 +208,7 @@ return {
 
       lspconfig.denols.setup({
         on_attach = on_attach,
-        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
         init_options = {
           lint = true,
           suggest = {
