@@ -223,6 +223,7 @@ return {
       require("lspconfig").gopls.setup({})
 
       lspconfig.elixirls.setup({
+        on_attach = on_attach,
         cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") }
       })
 
