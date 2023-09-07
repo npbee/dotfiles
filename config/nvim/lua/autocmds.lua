@@ -4,7 +4,11 @@ vim.api.nvim_create_augroup("no_spell", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
-    require("lint").try_lint()
+    local denodir = vim.fn.finddir("deno.jsonc", ";" .. vim.fn.expand("%:p"))
+
+    if denodir == nil then
+      require("lint").try_lint()
+    end
   end,
 })
 

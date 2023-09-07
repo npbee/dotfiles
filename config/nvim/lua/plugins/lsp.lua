@@ -197,6 +197,7 @@ return {
 
       -- Astro ----------------------------------------------------------------------
       lspconfig.astro.setup({
+        on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern({ "astro.config.mjs", "astro.config.js" }),
       })
 

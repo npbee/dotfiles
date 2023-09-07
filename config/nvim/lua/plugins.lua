@@ -9,13 +9,13 @@ return {
     end,
   },
 
-  {
-    'echasnovski/mini.pairs',
-    version = false,
-    config = function()
-      require('mini.pairs').setup()
-    end
-  },
+  -- {
+  --   'echasnovski/mini.pairs',
+  --   version = false,
+  --   config = function()
+  --     require('mini.pairs').setup()
+  --   end
+  -- },
 
   {
     "folke/which-key.nvim",
@@ -59,6 +59,7 @@ return {
       local formatters = require("format-on-save.formatters")
 
       require("format-on-save").setup({
+        -- debug = true,
         exclude_path_patterns = {
           "/node_modules/",
         },
@@ -74,13 +75,23 @@ return {
           markdown = formatters.prettierd,
           scss = formatters.prettierd,
           svelte = formatters.lsp,
-          typescript = formatters.prettierd,
+          -- typescript = formatters.prettierd,
           typescriptreact = formatters.prettierd,
           yaml = formatters.prettierd,
+          typescript = function()
+            local denodir = vim.fn.finddir("deno.jsonc", ";" .. vim.fn.expand("%:p"))
+            if denodir == nil then
+              return formatters.prettierd()
+            else
+              return formatters.lsp()
+            end
+          end
         },
+
 
         fallback_formatter = {
         },
+
       })
     end,
   },
