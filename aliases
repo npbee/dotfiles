@@ -38,3 +38,6 @@ alias colorscheme="cd ~/code/eighty-five && nvim ./lua/lush_theme/eighty-five.lu
 alias lg="lazygit"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
+
+alias s="kitty +kitten ssh"
+
