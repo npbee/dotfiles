@@ -13,3 +13,6 @@ dist
 build
 coverage
 .eslintcache
+.svelte-kit
+.netlify
+.vercel

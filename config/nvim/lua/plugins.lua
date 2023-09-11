@@ -104,6 +104,7 @@ return {
         typescriptreact = { "eslint_d" },
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
+        svelte = { "eslint_d" },
         -- TODO: stylelint
       }
     end,

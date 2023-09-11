@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
     local denodir = vim.fn.finddir("deno.jsonc", ";" .. vim.fn.expand("%:p"))
 
-    if denodir == nil then
+    if denodir == nil or denodir == "" then
       require("lint").try_lint()
     end
   end,
