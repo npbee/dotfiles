@@ -194,4 +194,8 @@ return {
       { "t<C-g>", ":TestVisit<CR>",   { silent = true } },
     },
   },
+
+  {
+    "github/copilot.vim"
+  }
 }
