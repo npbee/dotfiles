@@ -56,10 +56,10 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
       }),
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
+        { name = "nvim_lsp", },
         { name = "luasnip" },
         { name = "path" },
-        { name = "buffer",  keyword_length = 5 }
+        { name = "buffer",   keyword_length = 5 }
       }),
 
       window = {
@@ -71,6 +71,10 @@ return {
           border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
           winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
         },
+      },
+
+      performance = {
+        async_budget = 10
       },
 
       formatting = {
