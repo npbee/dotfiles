@@ -74,7 +74,7 @@ export TERM=xterm-kitty
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export EDITOR=nvim
 export PATH="$HOME/.bin:/usr/local/bin:$HOME/go/bin:$PATH"
-export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_COMMAND='fd --type file'
 # export FZF_PREVIEW_COMMAND="bat --style=header,grid --wrap never --color always {} || cat {} || tree -C {}"
 # export FZF_DEFAULT_OPTS="--preview-window 'right:55%:hidden' --inline-info"
 export BAT_THEME="1337"

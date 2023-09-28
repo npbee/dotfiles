@@ -58,6 +58,7 @@ setup_homebrew() {
     brew "zsh"
     brew "neovim"
     brew "exa"
+    brew "fd"
 
     cask "kitty"
 EOF
