@@ -457,7 +457,7 @@ return {
       condition = conditions.is_not_active,
       FileType,
       Space,
-      FileName,
+      FileNameBlock,
       Align,
     }
     local SpecialStatusline = {
@@ -552,12 +552,42 @@ return {
       InactiveStatusline,
       DefaultStatusLine,
     }
-    local WinBar = {}
+    local WinBars = {
+      fallthrough = false,
+      { -- A special winbar for terminals
+        condition = function()
+          return conditions.buffer_matches({ buftype = { "terminal" } })
+        end,
+        utils.surround({ "", "" }, "bright_bg", {
+          FileType,
+          Space,
+          TerminalName,
+        }),
+      },
+      { -- An inactive winbar for regular files
+        condition = function()
+          local winCount = #vim.api.nvim_list_wins()
+          return winCount > 1 and not conditions.is_active()
+        end,
+        Align,
+        FileNameBlock,
+        hl = { fg = "gray", force = true },
+      },
+      -- A winbar for regular files
+      {
+        Align,
+        FileNameBlock,
+        condition = function()
+          local winCount = #vim.api.nvim_list_wins()
+          return winCount > 1
+        end,
+      }
+    }
     local TabLine = {}
     local StatusColumn = {}
     require('heirline').setup({
       statusline = StatusLines,
-      -- winbar = WinBar,
+      winbar = WinBars,
       -- tabline = TabLine,
       -- statuscolumn = StatusColumn,
       opts = {
