@@ -14,6 +14,7 @@ return {
       gray = utils.get_highlight("NonText").fg,
       orange = utils.get_highlight("Constant").fg,
       purple = "#b98895",
+      green = "#7DA76B",
       cyan = utils.get_highlight("Special").fg,
       diag_warn = utils.get_highlight("DiagnosticWarn").fg,
       diag_error = utils.get_highlight("DiagnosticError").fg,
