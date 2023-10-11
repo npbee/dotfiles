@@ -41,7 +41,7 @@ return {
     end)
 
     -- reload all snippets
-    vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>")
+    -- vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>")
 
     -- Edit snippets
     vim.api.nvim_create_user_command("LuaSnipEdit", function()

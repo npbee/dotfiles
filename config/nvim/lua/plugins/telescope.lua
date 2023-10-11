@@ -14,11 +14,13 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
+  lazy = false,
   dependencies = {
     { "nvim-lua/plenary.nvim" },
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "nvim-telescope/telescope-fzf-native.nvim",    build = "make" },
     { "nvim-telescope/telescope-live-grep-args.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
+    { "nvim-telescope/telescope-frecency.nvim" },
   },
   config = function()
     local telescope = require("telescope")
@@ -63,12 +65,25 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
+    telescope.load_extension("frecency")
   end,
   keys = {
     -- Search for word (raw)
-    { "<leader>F", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { noremap = true } },
-    { "gp", ":lua require('plugins.telescope').react_prop_usage()<CR>", { noremap = true } },
-    { "<leader>tp", "<cmd>:lua require('telescope.builtin').builtin()<cr>", { noremap = true } },
+    {
+      "<leader>F",
+      ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+      { noremap = true }
+    },
+    {
+      "gp",
+      ":lua require('plugins.telescope').react_prop_usage()<CR>",
+      { noremap = true }
+    },
+    {
+      "<leader>tp",
+      "<cmd>:lua require('telescope.builtin').builtin()<cr>",
+      { noremap = true }
+    },
     {
       "<leader>/",
       function()
@@ -76,5 +91,10 @@ return {
       end,
       { desc = "[/] Fuzzily search in current buffer" },
     },
+    {
+      "<leader><leader>",
+      "<cmd>Telescope frecency<CR>",
+      { noremap = true, desc = " [space] Open frecent files" }
+    }
   },
 }
