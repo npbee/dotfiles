@@ -93,7 +93,7 @@ return {
     },
     {
       "<leader><leader>",
-      "<cmd>Telescope frecency<CR>",
+      "<cmd>Telescope frecency workspace=CWD<CR>",
       { noremap = true, desc = " [space] Open frecent files" }
     }
   },
