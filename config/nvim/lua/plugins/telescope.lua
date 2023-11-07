@@ -20,7 +20,6 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim",    build = "make" },
     { "nvim-telescope/telescope-live-grep-args.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
-    { "nvim-telescope/telescope-frecency.nvim" },
   },
   config = function()
     local telescope = require("telescope")
@@ -65,7 +64,6 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
-    telescope.load_extension("frecency")
   end,
   keys = {
     -- Search for word (raw)
@@ -91,10 +89,5 @@ return {
       end,
       { desc = "[/] Fuzzily search in current buffer" },
     },
-    {
-      "<leader><leader>",
-      "<cmd>Telescope frecency workspace=CWD<CR>",
-      { noremap = true, desc = " [space] Open frecent files" }
-    }
   },
 }

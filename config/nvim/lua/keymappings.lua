@@ -17,7 +17,7 @@ vim.keymap.set("n", "<tab>", ":bnext<CR>", { noremap = true })
 vim.keymap.set("n", "<s-tab>", ":prev<CR>", { noremap = true })
 
 -- Double-tap leader to swap back to most recent file
--- vim.keymap.set("n", "<leader><leader>", "<c-^>", { noremap = true })
+vim.keymap.set("n", "<leader><leader>", "<c-^>", { noremap = true })
 
 -- Maps '%%' when in command mode to the active file directory
 function _G.expand_path()
