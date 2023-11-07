@@ -34,18 +34,18 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   -- buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
 
-  if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-      false
-    )
-  end
+  -- if client.server_capabilities.documentHighlightProvider then
+  --   vim.api.nvim_exec(
+  --     [[
+  --     augroup lsp_document_highlight
+  --       autocmd! * <buffer>
+  --       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --   ]],
+  --     false
+  --   )
+  -- end
 end
 
 return {
@@ -66,7 +66,7 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
       local configs = require("lspconfig.configs")
-      local typescript = require("typescript")
+      -- local typescript = require("typescript")
 
       -- setup_autoformat()
 
@@ -111,34 +111,40 @@ return {
       })
 
       -- Typescript -----------------------------------------------------------------
-
-      typescript.setup({
-        server = {
-          single_file_support = false,
-          root_dir = lspconfig.util.root_pattern("tsconfig.json"),
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            -- Use prettier for formatting
-            -- client.server_capabilities.documentFormattingProvider = false
-            -- client.server_capabilities.documentRangeFormattingProvider = false
-
-            on_attach(client, bufnr)
-          end,
-
-          handlers = {
-            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-              virtual_text = false,
-            }),
-          },
-
-          filetypes = {
-            "typescript",
-            "typescriptreact",
-            "typescript.tsx",
-          },
-        },
-        --
+      -- require("typescript-tools").setup({
+      --   on_attach = on_attach,
+      -- })
+      lspconfig.tsserver.setup({
+        on_attach = on_attach,
       })
+
+      -- typescript.setup({
+      --   server = {
+      --     single_file_support = false,
+      --     root_dir = lspconfig.util.root_pattern("tsconfig.json"),
+      --     capabilities = capabilities,
+      --     on_attach = function(client, bufnr)
+      --       -- Use prettier for formatting
+      --       -- client.server_capabilities.documentFormattingProvider = false
+      --       -- client.server_capabilities.documentRangeFormattingProvider = false
+      --
+      --       on_attach(client, bufnr)
+      --     end,
+      --
+      --     handlers = {
+      --       ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      --         virtual_text = false,
+      --       }),
+      --     },
+      --
+      --     filetypes = {
+      --       "typescript",
+      --       "typescriptreact",
+      --       "typescript.tsx",
+      --     },
+      --   },
+      --   --
+      -- })
       -- Disabled until I'm actually using this somewhere
 
       -- Flow -----------------------------------------------------------------------
