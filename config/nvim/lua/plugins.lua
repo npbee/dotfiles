@@ -79,12 +79,12 @@ return {
           yaml = formatters.prettierd,
           typescript = {
             formatters.if_file_exists({
-              pattern = { "deno.jsonc" },
-              formatter = formatters.lsp
-            }),
-            formatters.if_file_exists({
               pattern = { "package.json" },
               formatter = formatters.prettierd
+            }),
+            formatters.if_file_exists({
+              pattern = { "deno.jsonc" },
+              formatter = formatters.lsp,
             }),
           }
         },
