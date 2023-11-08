@@ -167,7 +167,9 @@ return {
 
       -- Flow -----------------------------------------------------------------------
 
-      lspconfig.flow.setup({ capabilities = capabilities, on_attach = on_attach })
+      lspconfig.eslint.setup({
+        on_attach = on_attach,
+      })
 
       -- CSS ------------------------------------------------------------------------
 
