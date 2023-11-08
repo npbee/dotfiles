@@ -1,21 +1,4 @@
 local on_attach = function(client, bufnr)
-  -- Prevent tsserver and deno at the same time
-  local active_clients = vim.lsp.get_active_clients()
-  if client.name == 'denols' then
-    for _, client_ in pairs(active_clients) do
-      -- stop tsserver if denols is already active
-      if client_.name == 'tsserver' then
-        client_.stop()
-      end
-    end
-  elseif client.name == 'tsserver' then
-    for _, client_ in pairs(active_clients) do
-      -- prevent tsserver from starting if denols is already active
-      if client_.name == 'denols' then
-        client.stop()
-      end
-    end
-  end
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
@@ -234,7 +217,17 @@ return {
       })
 
       lspconfig.denols.setup({
-        on_attach = on_attach,
+        on_attach = function(client, buf_nr)
+          local active_clients = vim.lsp.get_active_clients()
+
+          for _, client_ in pairs(active_clients) do
+            -- stop tsserver if denols is already active
+            if client_.name == 'tsserver' then
+              client_.stop()
+            end
+          end
+          on_attach(client, buf_nr)
+        end,
         root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
         init_options = {
           lint = true,
