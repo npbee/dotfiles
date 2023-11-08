@@ -75,17 +75,18 @@ return {
           markdown = formatters.prettierd,
           scss = formatters.prettierd,
           svelte = formatters.lsp,
-          -- typescript = formatters.prettierd,
           typescriptreact = formatters.prettierd,
           yaml = formatters.prettierd,
-          typescript = function()
-            local denodir = vim.fn.finddir("deno.jsonc", ";" .. vim.fn.expand("%:p"))
-            if denodir == nil then
-              return formatters.prettierd()
-            else
-              return formatters.lsp()
-            end
-          end
+          typescript = {
+            formatters.if_file_exists({
+              pattern = { "deno.jsonc" },
+              formatter = formatters.lsp
+            }),
+            formatters.if_file_exists({
+              pattern = { "package.json" },
+              formatter = formatters.prettierd
+            }),
+          }
         },
 
 

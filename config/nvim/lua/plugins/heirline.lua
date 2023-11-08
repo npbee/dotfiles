@@ -588,7 +588,7 @@ return {
     local StatusColumn = {}
     require('heirline').setup({
       statusline = StatusLines,
-      winbar = WinBars,
+      -- winbar = WinBars,
       -- tabline = TabLine,
       -- statuscolumn = StatusColumn,
       opts = {
