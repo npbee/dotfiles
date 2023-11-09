@@ -1,3 +1,24 @@
+---Specialized root pattern that allows for an exclusion
+---@param opt { root: string[], exclude: string[] }
+---@return fun(file_name: string): string | nil
+local function root_pattern_exclude(opt)
+  local root = opt.root
+  local exclude = opt.exclude
+  local lspconfig = require('lspconfig')
+
+  return function(fname)
+    local excluded_root = lspconfig.util.root_pattern(exclude)(fname)
+    local included_root = lspconfig.util.root_pattern(root)(fname)
+
+    if excluded_root then
+      return nil
+    else
+      return included_root
+    end
+  end
+end
+
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -116,7 +137,11 @@ return {
       -- })
       lspconfig.tsserver.setup({
         on_attach = on_attach,
-        root_dir = lspconfig.util.root_pattern("package.json"),
+        root_dir = root_pattern_exclude({
+          root = { "package.json" },
+          exclude = { "deno.json", "deno.jsonc" }
+        }),
+        single_file_support = false
       })
 
       -- typescript.setup({
@@ -152,6 +177,10 @@ return {
 
       lspconfig.eslint.setup({
         on_attach = on_attach,
+        root_dir = root_pattern_exclude({
+          root = { "package.json" },
+          exclude = { "deno.json", "deno.jsonc" }
+        })
       })
 
       -- CSS ------------------------------------------------------------------------

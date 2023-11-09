@@ -83,7 +83,7 @@ return {
               formatter = formatters.prettierd
             }),
             formatters.if_file_exists({
-              pattern = { "deno.jsonc" },
+              pattern = { "deno.jsonc", "deno.json" },
               formatter = formatters.lsp,
             }),
           }
