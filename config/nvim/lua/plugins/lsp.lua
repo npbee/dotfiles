@@ -16,43 +16,39 @@ local function root_pattern_exclude(opt)
   end
 end
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
+    -- Mappings.
+    local opts = { noremap = true, silent = true, buffer = ev.buf }
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set("n", "<space>wl", function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "gr", function()
+      require('telescope.builtin').lsp_references()
+    end, opts)
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+
+    -- vim.keymap.set('n', '<space>f', function()
+    --   vim.lsp.buf.format { async = true }
+    -- end, opts)
   end
+})
 
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
-  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- Mappings.
-  local opts = { noremap = true, silent = true }
-  buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-  buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-  buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-  buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-
-  -- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  buf_set_keymap("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
-
-  -- buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  -- buf_set_keymap("n", "<leader>ca", ":lua require('telescope.builtin').lsp_code_actions()<CR>", opts)
-  buf_set_keymap("n", "<leader>ca", ":lua vim.lsp.buf.code_action()<CR>", opts)
-
-  buf_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-  buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-  -- buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
-end
 
 return {
   { "folke/lsp-colors.nvim" },
@@ -98,12 +94,9 @@ return {
         },
       })
 
-      lspconfig.marksman.setup({
-        on_attach = on_attach,
-      })
+      lspconfig.marksman.setup({})
 
       lspconfig.tsserver.setup({
-        on_attach = on_attach,
         root_dir = root_pattern_exclude({
           root = { "package.json" },
           exclude = { "deno.json", "deno.jsonc" }
@@ -113,7 +106,6 @@ return {
 
 
       lspconfig.eslint.setup({
-        on_attach = on_attach,
         root_dir = root_pattern_exclude({
           root = { "package.json" },
           exclude = { "deno.json", "deno.jsonc" }
@@ -123,7 +115,6 @@ return {
       -- CSS ------------------------------------------------------------------------
 
       lspconfig.cssls.setup({
-        on_attach = on_attach,
         capabilities = capabilities,
       })
 
@@ -134,40 +125,38 @@ return {
       table.insert(runtime_path, "lua/?/init.lua")
 
       lspconfig.lua_ls.setup({
-        on_attach = on_attach,
-        settings = {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { "vim" },
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-              enable = false,
-            },
+        on_init = function(client)
+          local path = client.workspace_folders[1].name
+          if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+              Lua = {
+                runtime = {
+                  -- Tell the language server which version of Lua you're using
+                  -- (most likely LuaJIT in the case of Neovim)
+                  version = 'LuaJIT'
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME
+                    -- "${3rd}/luv/library"
+                    -- "${3rd}/busted/library",
+                  }
+                  -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+                  -- library = vim.api.nvim_get_runtime_file("", true)
+                }
+              }
+            })
 
-            format = {
-              enable = true,
-              defaultConfig = {
-                indent_style = "space",
-                indent_size = "2",
-              },
-            },
-          },
-        },
+            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+          end
+          return true
+        end
       })
 
       -- Astro ----------------------------------------------------------------------
       lspconfig.astro.setup({
-        on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern({ "astro.config.mjs", "astro.config.js" }),
       })
 
@@ -178,7 +167,6 @@ return {
       })
 
       lspconfig.denols.setup({
-        on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
         init_options = {
           lint = true,
@@ -194,11 +182,10 @@ return {
       require("lspconfig").gopls.setup({})
 
       lspconfig.elixirls.setup({
-        on_attach = on_attach,
         cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") }
       })
 
-      lspconfig.svelte.setup({ on_attach = on_attach })
+      lspconfig.svelte.setup({})
     end,
   },
 }
