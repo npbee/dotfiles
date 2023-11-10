@@ -9,14 +9,6 @@ return {
     end,
   },
 
-  -- {
-  --   'echasnovski/mini.pairs',
-  --   version = false,
-  --   config = function()
-  --     require('mini.pairs').setup()
-  --   end
-  -- },
-
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -146,13 +138,6 @@ return {
       vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
     end,
   },
-
-  -- { "jose-elias-alvarez/typescript.nvim" },
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   opts = {},
-  -- },
 
   {
     "kassio/neoterm",

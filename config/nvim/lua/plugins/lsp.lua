@@ -2,13 +2,11 @@
 ---@param opt { root: string[], exclude: string[] }
 ---@return fun(file_name: string): string | nil
 local function root_pattern_exclude(opt)
-  local root = opt.root
-  local exclude = opt.exclude
-  local lspconfig = require('lspconfig')
+  local lsputil = require('lspconfig.util')
 
   return function(fname)
-    local excluded_root = lspconfig.util.root_pattern(exclude)(fname)
-    local included_root = lspconfig.util.root_pattern(root)(fname)
+    local excluded_root = lsputil.root_pattern(opt.exclude)(fname)
+    local included_root = lsputil.root_pattern(opt.root)(fname)
 
     if excluded_root then
       return nil
@@ -54,42 +52,15 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
   buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   -- buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.set_loclist()<CR>", opts)
-
-  -- if client.server_capabilities.documentHighlightProvider then
-  --   vim.api.nvim_exec(
-  --     [[
-  --     augroup lsp_document_highlight
-  --       autocmd! * <buffer>
-  --       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-  --       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  --     augroup END
-  --   ]],
-  --     false
-  --   )
-  -- end
 end
 
 return {
   { "folke/lsp-colors.nvim" },
   { "ray-x/lsp_signature.nvim" },
-  -- {
-  --   "lukas-reineke/lsp-format.nvim",
-  --   config = function()
-  --     require("lsp-format").setup({
-  --       typescript = {
-  --         exclude = { "tsserver" },
-  --       },
-  --     })
-  --   end,
-  -- },
   {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-      local configs = require("lspconfig.configs")
-      -- local typescript = require("typescript")
-
-      -- setup_autoformat()
 
       -- Config ---------------------------------------------------------------------
       require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -131,10 +102,6 @@ return {
         on_attach = on_attach,
       })
 
-      -- Typescript -----------------------------------------------------------------
-      -- require("typescript-tools").setup({
-      --   on_attach = on_attach,
-      -- })
       lspconfig.tsserver.setup({
         on_attach = on_attach,
         root_dir = root_pattern_exclude({
@@ -144,36 +111,6 @@ return {
         single_file_support = false
       })
 
-      -- typescript.setup({
-      --   server = {
-      --     single_file_support = false,
-      --     root_dir = lspconfig.util.root_pattern("tsconfig.json"),
-      --     capabilities = capabilities,
-      --     on_attach = function(client, bufnr)
-      --       -- Use prettier for formatting
-      --       -- client.server_capabilities.documentFormattingProvider = false
-      --       -- client.server_capabilities.documentRangeFormattingProvider = false
-      --
-      --       on_attach(client, bufnr)
-      --     end,
-      --
-      --     handlers = {
-      --       ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      --         virtual_text = false,
-      --       }),
-      --     },
-      --
-      --     filetypes = {
-      --       "typescript",
-      --       "typescriptreact",
-      --       "typescript.tsx",
-      --     },
-      --   },
-      --   --
-      -- })
-      -- Disabled until I'm actually using this somewhere
-
-      -- Flow -----------------------------------------------------------------------
 
       lspconfig.eslint.setup({
         on_attach = on_attach,
@@ -189,8 +126,6 @@ return {
         on_attach = on_attach,
         capabilities = capabilities,
       })
-
-      -- lspconfig.cssmodules_ls.setup({})
 
       -- Lua ------------------------------------------------------------------------
 
@@ -230,9 +165,6 @@ return {
         },
       })
 
-      -- GraphQL --------------------------------------------------------------------
-      -- require("lspconfig").graphql.setup({})
-
       -- Astro ----------------------------------------------------------------------
       lspconfig.astro.setup({
         on_attach = on_attach,
@@ -246,17 +178,7 @@ return {
       })
 
       lspconfig.denols.setup({
-        on_attach = function(client, buf_nr)
-          local active_clients = vim.lsp.get_active_clients()
-
-          for _, client_ in pairs(active_clients) do
-            -- stop tsserver if denols is already active
-            if client_.name == 'tsserver' then
-              client_.stop()
-            end
-          end
-          on_attach(client, buf_nr)
-        end,
+        on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
         init_options = {
           lint = true,
@@ -277,91 +199,6 @@ return {
       })
 
       lspconfig.svelte.setup({ on_attach = on_attach })
-    end,
-  },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local null_ls = require("null-ls")
-      local null_ls_custom = require("lib.null_ls_typos")
-      local lspconfig = require("lspconfig")
-      local utils = require("util")
-      local eslint_root_pattern = {
-        ".eslintrc.js",
-        ".eslintrc.js",
-        ".eslintrc.yaml",
-        ".eslintrc.yml",
-        ".eslintrc.json",
-      }
-
-      -- null_ls.register(null_ls_custom.typos_code_actions)
-
-      -- null_ls.setup({
-      --   border = "rounded",
-      --   sources = {
-      -- null_ls.builtins.diagnostics.eslint_d.with({
-      --   condition = function(utils)
-      --     return utils.root_has_file(eslint_root_pattern)
-      --   end,
-      -- }),
-      -- null_ls.builtins.diagnostics.write_good.with({
-      --   filetypes = { "gitcommit", "markdown" },
-      -- }),
-      -- null_ls.builtins.formatting.prettierd.with({
-      --   root_dir = lspconfig.util.root_pattern("package.json"),
-      --   prefer_local = "node_modules/.bin",
-      --   filetypes = {
-      --     "javascript",
-      --     "javascriptreact",
-      --     "typescript",
-      --     "typescriptreact",
-      --     "vue",
-      --     "css",
-      --     "scss",
-      --     "less",
-      --     "html",
-      --     "json",
-      --     "jsonc",
-      --     "json5",
-      --     "yaml",
-      --     "markdown",
-      --     "graphql",
-      --     "handlebars",
-      --     "svelte",
-      --     "astro",
-      --   },
-      --
-      --   -- condition = function(utils)
-      --   --   return utils.root_has_file({ "deno.json", "deno.jsonc" }) == false
-      --   -- end
-      -- }),
-
-      --     null_ls.builtins.formatting.stylua,
-      --     null_ls.builtins.formatting.mix,
-      --
-      --     null_ls.builtins.code_actions.eslint_d.with({
-      --       root_dir = lspconfig.util.root_pattern(eslint_root_pattern),
-      --       condition = function(utils)
-      --         return utils.root_has_file(eslint_root_pattern)
-      --       end,
-      --     }),
-      --
-      --     -- null_ls.builtins.formatting.eslint_d,
-      --
-      --     null_ls.builtins.formatting.shfmt.with({
-      --       extra_args = { "-i", "2" },
-      --     }),
-      --
-      --     null_ls.builtins.diagnostics.stylelint.with({
-      --       prefer_local = "node_modules/.bin",
-      --     }),
-      --
-      --     -- null_ls.builtins.formatting.gofmt
-      --   },
-      --
-      --   on_attach = on_attach,
-      -- })
     end,
   },
 }
