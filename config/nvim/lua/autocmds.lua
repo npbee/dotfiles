@@ -1,12 +1,19 @@
+local util = require('util')
+
 local CustomGroup = vim.api.nvim_create_augroup('CustomGroup', { clear = true })
 
 vim.api.nvim_create_augroup("no_spell", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
-    local denodir = vim.fn.finddir("deno.jsonc", ";" .. vim.fn.expand("%:p"))
+    local fname = vim.fn.expand("%:p")
 
-    if denodir == nil or denodir == "" then
+    local root = util.root_pattern_exclude({
+      root = { "eslint.json", ".eslintrc.json", ".eslintrc.js" },
+      exclude = { "deno.json", "deno.jsonc" }
+    })(fname)
+
+    if root then
       require("lint").try_lint()
     end
   end,

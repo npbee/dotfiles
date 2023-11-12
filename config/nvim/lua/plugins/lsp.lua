@@ -1,20 +1,4 @@
----Specialized root pattern that allows for an exclusion
----@param opt { root: string[], exclude: string[] }
----@return fun(file_name: string): string | nil
-local function root_pattern_exclude(opt)
-  local lsputil = require('lspconfig.util')
-
-  return function(fname)
-    local excluded_root = lsputil.root_pattern(opt.exclude)(fname)
-    local included_root = lsputil.root_pattern(opt.root)(fname)
-
-    if excluded_root then
-      return nil
-    else
-      return included_root
-    end
-  end
-end
+local util = require('util')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -97,7 +81,7 @@ return {
       lspconfig.marksman.setup({})
 
       lspconfig.tsserver.setup({
-        root_dir = root_pattern_exclude({
+        root_dir = util.root_pattern_exclude({
           root = { "package.json" },
           exclude = { "deno.json", "deno.jsonc" }
         }),
@@ -106,7 +90,7 @@ return {
 
 
       lspconfig.eslint.setup({
-        root_dir = root_pattern_exclude({
+        root_dir = util.root_pattern_exclude({
           root = { "package.json" },
           exclude = { "deno.json", "deno.jsonc" }
         })
