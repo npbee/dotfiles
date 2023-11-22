@@ -96,6 +96,8 @@ return {
         })
       })
 
+      lspconfig.bashls.setup({})
+
       -- CSS ------------------------------------------------------------------------
 
       lspconfig.cssls.setup({
