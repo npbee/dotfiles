@@ -78,7 +78,8 @@ return {
               pattern = { "deno.jsonc", "deno.json" },
               formatter = formatters.lsp,
             }),
-          }
+          },
+          sh = formatters.shfmt,
         },
 
 
