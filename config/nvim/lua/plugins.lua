@@ -67,8 +67,17 @@ return {
           markdown = formatters.prettierd,
           scss = formatters.prettierd,
           svelte = formatters.lsp,
-          typescriptreact = formatters.prettierd,
           yaml = formatters.prettierd,
+          typescriptreact = {
+            formatters.if_file_exists({
+              pattern = { "package.json" },
+              formatter = formatters.prettierd
+            }),
+            formatters.if_file_exists({
+              pattern = { "deno.jsonc", "deno.json" },
+              formatter = formatters.lsp,
+            }),
+          },
           typescript = {
             formatters.if_file_exists({
               pattern = { "package.json" },
