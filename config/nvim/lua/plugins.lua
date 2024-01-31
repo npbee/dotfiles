@@ -68,6 +68,7 @@ return {
           scss = formatters.prettierd,
           svelte = formatters.lsp,
           yaml = formatters.prettierd,
+          prisma = formatters.prettierd,
           typescriptreact = {
             formatters.if_file_exists({
               pattern = { "package.json" },

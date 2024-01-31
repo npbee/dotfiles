@@ -172,6 +172,8 @@ return {
       })
 
       lspconfig.svelte.setup({})
+
+      lspconfig.prismals.setup({})
     end,
   },
 }
