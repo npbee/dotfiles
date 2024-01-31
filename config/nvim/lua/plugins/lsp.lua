@@ -149,7 +149,8 @@ return {
       require("lsp_signature").setup({})
 
       require("lspconfig").tailwindcss.setup({
-        root_dir = lspconfig.util.root_pattern({ "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts" }),
+        root_dir = lspconfig.util.root_pattern({ "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts",
+          "tailwind.config.mjs" }),
       })
 
       lspconfig.denols.setup({
