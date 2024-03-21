@@ -24,9 +24,9 @@ return {
   s("cl", fmt("console.log({});", i(1))),
 
   s({
-    trig = "imp",
-    dscr = "Import default module",
-  },
+      trig = "imp",
+      dscr = "Import default module",
+    },
     fmt(
       [[import {} from "{}";]],
       { i(2), i(1) }
@@ -34,9 +34,9 @@ return {
   ),
 
   s({
-    trig = "imd",
-    dscr = "Import named import",
-  },
+      trig = "imd",
+      dscr = "Import named import",
+    },
     fmt(
       [[import {{ {} }} from "{}";]],
       { i(2), i(1) }
@@ -44,9 +44,9 @@ return {
   ),
 
   s({
-    trig = "ime",
-    dscr = "Import as",
-  },
+      trig = "ime",
+      dscr = "Import as",
+    },
     fmt(
       [[import * as {} from "{}";]],
       { i(2), i(1) }
@@ -54,9 +54,9 @@ return {
   ),
 
   s({
-    trig = "fof",
-    dscr = "for...of loop",
-  },
+      trig = "fof",
+      dscr = "for...of loop",
+    },
     fmt(
       "for (const {} of {}) {{\n  {}\n}}",
       { i(1), i(2), i(0) }
@@ -68,4 +68,11 @@ return {
   })),
 
   s("db", fmt("/**\n * {}\n */", { i(0) })),
+
+  s({
+      trig = "dpl",
+      dscr = "Set debug print limit",
+    },
+    fmt("process.env.DEBUG_PRINT_LIMIT = Infinity;", {})
+  )
 }
