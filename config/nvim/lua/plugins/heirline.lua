@@ -89,7 +89,7 @@ return {
           r = "orange",
           ["!"] = "red",
           t = "red",
-        }
+        },
       },
       -- We can now access the value of mode() that, by now, would have been
       -- computed by `init()` and use it to index our strings dictionary.
@@ -104,7 +104,7 @@ return {
       -- Same goes for the highlight. Now the foreground will change according to the current mode.
       hl = function(self)
         local mode = self.mode:sub(1, 1) -- get only the first mode character
-        return { fg = self.mode_colors[mode], bold = true, }
+        return { fg = self.mode_colors[mode], bold = true }
       end,
       -- Re-evaluate the component only on ModeChanged event!
       -- Also allows the statusline to be re-evaluated when entering operator-pending mode
@@ -128,20 +128,26 @@ return {
       init = function(self)
         local filename = self.filename
         local extension = vim.fn.fnamemodify(filename, ":e")
-        self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+        self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
+          filename,
+          extension,
+          { default = true }
+        )
       end,
       provider = function(self)
         return self.icon and (self.icon .. "  ")
       end,
       hl = function(self)
         return { fg = self.icon_color }
-      end
+      end,
     }
 
     local FileName = {
       init = function(self)
         self.lfilename = vim.fn.fnamemodify(self.filename, ":.")
-        if self.lfilename == "" then self.lfilename = "[No Name]" end
+        if self.lfilename == "" then
+          self.lfilename = "[No Name]"
+        end
       end,
       hl = { fg = utils.get_highlight("Directory").fg },
 
@@ -191,11 +197,12 @@ return {
     }
 
     -- let's add the children to our FileNameBlock component
-    FileNameBlock = utils.insert(FileNameBlock,
+    FileNameBlock = utils.insert(
+      FileNameBlock,
       FileIcon,
       utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
       FileFlags,
-      { provider = '%<' }                      -- this means that the statusline is cut here when there's not enough space
+      { provider = "%<" } -- this means that the statusline is cut here when there's not enough space
     )
 
     local FileType = {
@@ -203,7 +210,7 @@ return {
         return vim.bo.filetype ~= ""
       end,
       {
-        provider = "["
+        provider = "[",
       },
       {
         provider = function()
@@ -211,7 +218,7 @@ return {
         end,
       },
       {
-        provider = "]"
+        provider = "]",
       },
       hl = { fg = utils.get_highlight("Type").fg },
     }
@@ -226,20 +233,20 @@ return {
 
     local LSPActive = {
       condition = conditions.lsp_attached,
-      update    = { 'LspAttach', 'LspDetach' },
+      update = { "LspAttach", "LspDetach" },
 
       -- You can keep it simple,
       -- provider = " [LSP]",
 
       -- Or complicate things a bit and get the servers names
-      provider  = function()
+      provider = function()
         local names = {}
         for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
           table.insert(names, server.name)
         end
         return " [" .. table.concat(names, " ") .. "]"
       end,
-      hl        = { fg = "green", bold = true },
+      hl = { fg = "green", bold = true },
     }
 
     local Diagnostics = {
@@ -307,12 +314,11 @@ return {
 
       hl = { fg = "orange" },
 
-
       { -- git branch name
         provider = function(self)
           return " " .. self.status_dict.head
         end,
-        hl = { bold = true }
+        hl = { bold = true },
       },
     }
 
@@ -344,7 +350,7 @@ return {
       {
         -- evaluates to "", hiding the component
         provider = "",
-      }
+      },
     }
 
     local SearchCount = {
@@ -358,14 +364,14 @@ return {
         end
       end,
       {
-        provider = " "
+        provider = " ",
       },
       {
         provider = function(self)
           local search = self.search
           return string.format("[%d/%d]", search.current, math.min(search.total, search.maxcount))
         end,
-      }
+      },
     }
 
     local MacroRec = {
@@ -383,7 +389,7 @@ return {
       update = {
         "RecordingEnter",
         "RecordingLeave",
-      }
+      },
     }
 
     local HelpFileName = {
@@ -416,14 +422,12 @@ return {
 
     local ShowFormatting = {
       condition = function()
-        local buffer_enabled = vim.b.disable_autoformat == nil or vim.b.disable_autoformat == false
-        local global_enabled = vim.g.disable_autoformat == nil or vim.g.disable_autoformat == false
-        return buffer_enabled or global_enabled
+        return vim.g.disable_autoformat == false or vim.g.disable_autoformat == nil
       end,
 
       update = {
         "User",
-        pattern = "FormatToggle"
+        pattern = "FormatToggle",
       },
 
       utils.surround({ "", "" }, "purple", {
@@ -434,8 +438,8 @@ return {
       }),
     }
 
-    ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode, })
-    Git = utils.surround({ "", "" }, "bright_bg", { Git, })
+    ViMode = utils.surround({ "", "" }, "bright_bg", { ViMode })
+    Git = utils.surround({ "", "" }, "bright_bg", { Git })
 
     local WorkDir = {
       provider = function()
@@ -445,16 +449,31 @@ return {
         if not conditions.width_percent_below(#cwd, 0.25) then
           cwd = vim.fn.pathshorten(cwd)
         end
-        local trail = cwd:sub(-1) == '/' and '' or "/"
+        local trail = cwd:sub(-1) == "/" and "" or "/"
         return icon .. cwd .. trail
       end,
       hl = { fg = "blue", bold = true },
     }
 
     local DefaultStatusLine = {
-      ViMode, SearchCount, MacroRec, Space, FileNameBlock, Space, FileType, Space, ShowFormatting,
+      ViMode,
+      SearchCount,
+      MacroRec,
+      Space,
+      FileNameBlock,
+      Space,
+      FileType,
+      Space,
+      ShowFormatting,
       Align,
-      Diagnostics, Space, LSPActive, Space, Space, Ruler, Space, Git
+      Diagnostics,
+      Space,
+      LSPActive,
+      Space,
+      Space,
+      Ruler,
+      Space,
+      Git,
     }
     local InactiveStatusline = {
       condition = conditions.is_not_active,
@@ -474,7 +493,7 @@ return {
       FileType,
       Space,
       HelpFileName,
-      Align
+      Align,
     }
 
     local Dir = {
@@ -504,7 +523,7 @@ return {
       {
         -- evaluates to "", hiding the component
         provider = "",
-      }
+      },
     }
 
     local DirvishStatusLine = {
@@ -584,18 +603,18 @@ return {
           local winCount = #vim.api.nvim_list_wins()
           return winCount > 1
         end,
-      }
+      },
     }
     local TabLine = {}
     local StatusColumn = {}
-    require('heirline').setup({
+    require("heirline").setup({
       statusline = StatusLines,
       -- winbar = WinBars,
       -- tabline = TabLine,
       -- statuscolumn = StatusColumn,
       opts = {
-        colors = colors
-      }
+        colors = colors,
+      },
     })
-  end
+  end,
 }
