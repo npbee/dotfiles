@@ -416,7 +416,9 @@ return {
 
     local ShowFormatting = {
       condition = function()
-        return require("format-on-save.config").enabled
+        local buffer_enabled = vim.b.disable_autoformat == nil or vim.b.disable_autoformat == false
+        local global_enabled = vim.g.disable_autoformat == nil or vim.g.disable_autoformat == false
+        return buffer_enabled or global_enabled
       end,
 
       update = {
