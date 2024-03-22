@@ -89,13 +89,6 @@ return {
       })
 
 
-      lspconfig.eslint.setup({
-        root_dir = util.root_pattern_exclude({
-          root = { "package.json" },
-          exclude = { "deno.json", "deno.jsonc" }
-        })
-      })
-
       lspconfig.bashls.setup({})
 
       -- CSS ------------------------------------------------------------------------
