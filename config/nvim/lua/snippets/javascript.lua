@@ -74,5 +74,12 @@ return {
       dscr = "Set debug print limit",
     },
     fmt("process.env.DEBUG_PRINT_LIMIT = Infinity;", {})
+  ),
+
+  s({
+      trig = "sdb",
+      dscr = "Debug entire screen",
+    },
+    fmt("screen.debug(undefined, Infinity)", {})
   )
 }
