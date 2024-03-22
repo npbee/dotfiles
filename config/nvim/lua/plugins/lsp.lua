@@ -1,9 +1,9 @@
-local util = require('util')
+local util = require("util")
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     -- Mappings.
     local opts = { noremap = true, silent = true, buffer = ev.buf }
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
     vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "gr", function()
-      require('telescope.builtin').lsp_references()
+      require("telescope.builtin").lsp_references()
     end, opts)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
@@ -30,9 +30,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- vim.keymap.set('n', '<space>f', function()
     --   vim.lsp.buf.format { async = true }
     -- end, opts)
-  end
+  end,
 })
-
 
 return {
   { "folke/lsp-colors.nvim" },
@@ -83,11 +82,10 @@ return {
       lspconfig.tsserver.setup({
         root_dir = util.root_pattern_exclude({
           root = { "package.json" },
-          exclude = { "deno.json", "deno.jsonc" }
+          exclude = { "deno.json", "deno.jsonc" },
         }),
-        single_file_support = false
+        single_file_support = false,
       })
-
 
       lspconfig.bashls.setup({})
 
@@ -106,32 +104,32 @@ return {
       lspconfig.lua_ls.setup({
         on_init = function(client)
           local path = client.workspace_folders[1].name
-          if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+          if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+            client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
               Lua = {
                 runtime = {
                   -- Tell the language server which version of Lua you're using
                   -- (most likely LuaJIT in the case of Neovim)
-                  version = 'LuaJIT'
+                  version = "LuaJIT",
                 },
                 -- Make the server aware of Neovim runtime files
                 workspace = {
                   checkThirdParty = false,
                   library = {
-                    vim.env.VIMRUNTIME
+                    vim.env.VIMRUNTIME,
                     -- "${3rd}/luv/library"
                     -- "${3rd}/busted/library",
-                  }
+                  },
                   -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
                   -- library = vim.api.nvim_get_runtime_file("", true)
-                }
-              }
+                },
+              },
             })
 
             client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
           end
           return true
-        end
+        end,
       })
 
       -- Astro ----------------------------------------------------------------------
@@ -142,8 +140,12 @@ return {
       require("lsp_signature").setup({})
 
       require("lspconfig").tailwindcss.setup({
-        root_dir = lspconfig.util.root_pattern({ "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts",
-          "tailwind.config.mjs" }),
+        root_dir = lspconfig.util.root_pattern({
+          "tailwind.config.js",
+          "tailwind.config.cjs",
+          "tailwind.config.ts",
+          "tailwind.config.mjs",
+        }),
       })
 
       lspconfig.denols.setup({
@@ -162,12 +164,19 @@ return {
       require("lspconfig").gopls.setup({})
 
       lspconfig.elixirls.setup({
-        cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") }
+        cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") },
       })
 
       lspconfig.svelte.setup({})
 
       lspconfig.prismals.setup({})
+
+      require("lspconfig").eslint.setup({
+        settings = {
+          -- eslint_d provides lint errors
+          quiet = true,
+        },
+      })
     end,
   },
 }
