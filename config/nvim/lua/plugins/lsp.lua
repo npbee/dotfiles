@@ -172,6 +172,10 @@ return {
       lspconfig.prismals.setup({})
 
       require("lspconfig").eslint.setup({
+        root_dir = util.root_pattern_exclude({
+          root = { "package.json" },
+          exclude = { "deno.json", "deno.jsonc" }
+        }),
         settings = {
           -- eslint_d provides lint errors
           quiet = true,
