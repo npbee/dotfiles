@@ -38,13 +38,13 @@ return {
     keys = {
       { "<leader>p", ":Files<CR>", { noremap = true } },
       -- Search for word
-      -- { "<leader>f", ":Rg ", { noremap = true } },
+      { "<leader>f", ":Rg ", { noremap = true } },
       -- Search for word under cursor
       -- { "<leader>rg", ":Rg <C-R><C-W><CR>", { noremap = true } },
-      -- { "<leader>*", ":RG <C-R><C-W><CR>", { noremap = true } },
+      { "<leader>*", ":RG <C-R><C-W><CR>", { noremap = true } },
       -- { "<leader>*", 'y:RG <C-R>"<CR>', { noremap = true } },
       -- " Fuzzy find buffers
-      -- { "<leader>b", ":Buffers<CR>", { noremap = true } },
+      { "<leader>b", ":Buffers<CR>", { noremap = true } },
     },
   },
 
@@ -58,9 +58,9 @@ return {
     end,
     keys = {
       -- { "<leader>p", ":lua require('fzf-lua').files()<cr>",      { silent = true } },
-      { "<leader>f", ":lua require('fzf-lua').grep()<cr>",       { silent = true, noremap = true } },
-      { "<leader>*", ":lua require('fzf-lua').grep_cword()<cr>", { noremap = true } },
-      { "<leader>b", ":lua require('fzf-lua').buffers()<CR>",    { noremap = true } },
+      -- { "<leader>f", ":lua require('fzf-lua').grep()<cr>",       { silent = true, noremap = true } },
+      -- { "<leader>*", ":lua require('fzf-lua').grep_cword()<cr>", { noremap = true } },
+      -- { "<leader>b", ":lua require('fzf-lua').buffers()<CR>", { noremap = true } },
     },
   },
 }
