@@ -238,4 +238,6 @@ return {
   {
     "github/copilot.vim",
   },
+
+  { "stevearc/dressing.nvim" },
 }
