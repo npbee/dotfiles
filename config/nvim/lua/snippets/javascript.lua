@@ -24,62 +24,43 @@ return {
   s("cl", fmt("console.log({});", i(1))),
 
   s({
-      trig = "imp",
-      dscr = "Import default module",
-    },
-    fmt(
-      [[import {} from "{}";]],
-      { i(2), i(1) }
-    )
-  ),
+    trig = "imp",
+    dscr = "Import default module",
+  }, fmt([[import {} from "{}";]], { i(2), i(1) })),
 
   s({
-      trig = "imd",
-      dscr = "Import named import",
-    },
-    fmt(
-      [[import {{ {} }} from "{}";]],
-      { i(2), i(1) }
-    )
-  ),
+    trig = "imd",
+    dscr = "Import named import",
+  }, fmt([[import {{ {} }} from "{}";]], { i(2), i(1) })),
 
   s({
-      trig = "ime",
-      dscr = "Import as",
-    },
-    fmt(
-      [[import * as {} from "{}";]],
-      { i(2), i(1) }
-    )
-  ),
+    trig = "ime",
+    dscr = "Import as",
+  }, fmt([[import * as {} from "{}";]], { i(2), i(1) })),
 
   s({
-      trig = "fof",
-      dscr = "for...of loop",
-    },
-    fmt(
-      "for (const {} of {}) {{\n  {}\n}}",
-      { i(1), i(2), i(0) }
-    )
-  ),
+    trig = "fof",
+    dscr = "for...of loop",
+  }, fmt("for (const {} of {}) {{\n  {}\n}}", { i(1), i(2), i(0) })),
 
-  s("fn", fmt("function {}({}) {{\n  {}\n}} ", {
-    i(1), i(2), i(0)
-  })),
+  s(
+    "fn",
+    fmt("function {}({}) {{\n  {}\n}} ", {
+      i(1),
+      i(2),
+      i(0),
+    })
+  ),
 
   s("db", fmt("/**\n * {}\n */", { i(0) })),
 
   s({
-      trig = "dpl",
-      dscr = "Set debug print limit",
-    },
-    fmt("process.env.DEBUG_PRINT_LIMIT = Infinity;", {})
-  ),
+    trig = "dpl",
+    dscr = "Set debug print limit",
+  }, fmt("process.env.DEBUG_PRINT_LIMIT = Infinity;", {})),
 
   s({
-      trig = "sdb",
-      dscr = "Debug entire screen",
-    },
-    fmt("screen.debug(undefined, Infinity)", {})
-  )
+    trig = "sdb",
+    dscr = "Debug entire screen",
+  }, fmt("screen.debug(undefined, Infinity);", {})),
 }
