@@ -41,7 +41,7 @@ return {
       { "<leader>f", ":Rg ", { noremap = true } },
       -- Search for word under cursor
       -- { "<leader>rg", ":Rg <C-R><C-W><CR>", { noremap = true } },
-      { "<leader>*", ":RG <C-R><C-W><CR>", { noremap = true } },
+      { "<leader>*", ":Rg <C-R><C-W><CR>", { noremap = true } },
       -- { "<leader>*", 'y:RG <C-R>"<CR>', { noremap = true } },
       -- " Fuzzy find buffers
       { "<leader>b", ":Buffers<CR>", { noremap = true } },
