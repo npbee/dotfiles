@@ -16,6 +16,11 @@ M.root_pattern_exclude = function(opt)
     local excluded_root = lsputil.root_pattern(opt.exclude)(fname)
     local included_root = lsputil.root_pattern(opt.root)(fname)
 
+    -- If both roots are found, return the one closest to the file we're in
+    if included_root and excluded_root and string.len(included_root) > string.len(excluded_root) then
+      return included_root
+    end
+
     if excluded_root then
       return nil
     else

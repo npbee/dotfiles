@@ -149,7 +149,11 @@ return {
       })
 
       lspconfig.denols.setup({
-        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
+        root_dir = util.root_pattern_exclude({
+          exclude = { "package.json" },
+          root = { "deno.json", "deno.jsonc" }
+        }),
+        -- root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
         init_options = {
           lint = true,
           suggest = {
