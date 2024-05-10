@@ -24,6 +24,30 @@ return {
       ["vim-dadbod-completion"] = "[DB]",
     }
 
+    local icons = {
+      Class = " ",
+      Color = " ",
+      Constant = "π ",
+      Constructor = " ",
+      Enum = "了",
+      EnumMember = " ",
+      Field = " ",
+      File = " ",
+      Folder = " ",
+      Function = " ",
+      Interface = "ﰮ ",
+      Keyword = " ",
+      Method = "ƒ ",
+      Module = " ",
+      Property = " ",
+      Snippet = "✂ ",
+      Struct = " ",
+      Text = " ",
+      Unit = " ",
+      Value = " ",
+      Variable = " ",
+    }
+
     cmp.setup({
       snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -63,11 +87,12 @@ return {
       },
 
       formatting = {
-        format = lspkind.cmp_format({
-          mode = "text",
-          ellipsis_char = "...",
-          menu = source_mapping,
-        }),
+        format = function(_, vim_item)
+          if icons[vim_item.kind] then
+            vim_item.kind = icons[vim_item.kind] .. " " .. vim_item.kind
+          end
+          return vim_item
+        end,
       },
 
       experimental = {
