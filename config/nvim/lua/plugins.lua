@@ -119,6 +119,7 @@ return {
           yaml = { "prettierd" },
           prisma = { "prettierd" },
           sh = { "shfmt" },
+          elixir = { "mix" },
           typescript = function(bufnr)
             if util.is_deno_project(bufnr) then
               return { "deno_fmt" }
