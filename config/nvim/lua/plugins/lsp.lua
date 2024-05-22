@@ -150,8 +150,8 @@ return {
 
       lspconfig.denols.setup({
         root_dir = util.root_pattern_exclude({
-          exclude = { "package.json" },
-          root = { "deno.json", "deno.jsonc" }
+          -- exclude = { "package.json" },
+          root = { "deno.json", "deno.jsonc" },
         }),
         -- root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
         init_options = {
@@ -178,7 +178,7 @@ return {
       require("lspconfig").eslint.setup({
         root_dir = util.root_pattern_exclude({
           root = { "package.json" },
-          exclude = { "deno.json", "deno.jsonc" }
+          exclude = { "deno.json", "deno.jsonc" },
         }),
         settings = {
           -- eslint_d provides lint errors
