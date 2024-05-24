@@ -6,9 +6,11 @@ return {
     dependencies = { "rktjmp/lush.nvim" },
     priority = 1000,
     lazy = false,
-    config = function()
-      vim.cmd([[colorscheme eighty-five]])
-    end,
+  },
+
+  {
+    "olimorris/onedarkpro.nvim",
+    priority = 1000, -- Ensure it loads first
   },
 
   {
@@ -150,20 +152,6 @@ return {
         svelte = { "eslint_d" },
         -- TODO: stylelint
       }
-    end,
-  },
-
-  {
-    "MunifTanjim/exrc.nvim",
-    config = function()
-      require("exrc").setup({
-        files = {
-          ".nvimrc.lua",
-          ".nvimrc",
-          ".exrc.lua",
-          ".exrc",
-        },
-      })
     end,
   },
 

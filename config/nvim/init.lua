@@ -24,6 +24,8 @@ require("lazy").setup("plugins", {
 require("keymappings")
 require("autocmds")
 
+vim.cmd([[colorscheme onedark]])
+
 local function load_local()
   require("init-local")
 end
