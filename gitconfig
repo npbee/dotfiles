@@ -70,6 +70,7 @@
     untracked = yellow
 [include]
   path = /Users/npbee/.netlify/helper/git-config
+  path = ~/.delta/themes.gitconfig
 [init]
 	defaultBranch = main
 [user]
@@ -86,7 +87,10 @@
     diffFilter = delta --color-only
 
 [delta]
+    true-color = always
     navigate = true    # use n and N to move between diff sections
+    side-by-side = true
+    features = arctic-fox
 
     # delta detects terminal colors automatically; set one of these to disable auto-detection
     # dark = true
