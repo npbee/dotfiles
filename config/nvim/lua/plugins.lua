@@ -286,4 +286,9 @@ return {
       end, { desc = "Open harpoon window" })
     end,
   },
+
+  {
+    "NoahTheDuke/vim-just",
+    ft = { "just" },
+  },
 }
