@@ -94,6 +94,12 @@ return {
         desc = "Show available formatters",
       })
 
+      require("conform").formatters.shfmt = {
+        prepend_args = { "-i", "2" },
+        -- The base args are { "-filename", "$FILENAME" } so the final args will be
+        -- { "-i", "2", "-filename", "$FILENAME" }
+      }
+
       require("conform").setup({
         format_on_save = function(bufnr)
           -- Disable with a global or buffer-local variable
