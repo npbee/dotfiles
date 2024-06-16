@@ -113,4 +113,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [[ -f ~/.aliases ]] && source ~/.aliases
 
-
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh"
