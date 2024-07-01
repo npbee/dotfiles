@@ -65,7 +65,7 @@ prompt pure
 bindkey '^\n' autosuggest-execute
 
 # Hub
-eval "$(hub alias -s)"
+# eval "$(hub alias -s)"
 
 export CLICOLOR=1
 export LANG=en_US.UTF-8
