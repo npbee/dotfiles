@@ -165,7 +165,14 @@ return {
     "ruifm/gitlinker.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("gitlinker").setup()
+      require("gitlinker").setup({
+        callbacks = {
+          ["github-emu"] = function(url_data)
+            local url = require("gitlinker.hosts").get_github_type_url(url_data)
+            return url:gsub("(github%-emu)", "github.com")
+          end,
+        },
+      })
     end,
   },
 
