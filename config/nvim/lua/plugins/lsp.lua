@@ -79,7 +79,7 @@ return {
 
       lspconfig.marksman.setup({})
 
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         root_dir = util.root_pattern_exclude({
           root = { "package.json" },
           exclude = { "deno.json", "deno.jsonc" },
