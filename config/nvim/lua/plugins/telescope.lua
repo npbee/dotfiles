@@ -17,7 +17,7 @@ return {
   lazy = false,
   dependencies = {
     { "nvim-lua/plenary.nvim" },
-    { "nvim-telescope/telescope-fzf-native.nvim",    build = "make" },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "nvim-telescope/telescope-live-grep-args.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
   },
@@ -47,6 +47,8 @@ return {
           i = {
             ["<C-p>"] = require("telescope.actions.layout").toggle_preview,
             ["<esc>"] = actions.close,
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
           },
         },
         preview = {
@@ -70,17 +72,17 @@ return {
     {
       "<leader>F",
       ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-      { noremap = true }
+      { noremap = true },
     },
     {
       "gp",
       ":lua require('plugins.telescope').react_prop_usage()<CR>",
-      { noremap = true }
+      { noremap = true },
     },
     {
       "<leader>tp",
       "<cmd>:lua require('telescope.builtin').builtin()<cr>",
-      { noremap = true }
+      { noremap = true },
     },
     {
       "<leader>/",
