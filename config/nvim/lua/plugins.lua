@@ -150,6 +150,7 @@ return {
   {
     "mfussenegger/nvim-lint",
     config = function()
+      vim.env.ESLINT_D_PPID = vim.fn.getpid()
       require("lint").linters_by_ft = {
         typescript = { "eslint_d" },
         typescriptreact = { "eslint_d" },
