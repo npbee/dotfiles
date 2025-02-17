@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     local fname = vim.fn.expand("%:p")
 
     local root = util.root_pattern_exclude({
-      root = { "eslint.json", ".eslintrc.json", ".eslintrc.js", ".eslintrc", "eslint.config.mjs" },
+      root = { "eslint.json", ".eslintrc.json", ".eslintrc.js", ".eslintrc", "eslint.config.mjs", "eslint.config.js" },
       exclude = { "deno.json", "deno.jsonc" },
     })(fname)
 
