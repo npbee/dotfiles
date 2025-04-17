@@ -7,7 +7,7 @@ export DOTFILES=$HOME/dotfiles
 source init/logger
 
 is_mac() {
-    [[ "$OSTYPE" =~ ^darwin ]] || return 1
+  [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
 
 append_to_zshrc() {
@@ -23,27 +23,25 @@ append_to_zshrc() {
 
   if ! grep -Fqs "$text" "$zshrc"; then
     if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\\n" "$text" >> "$zshrc"
+      printf "%s\\n" "$text" >>"$zshrc"
     else
-      printf "\\n%s\\n" "$text" >> "$zshrc"
+      printf "\\n%s\\n" "$text" >>"$zshrc"
     fi
   fi
 }
 
-
 # HOMEBREW
 setup_homebrew() {
-    info "Installing Homebrew"
-    if test ! $(which /usr/local/bin/brew)
-    then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    else
-        success "Homebrew already installed."
-    fi
+  info "Installing Homebrew"
+  if test ! $(which /usr/local/bin/brew); then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    success "Homebrew already installed."
+  fi
 
-    brew update --force
+  brew update --force
 
-    brew bundle --file=-<<EOF
+  brew bundle --file=- <<EOF
     cask_args appdir: '/Applications'
 
     tap 'homebrew/bundle'
@@ -57,7 +55,7 @@ setup_homebrew() {
     brew "ripgrep"
     brew "zsh"
     brew "neovim"
-    brew "exa"
+    brew "eza"
     brew "fd"
 
     cask "kitty"
@@ -65,20 +63,20 @@ EOF
 }
 
 link_files() {
-    info "Linking dotfiles"
-    rcup -x init -x readme.md
+  info "Linking dotfiles"
+  rcup -x init -x readme.md
 }
 
 osx_defaults() {
-    if [ ! -d "$HOME/.bin/" ]; then
-      mkdir "$HOME/.bin"
-    fi
-    info "Setting system defaults"
-    $HOME/.bin/osx
+  if [ ! -d "$HOME/.bin/" ]; then
+    mkdir "$HOME/.bin"
+  fi
+  info "Setting system defaults"
+  $HOME/.bin/osx
 }
 
 clean_up() {
-    success "Done!  Run 'source ~/.zshrc' to see changes."
+  success "Done!  Run 'source ~/.zshrc' to see changes."
 }
 
 setup_homebrew
