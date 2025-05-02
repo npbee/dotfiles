@@ -146,6 +146,11 @@ return {
           "tailwind.config.ts",
           "tailwind.config.mjs",
         }),
+        settings = {
+          tailwindCSS = {
+            classFunctions = { "cva" }
+          },
+        },
       })
 
       lspconfig.denols.setup({
