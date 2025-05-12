@@ -472,8 +472,6 @@ return {
       Space,
       Space,
       Ruler,
-      Space,
-      Git,
     }
     local InactiveStatusline = {
       condition = conditions.is_not_active,
