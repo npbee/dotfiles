@@ -49,7 +49,7 @@ return {
 
       capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
       local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
       function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -148,7 +148,7 @@ return {
         }),
         settings = {
           tailwindCSS = {
-            classFunctions = { "cva" }
+            classFunctions = { "cva" },
           },
         },
       })
