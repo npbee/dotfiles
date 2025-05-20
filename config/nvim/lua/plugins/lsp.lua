@@ -79,13 +79,13 @@ return {
 
       lspconfig.marksman.setup({})
 
-      -- lspconfig.ts_ls.setup({
-      --   root_dir = util.root_pattern_exclude({
-      --     root = { "package.json" },
-      --     exclude = { "deno.json", "deno.jsonc" },
-      --   }),
-      --   single_file_support = false,
-      -- })
+      lspconfig.ts_ls.setup({
+        root_dir = util.root_pattern_exclude({
+          root = { "package.json" },
+          exclude = { "deno.json", "deno.jsonc" },
+        }),
+        single_file_support = false,
+      })
 
       lspconfig.bashls.setup({})
 
