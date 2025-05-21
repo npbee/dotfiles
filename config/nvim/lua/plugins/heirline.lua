@@ -1,6 +1,7 @@
 return {
   "rebelot/heirline.nvim",
   enabled = true,
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local utils = require("heirline.utils")
     local conditions = require("heirline.conditions")
@@ -202,7 +203,7 @@ return {
       FileIcon,
       utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
       FileFlags,
-      { provider = "%<" } -- this means that the statusline is cut here when there's not enough space
+      { provider = "%<" }                      -- this means that the statusline is cut here when there's not enough space
     )
 
     local FileType = {
