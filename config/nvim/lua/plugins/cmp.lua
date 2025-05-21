@@ -1,3 +1,36 @@
+local source_mapping = {
+  lsp = "[LSP]",
+  nvim_lua = "[LUA]",
+  luasnip = "[SNIP]",
+  buffer = "[BUF]",
+  path = "[PATH]",
+  treesitter = "[TREE]",
+  cmp_ai = "[AI]",
+}
+
+local icons = {
+  Class = " ",
+  Color = " ",
+  Constant = "π ",
+  Constructor = " ",
+  Enum = "了",
+  EnumMember = " ",
+  Field = " ",
+  File = " ",
+  Folder = " ",
+  Function = " ",
+  Interface = "ﰮ ",
+  Keyword = " ",
+  Method = "ƒ ",
+  Module = " ",
+  Property = " ",
+  Snippet = "✂ ",
+  Struct = " ",
+  Text = " ",
+  Unit = " ",
+  Value = " ",
+  Variable = " ",
+}
 return {
   "saghen/blink.cmp",
   -- optional: provides snippets for the snippet source
@@ -35,11 +68,30 @@ return {
 
     -- (Default) Only show the documentation popup when manually triggered
     completion = {
-      documentation = { auto_show = true },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 100,
+        treesitter_highlighting = true,
+        -- window = { border = "rounded" }
+      },
       menu = {
+        -- border = 'rounded',
         draw = {
-          columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } }
-        }
+          padding = { 0, 1 },
+          columns = {
+            { "label",     "label_description", gap = 1 },
+            { "kind_icon", gap = 1,             "kind" }
+          },
+          components = {
+            kind_icon = {
+              text = function(ctx)
+                if icons[ctx.kind] then
+                  return icons[ctx.kind]
+                end
+              end,
+            },
+          }
+        },
       }
     },
 
