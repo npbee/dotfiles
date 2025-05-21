@@ -33,16 +33,16 @@ return {
     config = function()
       require("mini.surround").setup({
         mappings = {
-          add = "gza", -- Add surrounding in Normal and Visual modes
-          delete = "gzd", -- Delete surrounding
-          find = "gzf", -- Find surrounding (to the right)
-          find_left = "gzF", -- Find surrounding (to the left)
-          highlight = "gzh", -- Highlight surrounding
-          replace = "gzr", -- Replace surrounding
+          add = "gza",            -- Add surrounding in Normal and Visual modes
+          delete = "gzd",         -- Delete surrounding
+          find = "gzf",           -- Find surrounding (to the right)
+          find_left = "gzF",      -- Find surrounding (to the left)
+          highlight = "gzh",      -- Highlight surrounding
+          replace = "gzr",        -- Replace surrounding
           update_n_lines = "gzn", -- Update `n_lines`
 
-          suffix_last = "l", -- Suffix to search with "prev" method
-          suffix_next = "n", -- Suffix to search with "next" method
+          suffix_last = "l",      -- Suffix to search with "prev" method
+          suffix_next = "n",      -- Suffix to search with "next" method
         },
       })
     end,
@@ -118,7 +118,7 @@ return {
         formatters_by_ft = {
           css = { "prettierd" },
           html = { "prettierd" },
-          lua = { "stylua" },
+          -- lua = { "stylua" },
           javascript = { "prettierd" },
           javascriptreact = { "prettierd" },
           json = { "prettierd" },
@@ -231,10 +231,10 @@ return {
     dependencies = { "kassio/neoterm" },
     keys = {
       { "t<C-n>", ":TestNearest<CR>", { silent = true } },
-      { "t<C-f>", ":TestFile<CR>", { silent = true } },
-      { "t<C-s>", ":TestSuite<CR>", { silent = true } },
-      { "t<C-l>", ":TestLast<CR>", { silent = true } },
-      { "t<C-g>", ":TestVisit<CR>", { silent = true } },
+      { "t<C-f>", ":TestFile<CR>",    { silent = true } },
+      { "t<C-s>", ":TestSuite<CR>",   { silent = true } },
+      { "t<C-l>", ":TestLast<CR>",    { silent = true } },
+      { "t<C-g>", ":TestVisit<CR>",   { silent = true } },
     },
   },
 
@@ -309,10 +309,10 @@ return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
-      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
       { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
     },
-    build = "make tiktoken", -- Only on MacOS or Linux
+    build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = {
       -- See Configuration section for options
     },

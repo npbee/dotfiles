@@ -38,6 +38,7 @@ opt.timeoutlen = 500
 opt.updatetime = 100
 opt.wildmenu = true
 opt.wildmode = "longest,list:full"
+opt.winborder = "rounded"
 
 vim.g.mapleader = " "
 vim.g.filetype = "plugin indent on"
