@@ -185,13 +185,6 @@ return {
   },
 
   {
-    "kosayoda/nvim-lightbulb",
-    config = function()
-      vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
-    end,
-  },
-
-  {
     "kassio/neoterm",
     config = function()
       vim.g.neoterm_default_mod = "vertical"
@@ -317,14 +310,5 @@ return {
       -- See Configuration section for options
     },
     -- See Commands section for default commands if you want to lazy load on them
-  },
-
-  {
-    "olimorris/codecompanion.nvim",
-    opts = {},
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
   },
 }
