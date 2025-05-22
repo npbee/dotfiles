@@ -68,6 +68,10 @@ return {
 
     -- (Default) Only show the documentation popup when manually triggered
     completion = {
+      -- Disable auto brackets
+      -- NOTE: some LSPs may add auto brackets themselves anyway
+      accept = { auto_brackets = { enabled = false }, },
+
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 100,
