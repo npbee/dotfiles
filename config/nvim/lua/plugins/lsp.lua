@@ -125,16 +125,16 @@ return {
           classFunctions = { "cva" },
         },
       },
-      root_dir = function(fname)
-        local root_file = {
-          'tailwind.config.js',
-          'tailwind.config.cjs',
-          'tailwind.config.mjs',
-          'tailwind.config.ts',
-        }
-        root_file = util.insert_package_json(root_file, 'tailwindcss', fname)
-        return util.root_pattern(unpack(root_file))(fname)
-      end,
+      -- root_dir = function(fname)
+      --   local root_file = {
+      --     'tailwind.config.js',
+      --     'tailwind.config.cjs',
+      --     'tailwind.config.mjs',
+      --     'tailwind.config.ts',
+      --   }
+      --   root_file = util.insert_package_json(root_file, 'tailwindcss', fname)
+      --   return util.root_pattern(unpack(root_file))(fname)
+      -- end,
     })
 
     vim.lsp.config('elixirls', {
