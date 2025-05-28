@@ -1,4 +1,5 @@
 local util = require("util")
+local statusline = require('statusline')
 
 local CustomGroup = vim.api.nvim_create_augroup("CustomGroup", { clear = true })
 
@@ -33,6 +34,26 @@ vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit" },
   command = "setlocal textwidth=72",
+})
+
+vim.api.nvim_create_augroup("statusline", { clear = true })
+
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+  group = "statusline",
+  pattern = "*",
+  callback = function()
+    -- Set the statusline
+    vim.o.statusline = "%!v:lua.require('statusline').active()"
+  end
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+  group = "statusline",
+  pattern = "*",
+  callback = function()
+    -- Set the statusline
+    vim.o.statusline = "%!v:lua.require('statusline').inactive()"
+  end
 })
 
 -- vim.api.nvim_create_autocmd("VimEnter", {
