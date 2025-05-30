@@ -106,8 +106,6 @@ local function active_lsps()
 
   local count = vim.tbl_count(names)
 
-  print(count)
-
   if count == 0 then
     return ""
   else
