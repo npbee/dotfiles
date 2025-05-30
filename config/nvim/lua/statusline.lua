@@ -129,7 +129,7 @@ end
 local function is_formatting()
   local is_auto_formatting = vim.g.disable_autoformat == false or vim.g.disable_autoformat == nil
   if is_auto_formatting then
-    return "%#StatuslineAccent# ♺ %#Normal#"
+    return "%#DiagnosticInfo# 󰁨  %#Normal#"
   else
     return ""
   end
