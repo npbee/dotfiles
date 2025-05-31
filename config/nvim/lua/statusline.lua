@@ -144,6 +144,7 @@ Statusline.active = function()
     "%#Normal#",
     lsp(),
     "%=%#StatusLineExtra#",
+    " %m ",
     is_formatting(),
     active_lsps(),
     filetype(),
