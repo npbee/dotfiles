@@ -126,6 +126,7 @@ lazy.setup({
             prisma = { "prettierd" },
             sh = { "shfmt" },
             elixir = { "mix" },
+            python = { "lsp" },
             typescript = function(bufnr)
               if util.is_deno_project(bufnr) then
                 return { "deno_fmt" }

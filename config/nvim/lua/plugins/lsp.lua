@@ -56,7 +56,8 @@ return {
   config = function()
     local util = require('lspconfig.util')
 
-    vim.lsp.enable({ "marksman",
+    vim.lsp.enable({
+      "marksman",
       "ts_ls",
       "bashls",
       "cssls",
@@ -65,7 +66,9 @@ return {
       "tailwindcss",
       "elixirls",
       "svelte",
-      "eslint"
+      "eslint",
+      "ruff",
+      "jedi_language_server"
     })
 
     -- Lua ------------------------------------------------------------------------
@@ -176,6 +179,10 @@ return {
         -- eslint_d provides lint errors
         quiet = true,
       },
+    })
+
+    vim.lsp.config('ruff', {
+      settings = {}
     })
   end,
 }
