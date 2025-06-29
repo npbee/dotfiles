@@ -16,3 +16,4 @@ coverage
 .svelte-kit
 .netlify
 .vercel
+.venv
