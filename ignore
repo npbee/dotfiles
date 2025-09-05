@@ -17,3 +17,4 @@ coverage
 .netlify
 .vercel
 .venv
+.next
