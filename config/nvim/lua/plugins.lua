@@ -244,8 +244,31 @@ lazy.setup({
     { import = "plugins.cmp" },
     { import = "plugins.lsp" },
     { import = "plugins.snippets" },
-    { import = "plugins.telescope" },
-    { import = "plugins.treesitter" }
+    -- { import = "plugins.telescope" },
+    { import = "plugins.treesitter" },
+
+    {
+      'nvim-mini/mini.pick',
+      version = '*',
+      config = function()
+        require('mini.pick').setup({
+          mappings = {
+            move_up = '<C-k>',
+            move_down = '<C-j>',
+            toggle_preview = '<C-p>',
+          },
+
+        })
+      end
+    },
+    {
+      'nvim-mini/mini.extra',
+      version = '*',
+      config = function()
+        require('mini.extra').setup()
+      end
+    },
+
 
   }
 })

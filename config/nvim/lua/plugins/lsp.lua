@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
     -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "grr", function()
-      require("telescope.builtin").lsp_references()
+      require("mini.extra").pickers.lsp({ scope = 'references' })
     end, opts)
     -- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
