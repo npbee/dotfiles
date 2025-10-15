@@ -244,7 +244,6 @@ lazy.setup({
     { import = "plugins.cmp" },
     { import = "plugins.lsp" },
     { import = "plugins.snippets" },
-    -- { import = "plugins.telescope" },
     { import = "plugins.treesitter" },
 
     {
