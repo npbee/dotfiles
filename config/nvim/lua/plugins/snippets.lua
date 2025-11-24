@@ -4,6 +4,9 @@ return {
     local ls = require("luasnip")
     local loaders = require("luasnip.loaders")
     local lua_loader = require("luasnip.loaders.from_lua")
+    local vscode_loader = require("luasnip.loaders.from_vscode")
+
+    ls.log.set_loglevel("info")
 
     ls.config.set_config({
       history = true,
@@ -17,6 +20,11 @@ return {
 
     lua_loader.load({
       paths = "~/.config/nvim/lua/snippets",
+    })
+
+    -- Load from the repository root .vscode directory
+    vscode_loader.load_standalone({
+      path = vim.fs.root(0, '.git') .. '/.vscode/snippets.code-snippets'
     })
 
     -- Expand or jump snippets with control+k

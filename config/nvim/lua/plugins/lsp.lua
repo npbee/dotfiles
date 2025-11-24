@@ -68,7 +68,8 @@ return {
       "svelte",
       "eslint",
       "ruff",
-      "jedi_language_server"
+      "jedi_language_server",
+      "copilot"
     })
 
     -- Lua ------------------------------------------------------------------------
