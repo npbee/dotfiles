@@ -6,3 +6,4 @@ sublime/User
 !init/template/gitconfig.local
 !sublime/User/*.sublime-settings
 !sublime/User/*.sublime-keymap
+.claude
