@@ -1,0 +1,46 @@
+font-family = PragmataPro Mono Liga
+font-size = 16.0
+
+foreground = #FBEFC0
+background = #35312F
+
+#: black
+
+palette = 0=#282828
+palette = 8=#807e7c
+
+#: red
+
+palette = 1=#E25C5C
+palette = 9=#E25C5C
+
+#: green
+
+palette =  2=#7DA76B
+palette = 10=#10A778
+
+#: yellow
+
+palette=   3=#D3AF64
+palette=  11=#D3AF64
+
+#: blue
+
+palette =  4=#789B8D
+palette = 12=#789B8D
+
+#: magenta
+
+palette = 5  = #BD8190
+palette = 13 = #523C79
+
+#: cyan
+
+palette = 6  = #66cccc
+palette = 14 = #66cccc
+
+#: white
+
+palette = 7=#CFBC97
+palette = 15= #E8D6A9
+
