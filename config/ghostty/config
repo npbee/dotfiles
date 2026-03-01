@@ -3,12 +3,6 @@ font-size = 16.0
 
 keybind = cmd+shift+w=close_surface
 
-# Navigate between panes (vim-style)
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+k=goto_split:top
-keybind = ctrl+l=goto_split:right
-
 foreground = #FBEFC0
 background = #35312F
 
