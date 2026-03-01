@@ -269,7 +269,12 @@ lazy.setup({
     },
 
     { 'github/copilot.vim' },
-    { 'fang2hou/blink-copilot' }
+    { 'fang2hou/blink-copilot' },
+
+    {
+      "bezhermoso/tree-sitter-ghostty",
+      build = "make nvim_install",
+    }
 
 
   }
