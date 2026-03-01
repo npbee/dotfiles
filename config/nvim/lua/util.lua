@@ -1,11 +1,5 @@
 local M = {}
 
-M.is_deno_project = function(bufnr)
-  return vim.fs.find({ "deno.json", "deno.jsonc" }, {
-    upward = true,
-  })[1]
-end
-
 ---Specialized root pattern that allows for an exclusion
 ---@param opt { root: string[], exclude: string[] }
 ---@return fun(file_name: string): string | nil
