@@ -127,20 +127,8 @@ lazy.setup({
             sh = { "shfmt" },
             elixir = { "mix" },
             python = { "lsp" },
-            typescript = function(bufnr)
-              if util.is_deno_project(bufnr) then
-                return { "deno_fmt" }
-              else
-                return { "prettierd" }
-              end
-            end,
-            typescriptreact = function(bufnr)
-              if util.is_deno_project(bufnr) then
-                return { "deno_fmt" }
-              else
-                return { "prettierd" }
-              end
-            end,
+            typescript = { "prettierd" },
+            typescriptreact = { "prettierd" }
           },
         })
       end,
