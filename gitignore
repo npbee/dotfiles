@@ -4,3 +4,4 @@ node_modules
 tags
 .envrc
 .nvimrc
+.claude/settings.local.json
