@@ -2,10 +2,6 @@ local util = require("util")
 local lazy = require('lazy')
 
 lazy.setup({
-  dev = {
-    path = "~/code",
-    patterns = { "npbee" },
-  },
   spec = {
     {
       "npbee/eighty-five",
@@ -262,7 +258,8 @@ lazy.setup({
     {
       "bezhermoso/tree-sitter-ghostty",
       build = "make nvim_install",
-    }
+    },
+    { 'nvim-mini/mini.colors', version = '*' },
 
 
   }

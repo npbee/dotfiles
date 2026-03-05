@@ -3,8 +3,8 @@ font-size = 16.0
 
 keybind = cmd+shift+w=close_surface
 
-foreground = #FBEFC0
-background = #35312F
+foreground = #E3D2A5
+background = #353331
 
 #: black
 

@@ -16,7 +16,7 @@ require('plugins')
 require("keymappings")
 require("autocmds")
 
-vim.cmd([[colorscheme eighty-five]])
+vim.cmd([[colorscheme eightyfive]])
 
 local function load_local()
   require("init-local")
