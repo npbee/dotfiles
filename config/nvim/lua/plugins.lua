@@ -125,16 +125,6 @@ lazy.setup({
       end,
     },
     {
-      "kassio/neoterm",
-      config = function()
-        vim.g.neoterm_default_mod = "vertical"
-      end,
-      keys = {
-        { "<leader>tx", ":Tclose!<CR>", silent = true },
-        { "<leader>tt", ":Ttoggle<CR>", silent = true },
-      },
-    },
-    {
       "justinmk/vim-dirvish",
       config = function()
         -- Dirvish: Sort directories at the top
@@ -157,10 +147,10 @@ lazy.setup({
     {
       "vim-test/vim-test",
       config = function()
-        vim.g["test#strategy"] = "neoterm"
+        vim.g["test#strategy"] = "neovim"
+        vim.g["test#neovim#term_position"] = "vert"
         vim.g["test#javascript#jest#options"] = "--watch"
       end,
-      dependencies = { "kassio/neoterm" },
       keys = {
         { "t<C-n>", ":TestNearest<CR>", { silent = true } },
         { "t<C-f>", ":TestFile<CR>",    { silent = true } },
