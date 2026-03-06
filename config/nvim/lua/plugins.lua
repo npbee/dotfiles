@@ -210,7 +210,7 @@ lazy.setup({
         require('mini.extra').setup()
       end
     },
-    { 'nvim-mini/mini.colors', version = '*' },
+    { 'nvim-mini/mini.colors',     version = '*' },
     {
       'nvim-mini/mini.clue',
       version = '*',
@@ -295,6 +295,7 @@ lazy.setup({
         require("mini.surround").setup()
       end,
     },
+    { 'nvim-mini/mini.cursorword', version = '*', config = function() require('mini.cursorword').setup() end },
 
     { 'github/copilot.vim' },
     { 'fang2hou/blink-copilot' },
