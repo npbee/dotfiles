@@ -64,7 +64,7 @@ local hi           = function(group, data) vim.api.nvim_set_hl(0, group, data) e
 hi("Normal", { bg = bg, fg = text })
 hi("Comment", { fg = grey600, italic = true })
 hi("ColorColumn", { bg = grey700 })
-hi("CursorLine", { bg = bg })
+hi("CursorLine", { bg = grey700 })
 hi("Directory", { fg = accent })
 hi("EndOfBuffer", { fg = bg })
 hi("ErrorMsg", { fg = red, bold = true })
