@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = "no_spell",
-  pattern = { "dirvish, json" },
+  pattern = { "dirvish", "json" },
   command = "setlocal nospell",
 })
 
