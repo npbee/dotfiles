@@ -58,7 +58,7 @@ return {
 
     vim.lsp.enable({
       "marksman",
-      "ts_ls",
+      "vtsls",
       "bashls",
       "cssls",
       "lua_ls",
