@@ -1,4 +1,3 @@
-local util = require("util")
 local lazy = require('lazy')
 
 lazy.setup({
@@ -8,39 +7,6 @@ lazy.setup({
       dependencies = { "rktjmp/lush.nvim" },
       priority = 1000,
       lazy = false,
-    },
-    {
-      "folke/which-key.nvim",
-      event = "VeryLazy",
-      init = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 300
-      end,
-      opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      },
-      {
-        "echasnovski/mini.surround",
-        version = false,
-        config = function()
-          require("mini.surround").setup({
-            mappings = {
-              add = "gza",            -- Add surrounding in Normal and Visual modes
-              delete = "gzd",         -- Delete surrounding
-              find = "gzf",           -- Find surrounding (to the right)
-              find_left = "gzF",      -- Find surrounding (to the left)
-              highlight = "gzh",      -- Highlight surrounding
-              replace = "gzr",        -- Replace surrounding
-              update_n_lines = "gzn", -- Update `n_lines`
-
-              suffix_last = "l",      -- Suffix to search with "prev" method
-              suffix_next = "n",      -- Suffix to search with "next" method
-            },
-          })
-        end,
-      },
     },
     {
       "stevearc/conform.nvim",
@@ -60,7 +26,7 @@ lazy.setup({
         end, { range = true })
 
         -- Disable formatting
-        vim.api.nvim_create_user_command("FormatDisable", function(args)
+        vim.api.nvim_create_user_command("FormatDisable", function()
           vim.g.disable_autoformat = true
         end, {
           desc = "Disable autoformat-on-save",
@@ -159,12 +125,6 @@ lazy.setup({
       end,
     },
     {
-      "ggandor/leap.nvim",
-      config = function()
-        require("leap").set_default_keymaps(true)
-      end,
-    },
-    {
       "kassio/neoterm",
       config = function()
         vim.g.neoterm_default_mod = "vertical"
@@ -209,7 +169,6 @@ lazy.setup({
         { "t<C-g>", ":TestVisit<CR>",   { silent = true } },
       },
     },
-    { "stevearc/dressing.nvim" },
     { import = "plugins.fzf" },
     { import = "plugins.cmp" },
     { import = "plugins.lsp" },
@@ -251,6 +210,91 @@ lazy.setup({
         require('mini.extra').setup()
       end
     },
+    { 'nvim-mini/mini.colors', version = '*' },
+    {
+      'nvim-mini/mini.clue',
+      version = '*',
+      config = function()
+        local miniclue = require('mini.clue')
+
+        require('mini.clue').setup({
+          triggers = {
+            -- Leader triggers
+            { mode = 'n', keys = '<Leader>' },
+            { mode = 'x', keys = '<Leader>' },
+
+            -- `[` and `]` keys
+            { mode = 'n', keys = '[' },
+            { mode = 'n', keys = ']' },
+
+            -- Built-in completion
+            { mode = 'i', keys = '<C-x>' },
+
+            -- `g` key
+            { mode = 'n', keys = 'g' },
+            { mode = 'x', keys = 'g' },
+
+            -- Marks
+            { mode = 'n', keys = "'" },
+            { mode = 'x', keys = "'" },
+            { mode = 'n', keys = '`' },
+            { mode = 'x', keys = '`' },
+
+            -- Registers
+            { mode = 'n', keys = '"' },
+            { mode = 'x', keys = '"' },
+            { mode = 'i', keys = '<C-r>' },
+            { mode = 'c', keys = '<C-r>' },
+
+            -- Window commands
+            { mode = 'n', keys = '<C-w>' },
+
+            -- `z` key
+            { mode = 'n', keys = 'z' },
+            { mode = 'x', keys = 'z' },
+
+            -- mini.surround
+            { mode = 'n', keys = 's' },
+            { mode = 'x', keys = 's' },
+          },
+
+          clues = {
+            -- Enhance this by adding descriptions for <Leader> mapping groups
+            miniclue.gen_clues.square_brackets(),
+            miniclue.gen_clues.builtin_completion(),
+            miniclue.gen_clues.g(),
+            miniclue.gen_clues.marks(),
+            miniclue.gen_clues.registers(),
+            miniclue.gen_clues.windows(),
+            miniclue.gen_clues.z(),
+
+            -- mini.surround
+            { mode = 'n', keys = 'sa', desc = 'Add surrounding' },
+            { mode = 'x', keys = 'sa', desc = 'Add surrounding' },
+            { mode = 'n', keys = 'sd', desc = 'Delete surrounding' },
+            { mode = 'n', keys = 'sf', desc = 'Find right surrounding' },
+            { mode = 'n', keys = 'sF', desc = 'Find left surrounding' },
+            { mode = 'n', keys = 'sh', desc = 'Highlight surrounding' },
+            { mode = 'n', keys = 'sr', desc = 'Replace surrounding' },
+            { mode = 'n', keys = 'sn', desc = 'Update n_lines' },
+          },
+
+          window = {
+            config = {
+              width = 50
+            },
+            delay = 500,
+          }
+        })
+      end
+    },
+    {
+      "nvim-mini/mini.surround",
+      version = "*",
+      config = function()
+        require("mini.surround").setup()
+      end,
+    },
 
     { 'github/copilot.vim' },
     { 'fang2hou/blink-copilot' },
@@ -259,7 +303,6 @@ lazy.setup({
       "bezhermoso/tree-sitter-ghostty",
       build = "make nvim_install",
     },
-    { 'nvim-mini/mini.colors', version = '*' },
 
 
   }

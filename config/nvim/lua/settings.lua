@@ -15,15 +15,15 @@ opt.hlsearch = false
 opt.incsearch = true
 opt.laststatus = 3
 opt.lazyredraw = true
-opt.list = true -- show some invisible characters (tabs...)
+opt.list = true           -- show some invisible characters (tabs...)
 opt.listchars = "tab:  ,trail:·"
-opt.pumblend = 10 -- popup blend
+opt.pumblend = 10         -- popup blend
 opt.pumwidth = 80
 opt.relativenumber = true -- relative  line numbers
-opt.scrolloff = 3 -- lines of context
+opt.scrolloff = 3         -- lines of context
 opt.secure = true
-opt.shiftwidth = 2 -- size of indent
-opt.showmode = false -- False since we have a status line
+opt.shiftwidth = 2        -- size of indent
+opt.showmode = false      -- False since we have a status line
 opt.showcmdloc = "statusline"
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.signcolumn = "yes" -- Always show sign column to avoid layout shift
@@ -40,6 +40,7 @@ opt.wildmenu = true
 opt.wildmode = "longest,list:full"
 opt.winborder = "rounded"
 
+vim.g.maplocalleader = ' '
 vim.g.mapleader = " "
 vim.g.filetype = "plugin indent on"
 
