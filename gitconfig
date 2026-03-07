@@ -69,7 +69,6 @@
     changed = "#E25C5C"
     untracked = yellow
 [include]
-  path = /Users/npbee/.netlify/helper/git-config
   path = ~/.delta/themes.gitconfig
 [init]
 	defaultBranch = main
