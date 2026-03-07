@@ -69,7 +69,8 @@ return {
       "eslint",
       "ruff",
       "jedi_language_server",
-      "copilot"
+      "copilot",
+      "oxlint"
     })
 
     -- Lua ------------------------------------------------------------------------
@@ -183,6 +184,21 @@ return {
     })
 
     vim.lsp.config('ruff', {
+      settings = {}
+    })
+
+    vim.lsp.config('oxlint', {
+      cmd = { 'oxlint', '--lsp' },
+      filetypes = {
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescriptreact',
+      },
+      root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        on_dir(vim.fs.dirname(vim.fs.find({ '.oxlintrc.json', 'package.json', '.git' }, { path = fname, upward = true })[1]))
+      end,
       settings = {}
     })
   end,

@@ -76,12 +76,12 @@ lazy.setup({
             return { timeout_ms = 1000, lsp_fallback = true }
           end,
           formatters_by_ft = {
-            css = { "prettierd" },
+            css = { "oxfmt", "prettierd", stop_after_first = true },
             html = { "prettierd" },
             -- lua = { "stylua" },
-            javascript = { "prettierd" },
-            javascriptreact = { "prettierd" },
-            json = { "prettierd" },
+            javascript = { "oxfmt", "prettierd", stop_after_first = true },
+            javascriptreact = { "oxfmt", "prettierd", stop_after_first = true },
+            json = { "oxfmt", "prettierd", stop_after_first = true },
             markdown = { "prettierd" },
             scss = { "prettierd" },
             yaml = { "prettierd" },
@@ -89,8 +89,8 @@ lazy.setup({
             sh = { "shfmt" },
             elixir = { "mix" },
             python = { "lsp" },
-            typescript = { "prettierd" },
-            typescriptreact = { "prettierd" }
+            typescript = { "oxfmt", "prettierd", stop_after_first = true },
+            typescriptreact = { "oxfmt", "prettierd", stop_after_first = true },
           },
         })
       end,
@@ -101,11 +101,11 @@ lazy.setup({
       config = function()
         vim.env.ESLINT_D_PPID = vim.fn.getpid()
         require("lint").linters_by_ft = {
-          typescript = { "eslint_d" },
-          typescriptreact = { "eslint_d" },
-          javascript = { "eslint_d" },
-          javascriptreact = { "eslint_d" },
-          svelte = { "eslint_d" },
+          typescript = { "oxlint", "eslint_d" },
+          typescriptreact = { "oxlint", "eslint_d" },
+          javascript = { "oxlint", "eslint_d" },
+          javascriptreact = { "oxlint", "eslint_d" },
+          svelte = { "oxlint", "eslint_d" },
           -- TODO: stylelint
         }
       end,
