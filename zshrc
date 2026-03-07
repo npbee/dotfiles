@@ -92,7 +92,6 @@ if type fnm &> /dev/null; then
 fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 
 
