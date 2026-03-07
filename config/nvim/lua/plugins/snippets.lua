@@ -23,9 +23,13 @@ return {
     })
 
     -- Load from the repository root .vscode directory
-    vscode_loader.load_standalone({
-      path = vim.fs.root(0, '.git') .. '/.vscode/snippets.code-snippets'
-    })
+    local root = vim.fs.root(0, '.git')
+    if root then
+      local snippets_path = root .. '/.vscode/snippets.code-snippets'
+      if vim.uv.fs_stat(snippets_path) then
+        vscode_loader.load_standalone({ path = snippets_path })
+      end
+    end
 
     -- Expand or jump snippets with control+k
     vim.keymap.set({ "i", "s" }, "<c-k>", function()
