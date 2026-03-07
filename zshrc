@@ -8,7 +8,6 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
-zinit light agkozak/zsh-z
 zinit light joshskidmore/zsh-fzf-history-search
 zinit snippet OMZP::git
 
@@ -94,6 +93,7 @@ fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
 
 
 # tabtab source for packages
