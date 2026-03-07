@@ -1,12 +1,16 @@
-source "$HOME/.zsh/antigen.zsh"
+# Zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle agkozak/zsh-z
-antigen bundle joshskidmore/zsh-fzf-history-search
-antigen bundle git
-
-antigen apply
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light agkozak/zsh-z
+zinit light joshskidmore/zsh-fzf-history-search
+zinit snippet OMZP::git
 
 # Vars
 export HISTSIZE='10000'
