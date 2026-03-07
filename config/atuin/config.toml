@@ -1,0 +1,5 @@
+filter_mode = "directory"
+enter_accept = true
+
+[sync]
+records = true

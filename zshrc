@@ -9,7 +9,6 @@ unalias zi 2>/dev/null
 
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
-zinit light joshskidmore/zsh-fzf-history-search
 zinit snippet OMZP::git
 
 # Vars
@@ -91,6 +90,7 @@ fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
 
 
 # tabtab source for packages
