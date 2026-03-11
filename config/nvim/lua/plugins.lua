@@ -152,11 +152,11 @@ lazy.setup({
         vim.g["test#javascript#jest#options"] = "--watch"
       end,
       keys = {
-        { "t<C-n>", ":TestNearest<CR>", { silent = true } },
-        { "t<C-f>", ":TestFile<CR>",    { silent = true } },
-        { "t<C-s>", ":TestSuite<CR>",   { silent = true } },
-        { "t<C-l>", ":TestLast<CR>",    { silent = true } },
-        { "t<C-g>", ":TestVisit<CR>",   { silent = true } },
+        { "t<C-n>", ":TestNearest<CR>", desc = "Test nearest" },
+        { "t<C-f>", ":TestFile<CR>",    desc = "Test file" },
+        { "t<C-s>", ":TestSuite<CR>",   desc = "Test suite" },
+        { "t<C-l>", ":TestLast<CR>",    desc = "Test last" },
+        { "t<C-g>", ":TestVisit<CR>",   desc = "Test visit" },
       },
     },
     { import = "plugins.fzf" },
