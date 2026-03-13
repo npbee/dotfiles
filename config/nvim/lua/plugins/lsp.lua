@@ -25,9 +25,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     local opts = { noremap = true, silent = true, buffer = ev.buf }
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
-    vim.keymap.set("n", "grr", function()
-      require("mini.extra").pickers.lsp({ scope = 'references' })
-    end, vim.tbl_extend("force", opts, { desc = "Find references" }))
     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, vim.tbl_extend("force", opts, { desc = "Show diagnostic" }))
   end,
 })

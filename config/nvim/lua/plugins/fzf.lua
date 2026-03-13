@@ -1,45 +1,44 @@
 return {
   {
-    "junegunn/fzf.vim",
+    "ibhagwan/fzf-lua",
     lazy = false,
-    dependencies = {
-      "junegunn/fzf",
-      -- lazy = false,
-      -- dir = " ~/.fzf",
-      -- build = "./install --all",
-      config = function()
-        vim.g.fzf_layout = { window = { width = 0.95, height = 0.95 } }
+    config = function()
+      require("fzf-lua").setup({
+        winopts = {
+          width = 0.95,
+          height = 0.95,
+          preview = {
+            hidden = "hidden",
+            layout = "horizontal",
+            horizontal = "right:55%",
+          },
+        },
+        keymap = {
+          fzf = {
+            ["ctrl-p"] = "toggle-preview",
+          },
+        },
+      })
 
-        vim.g.fzf_preview_window = { "hidden,right,55%", "ctrl-p" }
-
-        --   vim.cmd([[
-        -- command! -bang -nargs=? -complete=dir Files
-        --     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
-        -- ]])
-        --
-        --   vim.cmd([[
-        -- command! -bang -nargs=* Rg
-        --   \ call fzf#vim#grep(
-        --   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-        --   \   fzf#vim#with_preview('right:55%:hidden', 'ctrl-o'), <bang>0)
-        --
-        -- ]])
-        --
-        -- Like Rg, but no ignore
-        vim.cmd([[
-        command! -bang -nargs=* RGI
-          \ call fzf#vim#grep(
-          \   'rg --no-ignore --column --line-number --no-heading --color=always --smart-case '.<q-args>, 1,
-          \   fzf#vim#with_preview('right:55%:hidden', 'ctrl-o'), <bang>0)
-        ]])
-      end,
-    },
-
+      -- Like Rg, but no ignore
+      vim.api.nvim_create_user_command("RGI", function(opts)
+        require("fzf-lua").grep({
+          search = opts.args,
+          rg_opts = "--no-ignore --column --line-number --no-heading --color=always --smart-case",
+        })
+      end, { nargs = "*", bang = true })
+    end,
     keys = {
-      { "<leader>p", ":Files<CR>",         desc = "Find files" },
-      { "<leader>f", ":Rg ",               desc = "Ripgrep search" },
-      { "<leader>*", ":Rg <C-R><C-W><CR>", desc = "Search word under cursor" },
-      { "<leader>b", ":Buffers<CR>",       desc = "Buffers" },
+      { "<leader>p", function() require("fzf-lua").files() end,            desc = "Find files" },
+      { "<leader>f", function() require("fzf-lua").grep() end,             desc = "Grep (prompt)" },
+      { "<leader>F", function() require("fzf-lua").live_grep() end,        desc = "Live grep" },
+      { "<leader>*", function() require("fzf-lua").grep_cword() end,       desc = "Search word under cursor" },
+      { "<leader>b", function() require("fzf-lua").buffers() end,          desc = "Buffers" },
+      { "grr",       function() require("fzf-lua").lsp_references() end,          desc = "Find references" },
+      { "gO",        function() require("fzf-lua").lsp_document_symbols() end, desc = "Document symbols" },
+      { "gra",       function() require("fzf-lua").lsp_code_actions() end,     desc = "Code actions" },
+      { "gri",       function() require("fzf-lua").lsp_implementations() end,  desc = "Implementations" },
+      { "<leader>d", function() require("fzf-lua").diagnostics_document() end, desc = "Diagnostics" },
     },
   },
 }
