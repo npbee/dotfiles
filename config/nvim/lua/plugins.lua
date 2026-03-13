@@ -3,12 +3,6 @@ local lazy = require('lazy')
 lazy.setup({
   spec = {
     {
-      "npbee/eighty-five",
-      dependencies = { "rktjmp/lush.nvim" },
-      priority = 1000,
-      lazy = false,
-    },
-    {
       "stevearc/conform.nvim",
       opts = {},
       config = function()
