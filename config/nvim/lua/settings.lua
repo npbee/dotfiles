@@ -8,13 +8,17 @@ opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 0 -- Hide * markup for bold and italic
 opt.expandtab = true -- Use spaces instead of tabs
 opt.exrc = true
-opt.foldlevelstart = 99
-opt.foldmethod = "indent"
 opt.history = 200
-opt.hlsearch = false
-opt.incsearch = true
 opt.laststatus = 3
--- opt.lazyredraw = true
+
+-- Search
+opt.ignorecase = true     -- ignore case when searching...
+opt.smartcase = true      -- ...unless there is a capital letter in the query
+opt.hlsearch = true       -- highlight all matches on previous search pattern
+opt.incsearch = true      -- show the match while typing
+
+opt.iskeyword:append("-") -- consider string-string as whole word
+
 opt.list = true           -- show some invisible characters (tabs...)
 opt.listchars = "tab:  ,trail:·"
 opt.pumblend = 10         -- popup blend
@@ -40,9 +44,16 @@ opt.wildmenu = true
 opt.wildmode = "longest,list:full"
 opt.winborder = "rounded"
 
+-- Folding
+opt.foldmethod = "expr"                          -- fold based on expressions
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- use treesitter for folding
+opt.foldlevel = 99                               -- start with all folds open
+
 vim.g.maplocalleader = ' '
 vim.g.mapleader = " "
 vim.g.filetype = "plugin indent on"
+
+
 
 -- Term colors for fzf
 -- dark0 + gray
