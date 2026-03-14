@@ -3,7 +3,9 @@ return {
   build = ":TSUpdate",
   event = { "BufReadPost", "BufNewFile" },
   cmd = { "TSUpdateSync" },
-  opts = {
-    ensure_installed = { "javascript", "typescript" },
-  },
+  config = function()
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = { "javascript", "typescript", "tsx", "html", "css", "scss", "json", "graphql" },
+    })
+  end,
 }
