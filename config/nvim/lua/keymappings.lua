@@ -12,14 +12,14 @@ vim.keymap.set("x", "<s-tab>", "<gv", { noremap = true, desc = "Dedent selection
 
 -- Cycle through buffers with tab
 vim.keymap.set("n", "<tab>", ":bnext<CR>", { noremap = true, desc = "Next buffer" })
-vim.keymap.set("n", "<s-tab>", ":prev<CR>", { noremap = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<s-tab>", ":bprev<CR>", { noremap = true, desc = "Previous buffer" })
 
 -- Double-tap leader to swap back to most recent file
 vim.keymap.set("n", "<leader><leader>", "<c-^>", { noremap = true, desc = "Alternate file" })
 
 -- Maps '%%' when in command mode to the active file directory
 function _G.expand_path()
-  return vim.fn.getcmdtype() == ":" and vim.fn.expand("%h") or "%%"
+  return vim.fn.getcmdtype() == ":" and vim.fn.expand("%:h") or "%%"
 end
 
 vim.keymap.set("c", "%%", "v:lua.expand_path()", { noremap = true, expr = true, desc = "Expand to file directory" })
@@ -31,10 +31,6 @@ vim.keymap.set("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true, desc = "Verti
 vim.keymap.set("n", "<esc>", ":noh<CR>", { silent = true, noremap = true, desc = "Clear search highlight" })
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, desc = "Exit terminal mode" })
-
-vim.keymap.set("v", "<leader>f", ":lua vim.lsp.buf.format<CR>", { noremap = false, desc = "Format selection" })
-
-vim.keymap.set("n", "<leader>ge", ":silent !eslint_d % --fix<CR>", { noremap = true, desc = "ESLint fix file" })
 
 -- Toggle formatting
 vim.keymap.set("n", "<F12>", ":FormatToggle<cr>", { noremap = true, desc = "Toggle autoformat" })
