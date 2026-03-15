@@ -14,8 +14,8 @@ return {
           },
         },
         keymap = {
-          fzf = {
-            ["ctrl-p"] = "toggle-preview",
+          builtin = {
+            ["<C-p>"] = "toggle-preview",
           },
         },
       })
