@@ -1,10 +1,11 @@
 font-family = PragmataPro Mono Liga
 font-size = 16.0
+font-thicken = true
 
 keybind = cmd+shift+w=close_surface
 
 foreground = #E3D2A5
-background = #353331
+background = #302e2c
 
 #: black
 
