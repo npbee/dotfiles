@@ -1,0 +1,11 @@
+# AeroSpace tiling window manager config
+# https://nikitabobko.github.io/AeroSpace/guide
+
+start-at-login = true
+
+[[on-window-detected]]
+if.app-id="com.mitchellh.ghostty"
+run= [
+  "layout floating",
+]
+
