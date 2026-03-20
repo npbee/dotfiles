@@ -139,11 +139,19 @@ lazy.setup({
     },
 
     {
-      "vim-test/vim-test",
+      "kassio/neoterm",
       config = function()
-        vim.g["test#strategy"] = "neovim"
-        vim.g["test#neovim#term_position"] = "vert"
+        vim.g.neoterm_default_mod = "vertical"
+        vim.g.neoterm_autoinsert = 0
+      end,
+    },
+    {
+      "vim-test/vim-test",
+      dependencies = { "kassio/neoterm" },
+      config = function()
+        vim.g["test#strategy"] = "neoterm"
         vim.g["test#javascript#jest#options"] = "--watch"
+        vim.g["test#javascript#vitest#options"] = "--watch"
       end,
       keys = {
         { "t<C-n>", ":TestNearest<CR>", desc = "Test nearest" },
@@ -151,6 +159,8 @@ lazy.setup({
         { "t<C-s>", ":TestSuite<CR>",   desc = "Test suite" },
         { "t<C-l>", ":TestLast<CR>",    desc = "Test last" },
         { "t<C-g>", ":TestVisit<CR>",   desc = "Test visit" },
+        { "t<C-x>", ":Tkill<CR>:Tclose!<CR>", desc = "Kill and close terminal" },
+        { "t<C-o>", ":Ttoggle<CR>",     desc = "Toggle terminal" },
       },
     },
     { import = "plugins.fzf" },
@@ -159,7 +169,7 @@ lazy.setup({
     { import = "plugins.snippets" },
     { import = "plugins.treesitter" },
 
-    { 'nvim-mini/mini.colors',   version = '*' },
+    { 'nvim-mini/mini.colors',      version = '*' },
     {
       'nvim-mini/mini.clue',
       version = '*',

@@ -5,6 +5,7 @@ vim.api.nvim_create_augroup("no_spell", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
     local fname = vim.fn.expand("%:p")
+    if fname == "" or vim.bo.buftype ~= "" then return end
     local lsputil = require("lspconfig.util")
 
     -- Check for oxlint config
