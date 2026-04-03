@@ -1,4 +1,5 @@
 gui:
+  skipSwitchWorktreeOnCheckoutWarning: true
   theme:
     selectedLineBgColor:
       - reverse
