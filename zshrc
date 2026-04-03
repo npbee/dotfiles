@@ -84,6 +84,17 @@ export NVIM_LOG_FILE=~/.local/share/nvim/log
 export RIPGREP_CONFIG_PATH=~/.config/ripgreprc
 export LG_CONFIG_FILE="$HOME/.config/lazygit.yml"
 
+lg() {
+    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+
+    lazygit "$@"
+
+    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+            cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+            rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    fi
+}
+
 if type fnm &> /dev/null; then
     eval "$(fnm env)"
 fi
