@@ -84,7 +84,7 @@ export NVIM_LOG_FILE=~/.local/share/nvim/log
 export RIPGREP_CONFIG_PATH=~/.config/ripgreprc
 export LG_CONFIG_FILE="$HOME/.config/lazygit.yml"
 
-lg() {
+function lg() {
     export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
     lazygit "$@"
@@ -93,6 +93,14 @@ lg() {
             cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
             rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
     fi
+}
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
 }
 
 if type fnm &> /dev/null; then
