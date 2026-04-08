@@ -52,3 +52,5 @@ opt.foldlevel = 99                               -- start with all folds open
 vim.g.maplocalleader = ' '
 vim.g.mapleader = " "
 vim.g.filetype = "plugin indent on"
+
+require('vim._core.ui2').enable({})
