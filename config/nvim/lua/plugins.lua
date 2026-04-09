@@ -313,6 +313,8 @@ vim.diagnostic.config({
 })
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+
 
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
