@@ -299,21 +299,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     vim.diagnostic.config({
-      virtual_text = false,
-      signs = true,
-      underline = true,
+      severity_sort = true,
       update_in_insert = false,
-      severity_sort = false,
       float = {
         border = "rounded",
-        format = function(diagnostic)
-          local format = "[%s] %s"
-          if diagnostic.code then
-            format = format .. " (%s)"
-          end
-          return string.format(format, diagnostic.source, diagnostic.message, diagnostic.code)
-        end,
+        source = "if_many",
       },
+      virtual_text = false,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = 'E',
+          [vim.diagnostic.severity.WARN] = 'W',
+          [vim.diagnostic.severity.INFO] = 'I',
+          [vim.diagnostic.severity.HINT] = 'H',
+        },
+      },
+      underline = true,
     })
 
     local opts = { noremap = true, silent = true, buffer = ev.buf }
