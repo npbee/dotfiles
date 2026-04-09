@@ -1,28 +1,21 @@
-local util = require("util")
-
 vim.api.nvim_create_augroup("no_spell", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
     local fname = vim.fn.expand("%:p")
     if fname == "" or vim.bo.buftype ~= "" then return end
-    -- Check for oxlint config
-    local oxlint_match = vim.fs.find({ "oxlintrc.json", ".oxlintrc.json" }, { path = fname, upward = true })[1]
-    local oxlint_root = oxlint_match and vim.fs.dirname(oxlint_match) or nil
 
-    -- Check for eslint config (excluding deno projects)
-    local eslint_root = util.root_pattern_exclude({
-      root = { "eslint.json", ".eslintrc.json", ".eslintrc.js", ".eslintrc", "eslint.config.mjs", "eslint.config.js" },
-      exclude = { "deno.json", "deno.jsonc" },
-    })(fname)
+    local has_oxlint = vim.fs.find({ "oxlintrc.json", ".oxlintrc.json" }, { path = fname, upward = true })[1]
+    local has_eslint = vim.fs.find(
+      { "eslint.json", ".eslintrc.json", ".eslintrc.js", ".eslintrc", "eslint.config.mjs", "eslint.config.js" },
+      { path = fname, upward = true }
+    )[1]
 
-    if oxlint_root then
-      if eslint_root then
-        require("lint").try_lint({ "oxlint", "eslint_d" })
-      else
-        require("lint").try_lint("oxlint")
-      end
-    elseif eslint_root then
+    if has_oxlint and has_eslint then
+      require("lint").try_lint({ "oxlint", "eslint_d" })
+    elseif has_oxlint then
+      require("lint").try_lint("oxlint")
+    elseif has_eslint then
       require("lint").try_lint("eslint_d")
     end
   end,
