@@ -250,7 +250,7 @@ require("blink.cmp").setup({
     ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
     ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
     ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-    ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+    ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
   },
   appearance = {
     nerd_font_variant = "mono",
@@ -293,32 +293,29 @@ require("blink.cmp").setup({
 
 -- nvim-lspconfig --------------------------------------------------------------
 
+vim.diagnostic.config({
+  severity_sort = true,
+  update_in_insert = false,
+  float = {
+    border = "rounded",
+    source = "if_many",
+  },
+  virtual_text = false,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = 'E',
+      [vim.diagnostic.severity.WARN] = 'W',
+      [vim.diagnostic.severity.INFO] = 'I',
+      [vim.diagnostic.severity.HINT] = 'H',
+    },
+  },
+  underline = true,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
-    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-    vim.diagnostic.config({
-      severity_sort = true,
-      update_in_insert = false,
-      float = {
-        border = "rounded",
-        source = "if_many",
-      },
-      virtual_text = false,
-      signs = {
-        text = {
-          [vim.diagnostic.severity.ERROR] = 'E',
-          [vim.diagnostic.severity.WARN] = 'W',
-          [vim.diagnostic.severity.INFO] = 'I',
-          [vim.diagnostic.severity.HINT] = 'H',
-        },
-      },
-      underline = true,
-    })
-
     local opts = { noremap = true, silent = true, buffer = ev.buf }
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
     vim.keymap.set("n", "<space>e", vim.diagnostic.open_float,
       vim.tbl_extend("force", opts, { desc = "Show diagnostic" }))
   end,
@@ -326,8 +323,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
-  "tailwindcss", "elixirls", "svelte", "eslint", "ruff",
-  "jedi_language_server", "copilot", "oxlint",
+  "tailwindcss", "elixirls", "svelte", "ruff",
+  "jedi_language_server", "copilot",
 })
 
 vim.lsp.config('lua_ls', {
@@ -378,23 +375,6 @@ vim.lsp.config('elixirls', {
   cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") },
 })
 
-vim.lsp.config("eslint", {
-  settings = { quiet = true },
-})
-
-vim.lsp.config('ruff', {
-  settings = {},
-})
-
-vim.lsp.config('oxlint', {
-  cmd = { 'oxlint', '--lsp' },
-  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-  root_dir = function(bufnr, on_dir)
-    local fname = vim.api.nvim_buf_get_name(bufnr)
-    on_dir(vim.fs.dirname(vim.fs.find({ '.oxlintrc.json', 'package.json', '.git' }, { path = fname, upward = true })[1]))
-  end,
-  settings = {},
-})
 
 -- LuaSnip ---------------------------------------------------------------------
 

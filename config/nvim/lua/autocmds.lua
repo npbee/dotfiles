@@ -6,10 +6,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
     local fname = vim.fn.expand("%:p")
     if fname == "" or vim.bo.buftype ~= "" then return end
-    local lsputil = require("lspconfig.util")
-
     -- Check for oxlint config
-    local oxlint_root = lsputil.root_pattern("oxlintrc.json", ".oxlintrc.json")(fname)
+    local oxlint_match = vim.fs.find({ "oxlintrc.json", ".oxlintrc.json" }, { path = fname, upward = true })[1]
+    local oxlint_root = oxlint_match and vim.fs.dirname(oxlint_match) or nil
 
     -- Check for eslint config (excluding deno projects)
     local eslint_root = util.root_pattern_exclude({
