@@ -312,14 +312,7 @@ vim.diagnostic.config({
   underline = true,
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(ev)
-    local opts = { noremap = true, silent = true, buffer = ev.buf }
-    vim.keymap.set("n", "<space>e", vim.diagnostic.open_float,
-      vim.tbl_extend("force", opts, { desc = "Show diagnostic" }))
-  end,
-})
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
