@@ -298,7 +298,7 @@ vim.diagnostic.config({
   update_in_insert = false,
   float = {
     border = "rounded",
-    source = "if_many",
+    source = true
   },
   virtual_text = false,
   signs = {
