@@ -47,6 +47,14 @@ local function mode()
   return string.format(" %s ", modes[current_mode]):upper()
 end
 
+local function repo_root()
+  local root = vim.fs.root(0, ".git")
+  if root then
+    return " " .. vim.fn.fnamemodify(root, ":t") .. "%#Normal# "
+  end
+  return ""
+end
+
 local function filepath()
   local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
   if fpath == "" or fpath == "." then
@@ -139,6 +147,7 @@ Statusline.active = function()
     update_mode_colors(),
     mode(),
     "%#Normal#",
+    repo_root(),
     filepath(),
     filename(),
     "%#Normal#",
