@@ -120,6 +120,7 @@ hi("StatuslineVisualAccent", { bg = purple, fg = bg, bold = true })
 hi("StatuslineReplaceAccent", { bg = yellow, fg = bg, bold = true })
 hi("StatuslineCmdLineAccent", { bg = teal, fg = bg, bold = true })
 hi("StatuslineTerminalAccent", { bg = orange, fg = bg, bold = true })
+hi("StatuslineRepoRoot", { bg = bg_light, fg = text_dim })
 
 -- Tabline --------------------------------------------------------------------
 

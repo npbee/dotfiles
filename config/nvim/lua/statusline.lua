@@ -47,10 +47,23 @@ local function mode()
   return string.format(" %s ", modes[current_mode]):upper()
 end
 
+local function git_branch(root)
+  local head = io.open(root .. "/.git/HEAD", "r")
+  if not head then return "" end
+  local line = head:read("*l")
+  head:close()
+  if not line then return "" end
+  local branch = line:match("ref: refs/heads/(.+)")
+  if branch then return branch end
+  return line:sub(1, 7)
+end
+
 local function repo_root()
   local root = vim.fs.root(0, ".git")
   if root then
-    return " " .. vim.fn.fnamemodify(root, ":t") .. "%#Normal# "
+    local branch = git_branch(root)
+    if branch == "" then return "" end
+    return "%#StatuslineRepoRoot#  " .. branch .. " %#Normal# "
   end
   return ""
 end
