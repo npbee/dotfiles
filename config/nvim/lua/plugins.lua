@@ -27,9 +27,6 @@ vim.pack.add({
   'https://github.com/justinmk/vim-dirvish',
   'https://github.com/roginfarrer/vim-dirvish-dovish',
 
-  -- Comments
-  'https://github.com/numToStr/Comment.nvim',
-
   -- Terminal / testing
   'https://github.com/kassio/neoterm',
   'https://github.com/vim-test/vim-test',
@@ -55,6 +52,7 @@ vim.pack.add({
   'https://github.com/echasnovski/mini.clue',
   'https://github.com/echasnovski/mini.surround',
   'https://github.com/echasnovski/mini.ai',
+  'https://github.com/echasnovski/mini.comment',
 
   -- Copilot
   'https://github.com/github/copilot.vim',
@@ -153,10 +151,6 @@ require("gitlinker").setup({
 -- vim-dirvish -----------------------------------------------------------------
 
 vim.g.dirvish_mode = ":sort ,^.*[\\/],"
-
--- Comment.nvim ----------------------------------------------------------------
-
-require("Comment").setup()
 
 -- neoterm / vim-test ----------------------------------------------------------
 
