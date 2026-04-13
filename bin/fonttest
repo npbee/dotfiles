@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Visual smoke test for terminal font rendering.
+# Checks: monospace alignment, box-drawing, ligatures, powerline/nerd-font
+# glyphs, emoji, combining marks, and wide (CJK) characters.
+
+set -u
+
+hr() { printf '\n\033[1;36m── %s ──\033[0m\n' "$1"; }
+
+hr "1. Monospace alignment (all rows should be equal width)"
+cat <<'EOF'
+|MMMMMMMMMMMMMMMMMMMM|
+|iiiiiiiiiiiiiiiiiiii|
+|WWWWWWWWWWWWWWWWWWWW|
+|llllllllllllllllllll|
+|....................|
+|abcdefghijklmnopqrst|
+EOF
+
+hr "2. Box drawing (right border should align)"
+cat <<'EOF'
+┌──────────────────────┐
+│ Hello, world         │
+│ MMMMMMMMMMMMMMMMMMMM │
+│ iiiiiiiiiiiiiiiiiiii │
+│ WWWWWWWWWWWWWWWWWWWW │
+├──────────────────────┤
+│ ╔══╗ ╭──╮ ┏━━┓       │
+│ ║  ║ │  │ ┃  ┃       │
+│ ╚══╝ ╰──╯ ┗━━┛       │
+└──────────────────────┘
+EOF
+
+hr "3. Ligatures (if supported, these render as single glyphs)"
+cat <<'EOF'
+  ==  !=  === !==  =>  ->  <-  <=  >=  <=>
+  && ||  ++ --  ::  :=  |>  <|  ...  ..
+  /*  */  //  /**  **/  <!--  -->
+  www  0xFF  0b10  www.example.com
+EOF
+
+hr "4. Powerline / Nerd Font glyphs"
+printf '      \ue0b0  \ue0b2  \ue0b4  \ue0b6       (arrows)\n'
+printf '     \uf07b  \uf07c  \uf15b  \uf121       (folder/file/code)\n'
+printf '     \uf126  \uf418  \uf417  \uf02d       (git/branch/book)\n'
+printf '     \uf300  \uf302  \uf31b  \uf31a       (distros/logos)\n'
+printf '     \ue001  \uea84                       (pomodoro, github)\n'
+printf '     \ue206  \ue27f                       (double spin, atom)\n'
+
+hr "5. Emoji"
+echo "  😀 🎉 🚀 ❤️  ✅ ⚠️  🔥 🐙 🦀 🐍"
+
+hr "6. Combining marks & diacritics"
+echo "  café résumé naïve coöperate Zoë"
+echo "  a\u0301 e\u0301 i\u0301 o\u0301 u\u0301  (should match áéíóú)"
+
+hr "7. Wide characters (CJK — each should take 2 cells)"
+cat <<'EOF'
+|你好世界|
+|ab      |
+|日本語  |
+|ab      |
+EOF
+
+hr "8. Italic / bold / underline"
+printf '  \033[1mbold\033[0m  \033[3mitalic\033[0m  \033[4munderline\033[0m  \033[1;3mbold italic\033[0m\n'
+
+hr "9. 256 & truecolor"
+for i in {16..51}; do printf '\033[48;5;%dm  \033[0m' "$i"; done; echo
+for i in {0..71}; do
+  r=$((255 - i * 255 / 71)); g=$((i * 255 / 71)); b=128
+  printf '\033[48;2;%d;%d;%dm \033[0m' "$r" "$g" "$b"
+done; echo
+
+hr "Done"
