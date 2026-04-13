@@ -104,16 +104,16 @@ local function lsp()
   local info = ""
 
   if count["errors"] ~= 0 then
-    errors = " %#DiagnosticError#  " .. count["errors"]
+    errors = " %#DiagnosticError#✖ " .. count["errors"]
   end
   if count["warnings"] ~= 0 then
-    warnings = " %#DiagnosticWarning#  " .. count["warnings"]
+    warnings = " %#DiagnosticWarning#▲ " .. count["warnings"]
   end
   if count["hints"] ~= 0 then
-    hints = " %#DiagnosticHint# " .. count["hints"]
+    hints = " %#DiagnosticHint#✧ " .. count["hints"]
   end
   if count["info"] ~= 0 then
-    info = " %#DiagnosticInfo# " .. count["info"]
+    info = " %#DiagnosticInfo#ℹ " .. count["info"]
   end
 
   return errors .. warnings .. hints .. info .. "%#Normal#"
@@ -148,7 +148,7 @@ end
 local function is_formatting()
   local is_auto_formatting = vim.g.disable_autoformat == false or vim.g.disable_autoformat == nil
   if is_auto_formatting then
-    return "%#DiagnosticInfo# 󰁨  %#Normal#"
+    return "%#DiagnosticInfo# 󰁨 %#Normal#"
   else
     return ""
   end
