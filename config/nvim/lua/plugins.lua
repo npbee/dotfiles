@@ -313,7 +313,7 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
   "tailwindcss", "elixirls", "svelte", "ruff",
-  "jedi_language_server", "copilot",
+  "jedi_language_server",
 })
 
 vim.lsp.config('lua_ls', {
