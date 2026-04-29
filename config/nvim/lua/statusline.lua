@@ -47,26 +47,52 @@ local function mode()
   return string.format(" %s ", modes[current_mode]):upper()
 end
 
-local function git_branch(root)
-  local head = io.open(root .. "/.git/HEAD", "r")
-  if not head then return "" end
-  local line = head:read("*l")
-  head:close()
-  if not line then return "" end
-  local branch = line:match("ref: refs/heads/(.+)")
-  if branch then return branch end
-  return line:sub(1, 7)
+local branch_cache = {}
+local pending = {}
+
+local function refresh_branch(root)
+  if pending[root] then return end
+  pending[root] = true
+  vim.system({ "git", "-C", root, "rev-parse", "--abbrev-ref", "HEAD" }, { text = true }, function(o)
+    if o.code ~= 0 then
+      pending[root] = nil
+      branch_cache[root] = ""
+      return
+    end
+    local name = vim.trim(o.stdout or "")
+    if name == "HEAD" then
+      vim.system({ "git", "-C", root, "rev-parse", "--short", "HEAD" }, { text = true }, function(o2)
+        pending[root] = nil
+        branch_cache[root] = vim.trim(o2.stdout or "")
+        vim.schedule(function() pcall(vim.cmd.redrawstatus) end)
+      end)
+    else
+      pending[root] = nil
+      branch_cache[root] = name
+      vim.schedule(function() pcall(vim.cmd.redrawstatus) end)
+    end
+  end)
 end
 
 local function repo_root()
   local root = vim.fs.root(0, ".git")
-  if root then
-    local branch = git_branch(root)
-    if branch == "" then return "" end
-    return "%#StatuslineRepoRoot#  " .. branch .. " %#Normal# "
+  if not root then return "" end
+  local branch = branch_cache[root]
+  if branch == nil then
+    refresh_branch(root)
+    return ""
   end
-  return ""
+  if branch == "" then return "" end
+  return "%#StatuslineRepoRoot#  " .. branch .. " %#Normal# "
 end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "DirChanged" }, {
+  group = vim.api.nvim_create_augroup("StatuslineGitBranch", { clear = true }),
+  callback = function()
+    local root = vim.fs.root(0, ".git")
+    if root then refresh_branch(root) end
+  end,
+})
 
 local function filepath()
   local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
