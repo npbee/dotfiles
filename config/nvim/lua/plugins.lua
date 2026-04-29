@@ -313,7 +313,7 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
   "tailwindcss", "elixirls", "svelte", "ruff",
-  "jedi_language_server",
+  "jedi_language_server", 'eslint'
 })
 
 vim.lsp.config('lua_ls', {
@@ -362,6 +362,28 @@ vim.lsp.config("tailwindcss", {
 
 vim.lsp.config('elixirls', {
   cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") },
+})
+
+vim.lsp.config('eslint', {
+  settings = {
+    experimental = {
+      -- If you want to use flat config on >= 8.21, < 9.0
+      useFlatConfig = true,
+      -- Or if you want to use eslintrc on 9.*
+      -- useFlatConfig = false,
+    }
+  }
+  -- settings = {
+  --   workingDirectory = { mode = "auto" },
+  -- },
+  -- root_dir = require('lspconfig').util.root_pattern(
+  --   'eslint.config.mjs',
+  --   '.eslintrc',
+  --   '.eslintrc.js',
+  --   '.eslintrc.json',
+  --   'package.json',
+  --   '.git'
+  -- ),
 })
 
 
