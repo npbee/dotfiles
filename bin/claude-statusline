@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# Claude Code statusline:
+#   <directory> | <git branch> | <token count> <token percentage>
+#
+# Wired up via ~/.claude/settings.json:
+#   { "statusLine": { "type": "command", "command": "$HOME/.bin/claude-statusline" } }
+#
+# Reads the session payload Claude Code writes to stdin, then derives:
+#   - directory: basename of the workspace dir
+#   - git branch: from `git -C <dir>` so it works in worktrees
+#   - tokens: latest assistant `message.usage` in the transcript JSONL,
+#     summed as input + cache_read + cache_creation (= effective context use)
+
+set -u
+
+CONTEXT_MAX=${CLAUDE_STATUSLINE_CONTEXT_MAX:-200000}
+
+input=$(cat)
+
+cwd=$(printf '%s' "$input" | jq -r '.workspace.current_dir // .cwd // ""')
+transcript=$(printf '%s' "$input" | jq -r '.transcript_path // ""')
+
+dir=""
+if [ -n "$cwd" ]; then
+    if [ "$cwd" = "$HOME" ]; then
+        dir="~"
+    else
+        dir=$(basename "$cwd")
+    fi
+fi
+
+branch=""
+if [ -n "$cwd" ] && [ -d "$cwd" ]; then
+    branch=$(git -C "$cwd" symbolic-ref --quiet --short HEAD 2>/dev/null) \
+        || branch=$(git -C "$cwd" rev-parse --short HEAD 2>/dev/null) \
+        || branch=""
+fi
+
+tokens=0
+if [ -n "$transcript" ] && [ -f "$transcript" ]; then
+    val=$(tail -r "$transcript" 2>/dev/null \
+        | jq -r 'select(.type == "assistant" and (.message.usage // false))
+                 | .message.usage
+                 | (.input_tokens // 0)
+                 + (.cache_read_input_tokens // 0)
+                 + (.cache_creation_input_tokens // 0)' 2>/dev/null \
+        | head -n1)
+    if [ -n "$val" ]; then
+        tokens=$val
+    fi
+fi
+
+if [ "$CONTEXT_MAX" -gt 0 ]; then
+    percent=$((tokens * 100 / CONTEXT_MAX))
+else
+    percent=0
+fi
+
+fmt_tokens() {
+    local n=$1
+    if [ "$n" -lt 1000 ]; then
+        printf '%d' "$n"
+    elif [ "$n" -lt 10000 ]; then
+        printf '%d.%dk' $((n / 1000)) $(((n / 100) % 10))
+    else
+        printf '%dk' $((n / 1000))
+    fi
+}
+
+# Color the token count by usage. Disabled when NO_COLOR is set.
+if [ -n "${NO_COLOR:-}" ]; then
+    c_tok="" c_reset=""
+else
+    esc=$'\033'
+    c_reset="${esc}[0m"
+    if   [ "$percent" -ge 80 ]; then c_tok="${esc}[31m"  # red
+    elif [ "$percent" -ge 50 ]; then c_tok="${esc}[33m"  # yellow
+    else                             c_tok="${esc}[32m"  # green
+    fi
+fi
+
+token_field=$(printf '%s (%d%%)' "$(fmt_tokens "$tokens")" "$percent")
+
+parts=()
+[ -n "$dir" ]    && parts+=("$dir")
+[ -n "$branch" ] && parts+=("$branch")
+parts+=("${c_tok}${token_field}${c_reset}")
+
+out=""
+for p in "${parts[@]}"; do
+    if [ -z "$out" ]; then
+        out="$p"
+    else
+        out="${out} | ${p}"
+    fi
+done
+
+printf '%s' "$out"
