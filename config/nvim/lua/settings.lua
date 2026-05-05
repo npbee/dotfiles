@@ -29,7 +29,7 @@ opt.secure = true
 opt.shiftwidth = 2        -- size of indent
 opt.showmode = false      -- False since we have a status line
 opt.showcmdloc = "statusline"
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.shortmess:append({ W = true, c = true, C = true })
 opt.signcolumn = "yes" -- Always show sign column to avoid layout shift
 opt.spell = true
 opt.spelllang = "en"
