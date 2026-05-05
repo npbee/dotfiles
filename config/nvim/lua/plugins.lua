@@ -53,6 +53,7 @@ vim.pack.add({
   'https://github.com/echasnovski/mini.surround',
   'https://github.com/echasnovski/mini.ai',
   'https://github.com/echasnovski/mini.comment',
+  'https://github.com/echasnovski/mini.icons',
 
   -- Copilot
   'https://github.com/github/copilot.vim',
@@ -119,8 +120,6 @@ require("conform").setup({
     yaml = { "prettierd" },
     prisma = { "prettierd" },
     sh = { "shfmt" },
-    elixir = { "mix" },
-    python = { "lsp" },
     typescript = { "oxfmt", "prettierd", stop_after_first = true },
     typescriptreact = { "oxfmt", "prettierd", stop_after_first = true },
   },
@@ -312,7 +311,7 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
-  "tailwindcss", "elixirls", "svelte", "ruff",
+  "tailwindcss", "svelte", "ruff",
   "jedi_language_server", 'eslint'
 })
 
@@ -358,10 +357,6 @@ vim.lsp.config("tailwindcss", {
       classFunctions = { "cva" },
     },
   },
-})
-
-vim.lsp.config('elixirls', {
-  cmd = { vim.fn.expand("$HOME/.bin/elixir-ls/language_server.sh") },
 })
 
 vim.lsp.config('eslint', {
@@ -489,3 +484,4 @@ miniclue.setup({
 
 require("mini.surround").setup()
 require("mini.ai").setup()
+require("mini.icons").setup()
