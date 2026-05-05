@@ -8,17 +8,41 @@
 # Reads the session payload Claude Code writes to stdin, then derives:
 #   - directory: basename of the workspace dir
 #   - git branch: from `git -C <dir>` so it works in worktrees
-#   - tokens: latest assistant `message.usage` in the transcript JSONL,
-#     summed as input + cache_read + cache_creation (= effective context use)
+#   - tokens: input + cache_read + cache_creation (= effective context use),
+#     read from the stdin payload's context_window.current_usage when present,
+#     otherwise scanned out of the transcript JSONL for older Claude Code builds
 
 set -u
 
-CONTEXT_MAX=${CLAUDE_STATUSLINE_CONTEXT_MAX:-200000}
-
 input=$(cat)
 
-cwd=$(printf '%s' "$input" | jq -r '.workspace.current_dir // .cwd // ""')
-transcript=$(printf '%s' "$input" | jq -r '.transcript_path // ""')
+jq_field() { printf '%s' "$input" | jq -r "$1" 2>/dev/null; }
+
+cwd=$(jq_field '.workspace.current_dir // .cwd // ""')
+transcript=$(jq_field '.transcript_path // ""')
+model=$(jq_field '
+    (.model // null) as $m
+    | if ($m | type) == "object" then ($m.display_name // $m.id // "")
+      elif ($m | type) == "string" then $m
+      else "" end
+')
+window_size=$(jq_field '.context_window.context_window_size // ""')
+cw_tokens=$(jq_field '
+    (.context_window.current_usage // null) as $u
+    | if ($u | type) == "object" then
+        (($u.input_tokens // 0)
+         + ($u.cache_read_input_tokens // 0)
+         + ($u.cache_creation_input_tokens // 0))
+      elif ($u | type) == "number" then $u
+      else "" end
+')
+cw_percent=$(jq_field '.context_window.used_percentage // ""')
+cost_usd=$(jq_field '.cost.total_cost_usd // ""')
+
+# Window size: prefer payload, then env override, then 200k.
+if [ -z "$window_size" ] || [ "$window_size" = "null" ]; then
+    window_size=${CLAUDE_STATUSLINE_CONTEXT_MAX:-200000}
+fi
 
 dir=""
 if [ -n "$cwd" ]; then
@@ -37,7 +61,9 @@ if [ -n "$cwd" ] && [ -d "$cwd" ]; then
 fi
 
 tokens=0
-if [ -n "$transcript" ] && [ -f "$transcript" ]; then
+if [ -n "$cw_tokens" ] && [ "$cw_tokens" != "null" ]; then
+    tokens=$cw_tokens
+elif [ -n "$transcript" ] && [ -f "$transcript" ]; then
     val=$(tail -r "$transcript" 2>/dev/null \
         | jq -r 'select(.type == "assistant" and (.message.usage // false))
                  | .message.usage
@@ -50,8 +76,11 @@ if [ -n "$transcript" ] && [ -f "$transcript" ]; then
     fi
 fi
 
-if [ "$CONTEXT_MAX" -gt 0 ]; then
-    percent=$((tokens * 100 / CONTEXT_MAX))
+if [ -n "$cw_percent" ] && [ "$cw_percent" != "null" ]; then
+    # Drop fractional part; statusline prints whole percentages.
+    percent=${cw_percent%.*}
+elif [ "$window_size" -gt 0 ]; then
+    percent=$((tokens * 100 / window_size))
 else
     percent=0
 fi
@@ -62,8 +91,10 @@ fmt_tokens() {
         printf '%d' "$n"
     elif [ "$n" -lt 10000 ]; then
         printf '%d.%dk' $((n / 1000)) $(((n / 100) % 10))
-    else
+    elif [ "$n" -lt 1000000 ]; then
         printf '%dk' $((n / 1000))
+    else
+        printf '%dM' $((n / 1000000))
     fi
 }
 
@@ -79,12 +110,23 @@ else
     fi
 fi
 
-token_field=$(printf '%s (%d%%)' "$(fmt_tokens "$tokens")" "$percent")
+token_field=$(printf '%s/%s (%d%%)' "$(fmt_tokens "$tokens")" "$(fmt_tokens "$window_size")" "$percent")
+
+cost_field=""
+if [ -n "$cost_usd" ] && [ "$cost_usd" != "null" ]; then
+    cost_field=$(awk -v c="$cost_usd" 'BEGIN {
+        if (c < 1)        printf "$%.2f", c
+        else if (c < 10)  printf "$%.2f", c
+        else              printf "$%.1f", c
+    }')
+fi
 
 parts=()
 [ -n "$dir" ]    && parts+=("$dir")
 [ -n "$branch" ] && parts+=("$branch")
+[ -n "$model" ]  && parts+=("$model")
 parts+=("${c_tok}${token_field}${c_reset}")
+[ -n "$cost_field" ] && parts+=("$cost_field")
 
 out=""
 for p in "${parts[@]}"; do
