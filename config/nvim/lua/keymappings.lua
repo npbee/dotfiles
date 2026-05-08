@@ -30,6 +30,14 @@ vim.keymap.set("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true, desc = "Verti
 -- Turn off search highlighting
 vim.keymap.set("n", "<esc>", ":noh<CR>", { silent = true, noremap = true, desc = "Clear search highlight" })
 
+-- System clipboard yank/paste
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { noremap = true, desc = "Yank to system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]], { noremap = true, desc = "Paste from system clipboard" })
+
+-- Substitute word under cursor across the whole file
+vim.keymap.set("n", "gsw", [[:%s/\<<c-r><c-w>\>//g<left><left>]], { noremap = true, desc = "Substitute word under cursor" })
+vim.keymap.set("n", "gsW", [[:*s/\<<c-r><c-w>\>//g<left><left>]], { noremap = true, desc = "Substitute word under cursor in last selection" })
+
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, desc = "Exit terminal mode" })
 
 -- Toggle formatting
