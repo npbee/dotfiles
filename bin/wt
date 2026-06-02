@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+#
+# wt — Git worktree sessions for AeroSpace + kitty + Claude Code
+#
+#   Each session = one worktree + one AeroSpace workspace + a kitty window
+#   running `claude` in the worktree, tiled next to a Chrome window pointed
+#   at that session's dev server.
+#
+# Usage:
+#   wt new <branch> [workspace]   Create worktree + workspace + terminal + browser
+#   wt rm  <branch>               Tear down: close windows, remove the worktree
+#   wt ls                         List active worktree sessions
+#
+# Prereqs (one time):
+#   ~/.config/kitty/kitty.conf:
+#       allow_remote_control yes
+#       listen_on unix:/tmp/kitty
+#
+set -euo pipefail
+
+# --- Config (override via env) -----------------------------------------------
+KITTY_SOCKET="${KITTY_SOCKET:-unix:/tmp/kitty}"
+BROWSER_APP="${WT_BROWSER:-Google Chrome}"
+PORT_BASE="${WT_PORT_BASE:-3000}"     # ports land in PORT_BASE .. PORT_BASE+999
+AGENT_CMD="${WT_AGENT:-claude}"       # the agent to launch in the terminal
+
+# --- Helpers -----------------------------------------------------------------
+die()  { echo "wt: $*" >&2; exit 1; }
+have() { command -v "$1" >/dev/null 2>&1; }
+
+repo_root() { git rev-parse --show-toplevel 2>/dev/null || die "not inside a git repo"; }
+
+# Deterministic dev-server port from the branch name (stable across restarts).
+branch_port() {
+  echo $(( PORT_BASE + $(printf '%s' "$1" | cksum | cut -d' ' -f1) % 1000 ))
+}
+
+# Default workspace = first alphanumeric char of the branch, uppercased.
+default_ws() {
+  local c; c="$(printf '%s' "$1" | tr -cd 'A-Za-z0-9' | head -c1 | tr 'a-z' 'A-Z')"
+  echo "${c:-1}"
+}
+
+# Filesystem-safe dir name (branch may contain slashes, e.g. feature/x).
+wt_dir_for() {
+  local root branch
+  root="$(repo_root)"; branch="$1"
+  echo "$root/../.worktrees/$(basename "$root")/${branch//\//-}"
+}
+
+kitty_up() { kitty @ --to "$KITTY_SOCKET" ls >/dev/null 2>&1; }
+
+# --- Subcommands -------------------------------------------------------------
+cmd_new() {
+  local branch="${1:-}" ws port root wt_dir
+  [ -n "$branch" ] || die "usage: wt new <branch> [workspace]"
+  ws="${2:-$(default_ws "$branch")}"
+  port="$(branch_port "$branch")"
+  root="$(repo_root)"
+  wt_dir="$(wt_dir_for "$branch")"
+
+  # 1. Worktree (create the branch if it doesn't exist yet)
+  if ! git -C "$root" worktree list | grep -qF "$wt_dir"; then
+    if git -C "$root" show-ref --verify --quiet "refs/heads/$branch"; then
+      git -C "$root" worktree add "$wt_dir" "$branch"
+    else
+      git -C "$root" worktree add -b "$branch" "$wt_dir"
+    fi
+  fi
+
+  # 2. Focus the target workspace so new windows land there
+  aerospace workspace "$ws"
+
+  # 3. kitty window in the worktree, running the agent (shell stays after exit)
+  local agent_line="cd \"$wt_dir\"; PORT=$port $AGENT_CMD; exec zsh"
+  if kitty_up; then
+    kitty @ --to "$KITTY_SOCKET" launch \
+      --type=os-window --cwd="$wt_dir" \
+      --var "wt=$branch" --title "claude:$branch" \
+      zsh -ic "$agent_line" >/dev/null
+  else
+    # No running instance — start one that listens, so `wt rm` can reach it later
+    kitty --listen-on "$KITTY_SOCKET" --directory "$wt_dir" \
+      --override "allow_remote_control=yes" \
+      zsh -ic "$agent_line" >/dev/null 2>&1 &
+  fi
+
+  # 4. Browser window pointed at this session's dev server
+  open -na "$BROWSER_APP" --args --new-window "http://localhost:$port"
+
+  echo "wt: session '$branch' → workspace $ws, port $port"
+  echo "    worktree: $wt_dir"
+}
+
+cmd_rm() {
+  local branch="${1:-}" root wt_dir port
+  [ -n "$branch" ] || die "usage: wt rm <branch>"
+  root="$(repo_root)"
+  wt_dir="$(wt_dir_for "$branch")"
+  port="$(branch_port "$branch")"
+
+  # Close the kitty window for this session (best effort)
+  if kitty_up; then
+    kitty @ --to "$KITTY_SOCKET" close-window --match "var:wt=$branch" 2>/dev/null || true
+  fi
+
+  # Close the browser tab/window for this session's port (best effort)
+  if [ "$BROWSER_APP" = "Google Chrome" ] && have osascript; then
+    osascript - "$port" <<'OSA' 2>/dev/null || true
+on run argv
+  set thePort to item 1 of argv
+  tell application "Google Chrome"
+    repeat with w in windows
+      repeat with t in (tabs of w)
+        if (URL of t) contains ("localhost:" & thePort) then close t
+      end repeat
+    end repeat
+  end tell
+end run
+OSA
+  fi
+
+  # Remove the worktree (use --force only if you've committed/stashed)
+  if git -C "$root" worktree list | grep -qF "$wt_dir"; then
+    git -C "$root" worktree remove "$wt_dir" \
+      || die "worktree has changes — commit/stash, or: git worktree remove --force \"$wt_dir\""
+  fi
+  echo "wt: removed session '$branch'"
+}
+
+cmd_ls() {
+  local root; root="$(repo_root)"
+  echo "Active worktree sessions:"
+  git -C "$root" worktree list | while read -r path _ rest; do
+    case "$path" in
+      *"/.worktrees/"*)
+        local b; b="$(basename "$path")"
+        printf "  %-24s ws=%-3s port=%s  %s\n" \
+          "$b" "$(default_ws "$b")" "$(branch_port "$b")" "$path"
+        ;;
+    esac
+  done
+}
+
+# --- Dispatch ----------------------------------------------------------------
+case "${1:-}" in
+  new|up)   shift; cmd_new "$@" ;;
+  rm|down)  shift; cmd_rm  "$@" ;;
+  ls|list)  shift; cmd_ls  "$@" ;;
+  *) cat >&2 <<EOF
+wt — Git worktree sessions for AeroSpace + kitty + Claude Code
+
+  wt new <branch> [workspace]   Create worktree + workspace + terminal + browser
+  wt rm  <branch>               Tear down windows and remove the worktree
+  wt ls                         List active sessions
+EOF
+     exit 1 ;;
+esac
