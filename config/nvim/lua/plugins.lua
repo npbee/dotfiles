@@ -119,6 +119,8 @@ require("conform").setup({
     scss = { "prettierd" },
     yaml = { "prettierd" },
     prisma = { "prettierd" },
+    python = { "ruff_format" },
+
     sh = { "shfmt" },
     typescript = { "oxfmt", "prettierd", stop_after_first = true },
     typescriptreact = { "oxfmt", "prettierd", stop_after_first = true },
@@ -380,6 +382,8 @@ vim.lsp.config('eslint', {
   --   '.git'
   -- ),
 })
+
+vim.lsp.config('ruff', {})
 
 
 -- LuaSnip ---------------------------------------------------------------------
