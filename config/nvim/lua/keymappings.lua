@@ -1,6 +1,5 @@
--- Easier split navigation
-vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { noremap = true, desc = "Move to right split" })
-vim.keymap.set("n", "<C-H>", "<C-W><C-H>", { noremap = true, desc = "Move to left split" })
+-- Split navigation is handled by vim-tmux-navigator (<C-h/j/k/l>), which
+-- moves seamlessly between Neovim splits and tmux panes. See config/tmux.conf.
 
 vim.keymap.set("n", "<C-s>", ":w<cr>", { noremap = true, desc = "Save file" })
 

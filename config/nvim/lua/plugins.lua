@@ -58,6 +58,8 @@ vim.pack.add({
   -- Copilot
   'https://github.com/github/copilot.vim',
   'https://github.com/fang2hou/blink-copilot',
+
+  'https://github.com/christoomey/vim-tmux-navigator'
 })
 
 --------------------------------------------------------------------------------
