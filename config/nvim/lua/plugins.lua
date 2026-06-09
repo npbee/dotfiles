@@ -22,6 +22,7 @@ vim.pack.add({
   -- Git links
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/ruifm/gitlinker.nvim',
+  'https://github.com/lewis6991/gitsigns.nvim',
 
   -- File browser
   'https://github.com/justinmk/vim-dirvish',
@@ -139,6 +140,9 @@ require("lint").linters_by_ft = {
   javascriptreact = { "oxlint", "eslint_d" },
   svelte = { "oxlint", "eslint_d" },
 }
+
+-- gitsigns -------------------------------------------------------------------
+require("gitsigns").setup()
 
 -- gitlinker -------------------------------------------------------------------
 
