@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 #
-# wt — Git worktree sessions for AeroSpace + kitty + Claude Code
+# wt — Git worktree sessions for AeroSpace + Ghostty + tmux + Claude Code
 #
-#   Each session = one worktree + one AeroSpace workspace + a kitty window
-#   running `claude` in the worktree, tiled next to a Chrome window pointed
-#   at that session's dev server.
+#   Each session = one worktree + one tmux session (named after the branch)
+#   + one AeroSpace workspace + a Ghostty window attached to the tmux session
+#   running `claude`, tiled next to a browser pointed at that session's dev
+#   server. tmux owns the process tree, so sessions survive Ghostty restarts
+#   and you can detach/reattach or switch between them with prefix + s.
 #
 # Usage:
-#   wt new <branch> [workspace]   Create worktree + workspace + terminal + browser
-#   wt rm  <branch>               Tear down: close windows, remove the worktree
-#   wt ls                         List active worktree sessions
-#
-# Prereqs (one time):
-#   ~/.config/kitty/kitty.conf:
-#       allow_remote_control yes
-#       listen_on unix:/tmp/kitty
+#   wt new    <branch> [workspace]   Create worktree + tmux session + window + browser
+#   wt rm     <branch>               Tear down: kill session, remove the worktree
+#   wt switch <branch>               Attach/switch to a session's tmux (no new window)
+#   wt ls                            List active worktree sessions
 #
 set -euo pipefail
 
 # --- Config (override via env) -----------------------------------------------
-KITTY_SOCKET="${KITTY_SOCKET:-unix:/tmp/kitty}"
 BROWSER_APP="${WT_BROWSER:-Google Chrome}"
 PORT_BASE="${WT_PORT_BASE:-3000}"     # ports land in PORT_BASE .. PORT_BASE+999
-AGENT_CMD="${WT_AGENT:-claude}"       # the agent to launch in the terminal
+AGENT_CMD="${WT_AGENT:-claude}"       # the agent to launch in the tmux session
+# How to open a terminal window attached to a session. {sess} is substituted.
+# Default opens a new Ghostty window running `tmux attach`.
+TERM_CMD="${WT_TERM_CMD:-open -na Ghostty --args -e tmux attach -t {sess}}"
 
 # --- Helpers -----------------------------------------------------------------
 die()  { echo "wt: $*" >&2; exit 1; }
@@ -41,6 +41,9 @@ default_ws() {
   echo "${c:-1}"
 }
 
+# tmux session name: tmux forbids '.' and ':' — and '/' is awkward — so map them.
+sess_for() { printf '%s' "${1//[.:\/]/-}"; }
+
 # Filesystem-safe dir name (branch may contain slashes, e.g. feature/x).
 wt_dir_for() {
   local root branch
@@ -48,16 +51,24 @@ wt_dir_for() {
   echo "$root/../.worktrees/$(basename "$root")/${branch//\//-}"
 }
 
-kitty_up() { kitty @ --to "$KITTY_SOCKET" ls >/dev/null 2>&1; }
+# Exact-match check (=name) so 'feat-1' doesn't match 'feat-12'.
+session_alive() { tmux has-session -t "=$1" 2>/dev/null; }
+
+# Open a terminal window attached to a session via TERM_CMD (best effort).
+open_window() {
+  local sess="$1" cmd="${TERM_CMD//\{sess\}/$1}"
+  eval "$cmd" >/dev/null 2>&1 &
+}
 
 # --- Subcommands -------------------------------------------------------------
 cmd_new() {
-  local branch="${1:-}" ws port root wt_dir
+  local branch="${1:-}" ws port root wt_dir sess
   [ -n "$branch" ] || die "usage: wt new <branch> [workspace]"
   ws="${2:-$(default_ws "$branch")}"
   port="$(branch_port "$branch")"
   root="$(repo_root)"
   wt_dir="$(wt_dir_for "$branch")"
+  sess="$(sess_for "$branch")"
 
   # 1. Worktree (create the branch if it doesn't exist yet)
   if ! git -C "$root" worktree list | grep -qF "$wt_dir"; then
@@ -68,41 +79,48 @@ cmd_new() {
     fi
   fi
 
-  # 2. Focus the target workspace so new windows land there
-  aerospace workspace "$ws"
-
-  # 3. kitty window in the worktree, running the agent (shell stays after exit)
-  local agent_line="cd \"$wt_dir\"; PORT=$port $AGENT_CMD; exec zsh"
-  if kitty_up; then
-    kitty @ --to "$KITTY_SOCKET" launch \
-      --type=os-window --cwd="$wt_dir" \
-      --var "wt=$branch" --title "claude:$branch" \
-      zsh -ic "$agent_line" >/dev/null
-  else
-    # No running instance — start one that listens, so `wt rm` can reach it later
-    kitty --listen-on "$KITTY_SOCKET" --directory "$wt_dir" \
-      --override "allow_remote_control=yes" \
-      zsh -ic "$agent_line" >/dev/null 2>&1 &
+  # 2. tmux session rooted at the worktree, running the agent (idempotent)
+  if ! session_alive "$sess"; then
+    tmux new-session -d -s "$sess" -c "$wt_dir"
+    tmux send-keys -t "=$sess" "PORT=$port $AGENT_CMD" Enter
   fi
 
-  # 4. Browser window pointed at this session's dev server
+  # 3. Focus the target workspace so the new window lands there
+  have aerospace && aerospace workspace "$ws" || true
+
+  # 4. Window attached to the session (or switch in place if already in tmux)
+  if [ -n "${TMUX:-}" ]; then
+    tmux switch-client -t "=$sess"
+  else
+    open_window "$sess"
+  fi
+
+  # 5. Browser window pointed at this session's dev server
   open -na "$BROWSER_APP" --args --new-window "http://localhost:$port"
 
-  echo "wt: session '$branch' → workspace $ws, port $port"
+  echo "wt: session '$branch' → tmux:$sess, workspace $ws, port $port"
   echo "    worktree: $wt_dir"
 }
 
+cmd_switch() {
+  local branch="${1:-}" sess
+  [ -n "$branch" ] || die "usage: wt switch <branch>"
+  sess="$(sess_for "$branch")"
+  session_alive "$sess" || die "no tmux session for '$branch' (try: wt new $branch)"
+  if [ -n "${TMUX:-}" ]; then tmux switch-client -t "=$sess"
+  else                        tmux attach -t "=$sess"; fi
+}
+
 cmd_rm() {
-  local branch="${1:-}" root wt_dir port
+  local branch="${1:-}" root wt_dir port sess
   [ -n "$branch" ] || die "usage: wt rm <branch>"
   root="$(repo_root)"
   wt_dir="$(wt_dir_for "$branch")"
   port="$(branch_port "$branch")"
+  sess="$(sess_for "$branch")"
 
-  # Close the kitty window for this session (best effort)
-  if kitty_up; then
-    kitty @ --to "$KITTY_SOCKET" close-window --match "var:wt=$branch" 2>/dev/null || true
-  fi
+  # Kill the tmux session (best effort) — this also closes any attached window.
+  session_alive "$sess" && tmux kill-session -t "=$sess" || true
 
   # Close the browser tab/window for this session's port (best effort)
   if [ "$BROWSER_APP" = "Google Chrome" ] && have osascript; then
@@ -134,9 +152,10 @@ cmd_ls() {
   git -C "$root" worktree list | while read -r path _ rest; do
     case "$path" in
       *"/.worktrees/"*)
-        local b; b="$(basename "$path")"
-        printf "  %-24s ws=%-3s port=%s  %s\n" \
-          "$b" "$(default_ws "$b")" "$(branch_port "$b")" "$path"
+        local b sess state; b="$(basename "$path")"; sess="$(sess_for "$b")"
+        if session_alive "$sess"; then state="tmux:live"; else state="tmux:dead"; fi
+        printf "  %-24s ws=%-3s port=%-5s %-10s %s\n" \
+          "$b" "$(default_ws "$b")" "$(branch_port "$b")" "$state" "$path"
         ;;
     esac
   done
@@ -144,15 +163,17 @@ cmd_ls() {
 
 # --- Dispatch ----------------------------------------------------------------
 case "${1:-}" in
-  new|up)   shift; cmd_new "$@" ;;
-  rm|down)  shift; cmd_rm  "$@" ;;
-  ls|list)  shift; cmd_ls  "$@" ;;
+  new|up)        shift; cmd_new    "$@" ;;
+  rm|down)       shift; cmd_rm     "$@" ;;
+  switch|attach) shift; cmd_switch "$@" ;;
+  ls|list)       shift; cmd_ls     "$@" ;;
   *) cat >&2 <<EOF
-wt — Git worktree sessions for AeroSpace + kitty + Claude Code
+wt — Git worktree sessions for AeroSpace + Ghostty + tmux + Claude Code
 
-  wt new <branch> [workspace]   Create worktree + workspace + terminal + browser
-  wt rm  <branch>               Tear down windows and remove the worktree
-  wt ls                         List active sessions
+  wt new    <branch> [workspace]   Create worktree + tmux session + window + browser
+  wt rm     <branch>               Tear down windows/session and remove the worktree
+  wt switch <branch>               Attach/switch to a session's tmux
+  wt ls                            List active sessions
 EOF
      exit 1 ;;
 esac
