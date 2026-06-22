@@ -5,3 +5,5 @@ tags
 .envrc
 .nvimrc
 .claude/settings.local.json
+
+**/.claude/settings.local.json
