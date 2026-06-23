@@ -57,8 +57,8 @@ vim.pack.add({
   'https://github.com/echasnovski/mini.icons',
 
   -- Copilot
-  'https://github.com/github/copilot.vim',
-  'https://github.com/fang2hou/blink-copilot',
+  -- 'https://github.com/github/copilot.vim',
+  -- 'https://github.com/fang2hou/blink-copilot',
 
   'https://github.com/christoomey/vim-tmux-navigator'
 })
