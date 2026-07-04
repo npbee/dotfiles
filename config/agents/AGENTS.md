@@ -2,6 +2,13 @@
 
 Global agent preferences for Nick Ball.
 
+## Response style
+
+- Be concise. Answer first, supporting detail after.
+- No preamble, no flattery, no restating the question. Skip "Great question",
+  "Sure, I'd be happy to", and summaries of what you're about to do.
+- Match length to the task: a one-line question gets a one-line answer.
+
 ## Code comments
 
 - Keep comments concise. Explain *why*, not *what* — skip anything the code
