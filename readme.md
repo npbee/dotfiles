@@ -23,6 +23,18 @@ Fonts:
 
 - From Dropbox, install term font and Pragmata Pro
 
+## Agent instructions
+
+Shared, cross-tool agent preferences live in a single canonical file:
+`config/agents/AGENTS.md`. Each tool's entry point is an in-repo symlink to it,
+so `rcup` links them all on install:
+
+- `claude/CLAUDE.md` -> `~/.claude/CLAUDE.md` (Claude Code global memory)
+- `config/opencode/AGENTS.md` -> `~/.config/opencode/AGENTS.md` (opencode)
+
+Edit `config/agents/AGENTS.md` only. Add a new tool by symlinking its file to
+the canonical one and running `rcup`.
+
 ## Neovim
 
 TODO
