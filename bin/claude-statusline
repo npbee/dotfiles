@@ -121,12 +121,36 @@ if [ -n "$cost_usd" ] && [ "$cost_usd" != "null" ]; then
     }')
 fi
 
+# Caveman-mode badge from the plugin's flag file. Symlinks refused and content
+# whitelisted so a planted flag can't inject terminal escapes on every redraw.
+cave_field=""
+cave_flag="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.caveman-active"
+if [ -f "$cave_flag" ] && [ ! -L "$cave_flag" ]; then
+    cave_mode=$(head -c 64 "$cave_flag" 2>/dev/null | tr -d '\n\r' \
+        | tr '[:upper:]' '[:lower:]' | tr -cd 'a-z0-9-')
+    case "$cave_mode" in
+        lite|full|ultra|wenyan-lite|wenyan|wenyan-full|wenyan-ultra)
+            if [ "$cave_mode" = "full" ]; then
+                label="[CAVEMAN]"
+            else
+                label="[CAVEMAN:$(printf '%s' "$cave_mode" | tr '[:lower:]' '[:upper:]')]"
+            fi
+            if [ -n "${NO_COLOR:-}" ]; then
+                cave_field="$label"
+            else
+                cave_field=$'\033[38;5;172m'"$label"$'\033[0m'
+            fi
+            ;;
+    esac
+fi
+
 parts=()
 [ -n "$dir" ]    && parts+=("$dir")
 [ -n "$branch" ] && parts+=("$branch")
 [ -n "$model" ]  && parts+=("$model")
 parts+=("${c_tok}${token_field}${c_reset}")
 [ -n "$cost_field" ] && parts+=("$cost_field")
+[ -n "$cave_field" ] && parts+=("$cave_field")
 
 out=""
 for p in "${parts[@]}"; do
