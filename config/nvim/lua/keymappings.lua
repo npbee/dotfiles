@@ -47,6 +47,25 @@ vim.keymap.set("n", "<F12>", ":FormatToggle<cr>", { noremap = true, desc = "Togg
 -- Toggle spell
 vim.keymap.set("n", "<F10>", "<cmd>: set spell!<CR>", { noremap = true, desc = "Toggle spellcheck" })
 
+-- Yank @file:line ref for pasting into Claude Code. Path is relative to the
+-- git root so it resolves regardless of where nvim was launched.
+local function claude_yank(range)
+  local abs = vim.fn.expand("%:p")
+  local root = vim.fs.root(abs, ".git")
+  local path = root and vim.fs.relpath(root, abs) or vim.fn.expand("%")
+  local ref = "@" .. path .. ":" .. (range or vim.fn.line("."))
+  vim.fn.setreg("+", ref)
+  vim.notify("Yanked " .. ref)
+end
+
+vim.keymap.set("n", "<leader>cy", function()
+  claude_yank()
+end, { desc = "Claude: yank file:line" })
+
+vim.keymap.set("v", "<leader>cy", function()
+  claude_yank(vim.fn.line("v") .. "-" .. vim.fn.line("."))
+end, { desc = "Claude: yank file:range" })
+
 -- QF Helpers
 vim.keymap.set("n", "<C-N>", "<CMD>QNext<CR>", { noremap = true, desc = "Next quickfix item" })
 vim.keymap.set("n", "<C-P>", "<CMD>QPrev<CR>", { noremap = true, desc = "Previous quickfix item" })
