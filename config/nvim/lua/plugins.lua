@@ -320,7 +320,8 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
   "tailwindcss", "svelte", "ruff",
-  "jedi_language_server", 'eslint'
+  "jedi_language_server", 'eslint',
+  "css_variables"
 })
 
 vim.lsp.config('lua_ls', {
