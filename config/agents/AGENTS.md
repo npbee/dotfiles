@@ -36,5 +36,5 @@ Good (describes current state / reason):
 ## Pull requests
 
 - Keep the summary small — a couple of sentences, no filler.
-- Single body, no section headers.
+- Single body, no section headers. Bullet lists are fine.
 - No test plan.
