@@ -81,9 +81,10 @@ if [ "$delete" = true ]; then
     echo "No worktree at $worktree_path"
   fi
 
-  # Delete the branch if it's fully merged
+  # Force-delete the branch; -D drops it regardless of merge state, matching
+  # the --force worktree removal above.
   if git rev-parse --verify "$branch" >/dev/null 2>&1; then
-    git branch -d "$branch" 2>/dev/null && echo "Deleted branch: $branch" || true
+    git branch -D "$branch" >/dev/null 2>&1 && echo "Deleted branch: $branch"
   fi
 
   # Kill matching tmux session
