@@ -103,9 +103,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-if type fnm &> /dev/null; then
-    eval "$(fnm env)"
-fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 eval "$(zoxide init zsh)"
@@ -124,13 +121,14 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh.local ] && source ~/.zsh.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [[ -f ~/.aliases ]] && source ~/.aliases
+
+# After local sourcing so fnm's node shadows the homebrew node on PATH.
+if type fnm &> /dev/null; then
+    eval "$(fnm env --use-on-cd)"
+fi
 
 [[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh"
