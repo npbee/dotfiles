@@ -36,8 +36,15 @@ setopt HIST_NO_STORE             # Don't store history commands
 fpath=("$HOME/.zsh/functions" $fpath)
 fpath+=/opt/homebrew/share/zsh/site-functions
 
-# Default ZSH completion
-autoload -Uz compinit && compinit
+# Default ZSH completion; rebuild the dump at most once a day, else just load it.
+autoload -Uz compinit
+_zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+if [[ -n "$_zcompdump"(#qN.mh+24) ]]; then
+  compinit -i
+else
+  compinit -C
+fi
+unset _zcompdump
 
 # Vim Mode ftw
 bindkey -v
