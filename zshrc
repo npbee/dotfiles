@@ -136,6 +136,22 @@ esac
 # After local sourcing so fnm's node shadows the homebrew node on PATH.
 if type fnm &> /dev/null; then
     eval "$(fnm env --use-on-cd)"
+
+    # Active node version for the right prompt. Resolve the multishell symlink
+    # target rather than shelling out to `node -v`. Exposed via a global so the
+    # vi-mode RPS1 (see zsh/vi.zsh) can compose it without clobbering.
+    _pure_node_version() {
+        local target=${FNM_MULTISHELL_PATH:A}/bin/node
+        target=${target:A}
+        if [[ $target == */node-versions/* ]]; then
+            local v=${target#*/node-versions/}
+            NODE_PROMPT_INFO="%F{green}⬢ ${v%%/*}%f"
+        else
+            NODE_PROMPT_INFO=''
+        fi
+    }
+    autoload -Uz add-zsh-hook
+    add-zsh-hook precmd _pure_node_version
 fi
 
 [[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh"

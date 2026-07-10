@@ -11,8 +11,9 @@ function vi_mode_prompt_info() {
   echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
 }
 
-# define right prompt, regardless of whether the theme defined it
-RPS1='$(vi_mode_prompt_info)'
+# define right prompt, regardless of whether the theme defined it.
+# NODE_PROMPT_INFO is populated by a precmd hook in zshrc (fnm block).
+RPS1='${NODE_PROMPT_INFO:+$NODE_PROMPT_INFO }$(vi_mode_prompt_info)'
 RPS2=$RPS1
 
 # Bind control+O for a temporary normal mode command
