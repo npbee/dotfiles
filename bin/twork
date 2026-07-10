@@ -1,0 +1,163 @@
+#!/bin/sh
+#
+# Create a git worktree + tmux window in one step.
+#
+# Usage:
+#   twork feature-name        # Create/reuse worktree + tmux session
+#   twork feature-name -c     # Same + launch Claude (opus)
+#   twork -d feature-name     # Remove worktree + kill tmux session
+#
+# Worktrees are placed at ../<repo>-worktrees/<branch-name>
+
+set -e
+
+usage() {
+  echo "Usage: twork [-a] [-d] [-c] [-n] <branch-name>"
+  echo "  -a    Attach to an existing worktree only (never create)"
+  echo "  -c    Launch Claude (opus) in the new session"
+  echo "  -d    Remove worktree and kill tmux session"
+  echo "  -n    Skip dependency install on new worktree"
+  exit 1
+}
+
+# Pick install cmd from lockfile; empty if no package.json
+install_cmd() {
+  [ -f "$1/package.json" ] || return 0
+  if [ -f "$1/pnpm-lock.yaml" ]; then echo "pnpm install"
+  elif [ -f "$1/yarn.lock" ]; then echo "yarn"
+  elif [ -f "$1/bun.lockb" ]; then echo "bun install"
+  else echo "npm install"
+  fi
+}
+
+# tmux session names can't contain . or : — sanitize
+session_name() {
+  echo "$1" | tr './:' '___'
+}
+
+# Parse flags
+delete=false
+launch_claude=false
+no_install=false
+attach_only=false
+branch=""
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -a) attach_only=true; shift ;;
+    -d) delete=true; shift ;;
+    -c) launch_claude=true; shift ;;
+    -n) no_install=true; shift ;;
+    -h|--help) usage ;;
+    -*) echo "Unknown option: $1"; usage ;;
+    *)
+      if [ -z "$branch" ]; then
+        branch="$1"
+      else
+        echo "Unexpected argument: $1"; usage
+      fi
+      shift
+      ;;
+  esac
+done
+
+[ -z "$branch" ] && usage
+
+# Resolve repo root and worktree base directory
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  echo "Error: not in a git repository"
+  exit 1
+}
+repo_name=$(basename "$repo_root")
+worktree_base="$(dirname "$repo_root")/${repo_name}-worktrees"
+worktree_path="${worktree_base}/${branch}"
+
+# --- Delete mode ---
+if [ "$delete" = true ]; then
+  if git worktree list | grep -q "$worktree_path"; then
+    git worktree remove "$worktree_path" --force
+    echo "Removed worktree: $worktree_path"
+  else
+    echo "No worktree at $worktree_path"
+  fi
+
+  # Delete the branch if it's fully merged
+  if git rev-parse --verify "$branch" >/dev/null 2>&1; then
+    git branch -d "$branch" 2>/dev/null && echo "Deleted branch: $branch" || true
+  fi
+
+  # Kill matching tmux session
+  session=$(session_name "$branch")
+  if tmux has-session -t "=${session}" 2>/dev/null; then
+    tmux kill-session -t "=${session}"
+    echo "Killed tmux session: $session"
+  fi
+  exit 0
+fi
+
+# --- Attach-only mode: never create, just fall through to attach ---
+if [ "$attach_only" = true ]; then
+  if ! git worktree list | grep -q "$worktree_path"; then
+    echo "No worktree at $worktree_path"
+    exit 1
+  fi
+  echo "Attaching to worktree: $worktree_path"
+fi
+
+# --- Create mode ---
+mkdir -p "$worktree_base"
+
+fresh=false
+if git worktree list | grep -q "$worktree_path"; then
+  echo "Worktree already exists: $worktree_path"
+else
+  # Use -b only if the branch doesn't already exist
+  if git rev-parse --verify "$branch" >/dev/null 2>&1; then
+    git worktree add "$worktree_path" "$branch"
+  else
+    git worktree add -b "$branch" "$worktree_path"
+  fi
+  echo "Created worktree: $worktree_path"
+  fresh=true
+fi
+
+# Create or reuse a tmux session for this branch
+session=$(session_name "$branch")
+
+if tmux has-session -t "=${session}" 2>/dev/null; then
+  echo "Reusing tmux session: $session"
+else
+  tmux new-session -d -s "$session" -c "$worktree_path"
+  echo "Created tmux session: $session"
+
+  # Cold-started tmux servers can report the session before its pane is ready;
+  # wait so the send-keys below doesn't hit "can't find pane".
+  i=0
+  until tmux list-panes -t "=${session}" >/dev/null 2>&1; do
+    i=$((i + 1))
+    [ "$i" -ge 50 ] && break
+    sleep 0.1
+  done
+
+  # Install deps on fresh worktree; chain opus after so it waits for install
+  cmd=""
+  if [ "$fresh" = true ] && [ "$no_install" = false ]; then
+    cmd=$(install_cmd "$worktree_path")
+    [ -n "$cmd" ] && echo "Installing deps: $cmd"
+  fi
+
+  if [ "$launch_claude" = true ]; then
+    [ -n "$cmd" ] && cmd="$cmd && opus" || cmd="opus"
+  fi
+
+  # send-keys resolves -t to a pane; "=name" matches pane names (none exist).
+  # Trailing ":" targets the session's active pane instead.
+  [ -n "$cmd" ] && tmux send-keys -t "=${session}:" "$cmd" Enter
+fi
+
+# Attach (outside tmux) or switch (inside tmux)
+if [ -n "$TMUX" ]; then
+  tmux switch-client -t "=${session}"
+else
+  tmux attach-session -t "=${session}"
+fi
