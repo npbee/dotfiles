@@ -23,10 +23,14 @@ usage() {
 # Pick install cmd from lockfile; empty if no package.json
 install_cmd() {
   [ -f "$1/package.json" ] || return 0
-  if [ -f "$1/pnpm-lock.yaml" ]; then echo "pnpm install"
-  elif [ -f "$1/yarn.lock" ]; then echo "yarn"
-  elif [ -f "$1/bun.lockb" ]; then echo "bun install"
-  else echo "npm install"
+  if [ -f "$1/pnpm-lock.yaml" ]; then
+    echo "pnpm install"
+  elif [ -f "$1/yarn.lock" ]; then
+    echo "yarn"
+  elif [ -f "$1/bun.lockb" ]; then
+    echo "bun install"
+  else
+    echo "npm install"
   fi
 }
 
@@ -44,20 +48,36 @@ branch=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -a) attach_only=true; shift ;;
-    -d) delete=true; shift ;;
-    -c) launch_claude=true; shift ;;
-    -n) no_install=true; shift ;;
-    -h|--help) usage ;;
-    -*) echo "Unknown option: $1"; usage ;;
-    *)
-      if [ -z "$branch" ]; then
-        branch="$1"
-      else
-        echo "Unexpected argument: $1"; usage
-      fi
-      shift
-      ;;
+  -a)
+    attach_only=true
+    shift
+    ;;
+  -d)
+    delete=true
+    shift
+    ;;
+  -c)
+    launch_claude=true
+    shift
+    ;;
+  -n)
+    no_install=true
+    shift
+    ;;
+  -h | --help) usage ;;
+  -*)
+    echo "Unknown option: $1"
+    usage
+    ;;
+  *)
+    if [ -z "$branch" ]; then
+      branch="$1"
+    else
+      echo "Unexpected argument: $1"
+      usage
+    fi
+    shift
+    ;;
   esac
 done
 
@@ -116,7 +136,7 @@ else
   if git rev-parse --verify "$branch" >/dev/null 2>&1; then
     git worktree add "$worktree_path" "$branch"
   else
-    git worktree add -b "$branch" "$worktree_path"
+    git worktree add -b "$branch" "$worktree_path" --no-track
   fi
   echo "Created worktree: $worktree_path"
   fresh=true
