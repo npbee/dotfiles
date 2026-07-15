@@ -97,3 +97,5 @@
 
 [diff]
     colorMoved = default
+[branch]
+	autoSetupMerge = false
