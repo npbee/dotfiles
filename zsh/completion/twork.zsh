@@ -9,18 +9,13 @@ _twork() {
     '--help[Show help]'
   )
 
-  # Branch names: with -a/-d, only branches that have a worktree under the
-  # twork base dir; otherwise all local branches.
+  # Branch names: with -a/-d, the branches of live twork tmux sessions — global,
+  # so it works from any cwd, not just inside the repo. Otherwise all local
+  # branches. Sessions tag themselves with @twork_branch (see bin/twork).
   local -a branches
   if (( ${words[(I)-d]} || ${words[(I)-a]} )); then
-    local root base
-    root="$(git rev-parse --show-toplevel 2>/dev/null)" || return
-    base="$(dirname "$root")/${root:t}-worktrees/"
-    # Strip the base prefix off each worktree path; keeps nested (foo/bar) names.
-    branches=(${(f)"$(git worktree list --porcelain 2>/dev/null \
-      | awk '/^worktree /{print substr($0,10)}')"})
-    branches=(${(M)branches:#${base}*})
-    branches=(${branches#${base}})
+    branches=(${(f)"$(tmux list-sessions -F '#{@twork_branch}' 2>/dev/null)"})
+    branches=(${branches:#})  # drop sessions without the tag
   else
     branches=(${(f)"$(git for-each-ref --format='%(refname:short)' refs/heads 2>/dev/null)"})
   fi

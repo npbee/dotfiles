@@ -46,6 +46,10 @@ else
 fi
 unset _zcompdump
 
+# fzf-tab renders completion menus (incl. twork) in fzf. Must load after
+# compinit and before any widget-wrapping plugins.
+zinit light Aloxaf/fzf-tab
+
 # Vim Mode ftw
 bindkey -v
 bindkey -M vicmd '?' history-incremental-search-backward

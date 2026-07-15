@@ -34,7 +34,9 @@ install_cmd() {
   fi
 }
 
-# tmux session names can't contain . or : — sanitize
+# tmux session names can't contain . or : — sanitize. This mapping is lossy
+# (feat/foo and feat.foo collide), so never reconstruct a branch from a session
+# name; branch/path/repo are stored as @twork_* session options instead.
 session_name() {
   echo "$1" | tr './:' '___'
 }
@@ -83,37 +85,62 @@ done
 
 [ -z "$branch" ] && usage
 
-# Resolve repo root and worktree base directory
-repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
-  echo "Error: not in a git repository"
-  exit 1
-}
-repo_name=$(basename "$repo_root")
-worktree_base="$(dirname "$repo_root")/${repo_name}-worktrees"
-worktree_path="${worktree_base}/${branch}"
+# Resolve repo root from cwd (may be empty; delete mode can recover it from the
+# tmux session instead, so it isn't fatal here).
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null || true)
+if [ -n "$repo_root" ]; then
+  repo_name=$(basename "$repo_root")
+  worktree_base="$(dirname "$repo_root")/${repo_name}-worktrees"
+  worktree_path="${worktree_base}/${branch}"
+fi
 
 # --- Delete mode ---
 if [ "$delete" = true ]; then
-  if git worktree list | grep -q "$worktree_path"; then
-    git worktree remove "$worktree_path" --force
+  # Prefer the paths stored on the session; they round-trip exactly and work
+  # from any cwd. Fall back to the cwd-derived guesses when no session exists.
+  session=$(session_name "$branch")
+  if tmux has-session -t "=${session}" 2>/dev/null; then
+    stored_path=$(tmux show-options -t "$session" -v @twork_path 2>/dev/null)
+    stored_root=$(tmux show-options -t "$session" -v @twork_repo 2>/dev/null)
+    [ -n "$stored_path" ] && worktree_path="$stored_path"
+    [ -n "$stored_root" ] && repo_root="$stored_root"
+  fi
+
+  if [ -z "$repo_root" ]; then
+    echo "Error: no tmux session for '$branch' and not in a git repository" >&2
+    exit 1
+  fi
+
+  if git -C "$repo_root" worktree list | grep -q "$worktree_path"; then
+    git -C "$repo_root" worktree remove "$worktree_path" --force
     echo "Removed worktree: $worktree_path"
   else
     echo "No worktree at $worktree_path"
   fi
 
   # Force-delete the branch; -D drops it regardless of merge state, matching
-  # the --force worktree removal above.
-  if git rev-parse --verify "$branch" >/dev/null 2>&1; then
-    git branch -D "$branch" >/dev/null 2>&1 && echo "Deleted branch: $branch"
+  # the --force worktree removal above. Surface failures instead of swallowing
+  # them — a lingering branch is exactly the bug this guards against.
+  if git -C "$repo_root" rev-parse --verify "refs/heads/$branch" >/dev/null 2>&1; then
+    if git -C "$repo_root" branch -D "$branch"; then
+      echo "Deleted branch: $branch"
+    else
+      echo "Warning: failed to delete branch: $branch" >&2
+    fi
   fi
 
   # Kill matching tmux session
-  session=$(session_name "$branch")
   if tmux has-session -t "=${session}" 2>/dev/null; then
     tmux kill-session -t "=${session}"
     echo "Killed tmux session: $session"
   fi
   exit 0
+fi
+
+# Attach/create both operate on the current repo.
+if [ -z "$repo_root" ]; then
+  echo "Error: not in a git repository" >&2
+  exit 1
 fi
 
 # --- Attach-only mode: never create, just fall through to attach ---
@@ -147,9 +174,19 @@ session=$(session_name "$branch")
 
 if tmux has-session -t "=${session}" 2>/dev/null; then
   echo "Reusing tmux session: $session"
+  # Backfill metadata for sessions created before it was tracked.
+  tmux set-option -t "$session" @twork_branch "$branch"
+  tmux set-option -t "$session" @twork_path "$worktree_path"
+  tmux set-option -t "$session" @twork_repo "$repo_root"
 else
   tmux new-session -d -s "$session" -c "$worktree_path"
   echo "Created tmux session: $session"
+
+  # Stash the exact branch/path/repo so delete + completion can round-trip them
+  # from any cwd without re-deriving from the lossy session name.
+  tmux set-option -t "$session" @twork_branch "$branch"
+  tmux set-option -t "$session" @twork_path "$worktree_path"
+  tmux set-option -t "$session" @twork_repo "$repo_root"
 
   # Cold-started tmux servers can report the session before its pane is ready;
   # wait so the send-keys below doesn't hit "can't find pane".
