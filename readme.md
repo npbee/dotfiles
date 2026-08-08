@@ -41,6 +41,11 @@ the symlink with a regular file — check `ls -l ~/.claude/settings.json` and
 re-run `rcup` if so. Machine-specific overrides belong in
 `~/.claude/settings.local.json`, which is untracked and merges on top.
 
+## Login banner
+
+`hushlogin` -> `~/.hushlogin` silences macOS `login(1)`'s "Last login: ..."
+banner. It is empty on purpose — `login` only checks that the file exists.
+
 ## Neovim
 
 TODO

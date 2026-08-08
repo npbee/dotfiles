@@ -7,9 +7,19 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 unalias zi 2>/dev/null
 
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
+# Eager: zinit's turbo scheduler never fires for snippets, and this one is only
+# ~7ms anyway.
 zinit snippet OMZP::git
+
+# Turbo: these load just after the first prompt instead of blocking it. Order
+# matters — syntax highlighting wraps widgets, so it goes before
+# autosuggestions, same as when they loaded eagerly.
+zinit ice wait lucid
+zinit light zsh-users/zsh-syntax-highlighting
+# The ^\n binding lives here because its widget does not exist until the plugin
+# is loaded.
+zinit ice wait lucid atload"!_zsh_autosuggest_start; bindkey '^\n' autosuggest-execute"
+zinit light zsh-users/zsh-autosuggestions
 
 # Vars
 export HISTSIZE='10000'
@@ -36,15 +46,27 @@ setopt HIST_NO_STORE             # Don't store history commands
 fpath=("$HOME/.zsh/functions" $fpath)
 fpath+=/opt/homebrew/share/zsh/site-functions
 
-# Default ZSH completion; rebuild the dump at most once a day, else just load it.
+# Default ZSH completion; rebuild the dump at most once a day, else just load
+# it. -C skips the fpath scan and security audit, which cost ~250ms with the
+# plugin completion dirs on fpath.
 autoload -Uz compinit
 _zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-if [[ -n "$_zcompdump"(#qN.mh+24) ]]; then
-  compinit -i
+# The glob qualifier has to expand in an array assignment; [[ ]] does not do
+# filename generation, so testing the pattern there always looks "fresh".
+_zcompdump_fresh=( $_zcompdump(N.mh-24) )
+if (( $#_zcompdump_fresh )); then
+  compinit -C -d "$_zcompdump"
 else
-  compinit -C
+  compinit -i -d "$_zcompdump"
+  # compinit skips the write when the dump is already current, so stamp it
+  # ourselves; otherwise the mtime check above never goes cold.
+  touch "$_zcompdump"
 fi
-unset _zcompdump
+# Byte-compile the dump so subsequent loads read the .zwc instead of parsing it.
+if [[ ! -s "$_zcompdump.zwc" || "$_zcompdump" -nt "$_zcompdump.zwc" ]]; then
+  zcompile -R -- "$_zcompdump"
+fi
+unset _zcompdump _zcompdump_fresh
 
 # fzf-tab renders completion menus (incl. twork) in fzf. Must load after
 # compinit and before any widget-wrapping plugins.
@@ -62,21 +84,15 @@ source $HOME/.zsh/vi.zsh
 source $HOME/.zsh/fzf.zsh
 
 # Completion
-source $HOME/.zsh/completion/npm.zsh
-# zstyle ':completion:*:*:git:*' script $HOME/.zsh/completion/git.zsh
-completion_files=($HOME/.zsh/completion/*.zsh)
-for file in $completion_files
-do
+for file in $HOME/.zsh/completion/*.zsh(N); do
     source $file
 done
+unset file
 
 # Prompt
 autoload -U promptinit && promptinit
 prompt pure
 
-
-# Auto suggestions
-bindkey '^\n' autosuggest-execute
 
 # Hub
 # eval "$(hub alias -s)"
