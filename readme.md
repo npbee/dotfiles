@@ -35,6 +35,12 @@ so `rcup` links them all on install:
 Edit `config/agents/AGENTS.md` only. Add a new tool by symlinking its file to
 the canonical one and running `rcup`.
 
+Claude Code's global settings live at `claude/settings.json` -> `~/.claude/settings.json`.
+Claude Code writes to this file when settings change, and a rewrite can replace
+the symlink with a regular file — check `ls -l ~/.claude/settings.json` and
+re-run `rcup` if so. Machine-specific overrides belong in
+`~/.claude/settings.local.json`, which is untracked and merges on top.
+
 ## Neovim
 
 TODO
