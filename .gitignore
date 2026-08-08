@@ -7,3 +7,4 @@ sublime/User
 !sublime/User/*.sublime-settings
 !sublime/User/*.sublime-keymap
 .claude
+*.swp
