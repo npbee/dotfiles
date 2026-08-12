@@ -63,6 +63,10 @@ vim.pack.add({
   'https://github.com/christoomey/vim-tmux-navigator'
 })
 
+vim.api.nvim_create_user_command('PackUpdate', function()
+  vim.pack.update()
+end, { desc = 'Update plugins' })
+
 --------------------------------------------------------------------------------
 -- Plugin configuration
 --------------------------------------------------------------------------------
