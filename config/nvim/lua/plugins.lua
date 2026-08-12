@@ -122,7 +122,7 @@ require("conform").setup({
     scss = { "prettierd" },
     yaml = { "prettierd" },
     prisma = { "prettierd" },
-    python = { "ruff_format" },
+    python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
 
     sh = { "shfmt" },
     typescript = { "oxfmt", "prettierd", stop_after_first = true },
@@ -167,6 +167,9 @@ vim.g.neoterm_autoinsert = 0
 vim.g["test#strategy"] = "neoterm"
 vim.g["test#javascript#jest#options"] = "--watch"
 vim.g["test#javascript#vitest#options"] = "--watch"
+
+vim.g["test#python#runner"] = "pytest"
+vim.g["test#python#pytest#executable"] = "uv run pytest"
 
 vim.keymap.set("n", "t<C-n>", ":TestNearest<CR>", { desc = "Test nearest" })
 vim.keymap.set("n", "t<C-f>", ":TestFile<CR>", { desc = "Test file" })
@@ -319,8 +322,8 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 
 vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
-  "tailwindcss", "svelte", "ruff",
-  "jedi_language_server", 'eslint',
+  "tailwindcss", "svelte", "ruff", "ty",
+  'eslint',
   "css_variables"
 })
 
@@ -390,7 +393,35 @@ vim.lsp.config('eslint', {
   -- ),
 })
 
-vim.lsp.config('ruff', {})
+-- Python: ruff lints and fixes, ty type-checks. Split the roles so the two
+-- servers don't both answer for the same thing.
+vim.lsp.config('ruff', {
+  init_options = {
+    settings = {
+      -- conform owns formatting; the server just lints.
+      format = { preview = false },
+    },
+  },
+})
+
+vim.lsp.config('ty', {
+  settings = {
+    ty = {
+      -- Check the whole project, not just open buffers -- closer to tsserver.
+      diagnosticMode = 'workspace',
+    },
+  },
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    -- ruff's hover only repeats rule docs; let ty answer K in Python buffers.
+    if client and client.name == 'ruff' then
+      client.server_capabilities.hoverProvider = false
+    end
+  end,
+})
 
 
 -- LuaSnip ---------------------------------------------------------------------
@@ -441,7 +472,10 @@ end, {})
 -- nvim-treesitter -------------------------------------------------------------
 
 require("nvim-treesitter").setup({
-  ensure_installed = { "javascript", "typescript", "tsx", "html", "css", "scss", "json", "graphql" },
+  ensure_installed = {
+    "javascript", "typescript", "tsx", "html", "css", "scss", "json", "graphql",
+    "python", "toml",
+  },
 })
 
 -- mini ------------------------------------------------------------------------

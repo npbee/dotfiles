@@ -37,6 +37,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   command = "setlocal textwidth=72",
 })
 
+-- PEP 8 indentation; ruff_format enforces it on save either way.
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "python" },
+  command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4",
+})
+
 vim.api.nvim_create_augroup("statusline", { clear = true })
 
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
