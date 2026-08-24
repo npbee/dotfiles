@@ -195,7 +195,7 @@ run = 'move-node-to-workspace 1'
 # Chat
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace 2'
+run = ['layout floating', 'move-node-to-workspace 2']
 
 [[on-window-detected]]
 if.app-id = 'us.zoom.xos'
