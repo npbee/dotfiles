@@ -210,6 +210,11 @@ run = 'move-node-to-workspace 3'
 if.app-id = 'com.linear'
 run = 'move-node-to-workspace 3'
 
+# Code adjacent
+[[on-window-detected]]
+if.app-id = 'com.electron.dockerdesktop'
+run = 'move-node-to-workspace 4'
+
 # Float
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
