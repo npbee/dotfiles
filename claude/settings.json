@@ -3,6 +3,9 @@
     "commit": "",
     "pr": ""
   },
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "model": "opus",
   "statusLine": {
     "type": "command",
@@ -14,9 +17,11 @@
     "swift-lsp@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true
   },
-  "permissions": {
-    "defaultMode": "auto"
-  },
   "effortLevel": "high",
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "medium"
+    }
+  }
 }
