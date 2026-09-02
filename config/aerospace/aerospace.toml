@@ -129,6 +129,12 @@ on-mode-changed = []
     alt-equal = 'resize smart +100'
     alt-b = 'balance-sizes'
 
+    # Terminal/browser split presets. AeroSpace has no ratio command, so the
+    # script computes points from the screen width.
+    alt-ctrl-h = 'exec-and-forget /Users/nickball/.dotfiles/config/aerospace/terminal-width.sh 0.25'
+    alt-ctrl-k = 'exec-and-forget /Users/nickball/.dotfiles/config/aerospace/terminal-width.sh 0.5'
+    alt-ctrl-l = 'exec-and-forget /Users/nickball/.dotfiles/config/aerospace/terminal-width.sh 0.75'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
@@ -186,7 +192,7 @@ run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
 if.app-id = 'com.github.GitHubClient'
-run = 'move-node-to-workspace 1'
+run = ['layout floating', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
@@ -227,3 +233,4 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
 run = 'layout floating'
+
