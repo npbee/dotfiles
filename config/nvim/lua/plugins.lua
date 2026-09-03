@@ -328,6 +328,7 @@ vim.lsp.enable({
   "marksman", "vtsls", "bashls", "cssls", "lua_ls", "astro",
   "tailwindcss", "svelte", "ruff", "ty",
   'eslint',
+  'oxlint',
   "css_variables"
 })
 
