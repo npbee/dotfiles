@@ -12,3 +12,5 @@ tags
 .claude/.env
 
 tmux-*.log
+
+.design
