@@ -3,25 +3,39 @@
     "commit": "",
     "pr": ""
   },
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "model": "opus[1m]",
-  "statusLine": {
-    "type": "command",
-    "command": "$HOME/.bin/claude-statusline"
-  },
+  "effortLevel": "high",
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true
   },
-  "effortLevel": "high",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/nickball/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "model": "opus[1m]",
   "modelSettings": {
     "claude-opus-5": {
       "effortLevel": "medium"
     }
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "statusLine": {
+    "command": "$HOME/.bin/claude-statusline",
+    "type": "command"
   },
   "tui": "fullscreen"
 }
