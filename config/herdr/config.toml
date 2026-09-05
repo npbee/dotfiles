@@ -32,8 +32,8 @@ hide_tab_bar_when_single_tab = true
 [ui.sidebar.spaces]
 # One repo, many sibling worktrees: separate the groups from unrelated spaces.
 # Parents stay packed with their own children.
-row_gap = 1
-rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+# row_gap = 1
+# rows = [["state_icon", "workspace"], ["branch", "git_status"]]
 
 # Agents run one per worktree, so the workspace token is what tells the rows
 # apart. The terminal title says what each one is actually doing.
