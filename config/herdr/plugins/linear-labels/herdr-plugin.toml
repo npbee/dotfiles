@@ -1,0 +1,10 @@
+id = "npbee.linear-labels"
+name = "Linear Worktree Labels"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "Shorten Linear branch names into readable sidebar labels"
+platforms = ["macos"]
+
+[[events]]
+on = "worktree.created"
+command = ["python3", "relabel.py"]
