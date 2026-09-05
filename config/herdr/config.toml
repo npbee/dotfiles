@@ -12,6 +12,11 @@ focus_agent = "prefix+alt+1..9"
 # worth fat-fingering.
 remove_worktree = "prefix+alt+x"
 
+# Matches ctrl+tab in a normal terminal. A keybinding field holds one chord,
+# so this replaces prefix+n/p rather than adding to them.
+next_tab = "ctrl+tab"
+previous_tab = "ctrl+shift+tab"
+
 [worktrees]
 directory = "~/.herdr/worktrees"
 
