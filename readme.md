@@ -41,6 +41,18 @@ the symlink with a regular file — check `ls -l ~/.claude/settings.json` and
 re-run `rcup` if so. Machine-specific overrides belong in
 `~/.claude/settings.local.json`, which is untracked and merges on top.
 
+The `herdr` SessionStart hook lives at `claude/hooks/herdr-agent-state.sh` ->
+`~/.claude/hooks/herdr-agent-state.sh`. herdr owns the file's contents and
+rewrites it when the integration is reinstalled or upgraded, so treat a diff
+there as an upstream bump rather than a local edit, and re-run `rcup` if herdr
+replaces the symlink with a regular file.
+
+herdr's own settings live at `config/herdr/config.toml` ->
+`~/.config/herdr/config.toml`. Apply edits to a running server with
+`herdr server reload-config`, which prints a diagnostic for any unknown section
+or key. herdr's opencode integration
+(`~/.config/opencode/plugins/herdr-agent-state.js`) is not tracked.
+
 ## Login banner
 
 `hushlogin` -> `~/.hushlogin` silences macOS `login(1)`'s "Last login: ..."

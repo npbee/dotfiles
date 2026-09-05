@@ -3,39 +3,40 @@
     "commit": "",
     "pr": ""
   },
-  "effortLevel": "high",
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/.bin/claude-statusline"
+  },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true
   },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "bash '/Users/nickball/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ],
-        "matcher": "*"
-      }
-    ]
-  },
-  "model": "opus[1m]",
+  "effortLevel": "high",
   "modelSettings": {
     "claude-opus-5": {
       "effortLevel": "medium"
     }
   },
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "statusLine": {
-    "command": "$HOME/.bin/claude-statusline",
-    "type": "command"
-  },
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "agentPushNotifEnabled": true
 }

@@ -1,0 +1,30 @@
+onboarding = false
+
+[keys]
+# Each worktree is a workspace, so jumping between them is the main navigation
+# axis. herdr leaves all three of these unbound by default.
+open_worktree = "prefix+shift+o"
+switch_workspace = "prefix+shift+1..9"
+focus_agent = "prefix+alt+1..9"
+
+[worktrees]
+directory = "~/.herdr/worktrees"
+
+[ui]
+# Branch-named workspaces run long.
+sidebar_width = 30
+sidebar_max_width = 44
+
+# Agents across worktrees run in parallel; surface whoever is blocked on input
+# instead of keeping them pinned under their space.
+agent_panel_sort = "priority"
+
+hide_tab_bar_when_single_tab = true
+
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+
+# Every agent row shows the same repo, so the workspace token carries no signal.
+# The terminal title says what each worktree's agent is actually doing.
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "workspace"], ["terminal_title_stripped"], ["agent", "state_text"]]
