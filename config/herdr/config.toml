@@ -2,10 +2,15 @@ onboarding = false
 
 [keys]
 # Each worktree is a workspace, so jumping between them is the main navigation
-# axis. herdr leaves all three of these unbound by default.
+# axis. herdr leaves all four of these unbound by default.
 open_worktree = "prefix+shift+o"
 switch_workspace = "prefix+shift+1..9"
 focus_agent = "prefix+alt+1..9"
+
+# Joins the close family (prefix+x pane, prefix+shift+x tab) but sits on the
+# alt layer: it deletes a checkout off disk, so it shouldn't neighbour a key
+# worth fat-fingering.
+remove_worktree = "prefix+alt+x"
 
 [worktrees]
 directory = "~/.herdr/worktrees"
