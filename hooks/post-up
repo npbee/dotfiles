@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-
+# rcm links config/ to ~/.config only, so Claude Code's skills need their own
+# link step.
+dotfiles="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DOTFILES="$dotfiles" "$dotfiles/bin/link-skills"

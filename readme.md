@@ -35,6 +35,19 @@ so `rcup` links them all on install:
 Edit `config/agents/AGENTS.md` only. Add a new tool by symlinking its file to
 the canonical one and running `rcup`.
 
+## Agent skills
+
+Skills live in `config/agents/skills`. A skill is a `<name>/` directory that
+holds `SKILL.md`. Run `link-skills` to symlink each one into `~/.claude/skills`,
+where Claude Code reads them.
+
+`hooks/post-up` calls the script, so `rcup` links the skills too. rcm links
+`config/` to `~/.config` only, which is why the hook is necessary. Run
+`link-skills` by hand after you add a skill, or run `rcup`.
+
+The script is idempotent. It leaves a real directory in place and reports it,
+and it removes links whose source is gone.
+
 Claude Code's global settings live at `claude/settings.json` -> `~/.claude/settings.json`.
 Claude Code writes to this file when settings change, and a rewrite can replace
 the symlink with a regular file — check `ls -l ~/.claude/settings.json` and
