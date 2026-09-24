@@ -1,0 +1,14 @@
+# Codex CLI config, linked to ~/.codex/config.toml by rcup.
+
+[tui]
+# Mirrors bin/claude-statusline. Codex has no custom-command status line, so
+# these are built-in item ids (edit interactively with /statusline).
+status_line = [
+  "project-root",
+  "git-branch",
+  "model-with-reasoning",
+  "context-used",
+  "context-window-size",
+  "estimated-thread-cost",
+]
+status_line_use_colors = true
