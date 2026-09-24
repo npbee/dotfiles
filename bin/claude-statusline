@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code statusline:
-#   <directory> | <git branch> | <model> | <tokens>/<window> (<percent>) | <cost>
+#   <directory> | <git branch> | <model> | <tokens>/<window> (<percent>) | 5h <n>% · 7d <n>% | <cost>
 #
 # Wired up via ~/.claude/settings.json:
 #   { "statusLine": { "type": "command", "command": "$HOME/.bin/claude-statusline" } }
@@ -11,6 +11,8 @@
 #   - model: display name, minus any "(1M context)" suffix the window already shows
 #   - tokens: input + cache_read + cache_creation from context_window.current_usage
 #     (= effective context use); shown as "–" until the first API response
+#   - limits: 5-hour and 7-day subscription usage from rate_limits; only sent
+#     for Pro/Max after the first API response, so each window may be absent
 #   - cost: Claude Code's client-side estimate at list prices, not billed spend
 
 set -u
@@ -32,12 +34,16 @@ def context_tokens:
   elif type == "number" then .
   else "" end;
 
+def whole_percent: if type == "number" then floor else "" end;
+
 [
   (.workspace.current_dir // .cwd // ""),
   (.model | model_name),
   (.context_window.context_window_size // ""),
   (.context_window.current_usage | context_tokens),
-  (.context_window.used_percentage // "" | if type == "number" then floor else . end),
+  (.context_window.used_percentage | whole_percent),
+  (.rate_limits.five_hour.used_percentage | whole_percent),
+  (.rate_limits.seven_day.used_percentage | whole_percent),
   (.cost.total_cost_usd // "")
 ]
 | map(tostring)
@@ -111,7 +117,18 @@ token_field() {
   colorize_by_percent "$(fmt_tokens "$tokens")/$(fmt_tokens "$window") (${percent:-0}%)" "$percent"
 }
 
-IFS=$'\x1f' read -r cwd model window tokens percent cost \
+# "5h 42% · 7d 18%", each colored by its own usage; empty when neither is sent.
+limits_field() {
+  local five_hour=$1 seven_day=$2 limits=()
+  [[ -n $five_hour ]] && limits+=("$(colorize_by_percent "5h ${five_hour}%" "$five_hour")")
+  [[ -n $seven_day ]] && limits+=("$(colorize_by_percent "7d ${seven_day}%" "$seven_day")")
+  ((${#limits[@]})) || return
+  local joined
+  printf -v joined ' · %s' "${limits[@]}"
+  printf '%s' "${joined# · }"
+}
+
+IFS=$'\x1f' read -r cwd model window tokens percent five_hour seven_day cost \
   < <(jq -r "$JQ_FIELDS" 2>/dev/null)
 
 parts=(
@@ -119,6 +136,7 @@ parts=(
   "$(git_branch "${cwd:-}")"
   "${model:-}"
   "$(token_field "${tokens:-}" "${window:-$DEFAULT_WINDOW}" "${percent:-}")"
+  "$(limits_field "${five_hour:-}" "${seven_day:-}")"
   "$(fmt_cost "${cost:-}")"
 )
 
