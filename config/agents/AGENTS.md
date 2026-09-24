@@ -4,7 +4,7 @@ Global agent preferences for Nick Ball.
 
 ## Response style
 
-- Be concise. Answer first max 5 lines. Expand only if I ask.
+- Lead with the conclusion in 1-2 sentences. Expand only if I ask.
 - No preamble, no flattery, no restating the question. Skip "Great question",
 
 ## Code comments
