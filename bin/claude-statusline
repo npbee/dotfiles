@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code statusline:
-#   <directory> | <git branch> | <token count> <token percentage>
+#   <directory> | <git branch> | <model> | <tokens>/<window> (<percent>) | <cost>
 #
 # Wired up via ~/.claude/settings.json:
 #   { "statusLine": { "type": "command", "command": "$HOME/.bin/claude-statusline" } }
@@ -8,133 +8,122 @@
 # Reads the session payload Claude Code writes to stdin, then derives:
 #   - directory: basename of the workspace dir
 #   - git branch: from `git -C <dir>` so it works in worktrees
-#   - tokens: input + cache_read + cache_creation (= effective context use),
-#     read from the stdin payload's context_window.current_usage when present,
-#     otherwise scanned out of the transcript JSONL for older Claude Code builds
+#   - model: display name, minus any "(1M context)" suffix the window already shows
+#   - tokens: input + cache_read + cache_creation from context_window.current_usage
+#     (= effective context use); shown as "–" until the first API response
+#   - cost: Claude Code's client-side estimate at list prices, not billed spend
 
 set -u
 
-input=$(cat)
+DEFAULT_WINDOW=${CLAUDE_STATUSLINE_CONTEXT_MAX:-200000}
 
-jq_field() { printf '%s' "$input" | jq -r "$1" 2>/dev/null; }
+# Pulls every field out of the payload in one pass. Output is joined by US
+# (\x1f) rather than tab, since IFS whitespace would collapse empty fields.
+read -r -d '' JQ_FIELDS <<'JQ'
+def model_name:
+  if type == "object" then (.display_name // .id // "")
+  elif type == "string" then .
+  else "" end
+  | sub(" \\([^)]*context\\)$"; "");
 
-cwd=$(jq_field '.workspace.current_dir // .cwd // ""')
-transcript=$(jq_field '.transcript_path // ""')
-model=$(jq_field '
-    (.model // null) as $m
-    | if ($m | type) == "object" then ($m.display_name // $m.id // "")
-      elif ($m | type) == "string" then $m
-      else "" end
-')
-window_size=$(jq_field '.context_window.context_window_size // ""')
-cw_tokens=$(jq_field '
-    (.context_window.current_usage // null) as $u
-    | if ($u | type) == "object" then
-        (($u.input_tokens // 0)
-         + ($u.cache_read_input_tokens // 0)
-         + ($u.cache_creation_input_tokens // 0))
-      elif ($u | type) == "number" then $u
-      else "" end
-')
-cw_percent=$(jq_field '.context_window.used_percentage // ""')
-cost_usd=$(jq_field '.cost.total_cost_usd // ""')
+def context_tokens:
+  if type == "object" then
+    (.input_tokens // 0) + (.cache_read_input_tokens // 0) + (.cache_creation_input_tokens // 0)
+  elif type == "number" then .
+  else "" end;
 
-# Window size: prefer payload, then env override, then 200k.
-if [ -z "$window_size" ] || [ "$window_size" = "null" ]; then
-    window_size=${CLAUDE_STATUSLINE_CONTEXT_MAX:-200000}
-fi
+[
+  (.workspace.current_dir // .cwd // ""),
+  (.model | model_name),
+  (.context_window.context_window_size // ""),
+  (.context_window.current_usage | context_tokens),
+  (.context_window.used_percentage // "" | if type == "number" then floor else . end),
+  (.cost.total_cost_usd // "")
+]
+| map(tostring)
+| join("\u001f")
+JQ
 
-dir=""
-if [ -n "$cwd" ]; then
-    if [ "$cwd" = "$HOME" ]; then
-        dir="~"
-    else
-        dir=$(basename "$cwd")
-    fi
-fi
-
-branch=""
-if [ -n "$cwd" ] && [ -d "$cwd" ]; then
-    branch=$(git -C "$cwd" symbolic-ref --quiet --short HEAD 2>/dev/null) \
-        || branch=$(git -C "$cwd" rev-parse --short HEAD 2>/dev/null) \
-        || branch=""
-fi
-
-tokens=0
-if [ -n "$cw_tokens" ] && [ "$cw_tokens" != "null" ]; then
-    tokens=$cw_tokens
-elif [ -n "$transcript" ] && [ -f "$transcript" ]; then
-    val=$(tail -r "$transcript" 2>/dev/null \
-        | jq -r 'select(.type == "assistant" and (.message.usage // false))
-                 | .message.usage
-                 | (.input_tokens // 0)
-                 + (.cache_read_input_tokens // 0)
-                 + (.cache_creation_input_tokens // 0)' 2>/dev/null \
-        | head -n1)
-    if [ -n "$val" ]; then
-        tokens=$val
-    fi
-fi
-
-if [ -n "$cw_percent" ] && [ "$cw_percent" != "null" ]; then
-    # Drop fractional part; statusline prints whole percentages.
-    percent=${cw_percent%.*}
-elif [ "$window_size" -gt 0 ]; then
-    percent=$((tokens * 100 / window_size))
-else
-    percent=0
-fi
-
-fmt_tokens() {
-    local n=$1
-    if [ "$n" -lt 1000 ]; then
-        printf '%d' "$n"
-    elif [ "$n" -lt 10000 ]; then
-        printf '%d.%dk' $((n / 1000)) $(((n / 100) % 10))
-    elif [ "$n" -lt 1000000 ]; then
-        printf '%dk' $((n / 1000))
-    else
-        printf '%dM' $((n / 1000000))
-    fi
+# "~" for $HOME, otherwise the directory's basename.
+short_dir() {
+  [[ -z $1 ]] && return
+  if [[ $1 == "$HOME" ]]; then echo "~"; else basename "$1"; fi
 }
 
-# Color the token count by usage. Disabled when NO_COLOR is set.
-if [ -n "${NO_COLOR:-}" ]; then
-    c_tok="" c_reset=""
-else
-    esc=$'\033'
-    c_reset="${esc}[0m"
-    if   [ "$percent" -ge 80 ]; then c_tok="${esc}[31m"  # red
-    elif [ "$percent" -ge 50 ]; then c_tok="${esc}[33m"  # yellow
-    else                             c_tok="${esc}[32m"  # green
-    fi
-fi
+# Branch name, or short SHA when detached.
+git_branch() {
+  [[ -d $1 ]] || return
+  git -C "$1" symbolic-ref --quiet --short HEAD 2>/dev/null ||
+    git -C "$1" rev-parse --short HEAD 2>/dev/null
+}
 
-token_field=$(printf '%s/%s (%d%%)' "$(fmt_tokens "$tokens")" "$(fmt_tokens "$window_size")" "$percent")
+# 950, 1.2k, 127k, 1M, 1.5M
+fmt_tokens() {
+  local n=$1
+  if ((n < 1000)); then
+    printf '%d' "$n"
+  elif ((n < 10000)); then
+    printf '%d.%dk' $((n / 1000)) $((n / 100 % 10))
+  elif ((n < 1000000)); then
+    printf '%dk' $((n / 1000))
+  elif ((n / 100000 % 10 == 0)); then
+    printf '%dM' $((n / 1000000))
+  else
+    printf '%d.%dM' $((n / 1000000)) $((n / 100000 % 10))
+  fi
+}
 
-cost_field=""
-if [ -n "$cost_usd" ] && [ "$cost_usd" != "null" ]; then
-    cost_field=$(awk -v c="$cost_usd" 'BEGIN {
-        if (c < 1)        printf "$%.2f", c
-        else if (c < 10)  printf "$%.2f", c
-        else              printf "$%.1f", c
-    }')
-fi
+# $3.46 under $10, $42.3 above.
+fmt_cost() {
+  [[ -z $1 ]] && return
+  awk -v c="$1" 'BEGIN { printf (c < 10 ? "$%.2f" : "$%.1f"), c }'
+}
 
-parts=()
-[ -n "$dir" ]    && parts+=("$dir")
-[ -n "$branch" ] && parts+=("$branch")
-[ -n "$model" ]  && parts+=("$model")
-parts+=("${c_tok}${token_field}${c_reset}")
-[ -n "$cost_field" ] && parts+=("$cost_field")
+# Green under 50%, yellow under 80%, red above. Plain text when NO_COLOR is set.
+colorize_by_percent() {
+  local text=$1 percent=${2:-0} color
+  if [[ -n ${NO_COLOR:-} ]]; then
+    printf '%s' "$text"
+    return
+  fi
+  if ((percent >= 80)); then
+    color=31
+  elif ((percent >= 50)); then
+    color=33
+  else
+    color=32
+  fi
+  printf '\033[%sm%s\033[0m' "$color" "$text"
+}
+
+# "127k/1M (12%)", or "–/1M" before the first API response. The payload's
+# used_percentage is only trusted alongside current_usage so both numbers come
+# from the same snapshot.
+token_field() {
+  local tokens=$1 window=$2 percent=$3
+  if [[ -z $tokens ]]; then
+    colorize_by_percent "–/$(fmt_tokens "$window")"
+    return
+  fi
+  if [[ -z $percent ]] && ((window > 0)); then
+    percent=$((tokens * 100 / window))
+  fi
+  colorize_by_percent "$(fmt_tokens "$tokens")/$(fmt_tokens "$window") (${percent:-0}%)" "$percent"
+}
+
+IFS=$'\x1f' read -r cwd model window tokens percent cost \
+  < <(jq -r "$JQ_FIELDS" 2>/dev/null)
+
+parts=(
+  "$(short_dir "${cwd:-}")"
+  "$(git_branch "${cwd:-}")"
+  "${model:-}"
+  "$(token_field "${tokens:-}" "${window:-$DEFAULT_WINDOW}" "${percent:-}")"
+  "$(fmt_cost "${cost:-}")"
+)
 
 out=""
 for p in "${parts[@]}"; do
-    if [ -z "$out" ]; then
-        out="$p"
-    else
-        out="${out} | ${p}"
-    fi
+  [[ -n $p ]] && out+=" | $p"
 done
-
-printf '%s' "$out"
+printf '%s' "${out# | }"
