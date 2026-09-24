@@ -9,6 +9,7 @@ status_line = [
   "model-with-reasoning",
   "context-used",
   "context-window-size",
-  "estimated-thread-cost",
+  "five-hour-limit",
+  "weekly-limit",
 ]
 status_line_use_colors = true
