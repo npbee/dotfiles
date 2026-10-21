@@ -30,9 +30,3 @@ Good (describes current state / reason):
 // Retries 3x; upstream API is flaky under load
 // No caching: responses are user-specific and short-lived
 ```
-
-## Pull requests
-
-- Keep the summary small — a couple of sentences, no filler.
-- Single body, no section headers. Bullet lists are fine.
-- No test plan.
